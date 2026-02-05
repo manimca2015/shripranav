@@ -82,7 +82,7 @@ export function Footer() {
                     <h4 className="font-bold text-primary-foreground mb-6 text-lg">Driving Tours</h4>
                     <ul className="space-y-4 text-slate-400">
                        {drivingTours.map(tour => (
-                             <li key={tour.href}><Link href={tour.href} className="hover:text-accent transition-all">{tour.label}</Link></li>
+                             <li key={tour.label}><Link href={tour.href} className="hover:text-accent transition-all">{tour.label}</Link></li>
                         ))}
                     </ul>
                 </div>
