@@ -647,12 +647,12 @@ export default function DomeGallery({
                 <div
                   className="item__image"
                   role="button"
-                  tabIndex={0}
-                  aria-label={it.alt || 'Open image'}
-                  onClick={onTileClick}
-                  onPointerUp={onTilePointerUp}
+                  tabIndex={it.src ? 0 : -1}
+                  aria-label={it.alt || (it.src ? 'Open image' : '')}
+                  onClick={it.src ? onTileClick : undefined}
+                  onPointerUp={it.src ? onTilePointerUp : undefined}
                 >
-                  <img src={it.src} draggable={false} alt={it.alt} />
+                  {it.src && <img src={it.src} draggable={false} alt={it.alt} />}
                 </div>
               </div>
             ))}
