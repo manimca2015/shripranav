@@ -25,7 +25,7 @@ export default function Home() {
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
 
-  const domeImages = domeGalleryData.placeholderImages.filter(p => !p.id.includes('avatar')).map(p => ({ src: p.imageUrl, alt: p.description }));
+  const domeImages = domeGalleryData.images;
 
   const featuredTours = tours.filter(t => ['south-africa', 'iceland', 'namibia'].includes(t.id));
 

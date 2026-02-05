@@ -1,443 +1,252 @@
 {
-  "placeholderImages": [
+  "images": [
     {
-      "id": "about-team",
-      "description": "Luxury convoy of 4x4 vehicles lined up at sunset, professional team standing beside vehicles, premium travel experience",
-      "imageUrl": "https://images.unsplash.com/photo-1517768771210-84af31415059?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx0cmF2ZWwlMjB0ZWFtfGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "travel team"
+      "src": "https://images.unsplash.com/photo-1517768771210-84af31415059?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx0cmF2ZWwlMjB0ZWFtfGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Luxury convoy of 4x4 vehicles lined up at sunset, professional team standing beside vehicles, premium travel experience"
     },
     {
-      "id": "tour-jordan",
-      "description": "Petra Jordan ancient treasury carved in red sandstone cliffs, dramatic desert landscape, golden hour photography",
-      "imageUrl": "https://images.unsplash.com/photo-1662747974831-28da0bc0968b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxqb3JkYW4lMjBwZXRyYXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "jordan petra"
+      "src": "https://images.unsplash.com/photo-1662747974831-28da0bc0968b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxqb3JkYW4lMjBwZXRyYXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Petra Jordan ancient treasury carved in red sandstone cliffs, dramatic desert landscape, golden hour photography"
     },
     {
-      "id": "tour-south-africa",
-      "description": "Cape Town South Africa coastal road with Table Mountain backdrop, dramatic ocean cliffs, luxury 4x4 driving scene",
-      "imageUrl": "https://images.unsplash.com/photo-1606799955515-85468ee78c26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXBlJTIwdG93bnxlbnwwfHx8fDE3NzAxMjUzODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cape town"
+      "src": "https://images.unsplash.com/photo-1606799955515-85468ee78c26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXBlJTIwdG93bnxlbnwwfHx8fDE3NzAxMjUzODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Cape Town South Africa coastal road with Table Mountain backdrop, dramatic ocean cliffs, luxury 4x4 driving scene"
     },
     {
-      "id": "tour-kyrgyzstan",
-      "description": "Kyrgyzstan mountain pass with pristine turquoise alpine lake, snow-capped peaks, dramatic highland landscape",
-      "imageUrl": "https://images.unsplash.com/photo-1721900837258-979254799bc7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxreXJneXpzdGFuJTIwbW91bnRhaW5zfGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "kyrgyzstan mountains"
+      "src": "https://images.unsplash.com/photo-1721900837258-979254799bc7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxreXJneXpzdGFuJTIwbW91bnRhaW5zfGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Kyrgyzstan mountain pass with pristine turquoise alpine lake, snow-capped peaks, dramatic highland landscape"
     },
     {
-      "id": "tour-spiti",
-      "description": "Spiti Valley India high altitude desert mountains, Buddhist monastery on cliff, dramatic Himalayan landscape",
-      "imageUrl": "https://images.unsplash.com/photo-1632510343991-a82b81b2ceef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzcGl0aSUyMHZhbGxleXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "spiti valley"
+      "src": "https://images.unsplash.com/photo-1632510343991-a82b81b2ceef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzcGl0aSUyMHZhbGxleXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Spiti Valley India high altitude desert mountains, Buddhist monastery on cliff, dramatic Himalayan landscape"
     },
     {
-      "id": "tour-namibia",
-      "description": "Namibia Sossusvlei massive red sand dunes against blue sky, 4x4 vehicle driving through desert, dramatic shadows",
-      "imageUrl": "https://images.unsplash.com/photo-1707470047321-e5422e0a094f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxuYW1pYmlhJTIwZGVzZXJ0fGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "namibia desert"
+      "src": "https://images.unsplash.com/photo-1707470047321-e5422e0a094f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxuYW1pYmlhJTIwZGVzZXJ0fGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Namibia Sossusvlei massive red sand dunes against blue sky, 4x4 vehicle driving through desert, dramatic shadows"
     },
     {
-      "id": "tour-iceland",
-      "description": "Iceland Ring Road with massive glacier and waterfall, volcanic black sand, dramatic Nordic landscape, mystical atmosphere",
-      "imageUrl": "https://images.unsplash.com/photo-1619266465172-02a857c3556d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxpY2VsYW5kJTIwTGFuZHNjYXBlfGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "iceland landscape"
+      "src": "https://images.unsplash.com/photo-1619266465172-02a857c3556d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxpY2VsYW5kJTIwTGFuZHNjYXBlfGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Iceland Ring Road with massive glacier and waterfall, volcanic black sand, dramatic Nordic landscape, mystical atmosphere"
     },
     {
-      "id": "tour-thailand",
-      "description": "Thailand mountain road winding through lush tropical jungle and rice terraces, scenic coastal views, golden temple",
-      "imageUrl": "https://images.unsplash.com/photo-1723622014149-22974c674f7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx0aGFpbGFuZCUyMHJvYWR8ZW58MHx8fHwxNzcwMTM5Mzk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "thailand road"
+      "src": "https://images.unsplash.com/photo-1723622014149-22974c674f7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx0aGFpbGFuZCUyMHJvYWR8ZW58MHx8fHwxNzcwMTM5Mzk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Thailand mountain road winding through lush tropical jungle and rice terraces, scenic coastal views, golden temple"
     },
     {
-      "id": "mega-tour-sa",
-      "description": "4x4 vehicle driving on scenic coastal road in South Africa, Cape Town mountains in background, golden hour lighting",
-      "imageUrl": "https://images.unsplash.com/photo-1547970810-dc1eac37d174?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb3V0aCUyMGFmcmljYXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "south africa"
+      "src": "https://images.unsplash.com/photo-1547970810-dc1eac37d174?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb3V0aCUyMGFmcmljYXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "4x4 vehicle driving on scenic coastal road in South Africa, Cape Town mountains in background, golden hour lighting"
     },
     {
-      "id": "mega-tour-iceland",
-      "description": "luxury 4x4 driving on dramatic Iceland ring road with glaciers and waterfalls, mystical lighting",
-      "imageUrl": "https://images.unsplash.com/photo-1549588628-34abaf47106c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxpY2VsYW5kJTIwcm9hZHxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "iceland road"
+      "src": "https://images.unsplash.com/photo-1549588628-34abaf47106c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxpY2VsYW5kJTIwcm9hZHxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "luxury 4x4 driving on dramatic Iceland ring road with glaciers and waterfalls, mystical lighting"
     },
     {
-      "id": "mega-tour-namibia",
-      "description": "4x4 convoy driving through red sand dunes of Namibia desert, dramatic sunset, adventure photography",
-      "imageUrl": "https://images.unsplash.com/photo-1636039881761-2d4e4de97547?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bmFtaWJpYSUyMGR1bmVzfGVufDB8fHx8MTc3MDEzOTM5OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "namibia dunes"
+      "src": "https://images.unsplash.com/photo-1636039881761-2d4e4de97547?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bmFtaWJpYSUyMGR1bmVzfGVufDB8fHx8MTc3MDEzOTM5OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "4x4 convoy driving through red sand dunes of Namibia desert, dramatic sunset, adventure photography"
     },
     {
-      "id": "review-avatar-1",
-      "description": "Avatar of Rajesh Kumar",
-      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Rajesh+Kumar",
-      "imageHint": "illustrated portrait"
+      "src": "https://images.unsplash.com/photo-1648812374776-8e0730492cbd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxqb3JkYW4lMjBjb252b3l8ZW58MHx8fHwxNzcwMTM5Mzk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "convoy of 4x4 vehicles driving through Petra Jordan ancient city, dramatic landscape, professional travel photography"
     },
     {
-      "id": "review-avatar-2",
-      "description": "Avatar of Priya Sharma",
-      "imageUrl": "https://avatar.iran.liara.run/public/girl?username=Priya+Sharma",
-      "imageHint": "illustrated portrait"
+      "src": "https://images.unsplash.com/photo-1551418843-01c6b62e864d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0aGFpbGFuZCUyMGJlYWNofGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "luxury 4x4 vehicles parked at Thailand beach sunset, palm trees, golden hour"
     },
     {
-      "id": "review-avatar-3",
-      "description": "Avatar of Arun Mehta",
-      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Arun+Mehta",
-      "imageHint": "illustrated portrait"
+      "src": "https://picsum.photos/seed/gallery3/400/256",
+      "alt": "group of travelers with 4x4 vehicles in Spiti Valley India, snow mountains background"
     },
     {
-      "id": "gallery-1",
-      "description": "convoy of 4x4 vehicles driving through Petra Jordan ancient city, dramatic landscape, professional travel photography",
-      "imageUrl": "https://images.unsplash.com/photo-1648812374776-8e0730492cbd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxqb3JkYW4lMjBjb252b3l8ZW58MHx8fHwxNzcwMTM5Mzk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "jordan convoy"
+      "src": "https://images.unsplash.com/photo-1687838175798-f8d0e310dc56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx2aW5leWFyZCUyMGxhbmRzY2FwZXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "4x4 vehicle at South Africa wine estate, scenic vineyard landscape"
     },
     {
-      "id": "gallery-2",
-      "description": "luxury 4x4 vehicles parked at Thailand beach sunset, palm trees, golden hour",
-      "imageUrl": "https://images.unsplash.com/photo-1551418843-01c6b62e864d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0aGFpbGFuZCUyMGJlYWNofGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "thailand beach"
+      "src": "https://images.unsplash.com/photo-1603097148068-564d0158227e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxrZWElMjBwbGFudGF0aW9ufGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "convoy driving on Malaysia highland tea plantation roads, misty mountains"
     },
     {
-      "id": "gallery-3",
-      "description": "group of travelers with 4x4 vehicles in Spiti Valley India, snow mountains background",
-      "imageUrl": "https://picsum.photos/seed/gallery3/400/256",
-      "imageHint": "spiti travelers"
+      "src": "https://images.unsplash.com/photo-1546891155-157e823e329a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxpY2VsYW5kJTIwZ2xhY2llcnxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "4x4 vehicles lined up at Iceland glacier lagoon, dramatic ice formations, blue hour"
     },
     {
-      "id": "gallery-4",
-      "description": "4x4 vehicle at South Africa wine estate, scenic vineyard landscape",
-      "imageUrl": "https://images.unsplash.com/photo-1687838175798-f8d0e310dc56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx2aW5leWFyZCUyMGxhbmRzY2FwZXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "vineyard landscape"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/2160cc8e2b-97852ac0adf231ae4493.png",
+      "alt": "majestic waterfall in south africa lush green nature bright blue sky travel photography"
     },
     {
-      "id": "gallery-5",
-      "description": "convoy driving on Malaysia highland tea plantation roads, misty mountains",
-      "imageUrl": "https://images.unsplash.com/photo-1603097148068-564d0158227e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxrZWElMjBwbGFudGF0aW9ufGVufDB8fHx8MTc3MDEzOTM5OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "tea plantation"
+      "src": "https://images.unsplash.com/photo-1724618843526-a121ca0a51f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxqb3JkYW4lMjBydWluc3xlbnwwfHx8fDE3NzAyMDQwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "ancient ruins in jordan desert landscape sunny day travel photography petra style columns"
     },
     {
-      "id": "gallery-6",
-      "description": "4x4 vehicles lined up at Iceland glacier lagoon, dramatic ice formations, blue hour",
-      "imageUrl": "https://images.unsplash.com/photo-1546891155-157e823e329a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxpY2VsYW5kJTIwZ2xhY2llcnxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "iceland glacier"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/8d2ccac18b-871cbb3f72304a24a6c4.png",
+      "alt": "whale breaching in ocean near mountains new zealand landscape travel photography"
     },
     {
-      "id": "expedition-sa",
-      "description": "majestic waterfall in south africa lush green nature bright blue sky travel photography",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/2160cc8e2b-97852ac0adf231ae4493.png",
-      "imageHint": "south africa waterfall"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/e49cc006a8-2dfb68d8c423241f3ab0.png",
+      "alt": "scenic highway road cutting through autumn forest aerial view travel photography"
     },
     {
-      "id": "expedition-jordan",
-      "description": "ancient ruins in jordan desert landscape sunny day travel photography petra style columns",
-      "imageUrl": "https://images.unsplash.com/photo-1724618843526-a121ca0a51f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxqb3JkYW4lMjBydWluc3xlbnwwfHx8fDE3NzAyMDQwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "jordan ruins"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/389eb73844-7c8acc106a82755bbcd4.png",
+      "alt": "vertical shot of a convoy of 4x4 vehicles driving on a dirt road in a vast canyon landscape, sunny day"
     },
     {
-      "id": "expedition-nz",
-      "description": "whale breaching in ocean near mountains new zealand landscape travel photography",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/8d2ccac18b-871cbb3f72304a24a6c4.png",
-      "imageHint": "new zealand whale"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/9b83c85369-04fc4e72101c7557bc1c.png",
+      "alt": "beautiful tropical beach with turquoise water and a boat, sunny"
     },
     {
-      "id": "expedition-london",
-      "description": "scenic highway road cutting through autumn forest aerial view travel photography",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/e49cc006a8-2dfb68d8c423241f3ab0.png",
-      "imageHint": "forest highway"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/beb62aa57e-5b518c310402d2fb16b4.png",
+      "alt": "close up of a vinyl record player or stylized travel object, artistic depth of field"
     },
     {
-      "id": "gallery-bento-1",
-      "description": "vertical shot of a convoy of 4x4 vehicles driving on a dirt road in a vast canyon landscape, sunny day",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/389eb73844-7c8acc106a82755bbcd4.png",
-      "imageHint": "canyon convoy"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/80a193c2df-47d30166017257665f5f.png",
+      "alt": "landscape of rolling green hills with a white house in distance, peaceful"
     },
     {
-      "id": "gallery-bento-2",
-      "description": "beautiful tropical beach with turquoise water and a boat, sunny",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/9b83c85369-04fc4e72101c7557bc1c.png",
-      "imageHint": "tropical beach"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/93dfea790d-add176e5460f8021fc8c.png",
+      "alt": "mountain landscape with tea plantations or vineyards, misty morning"
     },
     {
-      "id": "gallery-bento-3",
-      "description": "close up of a vinyl record player or stylized travel object, artistic depth of field",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/beb62aa57e-5b518c310402d2fb16b4.png",
-      "imageHint": "vintage travel"
+      "src": "https://storage.googleapis.com/uxpilot-auth.appspot.com/e7e0df207c-53a306d1b758c98c040a.png",
+      "alt": "panoramic view of a glacier and mountains, icy blue tones"
     },
     {
-      "id": "gallery-bento-4",
-      "description": "landscape of rolling green hills with a white house in distance, peaceful",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/80a193c2df-47d30166017257665f5f.png",
-      "imageHint": "green hills"
+      "src": "https://images.unsplash.com/photo-1541002696302-c407762707f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb3VudGFpbiUyMHJvYWR8ZW58MHx8fHwxNzcwMTg4NjM3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "scenic mountain road winding through dramatic landscape aerial view adventure travel photography"
     },
     {
-      "id": "gallery-bento-5",
-      "description": "mountain landscape with tea plantations or vineyards, misty morning",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/93dfea790d-add176e5460f8021fc8c.png",
-      "imageHint": "tea plantations"
+      "src": "https://images.unsplash.com/photo-1660295296016-d7a7a50a173a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxpY2VsYW5kJTIwbmF0dXJlfGVufDB8fHx8MTc3MDE5NDk2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "dramatic landscape waterfalls mountains misty travel photography iceland nature"
     },
     {
-      "id": "gallery-bento-6",
-      "description": "panoramic view of a glacier and mountains, icy blue tones",
-      "imageUrl": "https://storage.googleapis.com/uxpilot-auth.appspot.com/e7e0df207c-53a306d1b758c98c040a.png",
-      "imageHint": "glacier mountains"
+      "src": "https://images.unsplash.com/photo-1623197257282-57aeda9953ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvdXRiYWNrJTIwZGVzZXJ0fGVufDB8fHx8MTc3MDE5NDk2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "australia outback red desert landscape travel photography adventure"
     },
     {
-      "id": "review-avatar-4",
-      "description": "Avatar of David Chen",
-      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=David+Chen",
-      "imageHint": "illustrated portrait"
+      "src": "https://images.unsplash.com/photo-1710444386667-fadf9f1a63ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwYXRhZ29uaWElMjBtb3VudGFpbnN8ZW58MHx8fHwxNzcwMTE2MjE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "patagonia mountains lake dramatic landscape travel photography nature"
     },
     {
-      "id": "review-avatar-5",
-      "description": "Avatar of Emily White",
-      "imageUrl": "https://avatar.iran.liara.run/public/girl?username=Emily+White",
-      "imageHint": "illustrated portrait"
+      "src": "https://images.unsplash.com/photo-1691663618024-731a4ee0e324?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxub3J3YXklMjBmam9yZHxlbnwwfHx8fDE3NzAxOTQ5NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "norway fjords dramatic landscape mountains water travel photography"
     },
     {
-      "id": "review-avatar-6",
-      "description": "Avatar of Michael Brown",
-      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Michael+Brown",
-      "imageHint": "illustrated portrait"
+      "src": "https://images.unsplash.com/photo-1535190823090-3c159ed10a97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb3JvY2NvJTIwZGVzZXJ0fGVufDB8fHx8MTc3MDE5NDk2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "morocco desert sand dunes sunset travel photography sahara"
     },
     {
-      "id": "tours-hero",
-      "description": "scenic mountain road winding through dramatic landscape aerial view adventure travel photography",
-      "imageUrl": "https://images.unsplash.com/photo-1541002696302-c407762707f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb3VudGFpbiUyMHJvYWR8ZW58MHx8fHwxNzcwMTg4NjM3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "mountain road"
+      "src": "https://images.unsplash.com/photo-1531804055935-76f44d7c3621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxuZXclMjB6ZWFsYW5kfGVufDB8fHx8MTc3MDE5NDk2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "new zealand mountains lake landscape travel photography scenic nature"
     },
     {
-      "id": "tour-iceland-2",
-      "description": "dramatic landscape waterfalls mountains misty travel photography iceland nature",
-      "imageUrl": "https://images.unsplash.com/photo-1660295296016-d7a7a50a173a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxpY2VsYW5kJTIwbmF0dXJlfGVufDB8fHx8MTc3MDE5NDk2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "iceland nature"
+      "src": "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "alt": "A desk with a laptop, passport, coffee, and a map, representing travel planning."
     },
     {
-      "id": "tour-australia",
-      "description": "australia outback red desert landscape travel photography adventure",
-      "imageUrl": "https://images.unsplash.com/photo-1623197257282-57aeda9953ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvdXRiYWNrJTIwZGVzZXJ0fGVufDB8fHx8MTc3MDE5NDk2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "outback desert"
+      "src": "https://images.unsplash.com/flagged/photo-1559717201-fbb671ff56b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkdWJhaSUyMHNreWxpbmV8ZW58MHx8fHwxNzcwMjMxOTAxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Dubai skyline with Burj Khalifa, modern cityscape, luxury travel"
     },
     {
-      "id": "tour-patagonia",
-      "description": "patagonia mountains lake dramatic landscape travel photography nature",
-      "imageUrl": "https://images.unsplash.com/photo-1710444386667-fadf9f1a63ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwYXRhZ29uaWElMjBtb3VudGFpbnN8ZW58MHx8fHwxNzcwMTE2MjE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "patagonia mountains"
+      "src": "https://images.unsplash.com/photo-1537956965359-7573183d1f57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx0aGFpbGFuZCUyMGJlYWNofGVufDB8fHx8MTc3MDIzMTkwMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Long-tail boats on a beach in Thailand, turquoise water, limestone cliffs"
     },
     {
-      "id": "tour-norway",
-      "description": "norway fjords dramatic landscape mountains water travel photography",
-      "imageUrl": "https://images.unsplash.com/photo-1691663618024-731a4ee0e324?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxub3J3YXklMjBmam9yZHxlbnwwfHx8fDE3NzAxOTQ5NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "norway fjord"
+      "src": "https://images.unsplash.com/photo-1534409574970-1447ca9fb754?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxldXJvcGUlMjBzdHJlZXR8ZW58MHx8fHwxNzcwMjMxOTAxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Charming european street with colorful buildings, cafe, cobblestone"
     },
     {
-      "id": "tour-morocco",
-      "description": "morocco desert sand dunes sunset travel photography sahara",
-      "imageUrl": "https://images.unsplash.com/photo-1535190823090-3c159ed10a97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtb3JvY2NvJTIwZGVzZXJ0fGVufDB8fHx8MTc3MDE5NDk2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "morocco desert"
+      "src": "https://images.unsplash.com/photo-1692417045879-8ec84e750bb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYWxkaXZlcyUyMGJ1bmdhbG93c3xlbnwwfHx8fDE3NzAyMDQwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Overwater bungalows in the Maldives, clear turquoise water, tropical paradise"
     },
     {
-      "id": "tour-nz-2",
-      "description": "new zealand mountains lake landscape travel photography scenic nature",
-      "imageUrl": "https://images.unsplash.com/photo-1531804055935-76f44d7c3621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxuZXclMjB6ZWFsYW5kfGVufDB8fHx8MTc3MDE5NDk2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "new zealand"
+      "src": "https://images.unsplash.com/photo-1614771830136-75623fc2e116?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzaW5nYXBvcmUlMjBza3lsaW5lfGVufDB8fHx8MTc3MDIwNDA1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Singapore skyline with Marina Bay Sands and Gardens by the Bay"
     },
     {
-      "id": "holiday-packages-hero",
-      "description": "A desk with a laptop, passport, coffee, and a map, representing travel planning.",
-      "imageUrl": "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "imageHint": "travel planning"
+      "src": "https://images.unsplash.com/photo-1695406339309-0fe3948fc770?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXBwYWRvY2lhJTIwYmFsbG9vbnN8ZW58MHx8fHwxNzcwMTU5Nzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Hot air balloons over Cappadocia, Turkey, unique rock formations"
     },
     {
-      "id": "holiday-dubai",
-      "description": "Dubai skyline with Burj Khalifa, modern cityscape, luxury travel",
-      "imageUrl": "https://images.unsplash.com/flagged/photo-1559717201-fbb671ff56b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkdWJhaSUyMHNreWxpbmV8ZW58MHx8fHwxNzcwMjMxOTAxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "dubai skyline"
+      "src": "https://images.unsplash.com/photo-1666113969491-dad6eb0176a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkcml2aW5nJTIwcm9hZHxlbnwwfHx8fDE3NzAyMDQwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A winding road through a mountain pass with a sports car driving on it"
     },
     {
-      "id": "holiday-thailand",
-      "description": "Long-tail boats on a beach in Thailand, turquoise water, limestone cliffs",
-      "imageUrl": "https://images.unsplash.com/photo-1537956965359-7573183d1f57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx0aGFpbGFuZCUyMGJlYWNofGVufDB8fHx8MTc3MDIzMTkwMXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "thailand beach"
+      "src": "https://images.unsplash.com/photo-1686278530308-1e6ef38b5ed6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhaXJwbGFuZSUyMHNreXxlbnwwfHx8fDE3NzAxODA5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Close-up of a passport with several visa stamps from various countries."
     },
     {
-      "id": "holiday-europe",
-      "description": "Charming european street with colorful buildings, cafe, cobblestone",
-      "imageUrl": "https://images.unsplash.com/photo-1534409574970-1447ca9fb754?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxldXJvcGUlMjBzdHJlZXR8ZW58MHx8fHwxNzcwMjMxOTAxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "europe street"
+      "src": "https://images.unsplash.com/photo-1713668834451-d47330647707?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx1YWUlMjBmbGFnfGVufDB8fHx8MTc3MDIwNDI2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Flag of UAE"
     },
     {
-      "id": "holiday-maldives",
-      "description": "Overwater bungalows in the Maldives, clear turquoise water, tropical paradise",
-      "imageUrl": "https://images.unsplash.com/photo-1692417045879-8ec84e750bb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYWxkaXZlcyUyMGJ1bmdhbG93c3xlbnwwfHx8fDE3NzAyMDQwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "maldives bungalows"
+      "src": "https://picsum.photos/seed/schengen/64/42",
+      "alt": "Flag of Schengen Area"
     },
     {
-      "id": "holiday-singapore",
-      "description": "Singapore skyline with Marina Bay Sands and Gardens by the Bay",
-      "imageUrl": "https://images.unsplash.com/photo-1614771830136-75623fc2e116?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzaW5nYXBvcmUlMjBza3lsaW5lfGVufDB8fHx8MTc3MDIwNDA1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "singapore skyline"
+      "src": "https://images.unsplash.com/photo-1717239749112-1722940626d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx1ayUyMGZsYWd8ZW58MHx8fHwxNzcwMjA0MjY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Flag of UK"
     },
     {
-      "id": "holiday-turkey",
-      "description": "Hot air balloons over Cappadocia, Turkey, unique rock formations",
-      "imageUrl": "https://images.unsplash.com/photo-1695406339309-0fe3948fc770?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXBwYWRvY2lhJTIwYmFsbG9vbnN8ZW58MHx8fHwxNzcwMTU5Nzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cappadocia balloons"
+      "src": "https://images.unsplash.com/photo-1498174979972-c9de7e6a93d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx1c2ElMjBmbGFnfGVufDB8fHx8MTc3MDIwNDI2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Flag of USA"
     },
     {
-      "id": "driving-tours-promo",
-      "description": "A winding road through a mountain pass with a sports car driving on it",
-      "imageUrl": "https://images.unsplash.com/photo-1666113969491-dad6eb0176a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkcml2aW5nJTIwcm9hZHxlbnwwfHx8fDE3NzAyMDQwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "driving road"
+      "src": "https://images.unsplash.com/photo-1630291503723-dd2ec1f07bc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0aGFpbGFuZCUyMGZsYWd8ZW58MHx8fHwxNzcwMjA0MjY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Flag of Thailand"
     },
     {
-      "id": "visa-services-hero",
-      "description": "Close-up of a passport with several visa stamps from various countries.",
-      "imageUrl": "https://images.unsplash.com/photo-1686278530308-1e6ef38b5ed6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhaXJwbGFuZSUyMHNreXxlbnwwfHx8fDE3NzAxODA5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "passport stamps"
+      "src": "https://images.unsplash.com/photo-1549154425-7b519f2b92d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYWxheXNpYSUyMGZsYWd8ZW58MHx8fHwxNzcwMjA0MjY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Flag of Malaysia"
     },
     {
-      "id": "flag-uae",
-      "imageUrl": "https://images.unsplash.com/photo-1713668834451-d47330647707?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx1YWUlMjBmbGFnfGVufDB8fHx8MTc3MDIwNDI2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "description": "Flag of UAE",
-      "imageHint": "uae flag"
+      "src": "https://images.unsplash.com/photo-1629517797729-e617a4fe7e54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c2luZ2Fwb3JlJTIwZmxhZ3xlbnwwfHx8fDE3NzAyMDQyNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Flag of Singapore"
     },
     {
-      "id": "flag-schengen",
-      "imageUrl": "https://picsum.photos/seed/schengen/64/42",
-      "description": "Flag of Schengen Area",
-      "imageHint": "schengen flag"
+      "src": "https://images.unsplash.com/photo-1741049517808-b6fead67eabc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2xvYmUlMjBpY29ufGVufDB8fHx8MTc3MDIwNDI2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Globe icon"
     },
     {
-      "id": "flag-uk",
-      "imageUrl": "https://images.unsplash.com/photo-1717239749112-1722940626d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx1ayUyMGZsYWd8ZW58MHx8fHwxNzcwMjA0MjY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "description": "Flag of UK",
-      "imageHint": "uk flag"
+      "src": "https://images.unsplash.com/photo-1686278530308-1e6ef38b5ed6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhaXJwbGFuZSUyMHNreXxlbnwwfHx8fDE3NzAxODA5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A convoy of luxury cars driving on a scenic mountain road at sunset."
     },
     {
-      "id": "flag-usa",
-      "imageUrl": "https://images.unsplash.com/photo-1498174979972-c9de7e6a93d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx1c2ElMjBmbGFnfGVufDB8fHx8MTc3MDIwNDI2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "description": "Flag of USA",
-      "imageHint": "usa flag"
+      "src": "https://images.unsplash.com/photo-1765047123684-a98b6ecd5dae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmF2ZWwlMjBjb2xsYWdlfGVufDB8fHx8MTc3MDIwMzI5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A collage of memorable travel moments and happy faces."
     },
     {
-      "id": "flag-thailand",
-      "imageUrl": "https://images.unsplash.com/photo-1630291503723-dd2ec1f07bc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0aGFpbGFuZCUyMGZsYWd8ZW58MHx8fHwxNzcwMjA0MjY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "description": "Flag of Thailand",
-      "imageHint": "thailand flag"
+      "src": "https://images.unsplash.com/photo-1638784633891-04e737febc3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8b2Zmcm9hZCUyMHZlaGljbGV8ZW58MHx8fHwxNzcwMjA0NDg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A 4x4 vehicle navigating a challenging off-road terrain."
     },
     {
-      "id": "flag-malaysia",
-      "imageUrl": "https://images.unsplash.com/photo-1549154425-7b519f2b92d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYWxheXNpYSUyMGZsYWd8ZW58MHx8fHwxNzcwMjA0MjY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "description": "Flag of Malaysia",
-      "imageHint": "malaysia flag"
+      "src": "https://images.unsplash.com/photo-1638784633891-04e737febc3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8b2Zmcm9hZCUyMHZlaGljbGV8ZW58MHx8fHwxNzcwMjA0NDg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A wall with many framed travel photos, creating a gallery effect."
     },
     {
-      "id": "flag-singapore",
-      "imageUrl": "https://images.unsplash.com/photo-1629517797729-e617a4fe7e54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c2luZ2Fwb3JlJTIwZmxhZ3xlbnwwfHx8fDE3NzAyMDQyNjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "description": "Flag of Singapore",
-      "imageHint": "singapore flag"
+      "src": "https://images.unsplash.com/photo-1686278530308-1e6ef38b5ed6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhaXJwbGFuZSUyMHNreXxlbnwwfHx8fDE3NzAxODA5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Airplane wing flying over clouds with a sunset in the background."
     },
     {
-      "id": "flag-generic",
-      "imageUrl": "https://images.unsplash.com/photo-1741049517808-b6fead67eabc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2xvYmUlMjBpY29ufGVufDB8fHx8MTc3MDIwNDI2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "description": "Globe icon",
-      "imageHint": "globe icon"
+      "src": "https://images.unsplash.com/photo-1686278530308-1e6ef38b5ed6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhaXJwbGFuZSUyMHNreXxlbnwwfHx8fDE3NzAxODA5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A vintage telephone on a wooden desk with a notepad and pen, signifying communication."
     },
     {
-      "id": "about-us-hero",
-      "description": "A convoy of luxury cars driving on a scenic mountain road at sunset.",
-      "imageUrl": "https://images.unsplash.com/photo-1686278530308-1e6ef38b5ed6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhaXJwbGFuZSUyMHNreXxlbnwwfHx8fDE3NzAxODA5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "convoy sunset"
+      "src": "https://images.unsplash.com/photo-1687917154293-69aa5d85fa42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvcGVuJTIwcm9hZCUyMHN1bnNldHxlbnwwfHx8fDE3NzAyMzY3NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "An open road stretching towards a sunset, symbolizing the journey of blogging."
     },
     {
-      "id": "team-dr-raj",
-      "description": "Portrait of Dr. S. Raj, Chairman",
-      "imageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAyMDA4MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "man portrait"
+      "src": "https://images.unsplash.com/photo-1536421915744-a1eb059c407a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3aW5kaW5nJTIwbW91bnRhaW4lMjByb2FkfGVufDB8fHx8MTc3MDIzNjc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A winding mountain road through a spectacular landscape, representing top driving holidays."
     },
     {
-      "id": "team-vignesh",
-      "description": "Portrait of Vignesh, management team",
-      "imageUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAyMDA4MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "man portrait"
+      "src": "https://images.unsplash.com/photo-1511697344731-2419473a40c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXIlMjBkYXNoYm9hcmR8ZW58MHx8fHwxNzcwMTk3Mzk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A view from inside a car's dashboard, focusing on safety features and a clear road ahead."
     },
     {
-      "id": "team-bikash",
-      "description": "Portrait of Bikash, management team",
-      "imageUrl": "https://images.unsplash.com/photo-1636377985931-898218afd306?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAyMDA4MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "man portrait"
+      "src": "https://images.unsplash.com/photo-1658775996288-298c44fad693?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwYWNraW5nJTIwY2FyfGVufDB8fHx8MTc3MDIzNjc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "An open car trunk being packed with luggage and gear for a road trip."
     },
     {
-      "id": "team-olin",
-      "description": "Portrait of Olin, management team",
-      "imageUrl": "https://images.unsplash.com/photo-1522556189639-b150ed9c4330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAyMDA4MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "man portrait"
-    },
-    {
-      "id": "team-anil",
-      "description": "Portrait of Anil, management team",
-      "imageUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzAyMDA4MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "man portrait"
-    },
-    {
-      "id": "our-story-image",
-      "description": "A collage of memorable travel moments and happy faces.",
-      "imageUrl": "https://images.unsplash.com/photo-1765047123684-a98b6ecd5dae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmF2ZWwlMjBjb2xsYWdlfGVufDB8fHx8MTc3MDIwMzI5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "travel collage"
-    },
-    {
-      "id": "driving-legacy-image",
-      "description": "A 4x4 vehicle navigating a challenging off-road terrain.",
-      "imageUrl": "https://images.unsplash.com/photo-1638784633891-04e737febc3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8b2Zmcm9hZCUyMHZlaGljbGV8ZW58MHx8fHwxNzcwMjA0NDg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "offroad vehicle"
-    },
-    {
-      "id": "gallery-hero",
-      "description": "A wall with many framed travel photos, creating a gallery effect.",
-      "imageUrl": "https://images.unsplash.com/photo-1638784633891-04e737febc3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8b2Zmcm9hZCUyMHZlaGljbGV8ZW58MHx8fHwxNzcwMjA0NDg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "photo gallery"
-    },
-    {
-      "id": "air-tickets-hero",
-      "description": "Airplane wing flying over clouds with a sunset in the background.",
-      "imageUrl": "https://images.unsplash.com/photo-1686278530308-1e6ef38b5ed6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhaXJwbGFuZSUyMHNreXxlbnwwfHx8fDE3NzAxODA5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "airplane sky"
-    },
-    {
-      "id": "contact-us-hero",
-      "description": "A vintage telephone on a wooden desk with a notepad and pen, signifying communication.",
-      "imageUrl": "https://images.unsplash.com/photo-1686278530308-1e6ef38b5ed6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhaXJwbGFuZSUyMHNreXxlbnwwfHx8fDE3NzAxODA5NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "contact communication"
-    },
-    {
-      "id": "blog-hero",
-      "description": "An open road stretching towards a sunset, symbolizing the journey of blogging.",
-      "imageUrl": "https://images.unsplash.com/photo-1687917154293-69aa5d85fa42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvcGVuJTIwcm9hZCUyMHN1bnNldHxlbnwwfHx8fDE3NzAyMzY3NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "open road sunset"
-    },
-    {
-      "id": "blog-driving-holidays",
-      "description": "A winding mountain road through a spectacular landscape, representing top driving holidays.",
-      "imageUrl": "https://images.unsplash.com/photo-1536421915744-a1eb059c407a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3aW5kaW5nJTIwbW91bnRhaW4lMjByb2FkfGVufDB8fHx8MTc3MDIzNjc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "winding mountain road"
-    },
-    {
-      "id": "blog-self-drive-safety",
-      "description": "A view from inside a car's dashboard, focusing on safety features and a clear road ahead.",
-      "imageUrl": "https://images.unsplash.com/photo-1511697344731-2419473a40c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXIlMjBkYXNoYm9hcmR8ZW58MHx8fHwxNzcwMTk3Mzk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "car dashboard"
-    },
-    {
-      "id": "blog-convoy-prep",
-      "description": "An open car trunk being packed with luggage and gear for a road trip.",
-      "imageUrl": "https://images.unsplash.com/photo-1658775996288-298c44fad693?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwYWNraW5nJTIwY2FyfGVufDB8fHx8MTc3MDIzNjc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "packing car"
-    },
-    {
-      "id": "blog-destination-guides",
-      "description": "A flat lay of a map, compass, and camera, representing travel and destination guides.",
-      "imageUrl": "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0cmF2ZWwlMjBtYXB8ZW58MHx8fHwxNzcwMjI1Nzg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "travel map"
+      "src": "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0cmF2ZWwlMjBtYXB8ZW58MHx8fHwxNzcwMjI1Nzg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "A flat lay of a map, compass, and camera, representing travel and destination guides."
     }
   ]
 }
-    
