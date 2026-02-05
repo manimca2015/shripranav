@@ -50,7 +50,8 @@ export const tours: Tour[] = [
     rating: 4.6,
     fullDate: '22 May, 2026',
     driveType: 'Self-Drive 4x4 Expedition',
-    level: 'Adventure'
+    level: 'Adventure',
+    brochureUrl: '/itinerary/Kyrgyzstan_Self_Drive_Adventure.pdf'
   },
   {
     id: 'thailand',
@@ -70,7 +71,8 @@ export const tours: Tour[] = [
     rating: 4.4,
     fullDate: '29 March, 2026',
     driveType: 'Self-Drive SUV',
-    level: 'Beginner'
+    level: 'Beginner',
+    brochureUrl: '/itinerary/Thailand_Brochure.pdf'
   },
   {
     id: 'spiti-valley',
@@ -89,6 +91,7 @@ export const tours: Tour[] = [
     rating: 4.7,
     fullDate: '21 – 29 March, 2026',
     driveType: 'Self-Drive 4x4 (Extreme Winter)',
-    level: 'Expert'
+    level: 'Expert',
+    brochureUrl: '/itinerary/Spiti_Premium_Winter Expedition_Self_Drive.pdf'
   }
 ];
