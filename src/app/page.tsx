@@ -118,12 +118,12 @@ export default function Home() {
                       <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
                     </Button>
                     <Button
-                      asChild
-                      variant="outline"
                       size="lg"
+                      variant="outline"
                       className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
+                      onClick={() => setBrochureModalOpen(true)}
                     >
-                      <a href="#featured-mega-tours">Download Brochure</a>
+                      Download Brochure
                     </Button>
                 </div>
             </div>
