@@ -18,6 +18,7 @@ export type Tour = {
   status?: string;
   fullDate?: string;
   driveType?: string;
+  brochureUrl?: string;
 };
 
 export type Testimonial = {

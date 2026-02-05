@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 import { EnquiryModal } from './enquiry-modal';
 
 type TourCardProps = {
-  tour: Tour & { isPast?: boolean };
+  tour: Tour;
 };
 
 export function TourCard({ tour }: TourCardProps) {
@@ -23,15 +23,8 @@ export function TourCard({ tour }: TourCardProps) {
   return (
     <>
       <article className="relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group/card h-[540px]">
-        {tour.isPast && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center rounded-2xl bg-black/60 backdrop-blur-sm">
-            <span className="bg-white px-5 py-2 rounded-full text-sm font-bold text-primary shadow-lg uppercase tracking-wider">
-              Completed
-            </span>
-          </div>
-        )}
         {tourImage && (
-          <div className={cn("absolute inset-0 z-0", tour.isPast && 'grayscale')}>
+          <div className="absolute inset-0 z-0">
               <Image 
                   className="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-700" 
                   src={tourImage.imageUrl} 
@@ -105,10 +98,19 @@ export function TourCard({ tour }: TourCardProps) {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-[#e0af29] hover:text-black transition-all shadow-lg">
+                    {tour.brochureUrl ? (
+                      <Button asChild variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-[#e0af29] hover:text-black transition-all shadow-lg">
+                        <a href={tour.brochureUrl} download>
+                            <Download className="h-5 w-5" />
+                            <span className="sr-only">Download Brochure</span>
+                        </a>
+                      </Button>
+                    ) : (
+                      <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white transition-all shadow-lg opacity-50 cursor-not-allowed">
                         <Download className="h-5 w-5" />
                         <span className="sr-only">Download Brochure</span>
-                    </Button>
+                      </Button>
+                    )}
                     <Button 
                       className="h-12 flex-1 rounded-xl bg-accent text-sm font-bold text-accent-foreground hover:bg-primary hover:text-white shadow-lg hover:shadow-xl transition-all border border-transparent hover:border-[#e0af29]"
                       onClick={() => setEnquiryModalOpen(true)}

@@ -29,7 +29,8 @@ export const tours: Tour[] = [
     rating: 4.7,
     fullDate: '24 Jan – 28 Feb, 2026',
     driveType: 'Guided Self-Drive Convoy',
-    level: 'Beginner'
+    level: 'Beginner',
+    brochureUrl: '/itinerary/Jordan_Driving_Holidays.pdf'
   },
   {
     id: 'kyrgyzstan',
