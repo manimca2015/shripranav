@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -58,21 +57,33 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
   // The submit action will be defined later
   async function onSubmit(values: EnquiryFormValues) {
     console.log('Enquiry submitted:', values);
+    
+    const isGeneralEnquiry = tourName === 'General Enquiry';
+
     toast({
       title: 'Enquiry Sent!',
-      description: `Thanks for your interest in ${tourName}. We'll be in touch shortly.`,
+      description: isGeneralEnquiry 
+        ? "We've received your message and will be in touch shortly."
+        : `Thanks for your interest in ${tourName}. We'll be in touch shortly.`,
     });
     onClose();
     form.reset();
   }
 
+  const isGeneralEnquiry = tourName === 'General Enquiry';
+  const dialogTitle = isGeneralEnquiry ? 'Reach us out' : `Enquire About: ${tourName}`;
+  const dialogDescription = isGeneralEnquiry
+    ? 'Have a question? Fill out the form below and we will get back to you.'
+    : 'Fill out the form below and our team will get back to you with more details.';
+
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Enquire About: {tourName}</DialogTitle>
+          <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>
-            Fill out the form below and our team will get back to you with more details.
+            {dialogDescription}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
