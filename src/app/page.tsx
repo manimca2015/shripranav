@@ -17,6 +17,7 @@ import DomeGallery from '@/components/dome-gallery';
 import { WhatsAppIcon } from '@/components/icons/whatsapp-icon';
 import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import GalleryModal from '@/components/gallery-modal';
+import domeGalleryData from '@/lib/dome-gallery.json';
 
 
 export default function Home() {
@@ -24,7 +25,7 @@ export default function Home() {
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
 
-  const domeImages = PlaceHolderImages.filter(p => !p.id.includes('avatar')).map(p => ({ src: p.imageUrl, alt: p.description }));
+  const domeImages = domeGalleryData.placeholderImages.filter(p => !p.id.includes('avatar')).map(p => ({ src: p.imageUrl, alt: p.description }));
 
   const featuredTours = tours.filter(t => ['south-africa', 'iceland', 'namibia'].includes(t.id));
 
@@ -394,3 +395,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
