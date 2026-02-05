@@ -1,0 +1,412 @@
+'use client';
+
+import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Calendar } from "@/components/ui/calendar"
+import { useToast } from '@/hooks/use-toast';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { airTicketFormSchema, submitAirTicketRequest } from '@/app/air-tickets/actions';
+
+
+type AirTicketFormModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps) {
+  const { toast } = useToast();
+
+  const form = useForm<z.infer<typeof airTicketFormSchema>>({
+    resolver: zodResolver(airTicketFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      tripType: 'round-trip',
+      from: '',
+      to: '',
+      departureDate: undefined,
+      returnDate: undefined,
+      adults: '1',
+      children: '0',
+      infants: '0',
+      travelClass: 'economy',
+      message: '',
+    },
+  });
+
+  const tripType = form.watch('tripType');
+
+  async function onSubmit(values: z.infer<typeof airTicketFormSchema>) {
+    try {
+      await submitAirTicketRequest(values);
+      toast({
+        title: 'Request Sent!',
+        description: "We've received your flight request and will be in touch shortly with a quote.",
+      });
+      onClose();
+      form.reset();
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem with your request. Please try again.',
+      });
+    }
+  }
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Request an Air Ticket Quote</DialogTitle>
+          <DialogDescription>
+            Fill out the form below and our travel experts will find the best flight options for you.
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 py-4">
+            <div className="grid md:grid-cols-2 gap-6">
+                <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                        <Input placeholder="John Doe" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Email Address</FormLabel>
+                    <FormControl>
+                        <Input placeholder="you@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+            </div>
+            
+            <FormField
+              control={form.control}
+              name="tripType"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Trip Type</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={(value) => {
+                          field.onChange(value);
+                          if (value === 'one-way') {
+                              form.setValue('returnDate', undefined);
+                          }
+                      }}
+                      defaultValue={field.value}
+                      className="flex space-x-4"
+                    >
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="round-trip" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Round-trip</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="one-way" />
+                        </FormControl>
+                        <FormLabel className="font-normal">One-way</FormLabel>
+                      </FormItem>
+                       <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="multi-city" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Multi-city</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {tripType !== 'multi-city' ? (
+                <>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                        control={form.control}
+                        name="from"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>From</FormLabel>
+                            <FormControl>
+                                <Input placeholder="e.g. New York (JFK)" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="to"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>To</FormLabel>
+                            <FormControl>
+                                <Input placeholder="e.g. London (LHR)" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                 <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                        control={form.control}
+                        name="departureDate"
+                        render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                            <FormLabel>Departure Date</FormLabel>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                <FormControl>
+                                    <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-full pl-3 text-left font-normal",
+                                        !field.value && "text-muted-foreground"
+                                    )}
+                                    >
+                                    {field.value ? (
+                                        format(new Date(field.value), "PPP")
+                                    ) : (
+                                        <span>Pick a date</span>
+                                    )}
+                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                    </Button>
+                                </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                    mode="single"
+                                    selected={field.value ? new Date(field.value) : undefined}
+                                    onSelect={(date) => field.onChange(date?.toISOString())}
+                                    disabled={(date) =>
+                                    date < new Date(new Date().setHours(0,0,0,0))
+                                    }
+                                    initialFocus
+                                />
+                                </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    {tripType === 'round-trip' && (
+                        <FormField
+                        control={form.control}
+                        name="returnDate"
+                        render={({ field }) => (
+                            <FormItem className="flex flex-col">
+                            <FormLabel>Return Date</FormLabel>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                <FormControl>
+                                    <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-full pl-3 text-left font-normal",
+                                        !field.value && "text-muted-foreground"
+                                    )}
+                                    >
+                                    {field.value ? (
+                                        format(new Date(field.value), "PPP")
+                                    ) : (
+                                        <span>Pick a date</span>
+                                    )}
+                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                    </Button>
+                                </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                    mode="single"
+                                    selected={field.value ? new Date(field.value) : undefined}
+                                    onSelect={(date) => field.onChange(date?.toISOString())}
+                                    disabled={(date) =>
+                                        date < new Date(form.getValues('departureDate') || new Date().setHours(0,0,0,0))
+                                    }
+                                    initialFocus
+                                />
+                                </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                    )}
+                 </div>
+                </>
+            ) : (
+                <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Itinerary Details</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Please describe your multi-city travel plans. For example:&#10;1. New York (JFK) to London (LHR) on 2024-12-10&#10;2. London (LHR) to Paris (CDG) on 2024-12-17&#10;3. Paris (CDG) to New York (JFK) on 2024-12-24"
+                        className="min-h-[120px]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>For multi-city trips, please detail your required flights in the message box.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            
+            <div className="grid grid-cols-3 gap-6">
+                <FormField
+                control={form.control}
+                name="adults"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Adults (12+)</FormLabel>
+                    <FormControl>
+                        <Input type="number" min="1" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                 <FormField
+                control={form.control}
+                name="children"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Children (2-11)</FormLabel>
+                    <FormControl>
+                        <Input type="number" min="0" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                 <FormField
+                control={form.control}
+                name="infants"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Infants (Under 2)</FormLabel>
+                    <FormControl>
+                        <Input type="number" min="0" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+            </div>
+            
+            <FormField
+              control={form.control}
+              name="travelClass"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Travel Class</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a travel class" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="economy">Economy</SelectItem>
+                      <SelectItem value="premium-economy">Premium Economy</SelectItem>
+                      <SelectItem value="business">Business</SelectItem>
+                      <SelectItem value="first">First</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {tripType !== 'multi-city' && (
+                 <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Additional Information (Optional)</FormLabel>
+                        <FormControl>
+                        <Textarea
+                            placeholder="Any special requests or preferences?"
+                            className="min-h-[100px]"
+                            {...field}
+                        />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                    )}
+                />
+            )}
+
+            <DialogFooter>
+                <Button type="submit" size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={form.formState.isSubmitting}>
+                    {form.formState.isSubmitting ? 'Sending...' : 'Send Request'}
+                </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}
