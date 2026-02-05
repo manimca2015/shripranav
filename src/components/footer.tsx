@@ -1,6 +1,7 @@
 
 import { Instagram, Facebook, Youtube, Linkedin } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function Footer() {
   return (
@@ -10,7 +11,13 @@ export function Footer() {
                 <div className="md:col-span-2">
                     <div className="flex items-center gap-3 mb-8">
                         <Link href="/" className="flex items-center gap-3">
-                            <span className="text-2xl font-bold font-headline text-white">Fair Future Travels</span>
+                            <Image
+                                src="/fair-future-logo.webp"
+                                alt="Fair Future Travels Logo"
+                                width={180}
+                                height={40}
+                                className="object-contain"
+                            />
                         </Link>
                     </div>
                     <p className="text-slate-400 mb-8 leading-relaxed">India's premier driving holiday specialist. Creating extraordinary self-drive expeditions across the world's most breathtaking landscapes since 2015.</p>
