@@ -1,7 +1,26 @@
 
-import { Instagram, Facebook, Youtube, Linkedin } from 'lucide-react';
+import { Instagram, Facebook, Youtube, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+
+const quickLinks = [
+    { href: '/tours', label: 'World Driving Tours' },
+    { href: '/holiday-packages', label: 'Holiday Packages' },
+    { href: '/visa-services', label: 'Visa Services' },
+    { href: '/air-tickets', label: 'Air Tickets' },
+    { href: '/about-us', label: 'About Us' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/gallery', label: 'Gallery' },
+];
+
+const drivingTours = [
+    { href: '#', label: 'South Africa' },
+    { href: '#', label: 'Iceland' },
+    { href: '#', label: 'Namibia' },
+    { href: '#', label: 'Jordan' },
+    { href: '#', label: 'Thailand' },
+    { href: '#', label: 'Spiti Valley' },
+];
 
 export function Footer() {
   return (
@@ -28,35 +47,43 @@ export function Footer() {
                         <a href="#" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Linkedin /></a>
                     </div>
                 </div>
+                
+                <div>
+                    <h4 className="font-bold text-primary-foreground mb-6 text-lg">Quick Links</h4>
+                    <ul className="space-y-4 text-slate-400">
+                        {quickLinks.map(link => (
+                            <li key={link.href}><Link href={link.href} className="hover:text-accent transition-all">{link.label}</Link></li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 className="font-bold text-primary-foreground mb-6 text-lg">Contact Us</h4>
+                    <ul className="space-y-4 text-slate-400 text-sm">
+                        <li className="flex items-start gap-4">
+                            <MapPin className="w-5 h-5 text-accent mt-1 shrink-0" />
+                            <span>Fair Future Edifice, East of Ravipuram Junction off M.G.Road, Near Ravipuram Sree Krishna Swami Temple, Cochin 682016, Kerala, India</span>
+                        </li>
+                         <li className="flex items-start gap-4">
+                            <Mail className="w-5 h-5 text-accent mt-1 shrink-0" />
+                            <a href="mailto:info@fairfuturetravels.com" className="hover:text-accent transition-colors">info@fairfuturetravels.com</a>
+                        </li>
+                        <li className="flex items-start gap-4">
+                            <Phone className="w-5 h-5 text-accent mt-1 shrink-0" />
+                            <div>
+                                <a href="tel:+914842356699" className="hover:text-accent transition-colors block">+91 484 2356699</a>
+                                <a href="tel:+919188922602" className="hover:text-accent transition-colors block">+91 9188922602</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
                 <div>
                     <h4 className="font-bold text-primary-foreground mb-6 text-lg">Driving Tours</h4>
                     <ul className="space-y-4 text-slate-400">
-                        <li><Link href="/tours" className="hover:text-accent transition-all">South Africa</Link></li>
-                        <li><Link href="/tours" className="hover:text-accent transition-all">Iceland</Link></li>
-                        <li><Link href="/tours" className="hover:text-accent transition-all">Namibia</Link></li>
-                        <li><Link href="/tours" className="hover:text-accent transition-all">Jordan</Link></li>
-                        <li><Link href="/tours" className="hover:text-accent transition-all">Thailand</Link></li>
-                        <li><Link href="/tours" className="hover:text-accent transition-all">Spiti Valley</Link></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 className="font-bold text-primary-foreground mb-6 text-lg">Services</h4>
-                    <ul className="space-y-4 text-slate-400">
-                        <li><Link href="/holiday-packages" className="hover:text-accent transition-all">Holiday Packages</Link></li>
-                        <li><Link href="/visa-services" className="hover:text-accent transition-all">Visa Services</Link></li>
-                        <li><Link href="/air-tickets" className="hover:text-accent transition-all">Air Tickets</Link></li>
-                        <li><Link href="/tours" className="hover:text-accent transition-all">Group Tours</Link></li>
-                        <li><Link href="#" className="hover:text-accent transition-all">Custom Itineraries</Link></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 className="font-bold text-primary-foreground mb-6 text-lg">Company</h4>
-                    <ul className="space-y-4 text-slate-400">
-                        <li><Link href="/about-us" className="hover:text-accent transition-all">About Us</Link></li>
-                        <li><Link href="/about-us#leadership" className="hover:text-accent transition-all">Our Leadership</Link></li>
-                        <li><Link href="/gallery" className="hover:text-accent transition-all">Gallery</Link></li>
-                        <li><Link href="/blog" className="hover:text-accent transition-all">Blogs</Link></li>
-                        <li><Link href="/contact-us" className="hover:text-accent transition-all">Contact Us</Link></li>
+                       {drivingTours.map(tour => (
+                             <li key={tour.href}><Link href={tour.href} className="hover:text-accent transition-all">{tour.label}</Link></li>
+                        ))}
                     </ul>
                 </div>
             </div>
