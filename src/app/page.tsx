@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -26,7 +25,12 @@ export default function Home() {
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
 
-  const domeImages = domeGalleryData.images.map(p => ({ src: p.src, alt: p.alt }));
+  const domeImages: { src: string; alt: string }[] = domeGalleryData.images.map(
+    (p) => ({
+      src: p.src,
+      alt: p.alt,
+    })
+  );
 
   const featuredTours = tours.filter(t => ['jordan', 'kyrgyzstan', 'thailand'].includes(t.id));
 
@@ -150,7 +154,7 @@ export default function Home() {
                 </div>
                 <div className="relative w-full max-w-[500px] aspect-square justify-self-center">
                   <DomeGallery
-                    images={domeImages}
+                    images={domeImages.filter((image) => image.src)}
                     fit={0.8}
                     minRadius={600}
                     maxVerticalRotationDeg={0}
@@ -352,7 +356,7 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-primary/80" />
           <div className="relative z-10 max-w-5xl mx-auto text-center">
-            <h2 className="text-6xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
+            <h2 className="text-4xl md:text-6xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
             <p className="text-xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed">Join our exclusive community of driving enthusiasts. Download our comprehensive brochures or speak with our expedition experts today.</p>
             <div className="flex flex-wrap justify-center gap-6 mb-16">
                 <Button size="lg" className="bg-accent text-accent-foreground px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl-accent btn-hover-lift">
@@ -396,7 +400,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
