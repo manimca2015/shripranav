@@ -1,3 +1,4 @@
+
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import Image from 'next/image';
@@ -52,7 +53,7 @@ export default function HolidayPackagesPage() {
     <div className="bg-background">
       <Header />
       <main>
-        <section className="relative h-[400px] flex items-center justify-center text-white">
+        <section className="relative h-[480px] flex items-center justify-center text-white">
           {heroImage && (
             <Image
               src={heroImage.imageUrl}
@@ -64,8 +65,8 @@ export default function HolidayPackagesPage() {
           )}
           <div className="absolute inset-0 bg-primary/70" />
           <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-            <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Our Packages</span>
-            <h1 className="text-5xl md:text-7xl font-headline font-extrabold leading-tight">Holiday Packages</h1>
+            <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block mt-16">Our Packages</span>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-headline font-extrabold leading-tight">Holiday Packages</h1>
             <p className="mt-4 text-lg md:text-xl text-white/90">
               Tailor-made itineraries and exciting group departures to the world's most desired destinations.
             </p>
