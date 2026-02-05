@@ -35,10 +35,10 @@ export default function Home() {
     })
   );
 
-  const featuredTourIds = ['jordan', 'spiti-valley', 'thailand', 'kyrgyzstan'];
+  const featuredTourIds = ['jordan', 'kyrgyzstan', 'thailand'];
   const featuredTours = useMemo(() => 
       featuredTourIds.map(id => tours.find(t => t.id === id)).filter((t): t is Tour => !!t), 
-    []
+    [featuredTourIds]
   );
 
   const bentoGalleryImages = [
@@ -118,12 +118,12 @@ export default function Home() {
                       <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
                     </Button>
                     <Button 
+                      asChild
                       variant="outline" 
                       size="lg" 
                       className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
-                      onClick={() => setBrochureModalOpen(true)}
                     >
-                      Download Brochure
+                      <a href="#featured-mega-tours">Download Brochure</a>
                     </Button>
                 </div>
             </div>
@@ -206,7 +206,7 @@ export default function Home() {
                     <p className="text-slate-600 text-lg max-w-3xl mx-auto">Our most popular and comprehensive driving adventures, designed for the ultimate road trip experience.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {featuredTours.map(tour => <FeaturedTourCard key={tour.id} tour={tour} />)}
                 </div>
             </div>
