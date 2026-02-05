@@ -8,7 +8,7 @@ export default function ThankYouPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
-      <main className="flex-1 flex flex-col items-center justify-center bg-slate-50 py-20 px-4">
+      <main className="flex-1 flex flex-col items-center justify-center bg-slate-50 px-4 pt-32 pb-20">
         <div className="bg-white p-8 md:p-12 rounded-2xl shadow-lg text-center max-w-lg mx-auto border border-slate-200">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
           <h1 className="text-3xl md:text-4xl font-bold font-headline text-primary mb-4">
