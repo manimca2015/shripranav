@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Check, FileText, Globe, Plane, Briefcase, GraduationCap } from 'lucide-react';
+import Link from 'next/link';
 
 const countryVisaPages = [
   { name: 'UAE', imageId: 'holiday-dubai' },
@@ -173,8 +174,8 @@ export default function VisaServicesPage() {
             <div className="container mx-auto px-4 text-center max-w-4xl">
                  <h2 className="text-4xl font-headline font-bold mb-6">Get Started with Your Visa Application</h2>
                  <p className="text-lg text-slate-300 mb-8">Our team of experts is ready to assist you at every step. Contact us today for a free consultation.</p>
-                 <Button size="lg" className="bg-accent text-accent-foreground font-bold text-lg px-10 py-4 h-auto rounded-full hover:bg-accent/90">
-                    Contact Us Now
+                 <Button asChild size="lg" className="bg-accent text-accent-foreground font-bold text-lg px-10 py-4 h-auto rounded-full hover:bg-accent/90">
+                    <Link href="/contact-us">Contact Us Now</Link>
                  </Button>
             </div>
         </section>
