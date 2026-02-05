@@ -56,7 +56,7 @@ export function TourListings({ tours }: TourListingsProps) {
 
   return (
     <div className="w-full max-w-7xl">
-      <div className="flex items-center justify-between md:justify-center gap-2 overflow-x-auto hide-scroll py-2 px-4 bg-white/50 backdrop-blur-sm border rounded-full shadow-sm mb-12">
+      <div className="flex items-center justify-center gap-2 overflow-x-auto hide-scroll mb-12">
         {availableMonths.map((month) => (
           <button
             key={month}
