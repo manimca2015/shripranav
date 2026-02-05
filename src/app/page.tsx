@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -344,37 +343,42 @@ export default function Home() {
         </section>
 
 
-        <section id="cta-section" className="py-24 px-12 bg-gradient-to-br from-primary to-primary/90 text-white">
-            <div className="max-w-5xl mx-auto text-center">
-                <h2 className="text-6xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
-                <p className="text-xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed">Join our exclusive community of driving enthusiasts. Download our comprehensive brochures or speak with our expedition experts today.</p>
-                <div className="flex flex-wrap justify-center gap-6 mb-16">
-                    <Button size="lg" className="bg-accent text-accent-foreground px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl-accent btn-hover-lift">
-                        <Download className="mr-3" /> Download Brochure
-                    </Button>
-                    <Button size="lg" className="bg-white text-primary px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl btn-hover-lift">
-                        <WhatsAppIcon className="mr-3 w-6 h-6"/> WhatsApp Us
-                    </Button>
-                    <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-white/20 transition-all btn-hover-lift">
-                        Enquire Now
-                    </Button>
-                </div>
+        <section
+          id="cta-section"
+          className="relative py-24 px-12 bg-cover bg-center text-white"
+          style={{ backgroundImage: "url('/cta-bg.jpg')" }}
+        >
+          <div className="absolute inset-0 bg-primary/80" />
+          <div className="relative z-10 max-w-5xl mx-auto text-center">
+            <h2 className="text-6xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
+            <p className="text-xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed">Join our exclusive community of driving enthusiasts. Download our comprehensive brochures or speak with our expedition experts today.</p>
+            <div className="flex flex-wrap justify-center gap-6 mb-16">
+                <Button size="lg" className="bg-accent text-accent-foreground px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl-accent btn-hover-lift">
+                    <Download className="mr-3" /> Download Brochure
+                </Button>
+                <Button size="lg" className="bg-white text-primary px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl btn-hover-lift">
+                    <WhatsAppIcon className="mr-3 w-6 h-6"/> WhatsApp Us
+                </Button>
+                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-white/20 transition-all btn-hover-lift">
+                    Enquire Now
+                </Button>
+            </div>
 
-                <div className="grid grid-cols-3 gap-12 pt-12 border-t border-white/20">
-                    <div>
-                        <div className="text-5xl font-bold text-accent mb-3">500+</div>
-                        <p className="text-slate-300">Happy Travelers</p>
-                    </div>
-                    <div>
-                        <div className="text-5xl font-bold text-accent mb-3">25+</div>
-                        <p className="text-slate-300">Countries Covered</p>
-                    </div>
-                    <div>
-                        <div className="text-5xl font-bold text-accent mb-3">100%</div>
-                        <p className="text-slate-300">Safety Record</p>
-                    </div>
+            <div className="grid grid-cols-3 gap-12 pt-12 border-t border-white/20">
+                <div>
+                    <div className="text-5xl font-bold text-accent mb-3">500+</div>
+                    <p className="text-slate-300">Happy Travelers</p>
+                </div>
+                <div>
+                    <div className="text-5xl font-bold text-accent mb-3">25+</div>
+                    <p className="text-slate-300">Countries Covered</p>
+                </div>
+                <div>
+                    <div className="text-5xl font-bold text-accent mb-3">100%</div>
+                    <p className="text-slate-300">Safety Record</p>
                 </div>
             </div>
+          </div>
         </section>
 
       </main>
