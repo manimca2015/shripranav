@@ -10,9 +10,7 @@ import { Button } from '@/components/ui/button';
 const managementTeam = [
   { name: 'Dr. S. Raj', title: 'Chairman', imageId: 'team-dr-raj' },
   { name: 'Vignesh', title: 'Founder & CEO', imageId: 'team-vignesh' },
-  { name: 'Bikash', title: 'Co-Founder & COO', imageId: 'team-bikash' },
   { name: 'Olin', title: 'Head of Operations', imageId: 'team-olin' },
-  { name: 'Anil', title: 'Lead Convoy Commander', imageId: 'team-anil' },
 ];
 
 export default function AboutUsPage() {
