@@ -32,36 +32,36 @@ export default function Home() {
 
   const bentoGalleryImages = [
     {
-      id: 'gallery-bento-1',
+      id: 'expedition-jordan',
       className: 'md:col-span-2 md:row-span-2',
-      label: "Wadi Rum, Jordan"
+      label: "The Rose City of Petra, Jordan"
     },
     {
-      id: 'gallery-bento-2',
+      id: 'tour-thailand',
       className: 'md:col-span-1 md:row-span-1',
-      label: "Phuket, Thailand"
+      label: "Roads of Thailand"
     },
     {
-      id: 'gallery-bento-3',
+      id: 'tour-kyrgyzstan',
       className: 'md:col-span-1 md:row-span-1',
-      label: "Vintage Vibes"
+      label: "Lakes of Kyrgyzstan"
     },
     {
-      id: 'gallery-bento-4',
+      id: 'tour-spiti',
       className: 'md:col-span-1 md:row-span-1',
-      label: "Tuscany, Italy"
+      label: "Spiti Valley, India"
     },
     {
-      id: 'gallery-bento-5',
+      id: 'tour-jordan',
       className: 'md:col-span-1 md:row-span-1',
-      label: "Munnar, India"
+      label: "The Treasury, Petra"
     }
   ].map(item => {
     const image = PlaceHolderImages.find(p => p.id === item.id);
     return { ...item, ...image };
   });
 
-  const bottomGalleryImage = PlaceHolderImages.find(p => p.id === 'gallery-bento-6');
+  const bottomGalleryImage = PlaceHolderImages.find(p => p.id === 'tour-iceland-2');
 
   const allGalleryImages: ImagePlaceholder[] = [...bentoGalleryImages, bottomGalleryImage].filter(
     (img): img is ImagePlaceholder => !!(img && img.imageUrl)
@@ -328,7 +328,7 @@ export default function Home() {
                                 data-ai-hint={bottomGalleryImage.imageHint}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                <p className="text-white font-medium">Vatnajökull, Iceland</p>
+                                <p className="text-white font-medium">Waterfalls of Iceland</p>
                             </div>
                         </div>
                     )}
