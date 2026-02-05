@@ -29,22 +29,25 @@ const navLinks = [
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
+      setScrolled(window.scrollY > 20);
     };
 
-    document.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      document.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [scrolled]);
+  }, []);
   
   const headerClasses = cn(
     'fixed w-full z-50 px-4 sm:px-12 py-6 flex justify-between items-center transition-all duration-300',
@@ -90,46 +93,48 @@ export function Header() {
           <Link href="/contact-us">Contact Us</Link>
         </Button>
         <div className="md:hidden">
-            <Sheet>
-                <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                        <Menu className="h-6 w-6" />
-                        <span className="sr-only">Open menu</span>
-                    </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-[300px]">
-                    <SheetHeader>
-                        <SheetTitle className="text-left">
-                             <Link href="/" className="relative flex items-center">
-                                <Image
-                                    src="/fair-future-logo.webp"
-                                    alt="Fair Future Travels Logo"
-                                    width={150}
-                                    height={33}
-                                    className="object-contain"
-                                />
+            {isMounted && (
+              <Sheet>
+                  <SheetTrigger asChild>
+                      <Button variant="ghost" size="icon">
+                          <Menu className="h-6 w-6" />
+                          <span className="sr-only">Open menu</span>
+                      </Button>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="w-[300px]">
+                      <SheetHeader>
+                          <SheetTitle className="text-left">
+                               <Link href="/" className="relative flex items-center">
+                                  <Image
+                                      src="/fair-future-logo.webp"
+                                      alt="Fair Future Travels Logo"
+                                      width={150}
+                                      height={33}
+                                      className="object-contain"
+                                  />
+                                </Link>
+                          </SheetTitle>
+                      </SheetHeader>
+                      <div className="mt-8 flex flex-col gap-6">
+                          {navLinks.map((link) => (
+                            <SheetClose key={link.href} asChild>
+                              <Link
+                                  href={link.href}
+                                  className="text-lg font-medium hover:text-accent transition-colors"
+                              >
+                                  {link.label}
                               </Link>
-                        </SheetTitle>
-                    </SheetHeader>
-                    <div className="mt-8 flex flex-col gap-6">
-                        {navLinks.map((link) => (
-                          <SheetClose key={link.href} asChild>
-                            <Link
-                                href={link.href}
-                                className="text-lg font-medium hover:text-accent transition-colors"
-                            >
-                                {link.label}
-                            </Link>
-                           </SheetClose>
-                        ))}
-                    </div>
-                     <SheetClose asChild>
-                        <Button asChild className="w-full mt-8" >
-                            <Link href="/contact-us">Contact Us</Link>
-                        </Button>
-                    </SheetClose>
-                </SheetContent>
-            </Sheet>
+                             </SheetClose>
+                          ))}
+                      </div>
+                       <SheetClose asChild>
+                          <Button asChild className="w-full mt-8" >
+                              <Link href="/contact-us">Contact Us</Link>
+                          </Button>
+                      </SheetClose>
+                  </SheetContent>
+              </Sheet>
+            )}
         </div>
       </div>
     </header>
