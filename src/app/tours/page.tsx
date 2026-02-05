@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { TourCard } from '@/components/tour-card';
@@ -295,11 +296,11 @@ export default function WorldDrivingToursPage() {
                   <h2 className="text-4xl md:text-5xl font-headline font-bold text-white mb-6">Ready to Start Your Adventure?</h2>
                   <p className="text-xl text-white/90 mb-10 font-light">Join thousands of satisfied travelers who have experienced the journey of a lifetime</p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                      <Button size="lg" className="px-10 py-4 rounded-full bg-accent text-white font-bold hover:bg-accent-light shadow-xl hover:shadow-2xl transition-all uppercase text-sm tracking-wider">
-                          Browse All Tours
+                      <Button asChild size="lg" className="px-10 py-4 rounded-full bg-accent text-white font-bold hover:bg-accent-light shadow-xl hover:shadow-2xl transition-all uppercase text-sm tracking-wider">
+                          <Link href="/holiday-packages">Holiday Packages</Link>
                       </Button>
-                      <Button size="lg" variant="outline" className="px-10 py-4 rounded-full bg-transparent border-2 border-white text-white font-bold hover:bg-white/10 transition-all">
-                          Contact Us
+                      <Button asChild size="lg" variant="outline" className="px-10 py-4 rounded-full bg-transparent border-2 border-white text-white font-bold hover:bg-white/10 transition-all">
+                          <Link href="/contact-us">Contact Us</Link>
                       </Button>
                   </div>
               </div>
