@@ -30,15 +30,15 @@ export function Header() {
     'fixed w-full z-50 px-4 sm:px-12 py-6 flex justify-between items-center transition-all duration-300',
     {
       'bg-background shadow-md': scrolled,
-      'bg-transparent': !scrolled && isHome,
+      'bg-white/60 backdrop-blur-sm': !scrolled && isHome,
       'bg-background': !isHome && !scrolled
     }
   );
 
   const navLinkColorClasses = cn(
-    'transition-colors',
+    'transition-colors font-bold',
     {
-      'text-primary-foreground': !scrolled && isHome,
+      'text-primary': !scrolled && isHome,
       'text-primary/80': scrolled || !isHome
     }
   );
@@ -51,7 +51,7 @@ export function Header() {
             alt="Fair Future Travels Logo"
             width={180}
             height={40}
-            className={cn("object-contain", { 'brightness-0 invert': !scrolled && isHome })}
+            className="object-contain"
             priority
         />
       </Link>
