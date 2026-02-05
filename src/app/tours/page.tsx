@@ -134,7 +134,7 @@ export default function WorldDrivingToursPage() {
           <div className="container mx-auto px-6 relative z-10 max-w-[1400px]">
             <div className="max-w-3xl">
               <span className="inline-block text-accent font-bold tracking-widest text-xs uppercase mb-4">Explore the World by Road</span>
-              <h1 className="font-headline text-6xl font-bold text-white mb-6 leading-tight">World Driving Tours</h1>
+              <h1 className="font-headline text-4xl sm:text-6xl font-bold text-white mb-6 leading-tight">World Driving Tours</h1>
               <p className="text-xl text-white/90 mb-8 font-light max-w-2xl">Embark on unforgettable journeys across continents. Curated self-drive and guided adventures through the world's most breathtaking landscapes.</p>
             </div>
           </div>
