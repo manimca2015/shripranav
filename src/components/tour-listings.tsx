@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -56,7 +57,7 @@ export function TourListings({ tours }: TourListingsProps) {
 
   return (
     <div className="w-full max-w-7xl">
-      <div className="flex items-center justify-center gap-2 overflow-x-auto hide-scroll mb-12">
+      <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-4 mb-12">
         {availableMonths.map((month) => (
           <button
             key={month}
