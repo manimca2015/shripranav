@@ -105,7 +105,7 @@ export default function Home() {
             
             <div className="relative z-10 max-w-3xl px-4 md:px-0">
                 <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">India's Premium Driving Holiday Experts</span>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
+                <h1 className="text-3xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
                 <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
                 <div className="flex flex-col sm:flex-row gap-4">
                     <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
@@ -357,7 +357,7 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-primary/80" />
           <div className="relative z-10 max-w-5xl mx-auto text-center">
-            <h2 className="text-4xl md:text-6xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
             <p className="text-xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed">Join our exclusive community of driving enthusiasts. Download our comprehensive brochures or speak with our expedition experts today.</p>
             <div className="flex flex-wrap justify-center gap-6 mb-16">
                 <Button size="lg" className="bg-accent text-accent-foreground px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl-accent btn-hover-lift">
