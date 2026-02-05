@@ -25,7 +25,7 @@ export default function Home() {
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
 
-  const domeImages = domeGalleryData.images;
+  const domeImages = domeGalleryData.images.map(image => ({ src: image.url, alt: image.description }));
 
   const featuredTours = tours.filter(t => ['south-africa', 'iceland', 'namibia'].includes(t.id));
 
@@ -81,7 +81,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main>
-        <section id="hero-section" className="relative h-screen w-full flex items-center px-12 overflow-hidden -mt-24 pt-24">
+        <section id="hero-section" className="relative h-screen w-full flex items-center px-6 md:px-12 overflow-hidden -mt-24 pt-24">
             <div className="absolute inset-0 z-0">
                 <video
                   poster="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/ed3f53fc2290b581276b67224642db13/thumbnails/thumbnail.jpg"
@@ -99,17 +99,17 @@ export default function Home() {
             
             <div className="relative z-10 max-w-3xl">
                 <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">India's Premium Driving Holiday Experts</span>
-                <h1 className="text-7xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
-                <p className="text-xl text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
-                <div className="flex gap-4">
-                    <Button asChild size="lg" className="bg-accent text-accent-foreground px-10 py-4 h-auto rounded-full font-bold text-lg hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
+                <h1 className="text-5xl md:text-7xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
+                <p className="text-lg md:text-xl text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <Button asChild size="lg" className="bg-accent text-accent-foreground px-10 py-4 h-auto rounded-full font-bold text-base md:text-lg hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
                       <Link href="#upcoming-convoys-2026">Upcoming Tours 2026</Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-10 py-4 h-auto rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all btn-hover-lift">Download Brochure</Button>
+                    <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-10 py-4 h-auto rounded-full font-bold text-base md:text-lg hover:bg-white hover:text-primary transition-all btn-hover-lift">Download Brochure</Button>
                 </div>
             </div>
 
-            <div className="absolute bottom-12 right-12 z-10 flex gap-4">
+            <div className="absolute bottom-12 right-12 z-10 hidden sm:flex gap-4">
                 <Button size="icon" variant="outline" className="w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all">
                     <ArrowLeft />
                 </Button>
