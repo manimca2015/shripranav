@@ -1,6 +1,8 @@
+
 'use server';
 
 import { z } from 'zod';
+import { appendToSheet } from '@/lib/sheets';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -13,12 +15,23 @@ const formSchema = z.object({
 });
 
 export async function submitCustomItineraryRequest(values: z.infer<typeof formSchema>) {
-  // Here you would typically send an email or save to a database.
-  // For this example, we'll just log the values and simulate a success response.
-  console.log('Custom Itinerary Request submitted:', values);
-
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  return { success: true, message: 'Request sent successfully!' };
+  try {
+    await appendToSheet({
+        Purpose: `Custom Itinerary: ${values.destination}`,
+        Name: values.name,
+        Email: values.email,
+        Phone: values.phone,
+        Destination: values.destination,
+        'Pax (People)': values.pax,
+        'Ideal Travel Dates': values.travelDates,
+        Message: values.message,
+    });
+    return { success: true, message: 'Request sent successfully!' };
+  } catch (error) {
+     console.error(error);
+    if (error instanceof Error) {
+        return { success: false, message: error.message };
+    }
+    return { success: false, message: 'An unknown error occurred.' };
+  }
 }

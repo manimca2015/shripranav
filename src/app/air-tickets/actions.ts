@@ -1,6 +1,8 @@
+
 'use server';
 
 import { z } from 'zod';
+import { appendToSheet } from '@/lib/sheets';
 
 const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
@@ -19,8 +21,29 @@ const airTicketFormSchema = z.object({
 });
 
 export async function submitAirTicketRequest(values: z.infer<typeof airTicketFormSchema>) {
-  console.log('Air ticket request received:', values);
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  return { success: true, message: 'Your request has been sent successfully!' };
+  try {
+    await appendToSheet({
+        Purpose: 'Air Ticket Request',
+        Name: values.name,
+        Email: values.email,
+        Phone: values.phone,
+        'Trip Type': values.tripType,
+        'From (Flight)': values.from,
+        'To (Flight)': values.to,
+        'Departure Date': values.departureDate,
+        'Return Date': values.returnDate,
+        Adults: values.adults,
+        Children: values.children,
+        Infants: values.infants,
+        'Travel Class': values.travelClass,
+        Message: values.message
+    });
+    return { success: true, message: 'Your request has been sent successfully!' };
+  } catch (error) {
+     console.error(error);
+    if (error instanceof Error) {
+        return { success: false, message: error.message };
+    }
+    return { success: false, message: 'An unknown error occurred.' };
+  }
 }

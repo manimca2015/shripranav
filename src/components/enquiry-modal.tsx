@@ -23,6 +23,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { submitEnquiry } from '@/app/actions';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -54,20 +55,26 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
     },
   });
 
-  // The submit action will be defined later
   async function onSubmit(values: EnquiryFormValues) {
-    console.log('Enquiry submitted:', values);
+    const result = await submitEnquiry(values);
     
-    const isGeneralEnquiry = tourName === 'General Enquiry';
-
-    toast({
-      title: 'Enquiry Sent!',
-      description: isGeneralEnquiry 
-        ? "We've received your message and will be in touch shortly."
-        : `Thanks for your interest in ${tourName}. We'll be in touch shortly.`,
-    });
-    onClose();
-    form.reset();
+    if (result.success) {
+      const isGeneralEnquiry = tourName === 'General Enquiry';
+      toast({
+        title: 'Enquiry Sent!',
+        description: isGeneralEnquiry 
+          ? "We've received your message and will be in touch shortly."
+          : `Thanks for your interest in ${tourName}. We'll be in touch shortly.`,
+      });
+      onClose();
+      form.reset();
+    } else {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: result.message || 'There was a problem with your request. Please try again.',
+      });
+    }
   }
 
   const isGeneralEnquiry = tourName === 'General Enquiry';
@@ -146,8 +153,8 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
               )}
             />
              <DialogFooter>
-                <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                Submit Enquiry
+                <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
                 </Button>
             </DialogFooter>
           </form>
