@@ -35,8 +35,8 @@ export function Header() {
     }
   );
 
-  const linkClasses = cn(
-    'hover:text-accent transition-colors',
+  const navLinkColorClasses = cn(
+    'transition-colors',
     {
       'text-primary-foreground': !scrolled && isHome,
       'text-primary/80': scrolled || !isHome
@@ -56,7 +56,7 @@ export function Header() {
         />
       </Link>
       <nav
-        className={cn("hidden md:flex items-center gap-6 font-bold transition-colors relative", linkClasses)}
+        className={cn("hidden md:flex items-center gap-6 font-bold relative", navLinkColorClasses)}
       >
         <Link href="/tours" className="hover:text-accent transition-colors">World Driving Tours</Link>
         <Link href="/holiday-packages" className="hover:text-accent transition-colors">Holiday Packages</Link>
@@ -69,7 +69,7 @@ export function Header() {
       <div className="relative flex items-center gap-2 sm:gap-6">
         <Button
           asChild
-          className="px-4 sm:px-8 py-3 rounded-full font-semibold transition-all shadow-lg bg-primary text-white hover:bg-primary/90 shadow-primary/20"
+          className="px-4 sm:px-8 py-3 rounded-full font-semibold transition-all shadow-lg bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
         >
           <Link href="/contact-us">Contact Us</Link>
         </Button>
