@@ -33,9 +33,9 @@ export default function AboutUsPage() {
             />
           )}
           <div className="absolute inset-0 bg-primary/80" />
-          <div className="relative z-10 text-center max-w-4xl mx-auto px-4 pt-12">
+          <div className="relative z-10 text-center max-w-4xl mx-auto px-4 pt-24">
             <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block mt-16">About Us</span>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-headline font-extrabold leading-tight">Driving Passion, Creating Memories</h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold leading-tight">Driving Passion, <br className="md:hidden" /> Creating Memories</h1>
             <p className="mt-4 text-lg md:text-xl text-white/90">
               Discover the story behind India's premier driving holiday specialists.
             </p>
@@ -85,7 +85,7 @@ export default function AboutUsPage() {
               <h2 className="text-4xl font-headline font-bold text-primary mb-2">Our Leadership</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">Meet the passionate team driving Fair Future Travels forward.</p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+            <div className="flex flex-wrap justify-center gap-16">
               {managementTeam.map(member => {
                 const image = PlaceHolderImages.find(p => p.id === member.imageId);
                 return (
