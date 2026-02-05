@@ -117,10 +117,10 @@ export default function Home() {
                     <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
                       <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
                     </Button>
-                    <Button 
+                    <Button
                       asChild
-                      variant="outline" 
-                      size="lg" 
+                      variant="outline"
+                      size="lg"
                       className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
                     >
                       <a href="#featured-mega-tours">Download Brochure</a>
@@ -380,8 +380,10 @@ export default function Home() {
                 >
                     <Download className="mr-3" /> Download Brochure
                 </Button>
-                <Button size="lg" className="bg-white text-primary px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl btn-hover-lift">
-                    <WhatsAppIcon className="mr-3 w-6 h-6"/> WhatsApp Us
+                <Button asChild size="lg" className="bg-white text-primary px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl btn-hover-lift">
+                    <Link href="https://wa.me/917907526773" target="_blank" rel="noopener noreferrer">
+                      <WhatsAppIcon className="mr-3 w-6 h-6"/> WhatsApp Us
+                    </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-[#e0af29] hover:text-primary hover:border-[#e0af29] transition-all btn-hover-lift">
                     Enquire Now
