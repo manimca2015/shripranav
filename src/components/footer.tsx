@@ -7,8 +7,8 @@ export function Footer() {
   return (
     <footer id="footer" className="bg-primary text-primary-foreground pt-20 pb-12 px-12">
         <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-20 items-start">
-                <div className="md:col-span-2 bg-card text-card-foreground p-8 rounded-2xl">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20 items-start">
+                <div className="bg-card text-card-foreground p-8 rounded-2xl">
                     <div className="flex items-center gap-3 mb-8">
                         <Link href="/" className="flex items-center gap-3">
                             <Image
