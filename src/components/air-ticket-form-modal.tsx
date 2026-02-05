@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
+import { useRouter } from 'next/navigation';
 
 import { cn } from "@/lib/utils"
 import { Button } from '@/components/ui/button';
@@ -70,6 +71,7 @@ type AirTicketFormModalProps = {
 
 export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps) {
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof airTicketFormSchema>>({
     resolver: zodResolver(airTicketFormSchema),
@@ -93,19 +95,20 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
   const tripType = form.watch('tripType');
 
   async function onSubmit(values: z.infer<typeof airTicketFormSchema>) {
-    try {
-      await submitAirTicketRequest(values);
+    const result = await submitAirTicketRequest(values);
+    if (result.success) {
       toast({
         title: 'Request Sent!',
         description: "We've received your flight request and will be in touch shortly with a quote.",
       });
       onClose();
       form.reset();
-    } catch (error) {
+      router.push('/thank-you');
+    } else {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: 'There was a problem with your request. Please try again.',
+        description: result.message || 'There was a problem with your request. Please try again.',
       });
     }
   }

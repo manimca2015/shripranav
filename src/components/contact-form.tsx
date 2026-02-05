@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { submitContactForm } from '@/app/contact-us/actions';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -35,6 +36,7 @@ const formSchema = z.object({
 
 export function ContactForm() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,18 +49,19 @@ export function ContactForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      await submitContactForm(values);
+    const result = await submitContactForm(values);
+    if (result.success) {
       toast({
         title: 'Message Sent!',
         description: "Thanks for reaching out. We'll be in touch shortly.",
       });
       form.reset();
-    } catch (error) {
+      router.push('/thank-you');
+    } else {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: 'There was a problem with your request. Please try again.',
+        description: result.message || 'There was a problem with your request. Please try again.',
       });
     }
   }
@@ -122,8 +125,8 @@ export function ContactForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-          Send Message
+        <Button type="submit" size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? 'Sending...' : 'Send Message'}
         </Button>
       </form>
     </Form>

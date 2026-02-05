@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,6 +25,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { submitCustomItineraryRequest } from '@/app/holiday-packages/actions';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -45,6 +47,7 @@ type CustomItineraryModalProps = {
 
 export function CustomItineraryModal({ isOpen, onClose, destination }: CustomItineraryModalProps) {
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<CustomItineraryFormValues>({
     resolver: zodResolver(formSchema),
@@ -60,19 +63,20 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
   });
 
   async function onSubmit(values: CustomItineraryFormValues) {
-    try {
-        await submitCustomItineraryRequest(values);
+    const result = await submitCustomItineraryRequest(values);
+    if (result.success) {
         toast({
             title: 'Request Sent!',
             description: `Thanks for your interest in a custom trip to ${destination}. We'll be in touch shortly!`,
         });
         onClose();
         form.reset();
-    } catch (error) {
+        router.push('/thank-you');
+    } else {
         toast({
             variant: 'destructive',
             title: 'Uh oh! Something went wrong.',
-            description: 'There was a problem with your request. Please try again.',
+            description: result.message || 'There was a problem with your request. Please try again.',
         });
     }
   }
@@ -176,8 +180,8 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
               )}
             />
              <DialogFooter>
-                <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                Submit Request
+                <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? 'Submitting...' : 'Submit Request'}
                 </Button>
             </DialogFooter>
           </form>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,6 +25,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { submitEnquiry } from '@/app/actions';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -43,6 +45,7 @@ type EnquiryModalProps = {
 
 export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<EnquiryFormValues>({
     resolver: zodResolver(formSchema),
@@ -68,6 +71,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
       });
       onClose();
       form.reset();
+      router.push('/thank-you');
     } else {
       toast({
         variant: 'destructive',
