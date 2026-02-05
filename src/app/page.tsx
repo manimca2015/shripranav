@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -371,15 +372,15 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 pt-12 border-t border-white/20">
-                <div>
+                <div className="text-center md:text-left">
                     <div className="text-5xl font-bold text-accent mb-3">500+</div>
                     <p className="text-slate-300">Happy Travelers</p>
                 </div>
-                <div>
+                <div className="text-center">
                     <div className="text-5xl font-bold text-accent mb-3">25+</div>
                     <p className="text-slate-300">Countries Covered</p>
                 </div>
-                <div>
+                <div className="text-center md:text-right">
                     <div className="text-5xl font-bold text-accent mb-3">100%</div>
                     <p className="text-slate-300">Safety Record</p>
                 </div>
