@@ -1,3 +1,4 @@
+
 import type { Testimonial } from './types';
 
 export const testimonials: Testimonial[] = [
@@ -10,12 +11,12 @@ export const testimonials: Testimonial[] = [
     avatarId: 'review-avatar-1'
   },
   {
-    id: 'testimonial-2',
+    id: 'testimonial-dr-shubha',
     rating: 5,
-    text: "Jordan exceeded all expectations! The convoy managers were professional, hotels were luxurious, and driving through Wadi Rum was a dream come true.",
-    author: 'Priya Sharma',
-    authorTitle: 'Jordan Tour - Feb 2025',
-    avatarId: 'review-avatar-2'
+    text: "An exhilarating self-drive Jordan trip that was one for the memory books! The arrangements were so good we hardly faced any glitch. A big thanks to the professional and friendly team for this enjoyable trip.",
+    author: 'Dr. Shubha A M',
+    authorTitle: 'Jordan Tour - 2024',
+    avatarId: 'review-avatar-shubha'
   },
   {
     id: 'testimonial-3',
