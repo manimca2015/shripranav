@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Clock, CalendarDays, Star, Car, Layers, Flag } from 'lucide-react';
+import { Clock, CalendarDays, Star, Car, Layers, Flag, Download } from 'lucide-react';
 import type { Tour } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from './ui/button';
@@ -97,12 +97,16 @@ export function TourCard({ tour }: TourCardProps) {
                   )}
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                  <Button asChild variant="outline" className="col-span-1 py-3 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-sm font-bold text-white hover:bg-white/20 transition-all shadow-lg">
-                      <Link href="#">View Details</Link>
+              <div className="flex items-center gap-3">
+                  <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 transition-all shadow-lg">
+                      <Download className="h-5 w-5" />
+                      <span className="sr-only">Download Brochure</span>
                   </Button>
-                  <Button className="col-span-1 py-3 rounded-xl bg-accent text-sm font-bold text-white hover:bg-accent-light shadow-lg hover:shadow-xl transition-all">
-                      Enquire Now
+                  <Button asChild variant="outline" className="h-12 flex-1 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-sm font-bold text-white hover:bg-white/20 transition-all shadow-lg">
+                      <Link href="#">View Trip</Link>
+                  </Button>
+                  <Button className="h-12 flex-1 rounded-xl bg-accent text-sm font-bold text-white hover:bg-accent-light shadow-lg hover:shadow-xl transition-all">
+                      Enquire
                   </Button>
               </div>
           </div>
