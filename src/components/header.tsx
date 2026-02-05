@@ -31,14 +31,7 @@ export function Header() {
       )}
     >
       <Link href="/" className="relative flex items-center">
-        <Image
-          src="/fair-future-logo.webp"
-          alt="Fair Future Travels Logo"
-          width={200}
-          height={40}
-          className="h-10 w-auto"
-          priority
-        />
+        <span className="text-2xl font-headline font-bold text-primary">Fair Future Travels</span>
       </Link>
       <nav
         className="hidden md:flex items-center gap-6 font-bold transition-colors relative text-primary/80"
