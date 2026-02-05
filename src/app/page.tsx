@@ -20,11 +20,13 @@ import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import GalleryModal from '@/components/gallery-modal';
 import { BrochureDownloadModal } from '@/components/brochure-download-modal';
 import domeGalleryData from '@/lib/dome-gallery.json';
+import { EnquiryModal } from '@/components/enquiry-modal';
 
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [isBrochureModalOpen, setBrochureModalOpen] = useState(false);
+  const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
 
@@ -38,7 +40,7 @@ export default function Home() {
   const featuredTourIds = ['jordan', 'kyrgyzstan', 'thailand'];
   const featuredTours = useMemo(() => 
       featuredTourIds.map(id => tours.find(t => t.id === id)).filter((t): t is Tour => !!t), 
-    [featuredTourIds]
+    []
   );
 
   const bentoGalleryImages = [
@@ -385,7 +387,12 @@ export default function Home() {
                       <WhatsAppIcon className="mr-3 w-6 h-6"/> WhatsApp Us
                     </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-[#e0af29] hover:text-primary hover:border-[#e0af29] transition-all btn-hover-lift">
+                <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-[#e0af29] hover:text-primary hover:border-[#e0af29] transition-all btn-hover-lift"
+                    onClick={() => setEnquiryModalOpen(true)}
+                >
                     Enquire Now
                 </Button>
             </div>
@@ -420,6 +427,11 @@ export default function Home() {
       <BrochureDownloadModal 
         isOpen={isBrochureModalOpen}
         onClose={() => setBrochureModalOpen(false)}
+      />
+      <EnquiryModal 
+        isOpen={isEnquiryModalOpen}
+        onClose={() => setEnquiryModalOpen(false)}
+        tourName="General Enquiry"
       />
     </div>
   );
