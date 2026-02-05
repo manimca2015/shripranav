@@ -44,7 +44,7 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
                     <span className="text-primary font-bold">{tour.level}</span>
                 </div>
             </div>
-            <Button asChild className="w-full py-4 h-auto rounded-xl bg-primary text-white font-bold hover:bg-accent transition-all">
+            <Button asChild className="w-full py-4 h-auto rounded-xl bg-primary text-white font-bold hover:bg-accent hover:text-accent-foreground transition-all">
               <Link href="#">View Full Itinerary</Link>
             </Button>
         </CardContent>
