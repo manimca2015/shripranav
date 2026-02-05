@@ -6,6 +6,26 @@ import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet"
+import { Menu } from "lucide-react"
+
+const navLinks = [
+    { href: "/tours", label: "World Driving Tours" },
+    { href: "/holiday-packages", label: "Holiday Packages" },
+    { href: "/visa-services", label: "Visa Services" },
+    { href: "/air-tickets", label: "Air Tickets" },
+    { href: "/about-us", label: "About Us" },
+    { href: "/blog", label: "Blog" },
+    { href: "/gallery", label: "Gallery" },
+];
+
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -58,21 +78,59 @@ export function Header() {
       <nav
         className={cn("hidden md:flex items-center gap-6 font-bold relative", navLinkColorClasses)}
       >
-        <Link href="/tours" className="hover:text-accent transition-colors">World Driving Tours</Link>
-        <Link href="/holiday-packages" className="hover:text-accent transition-colors">Holiday Packages</Link>
-        <Link href="/visa-services" className="hover:text-accent transition-colors">Visa Services</Link>
-        <Link href="/air-tickets" className="hover:text-accent transition-colors">Air Tickets</Link>
-        <Link href="/about-us" className="hover:text-accent transition-colors">About Us</Link>
-        <Link href="/blog" className="hover:text-accent transition-colors">Blog</Link>
-        <Link href="/gallery" className="hover:text-accent transition-colors">Gallery</Link>
+        {navLinks.map(link => (
+             <Link key={link.href} href={link.href} className="hover:text-accent transition-colors">{link.label}</Link>
+        ))}
       </nav>
-      <div className="relative flex items-center gap-2 sm:gap-6">
+      <div className="flex items-center gap-2 sm:gap-6">
         <Button
           asChild
-          className="px-4 sm:px-8 py-3 rounded-full font-semibold transition-all shadow-lg bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
+          className="hidden md:inline-flex px-4 sm:px-8 py-3 rounded-full font-semibold transition-all shadow-lg bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
         >
           <Link href="/contact-us">Contact Us</Link>
         </Button>
+        <div className="md:hidden">
+            <Sheet>
+                <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                        <Menu className="h-6 w-6" />
+                        <span className="sr-only">Open menu</span>
+                    </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px]">
+                    <SheetHeader>
+                        <SheetTitle className="text-left">
+                             <Link href="/" className="relative flex items-center">
+                                <Image
+                                    src="/fair-future-logo.webp"
+                                    alt="Fair Future Travels Logo"
+                                    width={150}
+                                    height={33}
+                                    className="object-contain"
+                                />
+                              </Link>
+                        </SheetTitle>
+                    </SheetHeader>
+                    <div className="mt-8 flex flex-col gap-6">
+                        {navLinks.map((link) => (
+                          <SheetClose key={link.href} asChild>
+                            <Link
+                                href={link.href}
+                                className="text-lg font-medium hover:text-accent transition-colors"
+                            >
+                                {link.label}
+                            </Link>
+                           </SheetClose>
+                        ))}
+                    </div>
+                     <SheetClose asChild>
+                        <Button asChild className="w-full mt-8" >
+                            <Link href="/contact-us">Contact Us</Link>
+                        </Button>
+                    </SheetClose>
+                </SheetContent>
+            </Sheet>
+        </div>
       </div>
     </header>
   );
