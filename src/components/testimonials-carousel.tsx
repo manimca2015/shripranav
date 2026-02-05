@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import Link from 'next/link';
 import {
   Carousel,
   CarouselContent,
@@ -146,9 +145,14 @@ export function TestimonialsCarousel() {
         </div>
       </Carousel>
       <div className="mt-12 text-center">
-        <Link href="#" className="inline-flex items-center gap-2 text-accent font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-accent pb-0.5">
+        <a
+          href="https://www.google.com/maps/place/Fairfuture+travels+and+vacations/@9.9590065,73.850438,8z/data=!4m8!3m7!1s0x3b087300254f299d:0x43297b2b50416ad1!8m2!3d9.9590065!4d76.2894028!9m1!1b1!16s%2Fg%2F11vxpvbhjl!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDIwMS4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-accent font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-accent pb-0.5"
+        >
             View All Reviews <ArrowRight className="text-sm" />
-        </Link>
+        </a>
       </div>
     </div>
   );
