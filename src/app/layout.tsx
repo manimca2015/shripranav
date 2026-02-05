@@ -1,8 +1,6 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
-import Link from 'next/link';
-import { WhatsAppIcon } from '@/components/icons/whatsapp-icon';
 
 export const metadata: Metadata = {
   title: 'Fair Future Travels',
@@ -24,10 +22,6 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
         <Toaster />
-        <Link href="https://wa.me/917907526773" target="_blank" rel="noopener noreferrer" className="fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center transition-all duration-300 ease-in-out hover:scale-110">
-          <WhatsAppIcon className="h-[80%] w-[80%]" />
-          <span className="sr-only">WhatsApp</span>
-        </Link>
       </body>
     </html>
   );
