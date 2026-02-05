@@ -9,6 +9,7 @@ export const tours: Tour[] = [
     date: 'January 2026',
     duration: '7N / 8D',
     price: 4500,
+    distance: 1000,
     description: 'Experience the ancient wonders and desert landscapes of Jordan in a premium 4x4 convoy.',
     itinerary: [
         { day: 1, title: 'Arrival in Amman', description: 'Arrive at Queen Alia International Airport, transfer to your hotel. Welcome dinner and briefing.' },
@@ -37,6 +38,7 @@ export const tours: Tour[] = [
     date: 'May 2026',
     duration: '8N / 9D',
     price: 4800,
+    distance: 1900,
     description: 'Explore the stunning mountain passes and pristine lakes of Central Asia\'s hidden gem.',
     itinerary: [],
     accommodation: 'Hotels and traditional yurts.',
@@ -56,6 +58,7 @@ export const tours: Tour[] = [
     date: 'March 2026',
     duration: '8N / 9D',
     price: 4300,
+    distance: 1600,
     description: 'Experience the perfect blend of culture, beaches, and mountain roads in Southeast Asia.',
     itinerary: [],
     accommodation: 'Luxury resorts and boutique hotels.',
