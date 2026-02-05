@@ -52,8 +52,8 @@ export default function ContactUsPage() {
             />
           )}
           <div className="absolute inset-0 bg-primary/70" />
-          <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-            <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Get In Touch</span>
+          <div className="relative z-10 text-center max-w-4xl mx-auto px-4 pt-12">
+            <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block mt-16">Get In Touch</span>
             <h1 className="text-5xl md:text-7xl font-headline font-extrabold leading-tight">Contact Us</h1>
             <p className="mt-4 text-lg md:text-xl text-white/90">
               We're here to help you plan your next adventure. Reach out to us with your questions.
