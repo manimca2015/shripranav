@@ -11,6 +11,7 @@ const quickLinks = [
     { href: '/about-us', label: 'About Us' },
     { href: '/blog', label: 'Blog' },
     { href: '/gallery', label: 'Gallery' },
+    { href: '/contact-us', label: 'Contact Us' },
 ];
 
 const drivingTours = [
@@ -59,20 +60,27 @@ export function Footer() {
 
                 <div>
                     <h4 className="font-bold text-primary-foreground mb-6 text-lg">Contact Us</h4>
-                    <ul className="space-y-4 text-slate-400 text-sm">
+                    <ul className="space-y-6 text-slate-400 text-sm">
                         <li className="flex items-start gap-4">
                             <MapPin className="w-5 h-5 text-accent mt-1 shrink-0" />
-                            <span>Fair Future Edifice, East of Ravipuram Junction off M.G.Road, Near Ravipuram Sree Krishna Swami Temple, Cochin 682016, Kerala, India</span>
-                        </li>
-                         <li className="flex items-start gap-4">
-                            <Mail className="w-5 h-5 text-accent mt-1 shrink-0" />
-                            <a href="mailto:info@fairfuturetravels.com" className="hover:text-accent transition-colors">info@fairfuturetravels.com</a>
+                            <div>
+                                <h5 className="font-bold text-primary-foreground mb-2">Kochi</h5>
+                                <p>Fair Future Edifice, East of Ravipuram Junction off M.G.Road, Near Ravipuram Sree Krishna Swami Temple, Cochin 682016, Kerala, India</p>
+                            </div>
                         </li>
                         <li className="flex items-start gap-4">
                             <Phone className="w-5 h-5 text-accent mt-1 shrink-0" />
                             <div>
+                                <h5 className="font-bold text-primary-foreground mb-2">Phone</h5>
                                 <a href="tel:+914842356699" className="hover:text-accent transition-colors block">+91 484 2356699</a>
                                 <a href="tel:+919188922602" className="hover:text-accent transition-colors block">+91 9188922602</a>
+                            </div>
+                        </li>
+                        <li className="flex items-start gap-4">
+                            <Mail className="w-5 h-5 text-accent mt-1 shrink-0" />
+                            <div>
+                                <h5 className="font-bold text-primary-foreground mb-2">Email</h5>
+                                <a href="mailto:info@fairfuturetravels.com" className="hover:text-accent transition-colors">info@fairfuturetravels.com</a>
                             </div>
                         </li>
                     </ul>
