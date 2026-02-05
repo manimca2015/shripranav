@@ -27,7 +27,7 @@ export default function BlogPage() {
           )}
           <div className="absolute inset-0 bg-primary/80" />
           <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-            <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Our Journal</span>
+            <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block mt-16">Our Journal</span>
             <h1 className="text-5xl md:text-7xl font-headline font-extrabold leading-tight">The Fair Future Blog</h1>
             <p className="mt-4 text-lg md:text-xl text-white/90">
               Stories, tips, and inspiration from our world of driving adventures.
