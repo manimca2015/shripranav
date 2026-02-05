@@ -87,7 +87,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main>
-        <section id="hero-section" className="relative h-dvh w-full flex items-center px-6 md:px-12 overflow-hidden -mt-24 pt-24">
+        <section id="hero-section" className="relative h-[150dvh] md:h-dvh w-full flex items-center px-6 md:px-12 overflow-hidden -mt-24 pt-24">
             <div className="absolute inset-0 z-0">
                 <video
                   poster="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/ed3f53fc2290b581276b67224642db13/thumbnails/thumbnail.jpg"
@@ -357,7 +357,7 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-primary/80" />
           <div className="relative z-10 max-w-5xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
             <p className="text-xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed">Join our exclusive community of driving enthusiasts. Download our comprehensive brochures or speak with our expedition experts today.</p>
             <div className="flex flex-wrap justify-center gap-6 mb-16">
                 <Button size="lg" className="bg-accent text-accent-foreground px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl-accent btn-hover-lift">
@@ -371,19 +371,13 @@ export default function Home() {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 pt-12 border-t border-white/20">
-                <div className="text-center md:text-left">
-                    <div className="text-5xl font-bold text-accent mb-3">500+</div>
-                    <p className="text-slate-300">Happy Travelers</p>
-                </div>
-                <div className="text-center">
-                    <div className="text-5xl font-bold text-accent mb-3">25+</div>
-                    <p className="text-slate-300">Countries Covered</p>
-                </div>
-                <div className="text-center md:text-right">
-                    <div className="text-5xl font-bold text-accent mb-3">100%</div>
-                    <p className="text-slate-300">Safety Record</p>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 border-t border-white/20 text-center md:text-left">
+                <div className="text-5xl font-bold text-accent mb-3">500+</div>
+                <p className="text-slate-300">Happy Travelers</p>
+                <div className="text-5xl font-bold text-accent mb-3">25+</div>
+                <p className="text-slate-300">Countries Covered</p>
+                <div className="text-5xl font-bold text-accent mb-3">100%</div>
+                <p className="text-slate-300">Safety Record</p>
             </div>
           </div>
         </section>
