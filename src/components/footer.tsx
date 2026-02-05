@@ -7,8 +7,8 @@ export function Footer() {
   return (
     <footer id="footer" className="bg-primary text-primary-foreground pt-20 pb-12 px-12">
         <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-20">
-                <div className="md:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-20 items-start">
+                <div className="md:col-span-2 bg-card text-card-foreground p-8 rounded-2xl">
                     <div className="flex items-center gap-3 mb-8">
                         <Link href="/" className="flex items-center gap-3">
                             <Image
@@ -20,12 +20,12 @@ export function Footer() {
                             />
                         </Link>
                     </div>
-                    <p className="text-slate-400 mb-8 leading-relaxed">India's premier driving holiday specialist. Creating extraordinary self-drive expeditions across the world's most breathtaking landscapes since 2015.</p>
+                    <p className="text-muted-foreground mb-8 leading-relaxed">India's premier driving holiday specialist. Creating extraordinary self-drive expeditions across the world's most breathtaking landscapes since 2015.</p>
                     <div className="flex gap-4">
-                        <a href="#" aria-label="Instagram" className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-accent-foreground transition-all"><Instagram /></a>
-                        <a href="#" aria-label="Facebook" className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-accent-foreground transition-all"><Facebook /></a>
-                        <a href="#" aria-label="YouTube" className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-accent-foreground transition-all"><Youtube /></a>
-                        <a href="#" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-accent-foreground transition-all"><Linkedin /></a>
+                        <a href="#" aria-label="Instagram" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Instagram /></a>
+                        <a href="#" aria-label="Facebook" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Facebook /></a>
+                        <a href="#" aria-label="YouTube" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Youtube /></a>
+                        <a href="#" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Linkedin /></a>
                     </div>
                 </div>
                 <div>
