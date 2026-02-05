@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import type { Tour } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -45,7 +44,7 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
                 </div>
             </div>
             <Button asChild className="w-full py-4 h-auto rounded-xl bg-primary text-white font-bold hover:bg-accent hover:text-accent-foreground transition-all">
-              <Link href="#">View Full Itinerary</Link>
+              <a href={tour.brochureUrl} target="_blank" rel="noopener noreferrer">View Full Itinerary</a>
             </Button>
         </CardContent>
     </Card>
