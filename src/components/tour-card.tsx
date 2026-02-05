@@ -105,7 +105,7 @@ export function TourCard({ tour }: TourCardProps) {
                   <Button asChild variant="outline" className="h-12 flex-1 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-sm font-bold text-white hover:bg-[#e0af29] hover:text-black transition-all shadow-lg">
                       <Link href="#">View Trip</Link>
                   </Button>
-                  <Button className="h-12 flex-1 rounded-xl bg-accent text-sm font-bold text-white hover:bg-accent-light shadow-lg hover:shadow-xl transition-all">
+                  <Button className="h-12 flex-1 rounded-xl bg-accent text-sm font-bold text-accent-foreground hover:bg-primary hover:text-[#e0af29] shadow-lg hover:shadow-xl transition-all">
                       Enquire
                   </Button>
               </div>
