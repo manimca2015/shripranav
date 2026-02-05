@@ -98,11 +98,11 @@ export function TourCard({ tour }: TourCardProps) {
               </div>
 
               <div className="flex items-center gap-3">
-                  <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 transition-all shadow-lg">
+                  <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-[#e0af29] hover:text-black transition-all shadow-lg">
                       <Download className="h-5 w-5" />
                       <span className="sr-only">Download Brochure</span>
                   </Button>
-                  <Button asChild variant="outline" className="h-12 flex-1 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-sm font-bold text-white hover:bg-white/20 transition-all shadow-lg">
+                  <Button asChild variant="outline" className="h-12 flex-1 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-sm font-bold text-white hover:bg-[#e0af29] hover:text-black transition-all shadow-lg">
                       <Link href="#">View Trip</Link>
                   </Button>
                   <Button className="h-12 flex-1 rounded-xl bg-accent text-sm font-bold text-white hover:bg-accent-light shadow-lg hover:shadow-xl transition-all">
