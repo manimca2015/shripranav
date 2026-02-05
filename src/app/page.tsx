@@ -359,7 +359,7 @@ export default function Home() {
                 <Button size="lg" className="bg-white text-primary px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl btn-hover-lift">
                     <WhatsAppIcon className="mr-3 w-6 h-6"/> WhatsApp Us
                 </Button>
-                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-white/20 transition-all btn-hover-lift">
+                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-[#e0af29] hover:text-primary hover:border-[#e0af29] transition-all btn-hover-lift">
                     Enquire Now
                 </Button>
             </div>
