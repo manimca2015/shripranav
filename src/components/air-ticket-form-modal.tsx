@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -329,13 +330,13 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
               />
             )}
             
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <FormField
                 control={form.control}
                 name="adults"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Adults (12+)</FormLabel>
+                    <FormLabel>Adults</FormLabel>
                     <FormControl>
                         <Input type="number" min="1" {...field} />
                     </FormControl>
@@ -348,7 +349,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 name="children"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Children (2-11)</FormLabel>
+                    <FormLabel>Children</FormLabel>
                     <FormControl>
                         <Input type="number" min="0" {...field} />
                     </FormControl>
@@ -361,7 +362,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 name="infants"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Infants (Under 2)</FormLabel>
+                    <FormLabel>Infants</FormLabel>
                     <FormControl>
                         <Input type="number" min="0" {...field} />
                     </FormControl>
@@ -369,31 +370,30 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     </FormItem>
                 )}
                 />
+                 <FormField
+                  control={form.control}
+                  name="travelClass"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Class</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="economy">Economy</SelectItem>
+                          <SelectItem value="premium-economy">Premium</SelectItem>
+                          <SelectItem value="business">Business</SelectItem>
+                          <SelectItem value="first">First</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
             </div>
-            
-            <FormField
-              control={form.control}
-              name="travelClass"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Travel Class</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a travel class" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="economy">Economy</SelectItem>
-                      <SelectItem value="premium-economy">Premium Economy</SelectItem>
-                      <SelectItem value="business">Business</SelectItem>
-                      <SelectItem value="first">First</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             {tripType !== 'multi-city' && (
                  <FormField
@@ -426,3 +426,5 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     </Dialog>
   );
 }
+
+    
