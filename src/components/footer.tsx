@@ -4,26 +4,26 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer id="footer" className="bg-slate-900 text-white pt-20 pb-12 px-12">
+    <footer id="footer" className="bg-primary text-primary-foreground pt-20 pb-12 px-12">
         <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-20">
                 <div className="md:col-span-2">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                            <Car className="text-white text-xl" />
+                            <Car className="text-accent-foreground text-xl" />
                         </div>
                         <span className="text-2xl font-headline font-bold">Fair Future Travels</span>
                     </div>
                     <p className="text-slate-400 mb-8 leading-relaxed">India's premier driving holiday specialist. Creating extraordinary self-drive expeditions across the world's most breathtaking landscapes since 2015.</p>
                     <div className="flex gap-4">
-                        <a href="#" aria-label="Instagram" className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-white transition-all"><Instagram /></a>
-                        <a href="#" aria-label="Facebook" className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-white transition-all"><Facebook /></a>
-                        <a href="#" aria-label="YouTube" className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-white transition-all"><Youtube /></a>
-                        <a href="#" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-white transition-all"><Linkedin /></a>
+                        <a href="#" aria-label="Instagram" className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-accent-foreground transition-all"><Instagram /></a>
+                        <a href="#" aria-label="Facebook" className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-accent-foreground transition-all"><Facebook /></a>
+                        <a href="#" aria-label="YouTube" className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-accent-foreground transition-all"><Youtube /></a>
+                        <a href="#" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-slate-400 hover:bg-accent hover:text-accent-foreground transition-all"><Linkedin /></a>
                     </div>
                 </div>
                 <div>
-                    <h4 className="font-bold text-white mb-6 text-lg">Driving Tours</h4>
+                    <h4 className="font-bold text-primary-foreground mb-6 text-lg">Driving Tours</h4>
                     <ul className="space-y-4 text-slate-400">
                         <li><Link href="/tours" className="hover:text-accent transition-all">South Africa</Link></li>
                         <li><Link href="/tours" className="hover:text-accent transition-all">Iceland</Link></li>
@@ -34,7 +34,7 @@ export function Footer() {
                     </ul>
                 </div>
                 <div>
-                    <h4 className="font-bold text-white mb-6 text-lg">Services</h4>
+                    <h4 className="font-bold text-primary-foreground mb-6 text-lg">Services</h4>
                     <ul className="space-y-4 text-slate-400">
                         <li><Link href="/holiday-packages" className="hover:text-accent transition-all">Holiday Packages</Link></li>
                         <li><Link href="/visa-services" className="hover:text-accent transition-all">Visa Services</Link></li>
@@ -44,7 +44,7 @@ export function Footer() {
                     </ul>
                 </div>
                 <div>
-                    <h4 className="font-bold text-white mb-6 text-lg">Company</h4>
+                    <h4 className="font-bold text-primary-foreground mb-6 text-lg">Company</h4>
                     <ul className="space-y-4 text-slate-400">
                         <li><Link href="/about-us" className="hover:text-accent transition-all">About Us</Link></li>
                         <li><Link href="/about-us#leadership" className="hover:text-accent transition-all">Our Leadership</Link></li>
@@ -54,7 +54,7 @@ export function Footer() {
                     </ul>
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-800 text-sm text-slate-500">
+            <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-primary-foreground/20 text-sm text-slate-500">
                 <p className="mb-4 md:mb-0">© {new Date().getFullYear()} Fair Future Travels & Vacations. All rights reserved.</p>
                 <div className="flex gap-8">
                     <Link href="#" className="hover:text-accent transition-all">Privacy Policy</Link>

@@ -64,16 +64,6 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
-        navy: {
-            900: '#0B1021',
-            800: '#141C33',
-            700: '#1E2945',
-        },
-        gold: {
-            400: '#FBBF24',
-            500: '#F59E0B',
-            600: '#D97706',
-        }
       },
       borderRadius: {
         lg: 'var(--radius)',

@@ -5,9 +5,12 @@ import Image from 'next/image';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,26 +25,38 @@ export function Header() {
       document.removeEventListener('scroll', handleScroll);
     };
   }, [scrolled]);
+  
+  const headerClasses = cn(
+    'fixed w-full z-50 px-4 sm:px-12 py-6 flex justify-between items-center transition-all duration-300',
+    {
+      'bg-background shadow-md': scrolled,
+      'bg-transparent': !scrolled && isHome,
+      'bg-background': !isHome && !scrolled
+    }
+  );
+
+  const linkClasses = cn(
+    'hover:text-accent transition-colors',
+    {
+      'text-primary-foreground': !scrolled && isHome,
+      'text-primary/80': scrolled || !isHome
+    }
+  );
 
   return (
-    <header
-      className={cn(
-        'fixed w-full z-50 px-4 sm:px-12 py-6 flex justify-between items-center transition-all duration-300',
-        scrolled ? 'bg-white shadow-md' : 'bg-white/60'
-      )}
-    >
+    <header className={headerClasses}>
       <Link href="/" className="relative flex items-center">
         <Image
             src="/fair-future-logo.webp"
             alt="Fair Future Travels Logo"
             width={180}
             height={40}
-            className="object-contain"
+            className={cn("object-contain", { 'brightness-0 invert': !scrolled && isHome })}
             priority
         />
       </Link>
       <nav
-        className="hidden md:flex items-center gap-6 font-bold transition-colors relative text-primary/80"
+        className={cn("hidden md:flex items-center gap-6 font-bold transition-colors relative", linkClasses)}
       >
         <Link href="/tours" className="hover:text-accent transition-colors">World Driving Tours</Link>
         <Link href="/holiday-packages" className="hover:text-accent transition-colors">Holiday Packages</Link>

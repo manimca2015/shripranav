@@ -193,75 +193,75 @@ export default function Home() {
             </div>
         </section>
         
-        <section id="features" className="relative py-24 bg-navy-900 overflow-hidden">
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-navy-800 rounded-full opacity-50 blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-navy-800 rounded-full opacity-30 blur-3xl"></div>
+        <section id="features" className="relative py-24 bg-primary overflow-hidden">
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-accent/10 rounded-full opacity-50 blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-accent/5 rounded-full opacity-30 blur-3xl"></div>
 
             <div className="container mx-auto px-6 relative z-10 max-w-7xl">
                 <div className="text-center mb-20">
-                    <span className="text-gold-500 font-semibold tracking-[0.2em] text-sm uppercase mb-3 block">Premium Service</span>
-                    <h2 className="text-4xl md:text-5xl font-headline text-white font-bold mb-6">Why Choose Fair Future?</h2>
+                    <span className="text-accent font-semibold tracking-[0.2em] text-sm uppercase mb-3 block">Premium Service</span>
+                    <h2 className="text-4xl md:text-5xl font-headline text-primary-foreground font-bold mb-6">Why Choose Fair Future?</h2>
                     <p className="text-slate-400 max-w-2xl mx-auto text-lg font-light leading-relaxed">
                         We deliver unmatched expertise, safety, and luxury in every driving expedition we organize, ensuring your journey is as memorable as the destination.
                     </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div className="group bg-navy-800/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:bg-navy-800 hover:border-gold-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
-                        <div className="w-14 h-14 bg-navy-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300">
-                            <ShieldCheck className="text-2xl text-gold-500 group-hover:text-white transition-colors" />
+                    <div className="group bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-8 hover:bg-primary-foreground/10 hover:border-accent/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
+                        <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent transition-colors duration-300">
+                            <ShieldCheck className="text-2xl text-accent group-hover:text-accent-foreground transition-colors" />
                         </div>
-                        <h3 className="text-xl font-headline text-white font-semibold mb-3">Safety Convoy System</h3>
+                        <h3 className="text-xl font-headline text-primary-foreground font-semibold mb-3">Safety Convoy System</h3>
                         <p className="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300 transition-colors">
                             Professional lead and sweep vehicles with expert convoy managers ensure your safety throughout the journey with real-time monitoring.
                         </p>
                     </div>
 
-                    <div className="group bg-navy-800/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:bg-navy-800 hover:border-gold-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
-                        <div className="w-14 h-14 bg-navy-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300">
-                            <MapPin className="text-2xl text-gold-500 group-hover:text-white transition-colors" />
+                    <div className="group bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-8 hover:bg-primary-foreground/10 hover:border-accent/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
+                        <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent transition-colors duration-300">
+                            <MapPin className="text-2xl text-accent group-hover:text-accent-foreground transition-colors" />
                         </div>
-                        <h3 className="text-xl font-headline text-white font-semibold mb-3">Pre-Planned Routes</h3>
+                        <h3 className="text-xl font-headline text-primary-foreground font-semibold mb-3">Pre-Planned Routes</h3>
                         <p className="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300 transition-colors">
                             Every route is meticulously scouted and curated to showcase the best landscapes and driving experiences available in the region.
                         </p>
                     </div>
 
-                    <div className="group bg-navy-800/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:bg-navy-800 hover:border-gold-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
-                        <div className="w-14 h-14 bg-navy-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300">
-                            <UserCog className="text-2xl text-gold-500 group-hover:text-white transition-colors" />
+                    <div className="group bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-8 hover:bg-primary-foreground/10 hover:border-accent/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
+                        <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent transition-colors duration-300">
+                            <UserCog className="text-2xl text-accent group-hover:text-accent-foreground transition-colors" />
                         </div>
-                        <h3 className="text-xl font-headline text-white font-semibold mb-3">Expert Management</h3>
+                        <h3 className="text-xl font-headline text-primary-foreground font-semibold mb-3">Expert Management</h3>
                         <p className="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300 transition-colors">
                             Experienced convoy managers handle all logistics, briefings, and on-ground coordination seamlessly so you can focus on driving.
                         </p>
                     </div>
 
-                    <div className="group bg-navy-800/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:bg-navy-800 hover:border-gold-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
-                        <div className="w-14 h-14 bg-navy-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300">
-                            <Hotel className="text-2xl text-gold-500 group-hover:text-white transition-colors" />
+                    <div className="group bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-8 hover:bg-primary-foreground/10 hover:border-accent/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
+                        <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent transition-colors duration-300">
+                            <Hotel className="text-2xl text-accent group-hover:text-accent-foreground transition-colors" />
                         </div>
-                        <h3 className="text-xl font-headline text-white font-semibold mb-3">Luxury Hotels</h3>
+                        <h3 className="text-xl font-headline text-primary-foreground font-semibold mb-3">Luxury Hotels</h3>
                         <p className="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300 transition-colors">
                             Stay in hand-picked 4 and 5-star properties that offer comfort and exceptional service at every destination stop.
                         </p>
                     </div>
 
-                    <div className="group bg-navy-800/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:bg-navy-800 hover:border-gold-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
-                        <div className="w-14 h-14 bg-navy-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300">
-                            <Truck className="text-2xl text-gold-500 group-hover:text-white transition-colors" />
+                    <div className="group bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-8 hover:bg-primary-foreground/10 hover:border-accent/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
+                        <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent transition-colors duration-300">
+                            <Truck className="text-2xl text-accent group-hover:text-accent-foreground transition-colors" />
                         </div>
-                        <h3 className="text-xl font-headline text-white font-semibold mb-3">Verified 4x4 Vehicles</h3>
+                        <h3 className="text-xl font-headline text-primary-foreground font-semibold mb-3">Verified 4x4 Vehicles</h3>
                         <p className="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300 transition-colors">
                             Drive top-quality, fully serviced 4x4 vehicles equipped for any terrain and weather condition you might encounter.
                         </p>
                     </div>
 
-                    <div className="group bg-navy-800/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:bg-navy-800 hover:border-gold-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
-                        <div className="w-14 h-14 bg-navy-700 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300">
-                            <Headset className="text-2xl text-gold-500 group-hover:text-white transition-colors" />
+                    <div className="group bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 rounded-2xl p-8 hover:bg-primary-foreground/10 hover:border-accent/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/20">
+                        <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent transition-colors duration-300">
+                            <Headset className="text-2xl text-accent group-hover:text-accent-foreground transition-colors" />
                         </div>
-                        <h3 className="text-xl font-headline text-white font-semibold mb-3">24x7 Ground Team</h3>
+                        <h3 className="text-xl font-headline text-primary-foreground font-semibold mb-3">24x7 Ground Team</h3>
                         <p className="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300 transition-colors">
                             Round-the-clock support with mechanical assistance, medical backup, and emergency response systems ready to deploy.
                         </p>
@@ -273,11 +273,11 @@ export default function Home() {
         <section id="testimonials" className="py-24 bg-white">
             <div className="container mx-auto px-6 max-w-7xl">
                 <div className="text-center mb-16">
-                    <span className="text-gold-600 font-semibold tracking-[0.2em] text-sm uppercase mb-3 block">Trusted By Travelers</span>
+                    <span className="text-accent font-semibold tracking-[0.2em] text-sm uppercase mb-3 block">Trusted By Travelers</span>
                     <h2 className="text-4xl md:text-5xl font-headline text-primary font-bold mb-4">What Our Clients Say</h2>
                     <div className="flex items-center justify-center gap-2 text-yellow-400 text-lg">
                         <Star fill="currentColor" /><Star fill="currentColor" /><Star fill="currentColor" /><Star fill="currentColor" /><Star fill="currentColor" />
-                        <span className="text-slate-600 text-sm font-medium ml-2"><span className="font-bold text-navy-900">4.9/5</span> from 250+ Google Reviews</span>
+                        <span className="text-slate-600 text-sm font-medium ml-2"><span className="font-bold text-primary">4.9/5</span> from 250+ Google Reviews</span>
                     </div>
                 </div>
 
