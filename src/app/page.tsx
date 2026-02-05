@@ -370,7 +370,7 @@ export default function Home() {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-12 pt-12 border-t border-white/20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 pt-12 border-t border-white/20">
                 <div>
                     <div className="text-5xl font-bold text-accent mb-3">500+</div>
                     <p className="text-slate-300">Happy Travelers</p>
