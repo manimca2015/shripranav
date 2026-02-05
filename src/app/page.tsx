@@ -110,7 +110,9 @@ export default function Home() {
                     <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
                       <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
                     </Button>
-                    <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift">Download Brochure</Button>
+                    <Button asChild variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift">
+                      <a href="#featured-mega-tours">Download Brochure</a>
+                    </Button>
                 </div>
             </div>
 
