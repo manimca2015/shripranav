@@ -299,7 +299,7 @@ export default function WorldDrivingToursPage() {
                       <Button asChild size="lg" className="px-10 py-4 rounded-full bg-accent text-white font-bold hover:bg-accent-light shadow-xl hover:shadow-2xl transition-all uppercase text-sm tracking-wider">
                           <Link href="/holiday-packages">Holiday Packages</Link>
                       </Button>
-                      <Button asChild size="lg" variant="outline" className="px-10 py-4 rounded-full bg-transparent border-2 border-white text-white font-bold hover:bg-white/10 transition-all">
+                      <Button asChild size="lg" variant="outline" className="px-10 py-4 rounded-full bg-transparent border-2 border-white text-white font-bold hover:bg-white/10 transition-all hover:text-[#e0af29]">
                           <Link href="/contact-us">Contact Us</Link>
                       </Button>
                   </div>
