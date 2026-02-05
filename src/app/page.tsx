@@ -87,7 +87,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main>
-        <section id="hero-section" className="relative h-screen w-full flex items-center px-6 md:px-12 overflow-hidden -mt-24 pt-24">
+        <section id="hero-section" className="relative h-dvh w-full flex items-center px-6 md:px-12 overflow-hidden -mt-24 pt-24">
             <div className="absolute inset-0 z-0">
                 <video
                   poster="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/ed3f53fc2290b581276b67224642db13/thumbnails/thumbnail.jpg"
