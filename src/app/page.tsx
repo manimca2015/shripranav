@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -104,7 +103,7 @@ export default function Home() {
             </div>
             
             <div className="relative z-10 max-w-3xl px-4 md:px-0">
-                <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">India's Premium Driving Holiday Experts</span>
+                <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base mt-16">India's Premium Driving Holiday Experts</span>
                 <h1 className="text-3xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
                 <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
                 <div className="flex flex-col sm:flex-row gap-4">
