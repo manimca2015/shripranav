@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { TourListings } from '@/components/tour-listings';
 import { tours } from '@/lib/data';
+import type { Tour } from '@/lib/types';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ArrowLeft, ShieldCheck, Users, CalendarDays, Route, MapPin, UserCog, Hotel, Truck, Headset, Star, Download, Car } from 'lucide-react';
@@ -17,11 +18,13 @@ import DomeGallery from '@/components/dome-gallery';
 import { WhatsAppIcon } from '@/components/icons/whatsapp-icon';
 import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import GalleryModal from '@/components/gallery-modal';
+import { BrochureDownloadModal } from '@/components/brochure-download-modal';
 import domeGalleryData from '@/lib/dome-gallery.json';
 
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [isBrochureModalOpen, setBrochureModalOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
 
@@ -32,7 +35,11 @@ export default function Home() {
     })
   );
 
-  const featuredTours = tours.filter(t => ['jordan', 'kyrgyzstan', 'thailand'].includes(t.id));
+  const featuredTourIds = ['jordan', 'spiti-valley', 'thailand', 'kyrgyzstan'];
+  const featuredTours = useMemo(() => 
+      featuredTourIds.map(id => tours.find(t => t.id === id)).filter((t): t is Tour => !!t), 
+    []
+  );
 
   const bentoGalleryImages = [
     {
@@ -110,8 +117,13 @@ export default function Home() {
                     <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
                       <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
                     </Button>
-                    <Button asChild variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift">
-                      <a href="#featured-mega-tours">Download Brochure</a>
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
+                      onClick={() => setBrochureModalOpen(true)}
+                    >
+                      Download Brochure
                     </Button>
                 </div>
             </div>
@@ -194,7 +206,7 @@ export default function Home() {
                     <p className="text-slate-600 text-lg max-w-3xl mx-auto">Our most popular and comprehensive driving adventures, designed for the ultimate road trip experience.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {featuredTours.map(tour => <FeaturedTourCard key={tour.id} tour={tour} />)}
                 </div>
             </div>
@@ -361,7 +373,11 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
             <p className="text-lg md:text-xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed">Join our exclusive community of driving enthusiasts. Download our comprehensive brochures or speak with our expedition experts today.</p>
             <div className="flex flex-wrap justify-center gap-6 mb-16">
-                <Button size="lg" className="bg-accent text-accent-foreground px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl-accent btn-hover-lift">
+                <Button 
+                  size="lg" 
+                  className="bg-accent text-accent-foreground px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl-accent btn-hover-lift"
+                  onClick={() => setBrochureModalOpen(true)}
+                >
                     <Download className="mr-3" /> Download Brochure
                 </Button>
                 <Button size="lg" className="bg-white text-primary px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl btn-hover-lift">
@@ -399,6 +415,10 @@ export default function Home() {
           startIndex={startIndex}
         />
       )}
+      <BrochureDownloadModal 
+        isOpen={isBrochureModalOpen}
+        onClose={() => setBrochureModalOpen(false)}
+      />
     </div>
   );
 }
