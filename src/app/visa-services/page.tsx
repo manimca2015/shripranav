@@ -37,7 +37,7 @@ export default function VisaServicesPage() {
             />
           )}
           <div className="absolute inset-0 bg-primary/50" />
-          <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+          <div className="relative z-10 text-center max-w-4xl mx-auto px-4 pt-12">
             <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Hassle-Free</span>
             <h1 className="text-5xl md:text-7xl font-headline font-extrabold leading-tight">Visa Services</h1>
             <p className="mt-4 text-lg md:text-xl text-white/90">
