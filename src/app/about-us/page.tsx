@@ -8,9 +8,9 @@ import { Award, Globe, Users, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const managementTeam = [
-  { name: 'Dr. S. Raj', title: 'Chairman', imageId: 'team-dr-raj' },
-  { name: 'Vignesh', title: 'Founder & CEO', imageId: 'team-vignesh' },
-  { name: 'Olin', title: 'Head of Operations', imageId: 'team-olin' },
+  { name: 'Dr. S. Raj', title: 'Chairman', imageUrl: '/S-Raj-Sir.webp' },
+  { name: 'Vignesh', title: 'Founder & CEO', imageUrl: '/Vighnesh.webp' },
+  { name: 'Olin', title: 'Head of Operations', imageUrl: '/Olin.webp' },
 ];
 
 export default function AboutUsPage() {
@@ -86,26 +86,20 @@ export default function AboutUsPage() {
               <p className="text-muted-foreground max-w-2xl mx-auto">Meet the passionate team driving Fair Future Travels forward.</p>
             </div>
             <div className="flex flex-wrap justify-center gap-16">
-              {managementTeam.map(member => {
-                const image = PlaceHolderImages.find(p => p.id === member.imageId);
-                return (
+              {managementTeam.map(member => (
                   <div key={member.name} className="text-center">
                     <div className="relative h-40 w-40 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-white shadow-lg">
-                      {image && (
-                        <Image
-                          src={image.imageUrl}
-                          alt={`Portrait of ${member.name}`}
-                          fill
-                          className="object-cover"
-                          data-ai-hint={image.imageHint}
-                        />
-                      )}
+                      <Image
+                        src={member.imageUrl}
+                        alt={`Portrait of ${member.name}`}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                     <h4 className="font-bold text-lg text-primary">{member.name}</h4>
                     <p className="text-sm text-accent font-semibold">{member.title}</p>
                   </div>
-                );
-              })}
+                ))}
             </div>
           </div>
         </section>
