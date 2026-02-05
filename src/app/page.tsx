@@ -25,7 +25,7 @@ export default function Home() {
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
 
-  const domeImages = domeGalleryData.images.map(image => ({ src: image.url, alt: image.description }));
+  const domeImages = domeGalleryData.images;
 
   const featuredTours = tours.filter(t => ['south-africa', 'iceland', 'namibia'].includes(t.id));
 
@@ -98,14 +98,14 @@ export default function Home() {
             </div>
             
             <div className="relative z-10 max-w-3xl">
-                <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">India's Premium Driving Holiday Experts</span>
-                <h1 className="text-5xl md:text-7xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
-                <p className="text-lg md:text-xl text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
+                <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">India's Premium Driving Holiday Experts</span>
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
+                <p className="text-base md:text-xl text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                    <Button asChild size="lg" className="bg-accent text-accent-foreground px-10 py-4 h-auto rounded-full font-bold text-base md:text-lg hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
+                    <Button asChild size="lg" className="bg-accent text-accent-foreground px-8 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-lg hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
                       <Link href="#upcoming-convoys-2026">Upcoming Tours 2026</Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-10 py-4 h-auto rounded-full font-bold text-base md:text-lg hover:bg-white hover:text-primary transition-all btn-hover-lift">Download Brochure</Button>
+                    <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-8 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-lg hover:bg-white hover:text-primary transition-all btn-hover-lift">Download Brochure</Button>
                 </div>
             </div>
 
@@ -395,5 +395,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
