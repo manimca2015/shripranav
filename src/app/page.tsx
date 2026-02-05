@@ -108,7 +108,7 @@ export default function Home() {
                 <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
                 <div className="flex flex-col sm:flex-row gap-4">
                     <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
-                      <Link href="#upcoming-convoys-2026">Upcoming Tours 2026</Link>
+                      <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
                     </Button>
                     <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift">Download Brochure</Button>
                 </div>
