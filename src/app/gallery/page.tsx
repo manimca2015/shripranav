@@ -13,11 +13,28 @@ import { ImageIcon, Video } from 'lucide-react';
 export default function GalleryPage() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'gallery-hero');
 
+  const getAlbum = (name: string, prefix: string) => {
+    const images = PlaceHolderImages.filter(p => p.id.startsWith(prefix));
+    if (images.length === 0) {
+        return null;
+    }
+    return {
+        destination: name,
+        coverImage: images[0],
+        images: images
+    };
+  };
+
   const photoAlbums: {
-    destination: string;
-    coverImage: ImagePlaceholder;
-    images: ImagePlaceholder[];
-  }[] = [];
+      destination: string;
+      coverImage: ImagePlaceholder;
+      images: ImagePlaceholder[];
+  }[] = [
+      getAlbum('Jordan', 'gallery-jordan-'),
+      getAlbum('Thailand', 'gallery-thailand-'),
+      getAlbum('Malaysia', 'gallery-malaysia-')
+  ].filter((album): album is { destination: string; coverImage: ImagePlaceholder; images: ImagePlaceholder[] } => album !== null);
+
 
   const videoAlbums: {
     destination: string;
@@ -25,40 +42,6 @@ export default function GalleryPage() {
     videoUrl: string;
     title: string;
   }[] = [];
-
-  // Group photos by destination
-  const allImages = PlaceHolderImages.filter(p => p.id.startsWith('tour-') || p.id.startsWith('gallery-bento-') || p.id.startsWith('mega-tour-') || p.id.startsWith('expedition-'));
-  const destinationsWithTours = [...new Set(tours.map(t => t.destination))];
-
-  destinationsWithTours.forEach(destination => {
-    const toursInDestination = tours.filter(t => t.destination === destination);
-    const imagesForDestination = allImages.filter(img => 
-      toursInDestination.some(tour => img.id === tour.image) || img.imageHint?.toLowerCase().includes(destination.split(' ')[0].toLowerCase())
-    );
-    
-    const primaryTourImage = PlaceHolderImages.find(p => p.id === toursInDestination[0]?.image);
-    
-    let coverImage: ImagePlaceholder | undefined = primaryTourImage;
-
-    if (imagesForDestination.length > 1 && primaryTourImage) {
-      // Try to find a different cover image to vary from the video tab
-      const differentImage = imagesForDestination.find(img => img.id !== primaryTourImage.id);
-      if (differentImage) {
-        coverImage = differentImage;
-      }
-    } else if (imagesForDestination.length > 0) {
-      coverImage = imagesForDestination[0];
-    }
-
-
-    if (coverImage && imagesForDestination.length > 0) {
-      photoAlbums.push({
-        destination,
-        coverImage,
-        images: imagesForDestination,
-      });
-    }
-  });
 
   // Group videos by destination
   tours.forEach(tour => {
