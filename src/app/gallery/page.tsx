@@ -4,58 +4,29 @@ import { Footer } from '@/components/footer';
 import Image from 'next/image';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { TestimonialsCarousel } from '@/components/testimonials-carousel';
-import { tours } from '@/lib/data';
 import PhotoGallery from './photo-gallery';
 import VideoGallery from './video-gallery';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ImageIcon, Video } from 'lucide-react';
+import galleryData from '@/lib/gallery-data.json';
 
 export default function GalleryPage() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'gallery-hero');
 
-  const getAlbum = (name: string, prefix: string) => {
-    const images = PlaceHolderImages.filter(p => p.id.startsWith(prefix));
-    if (images.length === 0) {
-        return null;
-    }
+  const photoAlbums = galleryData.photoAlbums.map(album => {
+    const images = album.imageIds.map(id => PlaceHolderImages.find(p => p.id === id)).filter((p): p is ImagePlaceholder => !!p);
     return {
-        destination: name,
-        coverImage: images[0],
-        images: images
+      destination: album.destination,
+      coverImage: images[0],
+      images: images,
     };
-  };
+  }).filter(album => album.images.length > 0);
 
-  const photoAlbums: {
-      destination: string;
-      coverImage: ImagePlaceholder;
-      images: ImagePlaceholder[];
-  }[] = [
-      getAlbum('Jordan', 'gallery-jordan-'),
-      getAlbum('Thailand', 'gallery-thailand-'),
-      getAlbum('Malaysia', 'gallery-malaysia-')
-  ].filter((album): album is { destination: string; coverImage: ImagePlaceholder; images: ImagePlaceholder[] } => album !== null);
+  const videoAlbums = galleryData.videoAlbums.map(album => ({
+    ...album,
+    coverImage: PlaceHolderImages.find(p => p.id === album.coverImageId),
+  }));
 
-
-  const videoAlbums: {
-    destination: string;
-    coverImage: ImagePlaceholder | undefined;
-    videoUrl: string;
-    title: string;
-  }[] = [];
-
-  // Group videos by destination
-  tours.forEach(tour => {
-    if (tour.videoUrl) {
-      const thumbId = tour.image;
-      const coverImage = PlaceHolderImages.find(p => p.id === thumbId);
-      videoAlbums.push({
-        destination: tour.destination,
-        coverImage: coverImage,
-        videoUrl: tour.videoUrl,
-        title: tour.title,
-      });
-    }
-  });
 
   return (
     <div className="bg-background">
