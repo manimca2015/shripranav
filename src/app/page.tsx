@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { TourListings } from '@/components/tour-listings';
@@ -22,6 +22,45 @@ import GalleryModal from '@/components/gallery-modal';
 import { BrochureDownloadModal } from '@/components/brochure-download-modal';
 import domeGalleryData from '@/lib/dome-gallery.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+
+const heroSlides = [
+  {
+    type: 'video',
+    videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/manifest/video.m3u8',
+    videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/downloads/default.mp4',
+    poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/thumbnails/thumbnail.jpg?time=1.9s',
+    duration: 30000,
+  },
+  {
+    type: 'image',
+    src: 'https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/dc6c6cfe-4527-4f0c-4c77-857a188e0000/public',
+    duration: 5000,
+  },
+  {
+    type: 'image',
+    src: 'https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/9c463617-0111-45f7-50e3-659886030b00/public',
+    duration: 5000,
+  },
+  {
+    type: 'image',
+    src: 'https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/c06e4a54-7ddb-4aec-8920-2d99f8f45400/public',
+    duration: 5000,
+  }
+];
+
+const heroContent = {
+  subheading: "India's Premium Driving Holiday Experts",
+  heading: <>Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</>,
+  paragraph: "Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses."
+};
 
 
 export default function Home() {
@@ -33,6 +72,14 @@ export default function Home() {
 
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  const [api, setApi] = useState<CarouselApi>()
+  const autoplayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
 
   useEffect(() => {
     if (videoRef.current) {
@@ -40,9 +87,66 @@ export default function Home() {
     }
   }, [isMuted]);
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
+  const handleAutoplay = useCallback(() => {
+    if (!api) return;
+
+    if (autoplayTimeoutRef.current) {
+        clearTimeout(autoplayTimeoutRef.current);
+    }
+
+    const currentSlide = heroSlides[api.selectedScrollSnap()];
+    if (!currentSlide) return;
+    const duration = currentSlide.duration;
+
+    autoplayTimeoutRef.current = setTimeout(() => {
+        api.scrollNext();
+    }, duration);
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    const onSelect = () => {
+        const currentIndex = api.selectedScrollSnap();
+        const previousIndex = api.previousScrollSnap();
+
+        const currentSlide = heroSlides[currentIndex];
+        const previousSlide = heroSlides[previousIndex];
+
+        if (previousSlide?.type === 'video' && videoRef.current) {
+            videoRef.current.pause();
+        }
+
+        if (currentSlide?.type === 'video' && videoRef.current) {
+            videoRef.current.currentTime = 0;
+            videoRef.current.play().catch(error => console.error("Video play failed:", error));
+        }
+        
+        handleAutoplay();
+    };
+
+    api.on("select", onSelect);
+    api.on("pointerDown", () => {
+      if (autoplayTimeoutRef.current) clearTimeout(autoplayTimeoutRef.current);
+    });
+     api.on("reInit", handleAutoplay);
+
+    // Initial play
+    if (heroSlides[0].type === 'video' && videoRef.current) {
+      videoRef.current.play().catch(error => console.error("Initial video play failed:", error));
+    }
+    handleAutoplay();
+
+
+    return () => {
+        if (autoplayTimeoutRef.current) {
+            clearTimeout(autoplayTimeoutRef.current);
+        }
+        api.off("select", onSelect);
+    };
+  }, [api, handleAutoplay]);
 
   const domeImages: { src: string; alt: string }[] = domeGalleryData.images.map(
     (p) => ({
@@ -109,52 +213,74 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main>
-        <section id="hero-section" className="relative w-full overflow-hidden h-screen flex flex-col justify-end md:justify-center">
-            {/* Video for desktop */}
-            <div className="absolute inset-0 z-0 hidden md:block">
-                <video
-                  ref={videoRef}
-                  poster="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/thumbnails/thumbnail.jpg?time=1.9s"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                >
-                  <source src="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/manifest/video.m3u8" type="application/x-mpegURL" />
-                  <source src="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/downloads/default.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
-            </div>
-             {/* Fallback for mobile */}
-            <div className="absolute inset-0 z-0 md:hidden bg-primary">
-              <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23ffffff\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
-            </div>
-            
-            <div className="relative z-10 pt-32 pb-24 md:py-0">
-              <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
-                <div className="max-w-3xl">
-                    <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">India's Premium Driving Holiday Experts</span>
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
-                    <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
-                          <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
-                        </Button>
-                        <Button
-                          size="lg"
-                          variant="outline"
-                          className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
-                          onClick={() => setBrochureModalOpen(true)}
-                        >
-                          Download Brochure
-                        </Button>
+        <section id="hero-section" className="relative w-full overflow-hidden h-screen">
+          <Carousel setApi={setApi} className="w-full h-full" opts={{ loop: true }}>
+            <CarouselContent>
+              {heroSlides.map((slide, index) => (
+                <CarouselItem key={index} className="w-full h-full relative">
+                  <div className="absolute inset-0 z-0">
+                    {slide.type === 'video' ? (
+                       <div className="w-full h-full">
+                         <div className="absolute inset-0 z-0 hidden md:block">
+                            <video
+                              ref={videoRef}
+                              poster={slide.poster}
+                              autoPlay
+                              loop
+                              playsInline
+                              muted={isMuted}
+                              className="w-full h-full object-cover"
+                            >
+                              <source src={slide.videoHlsSrc} type="application/x-mpegURL" />
+                              <source src={slide.videoMp4Src} type="video/mp4" />
+                            </video>
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
+                         </div>
+                         <div className="absolute inset-0 z-0 md:hidden bg-primary">
+                           <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23ffffff\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
+                         </div>
+                       </div>
+                    ) : (
+                        <div className="w-full h-full">
+                            <Image 
+                                src={slide.src} 
+                                alt="Hero background" 
+                                fill 
+                                className="object-cover"
+                                priority={index === 0}
+                             />
+                             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
+                        </div>
+                    )}
+                  </div>
+                  
+                  <div className="relative z-10 h-full flex flex-col justify-end md:justify-center">
+                    <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+                         <div className="max-w-3xl pt-32 pb-24 md:py-0">
+                            <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">{heroContent.subheading}</span>
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">{heroContent.heading}</h1>
+                            <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">{heroContent.paragraph}</p>
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
+                                  <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
+                                </Button>
+                                <Button
+                                  size="lg"
+                                  variant="outline"
+                                  className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
+                                  onClick={() => setBrochureModalOpen(true)}
+                                >
+                                  Download Brochure
+                                </Button>
+                            </div>
+                         </div>
                     </div>
-                </div>
-              </div>
-            </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
             
-            <div className="absolute bottom-12 left-12 z-10 hidden sm:flex">
+            <div className="absolute bottom-12 left-12 z-20 hidden sm:flex">
                 <Button
                     size="icon"
                     variant="ghost"
@@ -166,14 +292,11 @@ export default function Home() {
                 </Button>
             </div>
 
-            <div className="absolute bottom-12 right-12 z-10 hidden sm:flex gap-4">
-                <Button size="icon" variant="outline" className="w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all">
-                    <ArrowLeft />
-                </Button>
-                <Button size="icon" variant="outline" className="w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all">
-                    <ArrowRight />
-                </Button>
+            <div className="absolute bottom-12 right-12 z-20 hidden sm:flex gap-4">
+                <CarouselPrevious className="static w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all" />
+                <CarouselNext className="static w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all" />
             </div>
+          </Carousel>
         </section>
 
         <section id="about-fair-future" className="py-20 px-12 bg-white">
@@ -472,7 +595,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    

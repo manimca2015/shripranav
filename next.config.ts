@@ -1,3 +1,4 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -44,6 +45,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'avatar.iran.liara.run',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'imagedelivery.net',
         port: '',
         pathname: '/**',
       }
