@@ -42,10 +42,10 @@ export function Footer() {
                     </div>
                     <p className="text-muted-foreground mb-8 leading-relaxed">India's premier driving holiday specialist. Creating extraordinary self-drive expeditions across the world's most breathtaking landscapes since 2015.</p>
                     <div className="flex gap-4">
-                        <a href="#" aria-label="Instagram" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Instagram /></a>
-                        <a href="#" aria-label="Facebook" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Facebook /></a>
-                        <a href="#" aria-label="YouTube" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Youtube /></a>
-                        <a href="#" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Linkedin /></a>
+                        <a href="https://www.instagram.com/fairfuturevacations" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Instagram /></a>
+                        <a href="https://www.facebook.com/profile.php?id=61561067706421" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Facebook /></a>
+                        <a href="https://www.youtube.com/@fairfuturevacations" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Youtube /></a>
+                        <a href="https://www.linkedin.com/company/fair-future-travels-and-vacation-pvt-ltd/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all"><Linkedin /></a>
                     </div>
                 </div>
                 
