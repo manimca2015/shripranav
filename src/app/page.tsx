@@ -9,7 +9,7 @@ import { tours } from '@/lib/data';
 import type { Tour } from '@/lib/types';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowLeft, ShieldCheck, Users, CalendarDays, Route, MapPin, UserCog, Hotel, Truck, Headset, Star, Download, Car, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, ArrowLeft, ShieldCheck, Users, CalendarDays, Route, MapPin, UserCog, Hotel, Truck, Headset, Star, Download, Car, Volume2, VolumeX, Play, Pause } from 'lucide-react';
 import Link from 'next/link';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { FeaturedTourCard } from '@/components/featured-tour-card';
@@ -21,6 +21,7 @@ import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import GalleryModal from '@/components/gallery-modal';
 import { BrochureDownloadModal } from '@/components/brochure-download-modal';
 import domeGalleryData from '@/lib/dome-gallery.json';
+import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 import {
   Carousel,
@@ -71,21 +72,81 @@ export default function Home() {
   const [startIndex, setStartIndex] = useState(0);
 
   const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   
   const [api, setApi] = useState<CarouselApi>()
   const autoplayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const { bentoGalleryImages, bottomGalleryImage } = useMemo(() => {
+    const jordanAlbum = galleryData.photoAlbums.find(a => a.destination === 'Jordan');
+    const thailandAlbum = galleryData.photoAlbums.find(a => a.destination === 'Thailand');
+    const malaysiaAlbum = galleryData.photoAlbums.find(a => a.destination === 'Malaysia');
+
+    const bentoConfigs = [
+        { id: jordanAlbum?.coverImageId, className: 'md:col-span-2 md:row-span-2', label: "The Deserts of Jordan" },
+        { id: thailandAlbum?.coverImageId, className: 'md:col-span-1 md:row-span-1', label: "Adventures in Thailand" },
+        { id: malaysiaAlbum?.coverImageId, className: 'md:col-span-1 md:row-span-1', label: "Exploring Malaysian Highlands" },
+        { id: jordanAlbum?.imageIds.find(id => id !== jordanAlbum?.coverImageId), className: 'md:col-span-1 md:row-span-1', label: "Ancient Jordanian History" },
+        { id: thailandAlbum?.imageIds.find(id => id !== thailandAlbum?.coverImageId), className: 'md:col-span-1 md:row-span-1', label: "Cultural Stops in Thailand" },
+    ].filter(config => config.id);
+
+    const bentoImages = bentoConfigs.map(item => {
+        const image = PlaceHolderImages.find(p => p.id === item.id);
+        return { ...item, ...image };
+    });
+
+    const bentoIds = bentoImages.map(i => i.id);
+    const bottomImageId = malaysiaAlbum?.imageIds.find(id => id !== malaysiaAlbum?.coverImageId && !bentoIds.includes(id));
+    
+    let bottomImage: (ImagePlaceholder & { label?: string }) | undefined;
+
+    if (bottomImageId) {
+        const foundImage = PlaceHolderImages.find(p => p.id === bottomImageId);
+        if (foundImage) {
+            bottomImage = {
+                ...foundImage,
+                label: 'Scenic Malaysian Roads'
+            };
+        }
+    }
+    
+    return { bentoGalleryImages: bentoImages, bottomGalleryImage: bottomImage };
+  }, []);
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+    }
+  };
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
+    }
   };
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = isMuted;
-    }
-  }, [isMuted]);
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+
+    return () => {
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+    };
+  }, []);
+
 
   const handleAutoplay = useCallback(() => {
     if (!api) return;
@@ -109,25 +170,6 @@ export default function Home() {
     }
 
     const onSelect = () => {
-        const currentIndex = api.selectedScrollSnap();
-        const previousIndex = api.previousScrollSnap();
-
-        const currentSlide = heroSlides[currentIndex];
-        const previousSlide = heroSlides[previousIndex];
-
-        if (previousSlide?.type === 'video' && videoRef.current) {
-            videoRef.current.pause();
-        }
-
-        if (currentSlide?.type === 'video' && videoRef.current) {
-            videoRef.current.currentTime = 0;
-            videoRef.current.play().catch(error => {
-                if (error.name !== 'AbortError') {
-                    console.error("Video play failed:", error);
-                }
-            });
-        }
-        
         handleAutoplay();
     };
 
@@ -141,7 +183,6 @@ export default function Home() {
 
     // Initial setup
     onSelect();
-
 
     return () => {
         if (autoplayTimeoutRef.current) {
@@ -166,39 +207,6 @@ export default function Home() {
     []
   );
 
-  const bentoGalleryImages = [
-    {
-      id: 'expedition-jordan',
-      className: 'md:col-span-2 md:row-span-2',
-      label: "The Rose City of Petra, Jordan"
-    },
-    {
-      id: 'tour-thailand',
-      className: 'md:col-span-1 md:row-span-1',
-      label: "Roads of Thailand"
-    },
-    {
-      id: 'tour-kyrgyzstan',
-      className: 'md:col-span-1 md:row-span-1',
-      label: "Lakes of Kyrgyzstan"
-    },
-    {
-      id: 'tour-spiti',
-      className: 'md:col-span-1 md:row-span-1',
-      label: "Spiti Valley, India"
-    },
-    {
-      id: 'tour-jordan',
-      className: 'md:col-span-1 md:row-span-1',
-      label: "The Treasury, Petra"
-    }
-  ].map(item => {
-    const image = PlaceHolderImages.find(p => p.id === item.id);
-    return { ...item, ...image };
-  });
-
-  const bottomGalleryImage = PlaceHolderImages.find(p => p.id === 'tour-iceland-2');
-
   const allGalleryImages: ImagePlaceholder[] = [...bentoGalleryImages, bottomGalleryImage].filter(
     (img): img is ImagePlaceholder => !!(img && img.imageUrl)
   );
@@ -219,89 +227,94 @@ export default function Home() {
       <Header />
       <main>
         <section id="hero-section" className="relative w-full h-screen">
-          <Carousel setApi={setApi} className="w-full h-full" opts={{ loop: true }}>
-            <CarouselContent className="h-full ml-0">
-              {heroSlides.map((slide, index) => (
-                <CarouselItem key={index} className="relative pl-0 h-full">
-                  <div className="absolute inset-0 z-0">
-                    {slide.type === 'video' ? (
-                       <div className="w-full h-full">
-                         <div className="absolute inset-0 z-0 hidden md:block">
-                            <video
-                              ref={videoRef}
-                              poster={slide.poster}
-                              autoPlay
-                              loop
-                              playsInline
-                              muted={isMuted}
-                              className="w-full h-full object-cover"
-                            >
-                              <source src={slide.videoHlsSrc} type="application/x-mpegURL" />
-                              <source src={slide.videoMp4Src} type="video/mp4" />
-                            </video>
-                            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
-                         </div>
-                         <div className="absolute inset-0 z-0 md:hidden bg-primary">
-                           <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23ffffff\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
-                         </div>
-                       </div>
-                    ) : (
-                        <div className="w-full h-full">
-                            <Image 
-                                src={slide.src} 
-                                alt="Hero background" 
-                                fill 
-                                className="object-cover"
-                                priority={index === 0}
-                             />
-                             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
-                        </div>
-                    )}
-                  </div>
-                  
-                  <div className="relative z-10 h-full flex flex-col justify-end md:justify-center">
-                    <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
-                         <div className="max-w-3xl pt-32 pb-16 md:py-0">
-                            <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">{heroContent.subheading}</span>
-                            <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">{heroContent.heading}</h1>
-                            <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">{heroContent.paragraph}</p>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
-                                  <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
-                                </Button>
-                                <Button
-                                  size="lg"
-                                  variant="outline"
-                                  className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
-                                  onClick={() => setBrochureModalOpen(true)}
-                                >
-                                  Download Brochure
-                                </Button>
-                            </div>
-                         </div>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            
-            <div className="absolute bottom-12 left-12 z-20 hidden sm:flex">
-                <Button
-                    size="icon"
-                    variant="ghost"
-                    className="text-white hover:bg-transparent hover:text-white/80"
-                    onClick={toggleMute}
-                    aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+            <div className="absolute inset-0 z-0">
+                <video
+                    ref={videoRef}
+                    poster={heroSlides[0].poster}
+                    autoPlay
+                    loop
+                    playsInline
+                    muted={isMuted}
+                    className="w-full h-full object-cover"
                 >
-                    {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
-                </Button>
+                    <source src={heroSlides[0].videoHlsSrc} type="application/x-mpegURL" />
+                    <source src={heroSlides[0].videoMp4Src} type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
             </div>
 
-            <div className="absolute bottom-12 right-12 z-20 hidden sm:flex gap-4">
-                <CarouselPrevious className="static w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all" />
-                <CarouselNext className="static w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all" />
-            </div>
-          </Carousel>
+            <Carousel setApi={setApi} className="w-full h-full" opts={{ loop: true }}>
+                <CarouselContent className="h-full ml-0">
+                {heroSlides.map((slide, index) => (
+                    <CarouselItem key={index} className="relative pl-0 h-full">
+                        <div className="absolute inset-0 z-0">
+                            {slide.type === 'video' ? (
+                                <div className="w-full h-full bg-transparent"></div>
+                            ) : (
+                                <div className="w-full h-full">
+                                    <Image 
+                                        src={slide.src} 
+                                        alt="Hero background" 
+                                        fill 
+                                        className="object-cover"
+                                        priority={index === 1}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
+                                </div>
+                            )}
+                        </div>
+                    
+                        <div className="relative z-10 h-full flex flex-col justify-end md:justify-center">
+                            <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+                                <div className="max-w-3xl pt-32 pb-16 md:py-0">
+                                    <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">{heroContent.subheading}</span>
+                                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">{heroContent.heading}</h1>
+                                    <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">{heroContent.paragraph}</p>
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                        <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
+                                        <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
+                                        </Button>
+                                        <Button
+                                        size="lg"
+                                        variant="outline"
+                                        className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
+                                        onClick={() => setBrochureModalOpen(true)}
+                                        >
+                                        Download Brochure
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </CarouselItem>
+                ))}
+                </CarouselContent>
+                <div className="absolute bottom-12 left-12 z-20 hidden sm:flex gap-2">
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        className="text-white hover:bg-transparent hover:text-white/80"
+                        onClick={togglePlay}
+                        aria-label={isPlaying ? 'Pause video' : 'Play video'}
+                    >
+                        {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+                    </Button>
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        className="text-white hover:bg-transparent hover:text-white/80"
+                        onClick={toggleMute}
+                        aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                    >
+                        {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
+                    </Button>
+                </div>
+
+                <div className="absolute bottom-12 right-12 z-20 hidden sm:flex gap-4">
+                  <CarouselPrevious className="static w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all" />
+                  <CarouselNext className="static w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all" />
+                </div>
+            </Carousel>
         </section>
 
         <section id="about-fair-future" className="py-20 px-12 bg-white">
@@ -473,12 +486,12 @@ export default function Home() {
         <section id="gallery" className="py-24 bg-slate-50">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-16">
-                    <span className="text-accent font-bold text-sm tracking-[0.2em] uppercase">Memories</span>
+                    <span className="text-accent font-bold text-sm tracking-[0.2em] uppercase">Gallery</span>
                     <h2 className="text-4xl md:text-5xl font-headline font-bold text-primary mt-4 mb-4">
-                        Client Gallery
+                        From Our Adventurers' Lens
                     </h2>
                     <p className="text-slate-500 max-w-2xl mx-auto">
-                        Real moments captured by our travelers during their incredible driving adventures around the world.
+                        A glimpse into the incredible journeys and memories made by our community of explorers.
                     </p>
                 </div>
                 
@@ -502,17 +515,17 @@ export default function Home() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 h-[300px]">
-                    {bottomGalleryImage && (
+                    {bottomGalleryImage && bottomGalleryImage.imageUrl && (
                         <div className="rounded-2xl overflow-hidden relative group cursor-pointer" onClick={() => openModal(bentoGalleryImages.length)}>
                             <Image
                                 src={bottomGalleryImage.imageUrl}
-                                alt={bottomGalleryImage.description}
+                                alt={bottomGalleryImage.description || 'Gallery image'}
                                 fill
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 data-ai-hint={bottomGalleryImage.imageHint}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                <p className="text-white font-medium">Waterfalls of Iceland</p>
+                                <p className="text-white font-medium">{bottomGalleryImage.label}</p>
                             </div>
                         </div>
                     )}
