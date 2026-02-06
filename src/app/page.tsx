@@ -217,7 +217,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main>
-        <section id="hero-section" className="relative w-full overflow-hidden h-screen">
+        <section id="hero-section" className="relative w-full h-screen">
           <Carousel setApi={setApi} className="w-full h-full" opts={{ loop: true }}>
             <CarouselContent className="h-full ml-0">
               {heroSlides.map((slide, index) => (
