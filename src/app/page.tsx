@@ -157,12 +157,12 @@ export default function Home() {
             <div className="absolute bottom-12 left-12 z-10 hidden sm:flex">
                 <Button
                     size="icon"
-                    variant="outline"
-                    className="w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all"
+                    variant="ghost"
+                    className="text-white hover:bg-transparent hover:text-white/80"
                     onClick={toggleMute}
                     aria-label={isMuted ? 'Unmute video' : 'Mute video'}
                 >
-                    {isMuted ? <VolumeX /> : <Volume2 />}
+                    {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
                 </Button>
             </div>
 
@@ -472,3 +472,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
