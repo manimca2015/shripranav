@@ -215,9 +215,9 @@ export default function Home() {
       <main>
         <section id="hero-section" className="relative w-full overflow-hidden h-screen">
           <Carousel setApi={setApi} className="w-full h-full" opts={{ loop: true }}>
-            <CarouselContent>
+            <CarouselContent className="h-full ml-0">
               {heroSlides.map((slide, index) => (
-                <CarouselItem key={index} className="w-full h-full relative">
+                <CarouselItem key={index} className="relative pl-0">
                   <div className="absolute inset-0 z-0">
                     {slide.type === 'video' ? (
                        <div className="w-full h-full">
