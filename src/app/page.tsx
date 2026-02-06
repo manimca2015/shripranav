@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { TourListings } from '@/components/tour-listings';
@@ -9,7 +9,7 @@ import { tours } from '@/lib/data';
 import type { Tour } from '@/lib/types';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowLeft, ShieldCheck, Users, CalendarDays, Route, MapPin, UserCog, Hotel, Truck, Headset, Star, Download, Car } from 'lucide-react';
+import { ArrowRight, ArrowLeft, ShieldCheck, Users, CalendarDays, Route, MapPin, UserCog, Hotel, Truck, Headset, Star, Download, Car, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { FeaturedTourCard } from '@/components/featured-tour-card';
@@ -30,6 +30,19 @@ export default function Home() {
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
+
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
 
   const domeImages: { src: string; alt: string }[] = domeGalleryData.images.map(
     (p) => ({
@@ -100,15 +113,16 @@ export default function Home() {
             {/* Video for desktop */}
             <div className="absolute inset-0 z-0 hidden md:block">
                 <video
-                  poster="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/ed3f53fc2290b581276b67224642db13/thumbnails/thumbnail.jpg"
+                  ref={videoRef}
+                  poster="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/thumbnails/thumbnail.jpg?time=1.9s"
                   autoPlay
                   loop
                   muted
                   playsInline
                   className="w-full h-full object-cover"
                 >
-                  <source src="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/ed3f53fc2290b581276b67224642db13/manifest/video.m3u8" type="application/x-mpegURL" />
-                  <source src="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/ed3f53fc2290b581276b67224642db13/downloads/default.mp4" type="video/mp4" />
+                  <source src="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/manifest/video.m3u8" type="application/x-mpegURL" />
+                  <source src="https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/downloads/default.mp4" type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
             </div>
@@ -138,6 +152,18 @@ export default function Home() {
                     </div>
                 </div>
               </div>
+            </div>
+            
+            <div className="absolute bottom-12 left-12 z-10 hidden sm:flex">
+                <Button
+                    size="icon"
+                    variant="outline"
+                    className="w-14 h-14 rounded-full border-white/30 text-white bg-transparent hover:bg-white hover:text-primary transition-all"
+                    onClick={toggleMute}
+                    aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                >
+                    {isMuted ? <VolumeX /> : <Volume2 />}
+                </Button>
             </div>
 
             <div className="absolute bottom-12 right-12 z-10 hidden sm:flex gap-4">
