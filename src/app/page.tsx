@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
@@ -121,23 +120,26 @@ export default function Home() {
 
         if (currentSlide?.type === 'video' && videoRef.current) {
             videoRef.current.currentTime = 0;
-            videoRef.current.play().catch(error => console.error("Video play failed:", error));
+            videoRef.current.play().catch(error => {
+                if (error.name !== 'AbortError') {
+                    console.error("Video play failed:", error);
+                }
+            });
         }
         
         handleAutoplay();
     };
 
-    api.on("select", onSelect);
-    api.on("pointerDown", () => {
-      if (autoplayTimeoutRef.current) clearTimeout(autoplayTimeoutRef.current);
-    });
-     api.on("reInit", handleAutoplay);
+    const onPointerDown = () => {
+        if (autoplayTimeoutRef.current) clearTimeout(autoplayTimeoutRef.current);
+    };
 
-    // Initial play
-    if (heroSlides[0].type === 'video' && videoRef.current) {
-      videoRef.current.play().catch(error => console.error("Initial video play failed:", error));
-    }
-    handleAutoplay();
+    api.on("select", onSelect);
+    api.on("pointerDown", onPointerDown);
+    api.on("reInit", onSelect);
+
+    // Initial setup
+    onSelect();
 
 
     return () => {
@@ -145,6 +147,8 @@ export default function Home() {
             clearTimeout(autoplayTimeoutRef.current);
         }
         api.off("select", onSelect);
+        api.off("pointerDown", onPointerDown);
+        api.off("reInit", onSelect);
     };
   }, [api, handleAutoplay]);
 
@@ -217,7 +221,7 @@ export default function Home() {
           <Carousel setApi={setApi} className="w-full h-full" opts={{ loop: true }}>
             <CarouselContent className="h-full ml-0">
               {heroSlides.map((slide, index) => (
-                <CarouselItem key={index} className="relative pl-0">
+                <CarouselItem key={index} className="relative pl-0 h-full">
                   <div className="absolute inset-0 z-0">
                     {slide.type === 'video' ? (
                        <div className="w-full h-full">
