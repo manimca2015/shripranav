@@ -95,7 +95,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main>
-        <section id="hero-section" className="relative w-full flex items-center overflow-hidden -mt-24 pt-24 h-[85vh] md:h-screen">
+        <section id="hero-section" className="relative w-full flex overflow-hidden -mt-24 pt-48 h-[85vh] md:h-screen">
             {/* Video for desktop */}
             <div className="absolute inset-0 z-0 hidden md:block">
                 <video
@@ -118,7 +118,7 @@ export default function Home() {
             
             <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12">
               <div className="max-w-3xl">
-                  <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base mt-16 md:mt-0">India's Premium Driving Holiday Experts</span>
+                  <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">India's Premium Driving Holiday Experts</span>
                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</h1>
                   <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses.</p>
                   <div className="flex flex-col sm:flex-row gap-4">
