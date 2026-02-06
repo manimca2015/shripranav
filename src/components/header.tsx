@@ -81,7 +81,7 @@ export function Header() {
                 />
             </Link>
             <nav
-                className={cn("hidden md:flex items-center gap-6 font-bold relative", navLinkColorClasses)}
+                className={cn("hidden lg:flex items-center gap-6 font-bold relative", navLinkColorClasses)}
             >
                 {navLinks.map(link => (
                     <Link key={link.href} href={link.href} className="hover:text-accent transition-colors">{link.label}</Link>
@@ -90,11 +90,11 @@ export function Header() {
             <div className="flex items-center gap-2 sm:gap-6">
                 <Button
                 asChild
-                className="hidden md:inline-flex px-4 sm:px-8 py-3 rounded-full font-semibold transition-all shadow-lg bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
+                className="hidden lg:inline-flex px-4 sm:px-8 py-3 rounded-full font-semibold transition-all shadow-lg bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
                 >
                 <Link href="/contact-us">Contact Us</Link>
                 </Button>
-                <div className="md:hidden">
+                <div className="lg:hidden">
                     {isMounted && (
                     <Sheet>
                         <SheetTrigger asChild>
