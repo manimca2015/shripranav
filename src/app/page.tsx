@@ -256,7 +256,7 @@ export default function Home() {
                   
                   <div className="relative z-10 h-full flex flex-col justify-end md:justify-center">
                     <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
-                         <div className="max-w-3xl pt-32 pb-24 md:py-0">
+                         <div className="max-w-3xl py-32 md:py-0">
                             <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block text-sm md:text-base">{heroContent.subheading}</span>
                             <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-extrabold text-white leading-tight mb-8">{heroContent.heading}</h1>
                             <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">{heroContent.paragraph}</p>
