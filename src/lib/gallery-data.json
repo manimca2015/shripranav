@@ -3,6 +3,7 @@
   "photoAlbums": [
     {
       "destination": "Jordan",
+      "coverImageId": "gallery-jordan-1",
       "imageIds": [
         "gallery-jordan-1",
         "gallery-jordan-2",
@@ -17,6 +18,7 @@
     },
     {
       "destination": "Thailand",
+      "coverImageId": "gallery-thailand-3",
       "imageIds": [
         "gallery-thailand-1",
         "gallery-thailand-2",
@@ -33,6 +35,7 @@
     },
     {
       "destination": "Malaysia",
+      "coverImageId": "gallery-malaysia-1",
       "imageIds": [
         "gallery-malaysia-1",
         "gallery-malaysia-2",

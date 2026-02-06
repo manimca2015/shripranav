@@ -15,12 +15,13 @@ export default function GalleryPage() {
 
   const photoAlbums = galleryData.photoAlbums.map(album => {
     const images = album.imageIds.map(id => PlaceHolderImages.find(p => p.id === id)).filter((p): p is ImagePlaceholder => !!p);
+    const coverImage = PlaceHolderImages.find(p => p.id === album.coverImageId) ?? images[0];
     return {
       destination: album.destination,
-      coverImage: images[0],
+      coverImage: coverImage!,
       images: images,
     };
-  }).filter(album => album.images.length > 0);
+  }).filter(album => album.coverImage && album.images.length > 0);
 
   const videoAlbums = galleryData.videoAlbums.map(album => ({
     ...album,
