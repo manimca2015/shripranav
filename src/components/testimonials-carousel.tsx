@@ -129,6 +129,9 @@ export function TestimonialsCarousel() {
                             <p className="text-xs text-slate-400">{testimonial.authorTitle}</p>
                           </div>
                         </div>
+                        <span className="text-xs font-bold text-accent flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity group-hover:underline">
+                          View <ArrowRight className="h-3 w-3" />
+                        </span>
                       </div>
                     </div>
                   </button>
