@@ -59,7 +59,7 @@ export default function WorldDrivingToursPage() {
     }
 
     if (tourType !== 'All Tours') {
-      filtered = filtered.filter(tour => tour.driveType === tourType);
+      filtered = filtered.filter(tour => tour.driveCategory === tourType);
     }
 
     const now = new Date('2026-02-04T00:00:00Z');

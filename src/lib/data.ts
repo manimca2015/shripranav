@@ -19,6 +19,7 @@ export const tours: Tour[] = [
     rating: 4.7,
     fullDate: '21 – 29 Mar, 2026',
     driveType: 'Self-Drive 4x4 (Extreme Winter)',
+    driveCategory: 'Self-Drive',
     level: 'Expert',
     brochureUrl: '/itinerary/Spiti_Premium_Winter Expedition_Self_Drive.pdf'
   },
@@ -40,6 +41,7 @@ export const tours: Tour[] = [
     rating: 4.4,
     fullDate: '29 Mar, 2026',
     driveType: 'Self-Drive SUV',
+    driveCategory: 'Self-Drive',
     level: 'Beginner',
     brochureUrl: '/itinerary/Thailand_Brochure.pdf'
   },
@@ -70,6 +72,7 @@ export const tours: Tour[] = [
     rating: 4.7,
     fullDate: '10 Apr, 2026',
     driveType: 'Guided Self-Drive Convoy',
+    driveCategory: 'Guided',
     level: 'Beginner'
   },
   {
@@ -88,6 +91,7 @@ export const tours: Tour[] = [
     brochureUrl: '/itinerary/South-Africa-2026.pdf',
     fullDate: '24 Apr, 2026',
     driveType: 'Self-Drive SUV',
+    driveCategory: 'Self-Drive',
     level: 'Intermediate',
     status: 'New',
     rating: 4.8
@@ -110,6 +114,7 @@ export const tours: Tour[] = [
     rating: 4.6,
     fullDate: '22 May, 2026',
     driveType: 'Self-Drive 4x4 Expedition',
+    driveCategory: 'Self-Drive',
     level: 'Adventure',
     brochureUrl: '/itinerary/Kyrgyzstan_Self_Drive_Adventure.pdf'
   }

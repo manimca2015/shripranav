@@ -18,6 +18,7 @@ export type Tour = {
   status?: string;
   fullDate?: string;
   driveType?: string;
+  driveCategory?: string;
   brochureUrl?: string;
 };
 
