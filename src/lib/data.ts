@@ -74,7 +74,7 @@ export const tours: Tour[] = [
   },
   {
     id: 'south-africa',
-    title: 'South Africa Self Drive Tour',
+    title: 'South Africa Self-Drive Tour',
     destination: 'South Africa',
     date: 'April 2026',
     duration: '8N / 9D',
