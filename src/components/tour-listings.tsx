@@ -89,8 +89,8 @@ export function TourListings({ tours }: TourListingsProps) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white border text-muted-foreground shadow-lg hover:text-accent hover:border-accent transition-all opacity-0 group-hover:opacity-100 duration-300" />
-          <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white border text-muted-foreground shadow-lg hover:text-accent hover:border-accent transition-all opacity-0 group-hover:opacity-100 duration-300" />
+          <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white border text-muted-foreground shadow-lg hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all opacity-0 group-hover:opacity-100 duration-300" />
+          <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white border text-muted-foreground shadow-lg hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all opacity-0 group-hover:opacity-100 duration-300" />
         </Carousel>
       ) : (
         <p className="text-center text-muted-foreground">No tours available for {selectedMonth}.</p>
