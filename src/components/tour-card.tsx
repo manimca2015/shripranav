@@ -106,7 +106,7 @@ export function TourCard({ tour }: TourCardProps) {
                         </a>
                       </Button>
                     ) : (
-                      <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white transition-all shadow-lg opacity-50 cursor-not-allowed">
+                      <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white transition-all shadow-lg opacity-50">
                         <Download className="h-5 w-5" />
                         <span className="sr-only">Download Brochure</span>
                       </Button>
