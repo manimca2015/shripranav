@@ -629,6 +629,12 @@
       "description": "Jordan Gallery Image 9",
       "imageUrl": "https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/bd1953d8-924e-4a53-bff0-5bf23acdcb00/public",
       "imageHint": "jordan gallery"
+    },
+    {
+      "id": "review-avatar-adisesh",
+      "description": "Avatar of Adisesh Pathi",
+      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Adisesh+Pathi",
+      "imageHint": "illustrated portrait"
     }
   ]
 }
