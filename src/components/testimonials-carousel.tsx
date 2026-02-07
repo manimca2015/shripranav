@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
@@ -11,8 +10,7 @@ import {
   type CarouselApi,
 } from '@/components/ui/carousel';
 import { testimonials } from '@/lib/testimonials';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Star, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { TestimonialModal } from './testimonial-modal';
@@ -72,9 +70,9 @@ export function TestimonialsCarousel() {
   const getFallback = (name: string) => {
     const parts = name.split(' ');
     if (parts.length > 1) {
-      return `${parts[0][0]}${parts[1][0]}`;
+      return (`${parts[0][0]}${parts[1][0]}`).toUpperCase();
     }
-    return name.substring(0, 2);
+    return name.substring(0, 2).toUpperCase();
   }
 
   return (
@@ -90,7 +88,6 @@ export function TestimonialsCarousel() {
         >
           <CarouselContent className="-ml-8">
             {testimonials.map((testimonial, index) => {
-              const avatar = PlaceHolderImages.find(p => p.id === testimonial.avatarId);
               const isCenter = current === index;
               
               return (
@@ -118,18 +115,15 @@ export function TestimonialsCarousel() {
                       </div>
                       <div className="flex items-center justify-between pt-6 border-t border-slate-50">
                         <div className="flex items-center gap-4">
-                          {avatar ? (
-                            <Avatar className="w-12 h-12 ring-2 ring-accent/10">
-                              <AvatarImage src={avatar.imageUrl} alt={testimonial.author} />
-                              <AvatarFallback>{getFallback(testimonial.author)}</AvatarFallback>
-                            </Avatar>
-                          ) : null}
+                          <Avatar className="w-12 h-12 ring-2 ring-accent/10">
+                            <AvatarFallback>{getFallback(testimonial.author)}</AvatarFallback>
+                          </Avatar>
                           <div>
                             <h4 className="font-bold text-primary text-sm">{testimonial.author}</h4>
                             <p className="text-xs text-slate-400">{testimonial.authorTitle}</p>
                           </div>
                         </div>
-                        <span className="text-xs font-bold text-accent flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity group-hover:underline">
+                        <span className="text-xs font-bold text-accent group-hover:underline flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                           View <ArrowRight className="h-3 w-3" />
                         </span>
                       </div>

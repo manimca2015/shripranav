@@ -8,10 +8,9 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Star } from 'lucide-react';
 import type { Testimonial } from '@/lib/types';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 type TestimonialModalProps = {
   isOpen: boolean;
@@ -22,25 +21,20 @@ type TestimonialModalProps = {
 const getFallback = (name: string) => {
     const parts = name.split(' ');
     if (parts.length > 1) {
-      return `${parts[0][0]}${parts[1][0]}`;
+      return (`${parts[0][0]}${parts[1][0]}`).toUpperCase();
     }
-    return name.substring(0, 2);
+    return name.substring(0, 2).toUpperCase();
 }
 
 export function TestimonialModal({ isOpen, onClose, testimonial }: TestimonialModalProps) {
-  const avatar = PlaceHolderImages.find(p => p.id === testimonial.avatarId);
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <div className="flex items-center gap-4 mb-4">
-            {avatar && (
-              <Avatar className="w-16 h-16">
-                <AvatarImage src={avatar.imageUrl} alt={testimonial.author} />
-                <AvatarFallback>{getFallback(testimonial.author)}</AvatarFallback>
-              </Avatar>
-            )}
+            <Avatar className="w-16 h-16">
+              <AvatarFallback>{getFallback(testimonial.author)}</AvatarFallback>
+            </Avatar>
             <div>
               <DialogTitle className="text-xl">{testimonial.author}</DialogTitle>
               <DialogDescription>{testimonial.authorTitle}</DialogDescription>
