@@ -73,6 +73,26 @@ export const tours: Tour[] = [
     level: 'Beginner'
   },
   {
+    id: 'south-africa',
+    title: 'South Africa Self Drive Tour',
+    destination: 'South Africa',
+    date: 'April 2026',
+    duration: '8N / 9D',
+    price: 4600,
+    distance: 1800,
+    description: 'Discover the breathtaking beauty of the Garden Route and beyond on this scenic self-drive adventure.',
+    itinerary: [],
+    accommodation: 'Boutique hotels and safari lodges.',
+    pointsOfInterest: ['Garden Route', 'Cape Town', 'Kruger National Park'],
+    image: 'tour-south-africa',
+    brochureUrl: '/itinerary/South-Africa-2026.pdf',
+    fullDate: '24 Apr, 2026',
+    driveType: 'Self-Drive SUV',
+    level: 'Intermediate',
+    status: 'New',
+    rating: 4.8
+  },
+  {
     id: 'kyrgyzstan',
     title: 'Kyrgyzstan Self-Drive Adventure',
     destination: 'Kyrgyzstan',

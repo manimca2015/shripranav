@@ -97,10 +97,10 @@ export default function Home() {
     })
   );
 
-  const featuredTourIds = ['jordan', 'kyrgyzstan', 'thailand'];
+  const featuredTourIds = ['jordan', 'south-africa', 'thailand'];
   const featuredTours = useMemo(() => 
       featuredTourIds.map(id => tours.find(t => t.id === id)).filter((t): t is Tour => !!t), 
-    []
+    [featuredTourIds]
   );
 
   const allGalleryImages: ImagePlaceholder[] = [...bentoGalleryImages, bottomGalleryImage].filter(
