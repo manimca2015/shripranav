@@ -22,7 +22,9 @@ const headers = [
     'Infants',
     'Travel Class',
     'Pax (People)',
-    'Ideal Travel Dates'
+    'Ideal Travel Dates',
+    'Visa Type',
+    'Travel Date (Visa)'
 ];
 
 type SheetRowData = {
