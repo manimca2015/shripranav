@@ -51,16 +51,16 @@ export default function AboutUsPage() {
                   Founded in 2023, Fair Future Travels was born from a singular passion: to explore the world from behind the wheel. We saw a gap in the Indian market for premium, professionally managed self-drive tours that didn’t just visit destinations, but truly experienced them.
                 </p>
                 <p className="text-muted-foreground mb-6">
-                  What started as a small group of enthusiasts organizing trips for friends has grown into India's leading driving holiday company. Our ethos remains unchanged: meticulous planning, unparalleled safety, and a commitment to creating unforgettable memories on the open road. We’ve covered millions of kilometers, crossed dozens of borders, and shared incredible journeys with hundreds of fellow travelers.
+                  What started as a small group of enthusiasts organizing trips for friends has grown into India's leading driving holiday company. Our ethos remains unchanged: meticulous planning, unparalleled safety, and a commitment to creating unforgettable memories on the open road. We’ve covered thousands of kilometers, crossed multiple borders, and shared incredible journeys with many fellow travelers.
                 </p>
                 <div className="grid grid-cols-2 gap-6 text-center">
                   <div className="bg-slate-50 p-4 rounded-lg">
                     <TrendingUp className="mx-auto w-8 h-8 text-accent mb-2" />
-                    <p className="font-bold text-primary text-xl">100+ Expeditions</p>
+                    <p className="font-bold text-primary text-xl">10+ Expeditions</p>
                   </div>
                   <div className="bg-slate-50 p-4 rounded-lg">
                     <Globe className="mx-auto w-8 h-8 text-accent mb-2" />
-                    <p className="font-bold text-primary text-xl">25+ Countries</p>
+                    <p className="font-bold text-primary text-xl">5+ Countries</p>
                   </div>
                 </div>
               </div>
