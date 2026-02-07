@@ -635,6 +635,42 @@
       "description": "Avatar of Adisesh Pathi",
       "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Adisesh+Pathi",
       "imageHint": "illustrated portrait"
+    },
+    {
+      "id": "review-avatar-pradeep",
+      "description": "Avatar of Dr. Pradeep",
+      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Pradeep",
+      "imageHint": "illustrated portrait"
+    },
+    {
+      "id": "review-avatar-bimal",
+      "description": "Avatar of Bimal Kumar",
+      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Bimal",
+      "imageHint": "illustrated portrait"
+    },
+    {
+      "id": "review-avatar-joseph",
+      "description": "Avatar of Joseph Punoose",
+      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Joseph",
+      "imageHint": "illustrated portrait"
+    },
+    {
+      "id": "review-avatar-sudip",
+      "description": "Avatar of Sudip Kumar",
+      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Sudip",
+      "imageHint": "illustrated portrait"
+    },
+    {
+      "id": "review-avatar-rajagopal",
+      "description": "Avatar of Rajagopal",
+      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Rajagopal",
+      "imageHint": "illustrated portrait"
+    },
+    {
+      "id": "review-avatar-anand",
+      "description": "Avatar of Anand",
+      "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Anand",
+      "imageHint": "illustrated portrait"
     }
   ]
 }
