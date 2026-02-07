@@ -70,8 +70,7 @@ export const tours: Tour[] = [
     rating: 4.7,
     fullDate: '10 Apr, 2026',
     driveType: 'Guided Self-Drive Convoy',
-    level: 'Beginner',
-    brochureUrl: '/itinerary/Jordan_Driving_Holidays.pdf'
+    level: 'Beginner'
   },
   {
     id: 'kyrgyzstan',
