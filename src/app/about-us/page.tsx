@@ -56,11 +56,11 @@ export default function AboutUsPage() {
                 <div className="grid grid-cols-2 gap-6 text-center">
                   <div className="bg-slate-50 p-4 rounded-lg">
                     <TrendingUp className="mx-auto w-8 h-8 text-accent mb-2" />
-                    <p className="font-bold text-primary text-xl">10+ Expeditions</p>
+                    <p className="font-bold text-primary text-xl">Unforgettable Journeys</p>
                   </div>
                   <div className="bg-slate-50 p-4 rounded-lg">
                     <Globe className="mx-auto w-8 h-8 text-accent mb-2" />
-                    <p className="font-bold text-primary text-xl">5+ Countries</p>
+                    <p className="font-bold text-primary text-xl">Global Destinations</p>
                   </div>
                 </div>
               </div>
