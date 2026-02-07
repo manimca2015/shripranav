@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -65,31 +66,46 @@ export default function WorldDrivingToursPage() {
 
     const parseStartDate = (tour: Tour): Date => {
       const { fullDate, date } = tour;
-      if (!fullDate && !date) return new Date(0);
+      const fallbackDate = parse(date, 'MMMM yyyy', new Date());
 
-      const year = date.split(' ')[1];
-      if (!fullDate) return parse(date, 'MMMM yyyy', new Date());
-    
-      let dateStringToParse = '';
+      if (!fullDate) return fallbackDate;
 
-      if (fullDate.includes(' - ')) { // e.g. "17 Apr - 20 Jun"
-          const startPart = fullDate.split(' - ')[0];
-          dateStringToParse = `${startPart} ${year}`;
-      } else { // e.g. "21-28 Mar, 2026"
-          const day = fullDate.split('-')[0].trim();
-          const monthAndYearMatch = fullDate.match(/[a-zA-Z]{3,}, \d{4}/);
-          if (monthAndYearMatch) {
-              dateStringToParse = `${day} ${monthAndYearMatch[0]}`;
-          } else {
-              return parse(date, 'MMMM yyyy', new Date());
-          }
-      }
-      
       try {
-          return parse(dateStringToParse.replace(',', ''), 'd MMMM yyyy', new Date());
+        // Extract the first part of a date range. '21 – 29 Mar, 2026' -> '21 Mar, 2026'
+        const firstDatePart = fullDate.split(/–|-/)[0].trim();
+        const year = fullDate.match(/\d{4}/)?.[0] || date.split(' ')[1];
+        const monthMatch = firstDatePart.match(/[a-zA-Z]{3,}/);
+        
+        let dateStringToParse;
+
+        if (monthMatch) {
+          // Month is in the first part, e.g., "24 Jan" or "10 Apr, 2026"
+          dateStringToParse = firstDatePart;
+          if (!firstDatePart.includes(year)) {
+            dateStringToParse += `, ${year}`;
+          }
+        } else {
+          // Month is not in the first part, e.g., range like "21 - 29 March, 2026"
+          const monthInFullDate = fullDate.match(/[a-zA-Z]{3,}/)?.[0];
+          if(monthInFullDate) {
+            dateStringToParse = `${firstDatePart} ${monthInFullDate} ${year}`;
+          } else {
+            return fallbackDate;
+          }
+        }
+
+        // Try parsing with abbreviated month, then full month name
+        for (const format of ['d MMM yyyy', 'd MMMM yyyy']) {
+          const parsed = parse(dateStringToParse.replace(',', ''), format, new Date());
+          if (!isNaN(parsed.getTime())) {
+            return parsed;
+          }
+        }
+
+        return fallbackDate;
       } catch (e) {
-          console.error('Failed to parse date:', dateStringToParse, 'for tour', tour.id);
-          return new Date(0);
+        console.error('Failed to parse date:', fullDate, 'for tour', tour.id);
+        return fallbackDate;
       }
     };
 

@@ -6,7 +6,7 @@ export const tours: Tour[] = [
     id: 'jordan',
     title: 'Jordan Desert Expedition',
     destination: 'Jordan',
-    date: 'January 2026',
+    date: 'April 2026',
     duration: '7N / 8D',
     price: 4500,
     distance: 1000,
@@ -27,7 +27,7 @@ export const tours: Tour[] = [
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
     status: 'Hot Deal',
     rating: 4.7,
-    fullDate: '24 Jan – 28 Feb, 2026',
+    fullDate: '10 Apr, 2026',
     driveType: 'Guided Self-Drive Convoy',
     level: 'Beginner',
     brochureUrl: '/itinerary/Jordan_Driving_Holidays.pdf'
@@ -47,7 +47,7 @@ export const tours: Tour[] = [
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     status: 'Upcoming',
     rating: 4.7,
-    fullDate: '21 – 29 March, 2026',
+    fullDate: '21 – 29 Mar, 2026',
     driveType: 'Self-Drive 4x4 (Extreme Winter)',
     level: 'Expert',
     brochureUrl: '/itinerary/Spiti_Premium_Winter Expedition_Self_Drive.pdf'
@@ -68,7 +68,7 @@ export const tours: Tour[] = [
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     status: 'Trending',
     rating: 4.4,
-    fullDate: '29 March, 2026',
+    fullDate: '29 Mar, 2026',
     driveType: 'Self-Drive SUV',
     level: 'Beginner',
     brochureUrl: '/itinerary/Thailand_Brochure.pdf'
