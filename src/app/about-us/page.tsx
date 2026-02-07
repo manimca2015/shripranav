@@ -3,7 +3,6 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Card, CardContent } from '@/components/ui/card';
 import { Award, Globe, Users, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
