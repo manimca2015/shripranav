@@ -4,6 +4,7 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
+import Stream from '@cloudflare/stream-react';
 
 type VideoModalProps = {
   videoUrl: string;
@@ -25,11 +26,7 @@ export default function VideoModal({
   }
 
   const videoId = videoUrl.match(/cloudflarestream\.com\/([a-f0-9]+)/)?.[1];
-  const hlsSrc = videoId ? `https://customer-9h3fx5smywdsjs92.cloudflarestream.com/${videoId}/manifest/video.m3u8` : '';
-  const mp4Src = videoUrl;
-  const poster = posterUrl ?? (videoId ? `https://customer-9h3fx5smywdsjs92.cloudflarestream.com/${videoId}/thumbnails/thumbnail.jpg` : '');
-
-
+  
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-none w-screen h-screen bg-black/90 border-none p-0 flex items-center justify-center">
@@ -46,16 +43,25 @@ export default function VideoModal({
         </Button>
         
         <div className="relative w-[90vw] h-[85vh]">
-             <video
-                controls
-                autoPlay
-                className="w-full h-full"
-                poster={poster}
-            >
-                {hlsSrc && <source src={hlsSrc} type="application/x-mpegURL" />}
-                <source src={mp4Src} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
+             {videoId ? (
+                <Stream
+                    src={videoId}
+                    poster={posterUrl}
+                    className="w-full h-full"
+                    controls
+                    autoPlay
+                />
+             ) : (
+                <video
+                    controls
+                    autoPlay
+                    className="w-full h-full"
+                    poster={posterUrl}
+                >
+                    <source src={videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+             )}
         </div>
       </DialogContent>
     </Dialog>
