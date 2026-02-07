@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 const managementTeam = [
   { name: 'Dr. S. Raj', title: 'Chairman', imageUrl: '/S-Raj-Sir.webp' },
   { name: 'Vignesh', title: 'Founder & CEO', imageUrl: '/Vighnesh.webp' },
-  { name: 'Olin', title: 'Head of Operations', imageUrl: '/Olin.webp' },
+  { name: 'Olin', title: 'General Manager', imageUrl: '/Olin.webp' },
 ];
 
 export default function AboutUsPage() {
