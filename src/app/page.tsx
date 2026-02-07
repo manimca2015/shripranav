@@ -9,7 +9,7 @@ import { tours } from '@/lib/data';
 import type { Tour } from '@/lib/types';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ShieldCheck, Users, Route, MapPin, Hotel, Truck, Headset, Star, Download, Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Users, Route, MapPin, Hotel, Truck, Headset, Star, Download, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { FeaturedTourCard } from '@/components/featured-tour-card';
@@ -44,7 +44,6 @@ export default function Home() {
   const [startIndex, setStartIndex] = useState(0);
 
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   
 
@@ -90,33 +89,6 @@ export default function Home() {
       videoRef.current.muted = !videoRef.current.muted;
     }
   };
-
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-      } else {
-        videoRef.current.pause();
-      }
-    }
-  };
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
-
-    video.addEventListener('play', handlePlay);
-    video.addEventListener('pause', handlePause);
-
-    return () => {
-      video.removeEventListener('play', handlePlay);
-      video.removeEventListener('pause', handlePause);
-    };
-  }, []);
-
 
   const domeImages: { src: string; alt: string }[] = domeGalleryData.images.map(
     (p) => ({
@@ -191,15 +163,6 @@ export default function Home() {
             </div>
             
             <div className="absolute bottom-12 left-12 z-20 hidden sm:flex gap-2">
-                <Button
-                    size="icon"
-                    variant="ghost"
-                    className="text-white hover:bg-transparent hover:text-white/80"
-                    onClick={togglePlay}
-                    aria-label={isPlaying ? 'Pause video' : 'Play video'}
-                >
-                    {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-                </Button>
                 <Button
                     size="icon"
                     variant="ghost"
