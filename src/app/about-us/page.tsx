@@ -48,7 +48,7 @@ export default function AboutUsPage() {
               <div>
                 <h2 className="text-4xl font-headline font-bold text-primary mb-4">Our Story</h2>
                 <p className="text-muted-foreground mb-4">
-                  Founded in 2015, Fair Future Travels was born from a singular passion: to explore the world from behind the wheel. We saw a gap in the Indian market for premium, professionally managed self-drive tours that didn’t just visit destinations, but truly experienced them.
+                  Founded in 2023, Fair Future Travels was born from a singular passion: to explore the world from behind the wheel. We saw a gap in the Indian market for premium, professionally managed self-drive tours that didn’t just visit destinations, but truly experienced them.
                 </p>
                 <p className="text-muted-foreground mb-6">
                   What started as a small group of enthusiasts organizing trips for friends has grown into India's leading driving holiday company. Our ethos remains unchanged: meticulous planning, unparalleled safety, and a commitment to creating unforgettable memories on the open road. We’ve covered millions of kilometers, crossed dozens of borders, and shared incredible journeys with hundreds of fellow travelers.
