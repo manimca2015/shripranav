@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
@@ -8,6 +7,11 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { type ImagePlaceholder } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
+
+const Stream = dynamic(() => import('@cloudflare/stream-react'), {
+  ssr: false,
+});
 
 type Video = {
   id: string;
@@ -30,7 +34,6 @@ export default function VideoModal({
 }: VideoModalProps) {
   const [currentIndex, setCurrentIndex] = useState(startIndex);
   const thumbnailContainerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setCurrentIndex(startIndex);
@@ -49,16 +52,6 @@ export default function VideoModal({
     }
   }, [currentIndex, isOpen]);
 
-  useEffect(() => {
-    if (videoRef.current) {
-        videoRef.current.load();
-        videoRef.current.play().catch(error => {
-            console.log("Autoplay was prevented: ", error);
-        });
-    }
-  }, [currentIndex, isOpen]);
-
-
   if (!isOpen) {
     return null;
   }
@@ -76,8 +69,6 @@ export default function VideoModal({
   };
   
   const currentVideo = videos[currentIndex];
-  const videoUrl = `https://customer-9h3fx5smywdsjs92.cloudflarestream.com/${currentVideo.id}/downloads/default.mp4`;
-  const posterUrl = currentVideo.coverImage?.imageUrl;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -118,18 +109,16 @@ export default function VideoModal({
                 <span className="sr-only">Next Video</span>
             </Button>
             
-            <div className="relative w-[90vw] h-full">
-                <video
-                    ref={videoRef}
-                    key={currentVideo.id}
-                    controls
-                    autoPlay
-                    className="w-full h-full"
-                    poster={posterUrl}
-                >
-                    <source src={videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
+            <div className="relative w-[90vw] h-[75vh]">
+                {isOpen && (
+                    <Stream
+                        src={currentVideo.id}
+                        controls
+                        autoplay
+                        className="w-full h-full"
+                        letterboxColor='black'
+                    />
+                )}
             </div>
         </div>
 
