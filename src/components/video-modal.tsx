@@ -9,7 +9,7 @@ import { type ImagePlaceholder } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 
-const Stream = dynamic(() => import('@cloudflare/stream-react'), {
+const Stream = dynamic(() => import('@cloudflare/stream-react').then((mod) => mod.Stream), {
   ssr: false,
 });
 
