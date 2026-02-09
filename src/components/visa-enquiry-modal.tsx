@@ -42,6 +42,7 @@ const visaEnquirySchema = z.object({
   visaType: z.enum(['tourist', 'business', 'student', 'other'], { required_error: 'Please select a visa type.' }),
   travelDate: z.string().optional(),
   message: z.string().optional(),
+  honeypot: z.string().optional(),
 });
 
 type VisaEnquiryFormValues = z.infer<typeof visaEnquirySchema>;
@@ -65,6 +66,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
       destination: destination,
       travelDate: '',
       message: '',
+      honeypot: '',
     },
   });
 
@@ -195,6 +197,21 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                 </FormItem>
               )}
             />
+            {/* Honeypot field */}
+            <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                <FormField
+                    control={form.control}
+                    name="honeypot"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Do not fill this out</FormLabel>
+                        <FormControl>
+                            <Input tabIndex={-1} autoComplete="off" {...field} />
+                        </FormControl>
+                        </FormItem>
+                    )}
+                />
+            </div>
              <DialogFooter>
                 <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting ? 'Submitting...' : 'Submit Enquiry'}

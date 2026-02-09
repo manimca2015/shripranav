@@ -12,9 +12,13 @@ const formSchema = z.object({
   pax: z.string().optional(),
   travelDates: z.string().optional(),
   message: z.string().optional(),
+  honeypot: z.string().optional(),
 });
 
 export async function submitCustomItineraryRequest(values: z.infer<typeof formSchema>) {
+  if (values.honeypot) {
+    return { success: true, message: 'Request sent successfully!' };
+  }
   try {
     await appendToSheet({
         Purpose: `Custom Itinerary: ${values.destination}`,

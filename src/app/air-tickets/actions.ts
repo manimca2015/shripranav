@@ -18,9 +18,13 @@ const airTicketFormSchema = z.object({
   infants: z.string().optional(),
   travelClass: z.enum(['economy', 'premium-economy', 'business', 'first']),
   message: z.string().optional(),
+  honeypot: z.string().optional(),
 });
 
 export async function submitAirTicketRequest(values: z.infer<typeof airTicketFormSchema>) {
+  if (values.honeypot) {
+    return { success: true, message: 'Your request has been sent successfully!' };
+  }
   try {
     await appendToSheet({
         Purpose: 'Air Ticket Request',

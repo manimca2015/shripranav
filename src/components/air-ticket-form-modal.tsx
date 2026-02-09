@@ -61,6 +61,7 @@ const airTicketFormSchema = z.object({
   infants: z.string().optional(),
   travelClass: z.enum(['economy', 'premium-economy', 'business', 'first']),
   message: z.string().optional(),
+  honeypot: z.string().optional(),
 });
 
 
@@ -89,6 +90,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
       infants: '0',
       travelClass: 'economy',
       message: '',
+      honeypot: '',
     },
   });
 
@@ -124,20 +126,20 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 py-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                  <FormItem>
+                  <FormLabel>Full Name</FormLabel>
+                  <FormControl>
+                      <Input placeholder="John Doe" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                  </FormItem>
+              )}
+              />
             <div className="grid md:grid-cols-2 gap-6">
-                <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                        <Input placeholder="John Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
                 <FormField
                 control={form.control}
                 name="email"
@@ -146,6 +148,19 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormLabel>Email Address</FormLabel>
                     <FormControl>
                         <Input placeholder="you@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                 <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Phone Number (Optional)</FormLabel>
+                    <FormControl>
+                        <Input placeholder="+1 234 567 890" {...field} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -418,6 +433,22 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 />
             )}
 
+            {/* Honeypot field */}
+            <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                <FormField
+                    control={form.control}
+                    name="honeypot"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Do not fill this out</FormLabel>
+                        <FormControl>
+                            <Input tabIndex={-1} autoComplete="off" {...field} />
+                        </FormControl>
+                        </FormItem>
+                    )}
+                />
+            </div>
+
             <DialogFooter>
                 <Button type="submit" size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={form.formState.isSubmitting}>
                     {form.formState.isSubmitting ? 'Sending...' : 'Send Request'}
@@ -429,5 +460,3 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     </Dialog>
   );
 }
-
-    

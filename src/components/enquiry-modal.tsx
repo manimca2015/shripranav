@@ -33,6 +33,7 @@ const formSchema = z.object({
   phone: z.string().optional(),
   message: z.string().optional(),
   tourName: z.string(),
+  honeypot: z.string().optional(),
 });
 
 type EnquiryFormValues = z.infer<typeof formSchema>;
@@ -55,6 +56,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
       phone: '',
       message: '',
       tourName: tourName,
+      honeypot: '',
     },
   });
 
@@ -156,6 +158,21 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                 </FormItem>
               )}
             />
+            {/* Honeypot field */}
+            <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                <FormField
+                    control={form.control}
+                    name="honeypot"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Do not fill this out</FormLabel>
+                        <FormControl>
+                            <Input tabIndex={-1} autoComplete="off" {...field} />
+                        </FormControl>
+                        </FormItem>
+                    )}
+                />
+            </div>
              <DialogFooter>
                 <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting ? 'Submitting...' : 'Submit Enquiry'}

@@ -26,12 +26,14 @@ const formSchema = z.object({
   email: z.string().email({
     message: 'Please enter a valid email address.',
   }),
+  phone: z.string().optional(),
   subject: z.string().min(5, {
     message: 'Subject must be at least 5 characters.',
   }),
   message: z.string().min(10, {
     message: 'Message must be at least 10 characters.',
   }),
+  honeypot: z.string().optional(),
 });
 
 export function ContactForm() {
@@ -43,8 +45,10 @@ export function ContactForm() {
     defaultValues: {
       name: '',
       email: '',
+      phone: '',
       subject: '',
       message: '',
+      honeypot: '',
     },
   });
 
@@ -82,19 +86,34 @@ export function ContactForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
-              <FormControl>
-                <Input placeholder="you@example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid md:grid-cols-2 gap-6">
+            <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Email Address</FormLabel>
+                    <FormControl>
+                        <Input placeholder="you@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+            />
+            <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Phone Number (Optional)</FormLabel>
+                    <FormControl>
+                        <Input placeholder="+1 234 567 890" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+            />
+        </div>
         <FormField
           control={form.control}
           name="subject"
@@ -125,6 +144,21 @@ export function ContactForm() {
             </FormItem>
           )}
         />
+        {/* Honeypot field */}
+        <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+            <FormField
+                control={form.control}
+                name="honeypot"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Do not fill this out</FormLabel>
+                    <FormControl>
+                        <Input tabIndex={-1} autoComplete="off" {...field} />
+                    </FormControl>
+                    </FormItem>
+                )}
+            />
+        </div>
         <Button type="submit" size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? 'Sending...' : 'Send Message'}
         </Button>

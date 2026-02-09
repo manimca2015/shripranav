@@ -10,9 +10,13 @@ const enquirySchema = z.object({
   phone: z.string().optional(),
   message: z.string().optional(),
   tourName: z.string(),
+  honeypot: z.string().optional(),
 });
 
 export async function submitEnquiry(values: z.infer<typeof enquirySchema>) {
+    if (values.honeypot) {
+        return { success: true };
+    }
     try {
         await appendToSheet({
             Purpose: `Enquiry: ${values.tourName}`,

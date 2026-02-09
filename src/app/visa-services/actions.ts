@@ -12,9 +12,13 @@ const visaEnquirySchema = z.object({
   visaType: z.enum(['tourist', 'business', 'student', 'other']),
   travelDate: z.string().optional(),
   message: z.string().optional(),
+  honeypot: z.string().optional(),
 });
 
 export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema>) {
+  if (values.honeypot) {
+    return { success: true, message: 'Your visa enquiry has been sent successfully!' };
+  }
   try {
     await appendToSheet({
         Purpose: `Visa Enquiry: ${values.destination}`,
