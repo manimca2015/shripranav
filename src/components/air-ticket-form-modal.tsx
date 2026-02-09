@@ -126,20 +126,20 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 py-4">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                  <FormItem>
-                  <FormLabel>Full Name*</FormLabel>
-                  <FormControl>
-                      <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                  </FormItem>
-              )}
-              />
             <div className="grid md:grid-cols-2 gap-6">
+                <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Full Name*</FormLabel>
+                    <FormControl>
+                        <Input placeholder="John Doe" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
                 <FormField
                 control={form.control}
                 name="email"
@@ -153,6 +153,8 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     </FormItem>
                 )}
                 />
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
                  <FormField
                 control={form.control}
                 name="phone"
@@ -166,50 +168,49 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     </FormItem>
                 )}
                 />
+                <FormField
+                  control={form.control}
+                  name="tripType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Trip Type</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={(value) => {
+                              field.onChange(value);
+                              if (value === 'one-way') {
+                                  form.setValue('returnDate', undefined);
+                              }
+                          }}
+                          defaultValue={field.value}
+                          className="flex space-x-4 pt-2"
+                        >
+                          <FormItem className="flex items-center space-x-2 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value="round-trip" />
+                            </FormControl>
+                            <FormLabel className="font-normal">Round-trip</FormLabel>
+                          </FormItem>
+                          <FormItem className="flex items-center space-x-2 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value="one-way" />
+                            </FormControl>
+                            <FormLabel className="font-normal">One-way</FormLabel>
+                          </FormItem>
+                           <FormItem className="flex items-center space-x-2 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value="multi-city" />
+                            </FormControl>
+                            <FormLabel className="font-normal">Multi-city</FormLabel>
+                          </FormItem>
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
             </div>
             
-            <FormField
-              control={form.control}
-              name="tripType"
-              render={({ field }) => (
-                <FormItem className="space-y-3">
-                  <FormLabel>Trip Type</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={(value) => {
-                          field.onChange(value);
-                          if (value === 'one-way') {
-                              form.setValue('returnDate', undefined);
-                          }
-                      }}
-                      defaultValue={field.value}
-                      className="flex space-x-4"
-                    >
-                      <FormItem className="flex items-center space-x-2 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="round-trip" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Round-trip</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-2 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="one-way" />
-                        </FormControl>
-                        <FormLabel className="font-normal">One-way</FormLabel>
-                      </FormItem>
-                       <FormItem className="flex items-center space-x-2 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="multi-city" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Multi-city</FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             {tripType !== 'multi-city' ? (
                 <>
                 <div className="grid md:grid-cols-2 gap-6">
@@ -419,7 +420,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     name="message"
                     render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Additional Information</FormLabel>
+                        <FormLabel>Message</FormLabel>
                         <FormControl>
                         <Textarea
                             placeholder="Any special requests or preferences?"
