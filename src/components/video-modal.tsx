@@ -71,6 +71,15 @@ export default function VideoModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
+       <style dangerouslySetInnerHTML={{ __html: `
+        .video-modal-stream-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+      ` }} />
       <DialogContent className="max-w-none w-screen h-screen bg-black/90 border-none p-0 flex flex-col items-center justify-center">
         <DialogHeader className="absolute top-4 left-4 z-50 text-white">
             <DialogTitle className="text-xl font-bold">{currentVideo.title}</DialogTitle>
@@ -108,20 +117,13 @@ export default function VideoModal({
                 <span className="sr-only">Next Video</span>
             </Button>
             
-            <div className="relative w-[90vw] h-[75vh]">
+            <div className="relative w-[90vw] h-[75vh] video-modal-stream-wrapper">
                 {isOpen && (
                     <Stream
                         src={currentVideo.id}
                         controls
                         autoplay
                         responsive={false}
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                        }}
                         letterboxColor='black'
                     />
                 )}
