@@ -150,7 +150,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Message (Optional)</FormLabel>
+                  <FormLabel>Message</FormLabel>
                   <FormControl>
                     <Textarea placeholder="Any specific questions?" {...field} />
                   </FormControl>

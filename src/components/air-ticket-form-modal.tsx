@@ -419,7 +419,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     name="message"
                     render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Additional Information (Optional)</FormLabel>
+                        <FormLabel>Additional Information</FormLabel>
                         <FormControl>
                         <Textarea
                             placeholder="Any special requests or preferences?"

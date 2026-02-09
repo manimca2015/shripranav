@@ -173,7 +173,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Additional Requests (Optional)</FormLabel>
+                  <FormLabel>Additional Requests</FormLabel>
                   <FormControl>
                     <Textarea placeholder="Tell us about your preferences, interests, or any special requirements." {...field} />
                   </FormControl>

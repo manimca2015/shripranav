@@ -30,9 +30,7 @@ const formSchema = z.object({
   subject: z.string().min(5, {
     message: 'Subject must be at least 5 characters.',
   }),
-  message: z.string().min(10, {
-    message: 'Message must be at least 10 characters.',
-  }),
+  message: z.string().optional(),
   honeypot: z.string().optional(),
 });
 
@@ -132,7 +130,7 @@ export function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message*</FormLabel>
+              <FormLabel>Message</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Tell us how we can help you"

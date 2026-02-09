@@ -175,7 +175,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                 name="travelDate"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Travel Date (Optional)</FormLabel>
+                    <FormLabel>Travel Date</FormLabel>
                     <FormControl>
                         <Input placeholder="e.g., December 2024" {...field} />
                     </FormControl>
@@ -189,7 +189,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Additional Information (Optional)</FormLabel>
+                  <FormLabel>Additional Information</FormLabel>
                   <FormControl>
                     <Textarea placeholder="Any other details we should know?" {...field} />
                   </FormControl>
