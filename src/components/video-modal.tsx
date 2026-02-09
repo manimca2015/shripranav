@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
@@ -116,7 +115,13 @@ export default function VideoModal({
                         controls
                         autoplay
                         responsive={false}
-                        className="w-full h-full"
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                        }}
                         letterboxColor='black'
                     />
                 )}
