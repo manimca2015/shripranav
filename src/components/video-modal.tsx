@@ -4,7 +4,7 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
-import Stream from '@cloudflare/stream-react';
+import { Stream } from '@cloudflare/stream-react';
 
 type VideoModalProps = {
   videoUrl: string;
