@@ -4,7 +4,6 @@
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
-import { Stream } from '@cloudflare/stream-react';
 
 type VideoModalProps = {
   videoUrl: string;
@@ -24,8 +23,6 @@ export default function VideoModal({
   if (!isOpen) {
     return null;
   }
-
-  const videoId = videoUrl.match(/cloudflarestream\.com\/([a-f0-9]+)/)?.[1];
   
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -43,25 +40,15 @@ export default function VideoModal({
         </Button>
         
         <div className="relative w-[90vw] h-[85vh]">
-             {videoId ? (
-                <Stream
-                    src={videoId}
-                    poster={posterUrl}
-                    className="w-full h-full"
-                    controls
-                    autoPlay
-                />
-             ) : (
-                <video
-                    controls
-                    autoPlay
-                    className="w-full h-full"
-                    poster={posterUrl}
-                >
-                    <source src={videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-             )}
+            <video
+                controls
+                autoPlay
+                className="w-full h-full"
+                poster={posterUrl}
+                src={videoUrl}
+            >
+                Your browser does not support the video tag.
+            </video>
         </div>
       </DialogContent>
     </Dialog>
