@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
@@ -5,7 +6,6 @@ import Image from 'next/image';
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { type ImagePlaceholder } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 
@@ -16,7 +16,7 @@ const Stream = dynamic(() => import('@cloudflare/stream-react').then((mod) => mo
 type Video = {
   id: string;
   title: string;
-  coverImage: ImagePlaceholder | undefined;
+  thumbnailUrl: string;
 }
 
 type VideoModalProps = {
@@ -115,6 +115,7 @@ export default function VideoModal({
                         src={currentVideo.id}
                         controls
                         autoplay
+                        responsive={false}
                         className="w-full h-full"
                         letterboxColor='black'
                     />
@@ -130,19 +131,13 @@ export default function VideoModal({
                         onClick={() => setCurrentIndex(index)}
                         className="relative w-28 h-20 rounded-md overflow-hidden shrink-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-white"
                     >
-                        {video.coverImage ? (
-                             <Image
-                                src={video.coverImage.imageUrl}
-                                alt={video.title}
-                                fill
-                                className="object-cover"
-                                data-ai-hint={video.coverImage.imageHint}
-                            />
-                        ) : (
-                            <div className="w-full h-full bg-slate-800 flex items-center justify-center">
-                                <span className="text-white text-xs text-center">{video.title}</span>
-                            </div>
-                        )}
+                        <Image
+                            src={video.thumbnailUrl}
+                            alt={video.title}
+                            fill
+                            className="object-cover"
+                            data-ai-hint="video thumbnail"
+                        />
                         <div className={cn(
                             "absolute inset-0 transition-all duration-300",
                             currentIndex === index ? 'border-2 border-white' : 'bg-black/50 hover:bg-black/20'

@@ -54,33 +54,29 @@
   "videoAlbums": [
     {
       "destination": "Jordan",
-      "coverImageId": "gallery-jordan-1",
+      "coverVideoId": "cd9038b9a4ac32b30293c3043f47ff4d",
       "videos": [
         {
           "id": "cd9038b9a4ac32b30293c3043f47ff4d",
-          "title": "The Beauty of Jordan",
-          "coverImageId": "gallery-jordan-1"
+          "title": "The Beauty of Jordan"
         },
         {
           "id": "3fa552dcae2ec16d0def059acb40892e",
-          "title": "Desert Adventures in Jordan",
-          "coverImageId": "gallery-jordan-4"
+          "title": "Desert Adventures in Jordan"
         },
         {
           "id": "180c387206299ed3c1c02ab5c6fcff75",
-          "title": "Ancient Wonders of Jordan",
-          "coverImageId": "gallery-jordan-2"
+          "title": "Ancient Wonders of Jordan"
         }
       ]
     },
     {
       "destination": "Malaysia",
-      "coverImageId": "gallery-malaysia-11",
+      "coverVideoId": "061122f984bb8921581b1420b6cb37f8",
       "videos": [
         {
           "id": "061122f984bb8921581b1420b6cb37f8",
-          "title": "Exploring the Malaysian Highlands",
-          "coverImageId": "gallery-malaysia-1"
+          "title": "Exploring the Malaysian Highlands"
         }
       ]
     }

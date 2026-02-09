@@ -23,18 +23,20 @@ export default function GalleryPage() {
     };
   }).filter(album => album.coverImage && album.images.length > 0);
 
+  const getThumbnailUrl = (videoId: string) => `https://customer-9h3fx5smywdsjs92.cloudflarestream.com/${videoId}/thumbnails/thumbnail.jpg`;
+
   const videoAlbums = galleryData.videoAlbums.map(album => {
     const videos = album.videos.map(video => ({
       ...video,
-      coverImage: PlaceHolderImages.find(p => p.id === video.coverImageId),
+      thumbnailUrl: getThumbnailUrl(video.id),
     }));
-    const coverImage = PlaceHolderImages.find(p => p.id === album.coverImageId);
+    const coverImageUrl = getThumbnailUrl(album.coverVideoId);
     return {
       destination: album.destination,
-      coverImage: coverImage!,
+      coverImageUrl: coverImageUrl,
       videos: videos,
     };
-  }).filter(album => album.coverImage && album.videos.length > 0);
+  }).filter(album => album.coverImageUrl && album.videos.length > 0);
 
 
   return (

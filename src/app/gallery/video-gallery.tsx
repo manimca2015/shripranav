@@ -4,19 +4,18 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
-import { type ImagePlaceholder } from '@/lib/placeholder-images';
 import VideoModal from '@/components/video-modal';
 import { VideoIcon } from 'lucide-react';
 
 type Video = {
   id: string;
   title: string;
-  coverImage: ImagePlaceholder | undefined;
+  thumbnailUrl: string;
 };
 
 type Album = {
   destination: string;
-  coverImage: ImagePlaceholder;
+  coverImageUrl: string;
   videos: Video[];
 };
 
@@ -56,13 +55,13 @@ export default function VideoGallery({ albums }: VideoGalleryProps) {
           >
             <Card className="overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-full">
               <div className="relative h-64">
-                {album.coverImage ? (
+                {album.coverImageUrl ? (
                    <Image
-                    src={album.coverImage.imageUrl}
+                    src={album.coverImageUrl}
                     alt={album.destination}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    data-ai-hint={album.coverImage.imageHint}
+                    data-ai-hint="video album"
                   />
                 ) : (
                     <div className="w-full h-full bg-slate-200 flex items-center justify-center">
