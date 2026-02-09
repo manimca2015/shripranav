@@ -57,19 +57,19 @@
       "coverImageId": "gallery-jordan-1",
       "videos": [
         {
-          "id": "c6c15387a6c760434b92572b9a785361",
-          "title": "Wadi Rum Desert Drive",
-          "coverImageId": "gallery-jordan-4"
-        },
-        {
-          "id": "ac8b83b9c4883b2723c0d8924b17a151",
-          "title": "Journey to Petra",
+          "id": "cd9038b9a4ac32b30293c3043f47ff4d",
+          "title": "The Beauty of Jordan",
           "coverImageId": "gallery-jordan-1"
         },
         {
-          "id": "a95914588f0471b0581335ff006e8b4e",
-          "title": "Dead Sea Views",
-          "coverImageId": "gallery-jordan-3"
+          "id": "3fa552dcae2ec16d0def059acb40892e",
+          "title": "Desert Adventures in Jordan",
+          "coverImageId": "gallery-jordan-4"
+        },
+        {
+          "id": "180c387206299ed3c1c02ab5c6fcff75",
+          "title": "Ancient Wonders of Jordan",
+          "coverImageId": "gallery-jordan-2"
         }
       ]
     },
@@ -78,8 +78,8 @@
       "coverImageId": "gallery-malaysia-11",
       "videos": [
         {
-          "id": "8170c0d9526778465d204746f31ed866",
-          "title": "Malaysian Highlands Expedition",
+          "id": "061122f984bb8921581b1420b6cb37f8",
+          "title": "Exploring the Malaysian Highlands",
           "coverImageId": "gallery-malaysia-1"
         }
       ]
