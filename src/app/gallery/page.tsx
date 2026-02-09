@@ -23,10 +23,18 @@ export default function GalleryPage() {
     };
   }).filter(album => album.coverImage && album.images.length > 0);
 
-  const videoAlbums = galleryData.videoAlbums.map(album => ({
-    ...album,
-    coverImage: PlaceHolderImages.find(p => p.id === album.coverImageId),
-  }));
+  const videoAlbums = galleryData.videoAlbums.map(album => {
+    const videos = album.videos.map(video => ({
+      ...video,
+      coverImage: PlaceHolderImages.find(p => p.id === video.coverImageId),
+    }));
+    const coverImage = PlaceHolderImages.find(p => p.id === album.coverImageId);
+    return {
+      destination: album.destination,
+      coverImage: coverImage!,
+      videos: videos,
+    };
+  }).filter(album => album.coverImage && album.videos.length > 0);
 
 
   return (
