@@ -243,45 +243,41 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 </div>
                  <div className="grid md:grid-cols-2 gap-6">
                     <FormField
-                        control={form.control}
-                        name="departureDate"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                            <FormLabel>Departure Date</FormLabel>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                <FormControl>
-                                    <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-full pl-3 text-left font-normal",
-                                        !field.value && "text-muted-foreground"
-                                    )}
-                                    >
-                                    {field.value ? (
-                                        format(new Date(field.value), "PPP")
-                                    ) : (
-                                        <span>Pick a date</span>
-                                    )}
-                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                    </Button>
-                                </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar
-                                    mode="single"
-                                    selected={field.value ? new Date(field.value) : undefined}
-                                    onSelect={(date) => field.onChange(date?.toISOString())}
-                                    disabled={(date) =>
-                                    date < new Date(new Date().setHours(0,0,0,0))
-                                    }
-                                    initialFocus
-                                />
-                                </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                            </FormItem>
-                        )}
+                      control={form.control}
+                      name="departureDate"
+                      render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                          <FormLabel>Departure Date</FormLabel>
+                          <Popover>
+                              <PopoverTrigger asChild>
+                              <FormControl>
+                                  <Button
+                                  variant={"outline"}
+                                  className={cn(
+                                      "w-full pl-3 text-left font-normal",
+                                      !field.value && "text-muted-foreground"
+                                  )}
+                                  >
+                                  {field.value ? (
+                                      format(new Date(field.value), "PPP")
+                                  ) : (
+                                      <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                  </Button>
+                              </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0" align="start">
+                              <Calendar
+                                  onChange={(date) => field.onChange(date instanceof Date ? date.toISOString() : undefined)}
+                                  value={field.value ? new Date(field.value) : null}
+                                  minDate={new Date(new Date().setHours(0,0,0,0))}
+                              />
+                              </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                          </FormItem>
+                      )}
                     />
                     {tripType === 'round-trip' && (
                         <FormField
@@ -311,13 +307,9 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                                 </PopoverTrigger>
                                 <PopoverContent className="w-auto p-0" align="start">
                                 <Calendar
-                                    mode="single"
-                                    selected={field.value ? new Date(field.value) : undefined}
-                                    onSelect={(date) => field.onChange(date?.toISOString())}
-                                    disabled={(date) =>
-                                        date < new Date(form.getValues('departureDate') || new Date().setHours(0,0,0,0))
-                                    }
-                                    initialFocus
+                                    onChange={(date) => field.onChange(date instanceof Date ? date.toISOString() : undefined)}
+                                    value={field.value ? new Date(field.value) : null}
+                                    minDate={new Date(form.getValues('departureDate') || new Date().setHours(0,0,0,0))}
                                 />
                                 </PopoverContent>
                             </Popover>
@@ -424,7 +416,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         <FormControl>
                         <Textarea
                             placeholder="Any special requests or preferences?"
-                            className="min-h-[100px]"
+                            className="min-h-[60px]"
                             {...field}
                         />
                         </FormControl>
