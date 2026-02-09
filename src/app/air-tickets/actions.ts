@@ -7,7 +7,7 @@ import { appendToSheet } from '@/lib/sheets';
 const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
   email: z.string().email('A valid email is required.'),
-  phone: z.string().optional(),
+  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),

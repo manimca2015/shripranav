@@ -7,7 +7,7 @@ import { appendToSheet } from '@/lib/sheets';
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
-  phone: z.string().optional(),
+  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   destination: z.string(),
   pax: z.string().optional(),
   travelDates: z.string().optional(),

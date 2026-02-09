@@ -26,7 +26,7 @@ const formSchema = z.object({
   email: z.string().email({
     message: 'Please enter a valid email address.',
   }),
-  phone: z.string().optional(),
+  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   subject: z.string().min(5, {
     message: 'Subject must be at least 5 characters.',
   }),
@@ -78,7 +78,7 @@ export function ContactForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>Full Name*</FormLabel>
               <FormControl>
                 <Input placeholder="John Doe" {...field} />
               </FormControl>
@@ -92,7 +92,7 @@ export function ContactForm() {
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Email Address</FormLabel>
+                    <FormLabel>Email Address*</FormLabel>
                     <FormControl>
                         <Input placeholder="you@example.com" {...field} />
                     </FormControl>
@@ -105,7 +105,7 @@ export function ContactForm() {
                 name="phone"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Phone Number (Optional)</FormLabel>
+                    <FormLabel>Phone Number*</FormLabel>
                     <FormControl>
                         <Input placeholder="+1 234 567 890" {...field} />
                     </FormControl>
@@ -119,7 +119,7 @@ export function ContactForm() {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <FormLabel>Subject*</FormLabel>
               <FormControl>
                 <Input placeholder="Inquiry about South Africa tour" {...field} />
               </FormControl>
@@ -132,7 +132,7 @@ export function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel>Message*</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Tell us how we can help you"

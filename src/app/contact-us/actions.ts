@@ -5,11 +5,11 @@ import { z } from 'zod';
 import { appendToSheet } from '@/lib/sheets';
 
 const formSchema = z.object({
-  name: z.string(),
+  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email(),
-  phone: z.string().optional(),
-  subject: z.string(),
-  message: z.string(),
+  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  subject: z.string().min(5, { message: 'Subject must be at least 5 characters.' }),
+  message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
   honeypot: z.string().optional(),
 });
 

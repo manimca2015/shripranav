@@ -30,7 +30,7 @@ import { useRouter } from 'next/navigation';
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
-  phone: z.string().optional(),
+  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   destination: z.string(),
   pax: z.string().optional(),
   travelDates: z.string().optional(),
@@ -105,7 +105,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                 name="name"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Full Name</FormLabel>
+                    <FormLabel>Full Name*</FormLabel>
                     <FormControl>
                         <Input placeholder="John Doe" {...field} />
                     </FormControl>
@@ -118,7 +118,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Email*</FormLabel>
                     <FormControl>
                         <Input placeholder="you@example.com" {...field} />
                     </FormControl>
@@ -132,7 +132,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number (Optional)</FormLabel>
+                  <FormLabel>Phone Number*</FormLabel>
                   <FormControl>
                     <Input placeholder="+1 234 567 890" {...field} />
                   </FormControl>

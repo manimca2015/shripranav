@@ -50,7 +50,7 @@ import { submitAirTicketRequest } from '@/app/air-tickets/actions';
 const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
   email: z.string().email('A valid email is required.'),
-  phone: z.string().optional(),
+  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
@@ -131,7 +131,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
               name="name"
               render={({ field }) => (
                   <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>Full Name*</FormLabel>
                   <FormControl>
                       <Input placeholder="John Doe" {...field} />
                   </FormControl>
@@ -145,7 +145,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Email Address</FormLabel>
+                    <FormLabel>Email Address*</FormLabel>
                     <FormControl>
                         <Input placeholder="you@example.com" {...field} />
                     </FormControl>
@@ -158,7 +158,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 name="phone"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Phone Number (Optional)</FormLabel>
+                    <FormLabel>Phone Number*</FormLabel>
                     <FormControl>
                         <Input placeholder="+1 234 567 890" {...field} />
                     </FormControl>
