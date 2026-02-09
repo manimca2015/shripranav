@@ -23,11 +23,18 @@ import domeGalleryData from '@/lib/dome-gallery.json';
 import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 
-const heroVideo = {
+const desktopVideo = {
   videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/manifest/video.m3u8',
   videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/downloads/default.mp4',
   poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/thumbnails/thumbnail.jpg?time=1.9s',
 };
+
+const mobileVideo = {
+  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/b7bbc75e9f6f2a1239cede7042864bbc/manifest/video.m3u8',
+  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/b7bbc75e9f6f2a1239cede7042864bbc/downloads/default.mp4',
+  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/b7bbc75e9f6f2a1239cede7042864bbc/thumbnails/thumbnail.jpg?time=1s',
+};
+
 
 const heroContent = {
   subheading: "India's Premium Driving Holiday Experts",
@@ -44,9 +51,7 @@ export default function Home() {
   const [startIndex, setStartIndex] = useState(0);
 
   const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
   
-
   const { bentoGalleryImages, bottomGalleryImage } = useMemo(() => {
     const jordanAlbum = galleryData.photoAlbums.find(a => a.destination === 'Jordan');
     const thailandAlbum = galleryData.photoAlbums.find(a => a.destination === 'Thailand');
@@ -85,9 +90,6 @@ export default function Home() {
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-    }
   };
 
   const domeImages: { src: string; alt: string }[] = domeGalleryData.images.map(
@@ -125,16 +127,26 @@ export default function Home() {
         <section id="hero-section" className="relative w-full h-screen overflow-hidden">
             <div className="absolute inset-0 z-0">
                 <video
-                    ref={videoRef}
-                    poster={heroVideo.poster}
+                    poster={desktopVideo.poster}
                     autoPlay
                     loop
                     playsInline
                     muted={isMuted}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hidden md:block"
                 >
-                    <source src={heroVideo.videoHlsSrc} type="application/x-mpegURL" />
-                    <source src={heroVideo.videoMp4Src} type="video/mp4" />
+                    <source src={desktopVideo.videoHlsSrc} type="application/x-mpegURL" />
+                    <source src={desktopVideo.videoMp4Src} type="video/mp4" />
+                </video>
+                <video
+                    poster={mobileVideo.poster}
+                    autoPlay
+                    loop
+                    playsInline
+                    muted={isMuted}
+                    className="w-full h-full object-cover md:hidden"
+                >
+                    <source src={mobileVideo.videoHlsSrc} type="application/x-mpegURL" />
+                    <source src={mobileVideo.videoMp4Src} type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
             </div>
@@ -236,7 +248,7 @@ export default function Home() {
         </section>
 
         <section id="featured-mega-tours" className="py-24 px-4 bg-white">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto px-4">
                 <div className="text-center mb-16">
                     <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Signature Expeditions</span>
                     <h2 className="text-5xl font-headline font-bold text-primary mb-6">Featured Mega Tours</h2>
@@ -470,4 +482,5 @@ export default function Home() {
       />
     </div>
   );
-}
+
+    
