@@ -267,7 +267,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                                   </Button>
                               </FormControl>
                               </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0" align="start">
+                              <PopoverContent className="w-auto p-0 z-[100]" align="start">
                               <Calendar
                                   onChange={(date) => field.onChange(date instanceof Date ? date.toISOString() : undefined)}
                                   value={field.value ? new Date(field.value) : null}
@@ -305,7 +305,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                                     </Button>
                                 </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
+                                <PopoverContent className="w-auto p-0 z-[100]" align="start">
                                 <Calendar
                                     onChange={(date) => field.onChange(date instanceof Date ? date.toISOString() : undefined)}
                                     value={field.value ? new Date(field.value) : null}
