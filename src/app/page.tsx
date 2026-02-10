@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
@@ -57,21 +56,42 @@ export default function Home() {
     const thailandAlbum = galleryData.photoAlbums.find(a => a.destination === 'Thailand');
     const malaysiaAlbum = galleryData.photoAlbums.find(a => a.destination === 'Malaysia');
 
+    const getNonCoverImage = (album: any, usedIds: string[]): string | undefined => {
+        if (!album) return undefined;
+        return album.imageIds.find((id: string) => id !== album.coverImageId && !usedIds.includes(id));
+    }
+    
+    let usedIds: string[] = [];
+    
+    const image1 = getNonCoverImage(jordanAlbum, usedIds);
+    if(image1) usedIds.push(image1);
+
+    const image2 = getNonCoverImage(thailandAlbum, usedIds);
+    if(image2) usedIds.push(image2);
+
+    const image3 = getNonCoverImage(malaysiaAlbum, usedIds);
+    if(image3) usedIds.push(image3);
+    
+    const image4 = getNonCoverImage(jordanAlbum, usedIds);
+    if(image4) usedIds.push(image4);
+
+    const image5 = getNonCoverImage(thailandAlbum, usedIds);
+    if(image5) usedIds.push(image5);
+
     const bentoConfigs = [
-        { id: jordanAlbum?.coverImageId, className: 'md:col-span-2 md:row-span-2', label: "The Deserts of Jordan" },
-        { id: thailandAlbum?.coverImageId, className: 'md:col-span-1 md:row-span-1', label: "Adventures in Thailand" },
-        { id: malaysiaAlbum?.coverImageId, className: 'md:col-span-1 md:row-span-1', label: "Exploring Malaysian Highlands" },
-        { id: jordanAlbum?.imageIds.find(id => id !== jordanAlbum?.coverImageId), className: 'md:col-span-1 md:row-span-1', label: "Ancient Jordanian History" },
-        { id: thailandAlbum?.imageIds.find(id => id !== thailandAlbum?.coverImageId), className: 'md:col-span-1 md:row-span-1', label: "Cultural Stops in Thailand" },
+        { id: image1, className: 'md:col-span-2 md:row-span-2', label: "The Deserts of Jordan" },
+        { id: image2, className: 'md:col-span-1 md:row-span-1', label: "Adventures in Thailand" },
+        { id: image3, className: 'md:col-span-1 md:row-span-1', label: "Exploring Malaysian Highlands" },
+        { id: image4, className: 'md:col-span-1 md:row-span-1', label: "Ancient Jordanian History" },
+        { id: image5, className: 'md:col-span-1 md:row-span-1', label: "Cultural Stops in Thailand" },
     ].filter(config => config.id);
 
     const bentoImages = bentoConfigs.map(item => {
         const image = PlaceHolderImages.find(p => p.id === item.id);
         return { ...item, ...image };
     });
-
-    const bentoIds = bentoImages.map(i => i.id);
-    const bottomImageId = malaysiaAlbum?.imageIds.find(id => id !== malaysiaAlbum?.coverImageId && !bentoIds.includes(id));
+    
+    const bottomImageId = getNonCoverImage(malaysiaAlbum, usedIds);
     
     let bottomImage: (ImagePlaceholder & { label?: string }) | undefined;
 
