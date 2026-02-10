@@ -155,8 +155,8 @@ export default function Home() {
                     muted={isMuted}
                     className="w-full h-full object-cover hidden md:block"
                 >
-                    <source src={desktopVideo.videoHlsSrc} type="application/x-mpegURL" />
                     <source src={desktopVideo.videoMp4Src} type="video/mp4" />
+                    <source src={desktopVideo.videoHlsSrc} type="application/x-mpegURL" />
                 </video>
                 <video
                     poster={mobileVideo.poster}
@@ -166,8 +166,8 @@ export default function Home() {
                     muted={isMuted}
                     className="w-full h-full object-cover md:hidden"
                 >
-                    <source src={mobileVideo.videoHlsSrc} type="application/x-mpegURL" />
                     <source src={mobileVideo.videoMp4Src} type="video/mp4" />
+                    <source src={mobileVideo.videoHlsSrc} type="application/x-mpegURL" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
             </div>
@@ -503,6 +503,8 @@ export default function Home() {
       />
     </div>
   );
+
+    
 
     
 
