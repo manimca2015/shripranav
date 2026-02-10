@@ -38,6 +38,27 @@ import {
 } from '@/components/ui/dialog';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
 
+const dateSchema = z
+  .string()
+  .min(1, { message: "Date is required."})
+  .regex(/^\d{2}\/\d{2}\/\d{4}$/, "Date must be in DD/MM/YYYY format.")
+  .refine(
+    (dateStr) => {
+      const [day, month, year] = dateStr.split("/").map(Number);
+      const date = new Date(year, month - 1, day);
+      return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+    },
+    { message: "Please enter a valid date." }
+  )
+  .refine(
+    (dateStr) => {
+      const [,, year] = dateStr.split("/").map(Number);
+      return year >= 2026;
+    },
+    { message: "Year must be 2026 or later." }
+  );
+
+
 const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
   email: z.string().email('A valid email is required.'),
@@ -45,7 +66,7 @@ const airTicketFormSchema = z.object({
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
-  departureDate: z.string({ required_error: "Departure date is required."}),
+  departureDate: dateSchema,
   returnDate: z.string().optional(),
   adults: z.string().min(1, 'At least one adult is required.'),
   children: z.string().optional(),
@@ -54,38 +75,6 @@ const airTicketFormSchema = z.object({
   message: z.string().optional(),
   honeypot: z.string().optional(),
 }).superRefine((data, ctx) => {
-    const validateDate = (dateStr: string, path: ('departureDate' | 'returnDate')[]) => {
-        if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
-            ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                message: 'Date must be in DD/MM/YYYY format.',
-                path,
-            });
-            return null;
-        }
-        const [day, month, year] = dateStr.split('/').map(Number);
-        const date = new Date(year, month - 1, day);
-        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Invalid date.', path });
-            return null;
-        }
-        if (year < 2026) {
-             ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Year must be 2026 or later.', path });
-             return null;
-        }
-        return date;
-    }
-
-    if (data.departureDate) {
-        validateDate(data.departureDate, ['departureDate']);
-    } else {
-         ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Departure date is required.',
-            path: ['departureDate'],
-        });
-    }
-
     if (data.tripType === 'round-trip') {
         if (!data.returnDate) {
             ctx.addIssue({
@@ -95,10 +84,24 @@ const airTicketFormSchema = z.object({
             });
             return;
         }
-        const departureDate = validateDate(data.departureDate, ['departureDate']);
-        const returnDate = validateDate(data.returnDate, ['returnDate']);
 
-        if (departureDate && returnDate && returnDate <= departureDate) {
+        const returnDateValidation = dateSchema.safeParse(data.returnDate);
+        if (!returnDateValidation.success) {
+            returnDateValidation.error.errors.forEach((error) => {
+                ctx.addIssue({
+                    path: ['returnDate'],
+                    message: error.message,
+                });
+            });
+            return;
+        }
+
+        const [dDay, dMonth, dYear] = data.departureDate.split('/').map(Number);
+        const departureDate = new Date(dYear, dMonth - 1, dDay);
+        const [rDay, rMonth, rYear] = data.returnDate.split('/').map(Number);
+        const returnDate = new Date(rYear, rMonth - 1, rDay);
+
+        if (departureDate.getTime() && returnDate.getTime() && returnDate <= departureDate) {
              ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Return date must be after departure date.',
