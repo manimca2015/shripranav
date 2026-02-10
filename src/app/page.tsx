@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
@@ -23,15 +24,15 @@ import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 
 const desktopVideo = {
-  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/manifest/video.m3u8',
-  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/downloads/default.mp4',
-  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/246f3e9040c2f06c09ff23b6411eeed7/thumbnails/thumbnail.jpg?time=1.9s',
+  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/2effc97b223b892b6233a1ff567f943f/manifest/video.m3u8',
+  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/2effc97b223b892b6233a1ff567f943f/downloads/default.mp4',
+  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/2effc97b223b892b6233a1ff567f943f/thumbnails/thumbnail.jpg?time=1.9s',
 };
 
 const mobileVideo = {
-  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/b7bbc75e9f6f2a1239cede7042864bbc/manifest/video.m3u8',
-  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/b7bbc75e9f6f2a1239cede7042864bbc/downloads/default.mp4',
-  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/b7bbc75e9f6f2a1239cede7042864bbc/thumbnails/thumbnail.jpg?time=1s',
+  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/5dd2057fd6ae3b172f285f40f2d6e843/manifest/video.m3u8',
+  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/5dd2057fd6ae3b172f285f40f2d6e843/downloads/default.mp4',
+  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/5dd2057fd6ae3b172f285f40f2d6e843/thumbnails/thumbnail.jpg?time=1s',
 };
 
 
@@ -502,5 +503,7 @@ export default function Home() {
       />
     </div>
   );
+
+    
 
     
