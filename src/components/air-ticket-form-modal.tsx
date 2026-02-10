@@ -117,15 +117,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent 
-        className="sm:max-w-4xl max-h-[90vh] overflow-y-auto"
-        onPointerDownOutside={(e) => {
-          const target = e.target as HTMLElement;
-          if (target.closest('.react-calendar') || target.closest('[data-radix-popover-content]')) {
-            e.preventDefault();
-          }
-        }}
-      >
+      <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Request an Air Ticket Quote</DialogTitle>
           <DialogDescription>
