@@ -38,26 +38,6 @@ import {
 } from '@/components/ui/dialog';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
 
-const dateSchema = z
-  .string()
-  .min(1, { message: "Date is required."})
-  .regex(/^\d{2}\/\d{2}\/\d{4}$/, "Date must be in DD/MM/YYYY format.")
-  .refine(
-    (dateStr) => {
-      const [day, month, year] = dateStr.split("/").map(Number);
-      const date = new Date(year, month - 1, day);
-      return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
-    },
-    { message: "Please enter a valid date." }
-  )
-  .refine(
-    (dateStr) => {
-      const [,, year] = dateStr.split("/").map(Number);
-      return year >= 2026;
-    },
-    { message: "Year must be 2026 or later." }
-  );
-
 
 const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
@@ -66,8 +46,15 @@ const airTicketFormSchema = z.object({
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
-  departureDate: dateSchema,
-  returnDate: z.string().optional(),
+  
+  departureDay: z.string({ required_error: 'Day is required.' }),
+  departureMonth: z.string({ required_error: 'Month is required.' }),
+  departureYear: z.string({ required_error: 'Year is required.' }),
+
+  returnDay: z.string().optional(),
+  returnMonth: z.string().optional(),
+  returnYear: z.string().optional(),
+
   adults: z.string().min(1, 'At least one adult is required.'),
   children: z.string().optional(),
   infants: z.string().optional(),
@@ -75,37 +62,48 @@ const airTicketFormSchema = z.object({
   message: z.string().optional(),
   honeypot: z.string().optional(),
 }).superRefine((data, ctx) => {
+    // Check if departure date is valid
+    const dDay = parseInt(data.departureDay, 10);
+    const dMonth = parseInt(data.departureMonth, 10);
+    const dYear = parseInt(data.departureYear, 10);
+    const departureDate = new Date(dYear, dMonth - 1, dDay);
+    if (departureDate.getFullYear() !== dYear || departureDate.getMonth() !== dMonth - 1 || departureDate.getDate() !== dDay) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Invalid departure date.',
+            path: ['departureDay'],
+        });
+    }
+
     if (data.tripType === 'round-trip') {
-        if (!data.returnDate) {
+        if (!data.returnDay || !data.returnMonth || !data.returnYear) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: 'Return date is required for a round-trip.',
-                path: ['returnDate'],
+                message: 'Return date is required.',
+                path: ['returnDay'],
             });
             return;
         }
 
-        const returnDateValidation = dateSchema.safeParse(data.returnDate);
-        if (!returnDateValidation.success) {
-            returnDateValidation.error.errors.forEach((error) => {
-                ctx.addIssue({
-                    path: ['returnDate'],
-                    message: error.message,
-                });
-            });
-            return;
-        }
-
-        const [dDay, dMonth, dYear] = data.departureDate.split('/').map(Number);
-        const departureDate = new Date(dYear, dMonth - 1, dDay);
-        const [rDay, rMonth, rYear] = data.returnDate.split('/').map(Number);
+        const rDay = parseInt(data.returnDay, 10);
+        const rMonth = parseInt(data.returnMonth, 10);
+        const rYear = parseInt(data.returnYear, 10);
         const returnDate = new Date(rYear, rMonth - 1, rDay);
 
-        if (departureDate.getTime() && returnDate.getTime() && returnDate <= departureDate) {
+        if (returnDate.getFullYear() !== rYear || returnDate.getMonth() !== rMonth - 1 || returnDate.getDate() !== rDay) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Invalid return date.',
+                path: ['returnDay'],
+            });
+            return;
+        }
+
+        if (returnDate <= departureDate) {
              ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Return date must be after departure date.',
-                path: ['returnDate'],
+                path: ['returnDay'],
               });
         }
     }
@@ -116,6 +114,11 @@ type AirTicketFormModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
+
+const years = Array.from({ length: 5 }, (_, i) => (2026 + i).toString());
+const months = Array.from({ length: 12 }, (_, i) => ({ value: (i + 1).toString(), label: new Date(0, i).toLocaleString('default', { month: 'long' }) }));
+const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+
 
 export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps) {
   const { toast } = useToast();
@@ -130,8 +133,8 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
       tripType: 'round-trip',
       from: '',
       to: '',
-      departureDate: '',
-      returnDate: '',
+      departureYear: '2026',
+      returnYear: '2026',
       adults: '1',
       children: '0',
       infants: '0',
@@ -144,7 +147,19 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
   const tripType = form.watch('tripType');
 
   async function onSubmit(values: z.infer<typeof airTicketFormSchema>) {
-    const result = await submitAirTicketRequest(values);
+    const departureDate = `${values.departureDay.padStart(2, '0')}/${values.departureMonth.padStart(2, '0')}/${values.departureYear}`;
+    
+    let returnDate: string | undefined = undefined;
+    if (values.tripType === 'round-trip' && values.returnDay && values.returnMonth && values.returnYear) {
+        returnDate = `${values.returnDay.padStart(2, '0')}/${values.returnMonth.padStart(2, '0')}/${values.returnYear}`;
+    }
+
+    const result = await submitAirTicketRequest({
+        ...values,
+        departureDate,
+        returnDate,
+    });
+    
     if (result.success) {
       toast({
         title: 'Request Sent!',
@@ -162,18 +177,73 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     }
   }
 
-  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: any) => {
-    const rawValue = e.target.value.replace(/[^0-9]/g, '');
-    let formattedValue = rawValue;
-
-    if (rawValue.length > 4) {
-      formattedValue = `${rawValue.slice(0, 2)}/${rawValue.slice(2, 4)}/${rawValue.slice(4, 8)}`;
-    } else if (rawValue.length > 2) {
-      formattedValue = `${rawValue.slice(0, 2)}/${rawValue.slice(2)}`;
-    }
+  const DateSelector = ({ type }: { type: 'departure' | 'return' }) => {
+    const fieldErrors = form.formState.errors;
+    const dayError = fieldErrors[`${type}Day` as const];
+    const monthError = fieldErrors[`${type}Month` as const];
+    const yearError = fieldErrors[`${type}Year` as const];
     
-    field.onChange(formattedValue);
-  };
+    // Combine messages, prioritizing the day field for display
+    const errorMessage = dayError?.message || monthError?.message || yearError?.message;
+
+    return (
+        <div className="space-y-2">
+        <FormLabel>{type === 'departure' ? 'Departure Date*' : 'Return Date*'}</FormLabel>
+        <div className="grid grid-cols-3 gap-2">
+            <FormField
+            control={form.control}
+            name={`${type}Day` as const}
+            render={({ field }) => (
+                <FormItem>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                    <SelectTrigger><SelectValue placeholder="Day" /></SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                    {days.map(day => <SelectItem key={day} value={day}>{day}</SelectItem>)}
+                    </SelectContent>
+                </Select>
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name={`${type}Month` as const}
+            render={({ field }) => (
+                <FormItem>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                    <SelectTrigger><SelectValue placeholder="Month" /></SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                    {months.map(month => <SelectItem key={month.value} value={month.value}>{month.label}</SelectItem>)}
+                    </SelectContent>
+                </Select>
+                </FormItem>
+            )}
+            />
+            <FormField
+            control={form.control}
+            name={`${type}Year` as const}
+            render={({ field }) => (
+                <FormItem>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                    <SelectTrigger><SelectValue placeholder="Year" /></SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                    {years.map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
+                    </SelectContent>
+                </Select>
+                </FormItem>
+            )}
+            />
+        </div>
+         {errorMessage && <FormMessage>{errorMessage}</FormMessage>}
+        </div>
+    );
+};
+
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -239,7 +309,9 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                           onValueChange={(value) => {
                               field.onChange(value);
                               if (value === 'one-way') {
-                                  form.setValue('returnDate', '');
+                                  form.setValue('returnDay', undefined);
+                                  form.setValue('returnMonth', undefined);
+                                  form.setValue('returnYear', '2026');
                               }
                           }}
                           defaultValue={field.value}
@@ -279,7 +351,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         name="from"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>From</FormLabel>
+                            <FormLabel>From*</FormLabel>
                             <FormControl>
                                 <Input placeholder="e.g. New York (JFK)" {...field} />
                             </FormControl>
@@ -292,7 +364,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         name="to"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>To</FormLabel>
+                            <FormLabel>To*</FormLabel>
                             <FormControl>
                                 <Input placeholder="e.g. London (LHR)" {...field} />
                             </FormControl>
@@ -302,43 +374,9 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     />
                 </div>
                  <div className="grid md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="departureDate"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Departure Date</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="DD/MM/YYYY" 
-                              {...field}
-                              onChange={(e) => handleDateInputChange(e, field)}
-                              maxLength={10}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <DateSelector type="departure" />
                     {tripType === 'round-trip' && (
-                        <FormField
-                        control={form.control}
-                        name="returnDate"
-                        render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Return Date</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="DD/MM/YYYY"
-                                  {...field}
-                                  onChange={(e) => handleDateInputChange(e, field)}
-                                  maxLength={10}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                        )}
-                        />
+                       <DateSelector type="return" />
                     )}
                  </div>
                 </>
@@ -348,10 +386,10 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Itinerary Details</FormLabel>
+                    <FormLabel>Itinerary Details*</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Please describe your multi-city travel plans. For example:&#10;1. New York (JFK) to London (LHR) on 2024-12-10&#10;2. London (LHR) to Paris (CDG) on 2024-12-17&#10;3. Paris (CDG) to New York (JFK) on 2024-12-24"
+                        placeholder="Please describe your multi-city travel plans. For example:&#10;1. New York (JFK) to London (LHR) on 10/12/2026&#10;2. London (LHR) to Paris (CDG) on 17/12/2026&#10;3. Paris (CDG) to New York (JFK) on 24/12/2026"
                         className="min-h-[60px]"
                         {...field}
                       />
@@ -369,7 +407,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 name="adults"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Adults</FormLabel>
+                    <FormLabel>Adults*</FormLabel>
                     <FormControl>
                         <Input type="number" min="1" {...field} />
                     </FormControl>
