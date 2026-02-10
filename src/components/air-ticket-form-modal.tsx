@@ -45,7 +45,7 @@ const airTicketFormSchema = z.object({
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
-  departureDate: z.string().min(1, { message: "Departure date is required." }),
+  departureDate: z.string({ required_error: "Departure date is required."}),
   returnDate: z.string().optional(),
   adults: z.string().min(1, 'At least one adult is required.'),
   children: z.string().optional(),
@@ -53,6 +53,59 @@ const airTicketFormSchema = z.object({
   travelClass: z.enum(['economy', 'premium-economy', 'business', 'first']),
   message: z.string().optional(),
   honeypot: z.string().optional(),
+}).superRefine((data, ctx) => {
+    const validateDate = (dateStr: string, path: ('departureDate' | 'returnDate')[]) => {
+        if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Date must be in DD/MM/YYYY format.',
+                path,
+            });
+            return null;
+        }
+        const [day, month, year] = dateStr.split('/').map(Number);
+        const date = new Date(year, month - 1, day);
+        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Invalid date.', path });
+            return null;
+        }
+        if (year < 2026) {
+             ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Year must be 2026 or later.', path });
+             return null;
+        }
+        return date;
+    }
+
+    if (data.departureDate) {
+        validateDate(data.departureDate, ['departureDate']);
+    } else {
+         ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Departure date is required.',
+            path: ['departureDate'],
+        });
+    }
+
+    if (data.tripType === 'round-trip') {
+        if (!data.returnDate) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Return date is required for a round-trip.',
+                path: ['returnDate'],
+            });
+            return;
+        }
+        const departureDate = validateDate(data.departureDate, ['departureDate']);
+        const returnDate = validateDate(data.returnDate, ['returnDate']);
+
+        if (departureDate && returnDate && returnDate <= departureDate) {
+             ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Return date must be after departure date.',
+                path: ['returnDate'],
+              });
+        }
+    }
 });
 
 
@@ -105,6 +158,19 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
       });
     }
   }
+
+  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: any) => {
+    const rawValue = e.target.value.replace(/[^0-9]/g, '');
+    let formattedValue = rawValue;
+
+    if (rawValue.length > 4) {
+      formattedValue = `${rawValue.slice(0, 2)}/${rawValue.slice(2, 4)}/${rawValue.slice(4, 8)}`;
+    } else if (rawValue.length > 2) {
+      formattedValue = `${rawValue.slice(0, 2)}/${rawValue.slice(2)}`;
+    }
+    
+    field.onChange(formattedValue);
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -240,7 +306,12 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         <FormItem>
                           <FormLabel>Departure Date</FormLabel>
                           <FormControl>
-                            <Input placeholder="DD/MM/YYYY" {...field} />
+                            <Input 
+                              placeholder="DD/MM/YYYY" 
+                              {...field}
+                              onChange={(e) => handleDateInputChange(e, field)}
+                              maxLength={10}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -254,7 +325,12 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                             <FormItem>
                               <FormLabel>Return Date</FormLabel>
                               <FormControl>
-                                <Input placeholder="DD/MM/YYYY" {...field} />
+                                <Input
+                                  placeholder="DD/MM/YYYY"
+                                  {...field}
+                                  onChange={(e) => handleDateInputChange(e, field)}
+                                  maxLength={10}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
