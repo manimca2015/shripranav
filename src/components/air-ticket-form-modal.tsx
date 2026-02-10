@@ -5,11 +5,8 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
 import { useRouter } from 'next/navigation';
 
-import { cn } from "@/lib/utils"
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -30,12 +27,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { Calendar } from "@/components/ui/calendar"
 import { useToast } from '@/hooks/use-toast';
 import {
   Dialog,
@@ -54,7 +45,7 @@ const airTicketFormSchema = z.object({
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
-  departureDate: z.string({ required_error: "Departure date is required."}),
+  departureDate: z.string().min(1, { message: "Departure date is required." }),
   returnDate: z.string().optional(),
   adults: z.string().min(1, 'At least one adult is required.'),
   children: z.string().optional(),
@@ -83,8 +74,8 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
       tripType: 'round-trip',
       from: '',
       to: '',
-      departureDate: undefined,
-      returnDate: undefined,
+      departureDate: '',
+      returnDate: '',
       adults: '1',
       children: '0',
       infants: '0',
@@ -179,7 +170,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                           onValueChange={(value) => {
                               field.onChange(value);
                               if (value === 'one-way') {
-                                  form.setValue('returnDate', undefined);
+                                  form.setValue('returnDate', '');
                               }
                           }}
                           defaultValue={field.value}
@@ -246,37 +237,13 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                       control={form.control}
                       name="departureDate"
                       render={({ field }) => (
-                          <FormItem className="flex flex-col">
+                        <FormItem>
                           <FormLabel>Departure Date</FormLabel>
-                          <Popover>
-                              <PopoverTrigger asChild>
-                              <FormControl>
-                                  <Button
-                                  variant={"outline"}
-                                  className={cn(
-                                      "w-full pl-3 text-left font-normal",
-                                      !field.value && "text-muted-foreground"
-                                  )}
-                                  >
-                                  {field.value ? (
-                                      format(new Date(field.value), "PPP")
-                                  ) : (
-                                      <span>Pick a date</span>
-                                  )}
-                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                  </Button>
-                              </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0" align="start">
-                              <Calendar
-                                  onChange={(date) => field.onChange(date instanceof Date ? date.toISOString() : undefined)}
-                                  value={field.value ? new Date(field.value) : null}
-                                  minDate={new Date(new Date().setHours(0,0,0,0))}
-                              />
-                              </PopoverContent>
-                          </Popover>
+                          <FormControl>
+                            <Input placeholder="DD/MM/YYYY" {...field} />
+                          </FormControl>
                           <FormMessage />
-                          </FormItem>
+                        </FormItem>
                       )}
                     />
                     {tripType === 'round-trip' && (
@@ -284,36 +251,12 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         control={form.control}
                         name="returnDate"
                         render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                            <FormLabel>Return Date</FormLabel>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                <FormControl>
-                                    <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-full pl-3 text-left font-normal",
-                                        !field.value && "text-muted-foreground"
-                                    )}
-                                    >
-                                    {field.value ? (
-                                        format(new Date(field.value), "PPP")
-                                    ) : (
-                                        <span>Pick a date</span>
-                                    )}
-                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                    </Button>
-                                </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar
-                                    onChange={(date) => field.onChange(date instanceof Date ? date.toISOString() : undefined)}
-                                    value={field.value ? new Date(field.value) : null}
-                                    minDate={new Date(form.getValues('departureDate') || new Date().setHours(0,0,0,0))}
-                                />
-                                </PopoverContent>
-                            </Popover>
-                            <FormMessage />
+                            <FormItem>
+                              <FormLabel>Return Date</FormLabel>
+                              <FormControl>
+                                <Input placeholder="DD/MM/YYYY" {...field} />
+                              </FormControl>
+                              <FormMessage />
                             </FormItem>
                         )}
                         />
