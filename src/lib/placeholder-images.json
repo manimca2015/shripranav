@@ -14,9 +14,9 @@
     },
     {
       "id": "tour-south-africa",
-      "description": "Cape Town South Africa coastal road with Table Mountain backdrop, dramatic ocean cliffs, luxury 4x4 driving scene",
-      "imageUrl": "https://images.unsplash.com/photo-1606799955515-85468ee78c26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXBlJTIwdG93bnxlbnwwfHx8fDE3NzAxMjUzODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cape town"
+      "description": "A convoy of vehicles on a scenic coastal road in South Africa.",
+      "imageUrl": "https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/ed4ff15f-7262-45d1-00ee-eadb711b6b00/public",
+      "imageHint": "south africa convoy"
     },
     {
       "id": "tour-kyrgyzstan",
@@ -26,9 +26,9 @@
     },
     {
       "id": "tour-spiti",
-      "description": "Spiti Valley India high altitude desert mountains, Buddhist monastery on cliff, dramatic Himalayan landscape",
-      "imageUrl": "https://images.unsplash.com/photo-1632510343991-a82b81b2ceef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzcGl0aSUyMHZhbGxleXxlbnwwfHx8fDE3NzAxMzkzOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "spiti valley"
+      "description": "Convoy of 4x4 vehicles in the snowy Spiti Valley during winter.",
+      "imageUrl": "https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/f50e56c6-cae9-4263-7fcc-f6f820125600/public",
+      "imageHint": "spiti winter convoy"
     },
     {
       "id": "tour-namibia",
@@ -578,9 +578,9 @@
     },
     {
       "id": "gallery-jordan-1",
-      "description": "A convoy of 4x4s in the vast desert of Wadi Rum, Jordan.",
-      "imageUrl": "https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/f50e56c6-cae9-4263-7fcc-f6f820125600/public",
-      "imageHint": "jordan desert convoy"
+      "description": "A group of travelers with 4x4s in front of an ancient structure in Jordan.",
+      "imageUrl": "https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/dc5c6451-9da7-4337-9927-80752a44bf00/public",
+      "imageHint": "jordan expedition group"
     },
     {
       "id": "gallery-jordan-2",
