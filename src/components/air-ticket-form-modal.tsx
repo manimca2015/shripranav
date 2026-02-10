@@ -117,7 +117,15 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent 
+        className="sm:max-w-4xl max-h-[90vh] overflow-y-auto"
+        onPointerDownOutside={(e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest('.react-calendar') || target.closest('[data-radix-popover-content]')) {
+            e.preventDefault();
+          }
+        }}
+      >
         <DialogHeader>
           <DialogTitle>Request an Air Ticket Quote</DialogTitle>
           <DialogDescription>
@@ -267,7 +275,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                                   </Button>
                               </FormControl>
                               </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0 z-[100]" align="start">
+                              <PopoverContent className="w-auto p-0" align="start">
                               <Calendar
                                   onChange={(date) => field.onChange(date instanceof Date ? date.toISOString() : undefined)}
                                   value={field.value ? new Date(field.value) : null}
@@ -305,7 +313,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                                     </Button>
                                 </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0 z-[100]" align="start">
+                                <PopoverContent className="w-auto p-0" align="start">
                                 <Calendar
                                     onChange={(date) => field.onChange(date instanceof Date ? date.toISOString() : undefined)}
                                     value={field.value ? new Date(field.value) : null}
@@ -330,7 +338,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormControl>
                       <Textarea
                         placeholder="Please describe your multi-city travel plans. For example:&#10;1. New York (JFK) to London (LHR) on 2024-12-10&#10;2. London (LHR) to Paris (CDG) on 2024-12-17&#10;3. Paris (CDG) to New York (JFK) on 2024-12-24"
-                        className="min-h-[120px]"
+                        className="min-h-[60px]"
                         {...field}
                       />
                     </FormControl>
