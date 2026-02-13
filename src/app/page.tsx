@@ -30,9 +30,9 @@ const desktopVideo = {
 };
 
 const mobileVideo = {
-  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/5dd2057fd6ae3b172f285f40f2d6e843/manifest/video.m3u8',
-  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/5dd2057fd6ae3b172f285f40f2d6e843/downloads/default.mp4',
-  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/5dd2057fd6ae3b172f285f40f2d6e843/thumbnails/thumbnail.jpg?time=1s',
+  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/6f3c2afccac12705f4491aa869729a53/manifest/video.m3u8',
+  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/6f3c2afccac12705f4491aa869729a53/downloads/default.mp4',
+  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/6f3c2afccac12705f4491aa869729a53/thumbnails/thumbnail.jpg?time=1s',
 };
 
 
@@ -504,3 +504,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
