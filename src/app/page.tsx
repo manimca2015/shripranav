@@ -23,19 +23,6 @@ import domeGalleryData from '@/lib/dome-gallery.json';
 import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 
-const desktopVideo = {
-  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/2effc97b223b892b6233a1ff567f943f/manifest/video.m3u8',
-  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/2effc97b223b892b6233a1ff567f943f/downloads/default.mp4',
-  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/2effc97b223b892b6233a1ff567f943f/thumbnails/thumbnail.jpg?time=1.9s',
-};
-
-const mobileVideo = {
-  videoHlsSrc: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/6f3c2afccac12705f4491aa869729a53/manifest/video.m3u8',
-  videoMp4Src: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/6f3c2afccac12705f4491aa869729a53/downloads/default.mp4',
-  poster: 'https://customer-9h3fx5smywdsjs92.cloudflarestream.com/6f3c2afccac12705f4491aa869729a53/thumbnails/thumbnail.jpg?time=1s',
-};
-
-
 const heroContent = {
   subheading: "India's Premium Driving Holiday Experts",
   heading: <>Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</>,
@@ -148,26 +135,22 @@ export default function Home() {
         <section id="hero-section" className="relative w-full h-screen overflow-hidden">
             <div className="absolute inset-0 z-0">
                 <video
-                    poster={desktopVideo.poster}
                     autoPlay
                     loop
                     playsInline
                     muted={isMuted}
                     className="w-full h-full object-cover hidden md:block"
                 >
-                    <source src={desktopVideo.videoMp4Src} type="video/mp4" />
-                    <source src={desktopVideo.videoHlsSrc} type="application/x-mpegURL" />
+                    <source src="/FF_Travels_Landing.webm" type="video/webm" />
                 </video>
                 <video
-                    poster={mobileVideo.poster}
                     autoPlay
                     loop
                     playsInline
                     muted={isMuted}
                     className="w-full h-full object-cover md:hidden"
                 >
-                    <source src={mobileVideo.videoMp4Src} type="video/mp4" />
-                    <source src={mobileVideo.videoHlsSrc} type="application/x-mpegURL" />
+                    <source src="/FF_Travels_Landing_Mobile.webm" type="video/webm" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
             </div>
