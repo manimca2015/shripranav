@@ -38,6 +38,7 @@ export default function Home() {
   const [startIndex, setStartIndex] = useState(0);
 
   const [isMuted, setIsMuted] = useState(true);
+  const heroPosterImage = useMemo(() => PlaceHolderImages.find(p => p.id === 'tours-hero'), []);
   
   const { bentoGalleryImages, bottomGalleryImage } = useMemo(() => {
     const jordanAlbum = galleryData.photoAlbums.find(a => a.destination === 'Jordan');
@@ -139,6 +140,7 @@ export default function Home() {
                     loop
                     playsInline
                     muted={isMuted}
+                    poster={heroPosterImage?.imageUrl}
                     className="w-full h-full object-cover hidden md:block"
                 >
                     <source src="/FF_Travels_Landing.webm" type="video/webm" />
@@ -148,6 +150,7 @@ export default function Home() {
                     loop
                     playsInline
                     muted={isMuted}
+                    poster={heroPosterImage?.imageUrl}
                     className="w-full h-full object-cover md:hidden"
                 >
                     <source src="/FF_Travels_Landing_Mobile.webm" type="video/webm" />
