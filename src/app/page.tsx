@@ -137,7 +137,7 @@ export default function Home() {
         <section id="hero-section" className="relative w-full h-screen overflow-hidden">
             <div className="absolute inset-0 z-0">
                 <StreamingVideo
-                    src="/videos/desktop/playlist.m3u8"
+                    src="/videos/desktop/desktop.m3u8"
                     poster={heroPosterImage?.imageUrl}
                     autoplay
                     loop
@@ -145,7 +145,7 @@ export default function Home() {
                     className="w-full h-full object-cover hidden md:block"
                 />
                 <StreamingVideo
-                    src="/videos/mobile/playlist.m3u8"
+                    src="/videos/mobile/mobile.m3u8"
                     poster={heroPosterImage?.imageUrl}
                     autoplay
                     loop
