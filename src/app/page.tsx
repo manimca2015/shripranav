@@ -22,6 +22,7 @@ import { BrochureDownloadModal } from '@/components/brochure-download-modal';
 import domeGalleryData from '@/lib/dome-gallery.json';
 import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
+import StreamingVideo from '@/components/streaming-video';
 
 const heroContent = {
   subheading: "India's Premium Driving Holiday Experts",
@@ -135,26 +136,22 @@ export default function Home() {
       <main>
         <section id="hero-section" className="relative w-full h-screen overflow-hidden">
             <div className="absolute inset-0 z-0">
-                <video
-                    autoPlay
-                    loop
-                    playsInline
-                    muted={isMuted}
+                <StreamingVideo
+                    src="/videos/desktop/playlist.m3u8"
                     poster={heroPosterImage?.imageUrl}
+                    autoplay
+                    loop
+                    muted={isMuted}
                     className="w-full h-full object-cover hidden md:block"
-                >
-                    <source src="/FF_Travels_Landing.webm" type="video/webm" />
-                </video>
-                <video
-                    autoPlay
-                    loop
-                    playsInline
-                    muted={isMuted}
+                />
+                <StreamingVideo
+                    src="/videos/mobile/playlist.m3u8"
                     poster={heroPosterImage?.imageUrl}
+                    autoplay
+                    loop
+                    muted={isMuted}
                     className="w-full h-full object-cover md:hidden"
-                >
-                    <source src="/FF_Travels_Landing_Mobile.webm" type="video/webm" />
-                </video>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
             </div>
 
