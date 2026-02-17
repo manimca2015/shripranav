@@ -39,7 +39,6 @@ export default function Home() {
   const [startIndex, setStartIndex] = useState(0);
 
   const [isMuted, setIsMuted] = useState(true);
-  const heroPosterImage = useMemo(() => PlaceHolderImages.find(p => p.id === 'tours-hero'), []);
   
   const { bentoGalleryImages, bottomGalleryImage } = useMemo(() => {
     const jordanAlbum = galleryData.photoAlbums.find(a => a.destination === 'Jordan');
@@ -138,7 +137,7 @@ export default function Home() {
             <div className="absolute inset-0 z-0">
                 <StreamingVideo
                     src="/videos/desktop/desktop.m3u8"
-                    poster={heroPosterImage?.imageUrl}
+                    poster="/videos/Malaysia_Expedition.webp"
                     autoplay
                     loop
                     muted={isMuted}
@@ -146,7 +145,7 @@ export default function Home() {
                 />
                 <StreamingVideo
                     src="/videos/mobile/mobile.m3u8"
-                    poster={heroPosterImage?.imageUrl}
+                    poster="/videos/Malaysia_Expedition.webp"
                     autoplay
                     loop
                     muted={isMuted}
