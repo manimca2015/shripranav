@@ -159,19 +159,34 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                 )}
                 />
             </div>
-             <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number*</FormLabel>
-                  <FormControl>
-                    <Input placeholder="+1 234 567 890" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="+1 234 567 890" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                      <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <FormControl>
+                          <Input placeholder="Your City" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                      </FormItem>
+                  )}
+              />
+            </div>
              <div className="grid grid-cols-2 gap-4">
                 <FormField
                 control={form.control}
@@ -213,19 +228,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                 </FormItem>
               )}
             />
-             <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>City</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Your City" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-            />
+            
             <div className="grid md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
