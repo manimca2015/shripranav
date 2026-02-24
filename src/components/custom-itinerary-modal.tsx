@@ -117,7 +117,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
   
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Request a Custom Itinerary for {destination}</DialogTitle>
           <DialogDescription>
