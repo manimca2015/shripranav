@@ -1,7 +1,6 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -27,11 +26,6 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { submitContactForm } from '@/app/contact-us/actions';
 import { useRouter } from 'next/navigation';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import Calendar from 'react-calendar';
-import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -42,7 +36,7 @@ const formSchema = z.object({
   }),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDate: z.date().optional(),
+  preferredCallDate: z.string().optional(),
   preferredCallTime: z.string().optional(),
   subject: z.string().min(5, {
     message: 'Subject must be at least 5 characters.',
@@ -54,7 +48,7 @@ const formSchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const dayOfWeek = data.preferredCallDate.getDay();
+        const dayOfWeek = new Date(data.preferredCallDate + 'T12:00:00Z').getUTCDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
             ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
         }
@@ -69,17 +63,11 @@ const timeSlots = [
     '06:00 PM', '06:30 PM', '07:00 PM'
 ];
 
+const todayForDateInput = new Date().toISOString().split('T')[0];
 
 export function ContactForm() {
   const { toast } = useToast();
   const router = useRouter();
-  const [minDate, setMinDate] = useState<Date>();
-
-  useEffect(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    setMinDate(today);
-  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -94,10 +82,7 @@ export function ContactForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const result = await submitContactForm({
-        ...values,
-        preferredCallDate: values.preferredCallDate ? format(values.preferredCallDate, 'dd/MM/yyyy') : undefined,
-    });
+    const result = await submitContactForm(values);
     if (result.success) {
       toast({
         title: 'Message Sent!',
@@ -206,35 +191,16 @@ export function ContactForm() {
               control={form.control}
               name="preferredCallDate"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
+                <FormItem>
                   <FormLabel>Preferred Call Date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value as Date, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        onChange={field.onChange}
-                        value={field.value}
-                        tileDisabled={({date}) => (minDate && date < minDate) || date.getDay() === 0 || date.getDay() === 6}
+                    <FormControl>
+                      <Input
+                        type="date"
+                        min={todayForDateInput}
+                        {...field}
+                        value={field.value ?? ''}
                       />
-                    </PopoverContent>
-                  </Popover>
+                    </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
