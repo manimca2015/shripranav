@@ -150,33 +150,35 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
               name="tourName"
               render={({ field }) => <Input type="hidden" {...field} />}
             />
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name*</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+             <div className="grid md:grid-cols-2 gap-4">
+                 <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name*</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email*</FormLabel>
+                      <FormControl>
+                        <Input placeholder="you@example.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+            </div>
             <div className="grid md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="you@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="phone"
@@ -190,6 +192,19 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                   </FormItem>
                 )}
               />
+               <FormField
+                control={form.control}
+                name="city"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>City</FormLabel>
+                    <FormControl>
+                        <Input placeholder="Your City" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
             </div>
             <FormField
               control={form.control}
@@ -203,19 +218,6 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>City</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Your City" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
             />
             <div className="grid md:grid-cols-2 gap-4">
                 <FormField
