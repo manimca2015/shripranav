@@ -117,7 +117,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
   
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Request a Custom Itinerary for {destination}</DialogTitle>
           <DialogDescription>
@@ -131,7 +131,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
               name="destination"
               render={({ field }) => <Input type="hidden" {...field} />}
             />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                 control={form.control}
                 name="name"
@@ -158,9 +158,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                     </FormItem>
                 )}
                 />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <FormField
+                <FormField
                 control={form.control}
                 name="phone"
                 render={({ field }) => (
@@ -186,9 +184,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                       </FormItem>
                   )}
               />
-            </div>
-             <div className="grid grid-cols-2 gap-4">
-                <FormField
+               <FormField
                 control={form.control}
                 name="pax"
                 render={({ field }) => (
@@ -215,6 +211,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                 )}
                 />
             </div>
+            
             <FormField
               control={form.control}
               name="message"
