@@ -115,7 +115,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Visa Enquiry for {destination}</DialogTitle>
           <DialogDescription>
@@ -157,19 +157,34 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                 )}
                 />
             </div>
-             <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number*</FormLabel>
-                  <FormControl>
-                    <Input placeholder="+1 234 567 890" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+             <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="+1 234 567 890" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                      <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <FormControl>
+                          <Input placeholder="Your City" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                      </FormItem>
+                  )}
+              />
+            </div>
             <div className="grid grid-cols-2 gap-4">
                <FormField
                   control={form.control}
@@ -220,19 +235,6 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>City</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Your City" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
             />
             <div className="grid md:grid-cols-2 gap-4">
                 <FormField
