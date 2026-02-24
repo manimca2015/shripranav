@@ -38,7 +38,7 @@ import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { Calendar } from './ui/calendar';
+import Calendar from 'react-calendar';
 import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
@@ -258,7 +258,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                               )}
                             >
                               {field.value ? (
-                                format(field.value, "PPP")
+                                format(field.value as Date, "PPP")
                               ) : (
                                 <span>Pick a date</span>
                               )}
@@ -268,11 +268,9 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) => (minDate && date < minDate) || date.getDay() === 0 || date.getDay() === 6}
-                            initialFocus
+                            onChange={field.onChange}
+                            value={field.value}
+                            tileDisabled={({date}) => (minDate && date < minDate) || date.getDay() === 0 || date.getDay() === 6}
                           />
                         </PopoverContent>
                       </Popover>

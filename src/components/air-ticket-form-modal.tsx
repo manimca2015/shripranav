@@ -40,7 +40,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
+import Calendar from 'react-calendar';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
 import { cn } from '@/lib/utils';
 
@@ -316,11 +316,9 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0" align="start">
                               <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                disabled={(date) => minDate ? date < minDate : false}
-                                initialFocus
+                                onChange={field.onChange}
+                                value={field.value}
+                                tileDisabled={({date}) => minDate ? date < minDate : false}
                               />
                             </PopoverContent>
                           </Popover>
@@ -356,16 +354,14 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                               </PopoverTrigger>
                               <PopoverContent className="w-auto p-0" align="start">
                                 <Calendar
-                                  mode="single"
-                                  selected={field.value}
-                                  onSelect={field.onChange}
-                                  disabled={(date) => {
+                                  onChange={field.onChange}
+                                  value={field.value}
+                                  tileDisabled={({date}) => {
                                     const departureDate = form.getValues("departureDate");
                                     if(departureDate && date <= departureDate) return true;
                                     if(minDate && date < minDate) return true;
                                     return false;
                                   }}
-                                  initialFocus
                                 />
                               </PopoverContent>
                             </Popover>
@@ -514,7 +510,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                               )}
                             >
                               {field.value ? (
-                                format(field.value, "PPP")
+                                format(field.value as Date, "PPP")
                               ) : (
                                 <span>Pick a date</span>
                               )}
@@ -524,11 +520,9 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) => (minDate && date < minDate) || date.getDay() === 0 || date.getDay() === 6}
-                            initialFocus
+                            onChange={field.onChange}
+                            value={field.value}
+                            tileDisabled={({date}) => (minDate && date < minDate) || date.getDay() === 0 || date.getDay() === 6}
                           />
                         </PopoverContent>
                       </Popover>
