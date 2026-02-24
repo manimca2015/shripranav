@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -34,15 +35,18 @@ import {
 } from '@/components/ui/dialog';
 import { submitCustomItineraryRequest } from '@/app/holiday-packages/actions';
 import { useRouter } from 'next/navigation';
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { Calendar } from './ui/calendar';
+import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDay: z.string().optional(),
-  preferredCallMonth: z.string().optional(),
-  preferredCallYear: z.string().optional(),
+  preferredCallDate: z.date().optional(),
   preferredCallTime: z.string().optional(),
   destination: z.string(),
   pax: z.string().optional(),
@@ -53,18 +57,10 @@ const formSchema = z.object({
     errorMap: () => ({ message: "You must consent to be contacted." }),
   }),
 }).superRefine((data, ctx) => {
-    if (data.preferredCallDay && data.preferredCallMonth && data.preferredCallYear) {
-        const pDay = parseInt(data.preferredCallDay, 10);
-        const pMonth = parseInt(data.preferredCallMonth, 10);
-        const pYear = parseInt(data.preferredCallYear, 10);
-        const preferredDate = new Date(pYear, pMonth - 1, pDay);
-        if (preferredDate.getFullYear() !== pYear || preferredDate.getMonth() !== pMonth - 1 || preferredDate.getDate() !== pDay) {
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Invalid preferred call date.', path: ['preferredCallDay'] });
-        } else {
-            const dayOfWeek = preferredDate.getDay();
-            if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
-                ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDay'] });
-            }
+    if (data.preferredCallDate) {
+        const dayOfWeek = data.preferredCallDate.getDay();
+        if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
+            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
         }
     }
 });
@@ -78,9 +74,6 @@ type CustomItineraryModalProps = {
   destination: string;
 };
 
-const years = Array.from({ length: 5 }, (_, i) => (2026 + i).toString());
-const months = Array.from({ length: 12 }, (_, i) => ({ value: (i + 1).toString(), label: new Date(0, i).toLocaleString('default', { month: 'long' }) }));
-const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
 const timeSlots = [
     '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
     '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM',
@@ -92,6 +85,13 @@ const timeSlots = [
 export function CustomItineraryModal({ isOpen, onClose, destination }: CustomItineraryModalProps) {
   const { toast } = useToast();
   const router = useRouter();
+  const [minDate, setMinDate] = useState<Date>();
+
+  useEffect(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    setMinDate(today);
+  }, []);
 
   const form = useForm<CustomItineraryFormValues>({
     resolver: zodResolver(formSchema),
@@ -104,16 +104,14 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
       travelDates: '',
       message: '',
       honeypot: '',
-      preferredCallYear: '2026',
     },
   });
 
   async function onSubmit(values: CustomItineraryFormValues) {
-    let preferredCallDate: string | undefined = undefined;
-    if (values.preferredCallDay && values.preferredCallMonth && values.preferredCallYear) {
-        preferredCallDate = `${values.preferredCallDay.padStart(2, '0')}/${values.preferredCallMonth.padStart(2, '0')}/${values.preferredCallYear}`;
-    }
-    const result = await submitCustomItineraryRequest({ ...values, preferredCallDate });
+    const result = await submitCustomItineraryRequest({ 
+        ...values, 
+        preferredCallDate: values.preferredCallDate ? format(values.preferredCallDate, 'dd/MM/yyyy') : undefined 
+    });
     if (result.success) {
         toast({
             title: 'Request Sent!',
@@ -130,76 +128,6 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
         });
     }
   }
-
-  const DateSelector = ({ type }: { type: 'preferredCall' }) => {
-    const fieldErrors = form.formState.errors;
-    const dayError = fieldErrors[`${type}Day` as const];
-    const monthError = fieldErrors[`${type}Month` as const];
-    const yearError = fieldErrors[`${type}Year` as const];
-    
-    const labelMap = {
-        preferredCall: 'Preferred Call Date'
-    }
-
-    const errorMessage = dayError?.message || monthError?.message || yearError?.message;
-
-    return (
-        <div className="space-y-2">
-        <FormLabel>{labelMap[type]}</FormLabel>
-        <div className="grid grid-cols-3 gap-2">
-            <FormField
-            control={form.control}
-            name={`${type}Day` as const}
-            render={({ field }) => (
-                <FormItem>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                    <SelectTrigger><SelectValue placeholder="Day" /></SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    {days.map(day => <SelectItem key={day} value={day}>{day}</SelectItem>)}
-                    </SelectContent>
-                </Select>
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name={`${type}Month` as const}
-            render={({ field }) => (
-                <FormItem>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                    <SelectTrigger><SelectValue placeholder="Month" /></SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    {months.map(month => <SelectItem key={month.value} value={month.value}>{month.label}</SelectItem>)}
-                    </SelectContent>
-                </Select>
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name={`${type}Year` as const}
-            render={({ field }) => (
-                <FormItem>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                    <SelectTrigger><SelectValue placeholder="Year" /></SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    {years.map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
-                    </SelectContent>
-                </Select>
-                </FormItem>
-            )}
-            />
-        </div>
-         {errorMessage && <FormMessage>{errorMessage}</FormMessage>}
-        </div>
-    );
-  };
   
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -313,7 +241,45 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                 )}
             />
             <div className="grid md:grid-cols-2 gap-4">
-                <DateSelector type="preferredCall" />
+                <FormField
+                  control={form.control}
+                  name="preferredCallDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Preferred Call Date</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) => (minDate && date < minDate) || date.getDay() === 0 || date.getDay() === 6}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                 control={form.control}
                 name="preferredCallTime"

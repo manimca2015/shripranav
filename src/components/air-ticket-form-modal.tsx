@@ -1,11 +1,13 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
 
 import { Button } from '@/components/ui/button';
 import {
@@ -37,7 +39,10 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
+import { cn } from '@/lib/utils';
 
 
 const airTicketFormSchema = z.object({
@@ -45,21 +50,14 @@ const airTicketFormSchema = z.object({
   email: z.string().email('A valid email is required.'),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDay: z.string().optional(),
-  preferredCallMonth: z.string().optional(),
-  preferredCallYear: z.string().optional(),
+  preferredCallDate: z.date().optional(),
   preferredCallTime: z.string().optional(),
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
   
-  departureDay: z.string({ required_error: 'Day is required.' }),
-  departureMonth: z.string({ required_error: 'Month is required.' }),
-  departureYear: z.string({ required_error: 'Year is required.' }),
-
-  returnDay: z.string().optional(),
-  returnMonth: z.string().optional(),
-  returnYear: z.string().optional(),
+  departureDate: z.date({ required_error: 'Departure date is required.' }),
+  returnDate: z.date().optional(),
 
   adults: z.string().min(1, 'At least one adult is required.'),
   children: z.string().optional(),
@@ -71,63 +69,28 @@ const airTicketFormSchema = z.object({
     errorMap: () => ({ message: "You must consent to be contacted." }),
   }),
 }).superRefine((data, ctx) => {
-    // Check if departure date is valid
-    const dDay = parseInt(data.departureDay, 10);
-    const dMonth = parseInt(data.departureMonth, 10);
-    const dYear = parseInt(data.departureYear, 10);
-    const departureDate = new Date(dYear, dMonth - 1, dDay);
-    if (departureDate.getFullYear() !== dYear || departureDate.getMonth() !== dMonth - 1 || departureDate.getDate() !== dDay) {
-        ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Invalid departure date.',
-            path: ['departureDay'],
-        });
-    }
-
     if (data.tripType === 'round-trip') {
-        if (!data.returnDay || !data.returnMonth || !data.returnYear) {
+        if (!data.returnDate) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Return date is required.',
-                path: ['returnDay'],
+                path: ['returnDate'],
             });
             return;
         }
 
-        const rDay = parseInt(data.returnDay, 10);
-        const rMonth = parseInt(data.returnMonth, 10);
-        const rYear = parseInt(data.returnYear, 10);
-        const returnDate = new Date(rYear, rMonth - 1, rDay);
-
-        if (returnDate.getFullYear() !== rYear || returnDate.getMonth() !== rMonth - 1 || returnDate.getDate() !== rDay) {
-            ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                message: 'Invalid return date.',
-                path: ['returnDay'],
-            });
-            return;
-        }
-
-        if (returnDate <= departureDate) {
+        if (data.returnDate <= data.departureDate) {
              ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Return date must be after departure date.',
-                path: ['returnDay'],
+                path: ['returnDate'],
               });
         }
     }
-    if (data.preferredCallDay && data.preferredCallMonth && data.preferredCallYear) {
-        const pDay = parseInt(data.preferredCallDay, 10);
-        const pMonth = parseInt(data.preferredCallMonth, 10);
-        const pYear = parseInt(data.preferredCallYear, 10);
-        const preferredDate = new Date(pYear, pMonth - 1, pDay);
-        if (preferredDate.getFullYear() !== pYear || preferredDate.getMonth() !== pMonth - 1 || preferredDate.getDate() !== pDay) {
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Invalid preferred call date.', path: ['preferredCallDay'] });
-        } else {
-            const dayOfWeek = preferredDate.getDay();
-            if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
-                ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDay'] });
-            }
+    if (data.preferredCallDate) {
+        const dayOfWeek = data.preferredCallDate.getDay();
+        if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
+            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
         }
     }
 });
@@ -138,9 +101,6 @@ type AirTicketFormModalProps = {
   onClose: () => void;
 };
 
-const years = Array.from({ length: 5 }, (_, i) => (2026 + i).toString());
-const months = Array.from({ length: 12 }, (_, i) => ({ value: (i + 1).toString(), label: new Date(0, i).toLocaleString('default', { month: 'long' }) }));
-const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
 const timeSlots = [
     '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
     '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM',
@@ -153,6 +113,13 @@ const timeSlots = [
 export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps) {
   const { toast } = useToast();
   const router = useRouter();
+  const [minDate, setMinDate] = useState<Date>();
+
+  useEffect(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    setMinDate(today);
+  }, []);
 
   const form = useForm<z.infer<typeof airTicketFormSchema>>({
     resolver: zodResolver(airTicketFormSchema),
@@ -163,9 +130,6 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
       tripType: 'round-trip',
       from: '',
       to: '',
-      departureYear: '2026',
-      returnYear: '2026',
-      preferredCallYear: '2026',
       adults: '1',
       children: '0',
       infants: '0',
@@ -178,23 +142,12 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
   const tripType = form.watch('tripType');
 
   async function onSubmit(values: z.infer<typeof airTicketFormSchema>) {
-    const departureDate = `${values.departureDay.padStart(2, '0')}/${values.departureMonth.padStart(2, '0')}/${values.departureYear}`;
     
-    let returnDate: string | undefined = undefined;
-    if (values.tripType === 'round-trip' && values.returnDay && values.returnMonth && values.returnYear) {
-        returnDate = `${values.returnDay.padStart(2, '0')}/${values.returnMonth.padStart(2, '0')}/${values.returnYear}`;
-    }
-
-    let preferredCallDate: string | undefined = undefined;
-    if (values.preferredCallDay && values.preferredCallMonth && values.preferredCallYear) {
-        preferredCallDate = `${values.preferredCallDay.padStart(2, '0')}/${values.preferredCallMonth.padStart(2, '0')}/${values.preferredCallYear}`;
-    }
-
     const result = await submitAirTicketRequest({
         ...values,
-        departureDate,
-        returnDate,
-        preferredCallDate,
+        departureDate: format(values.departureDate, 'dd/MM/yyyy'),
+        returnDate: values.returnDate ? format(values.returnDate, 'dd/MM/yyyy') : undefined,
+        preferredCallDate: values.preferredCallDate ? format(values.preferredCallDate, 'dd/MM/yyyy') : undefined,
     });
     
     if (result.success) {
@@ -213,79 +166,6 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
       });
     }
   }
-
-  const DateSelector = ({ type }: { type: 'departure' | 'return' | 'preferredCall' }) => {
-    const fieldErrors = form.formState.errors;
-    const dayError = fieldErrors[`${type}Day` as const];
-    const monthError = fieldErrors[`${type}Month` as const];
-    const yearError = fieldErrors[`${type}Year` as const];
-    
-    const labelMap = {
-        departure: 'Departure Date*',
-        return: 'Return Date*',
-        preferredCall: 'Preferred Call Date'
-    }
-
-    const errorMessage = dayError?.message || monthError?.message || yearError?.message;
-
-    return (
-        <div className="space-y-2">
-        <FormLabel>{labelMap[type]}</FormLabel>
-        <div className="grid grid-cols-3 gap-2">
-            <FormField
-            control={form.control}
-            name={`${type}Day` as const}
-            render={({ field }) => (
-                <FormItem>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                    <SelectTrigger><SelectValue placeholder="Day" /></SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    {days.map(day => <SelectItem key={day} value={day}>{day}</SelectItem>)}
-                    </SelectContent>
-                </Select>
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name={`${type}Month` as const}
-            render={({ field }) => (
-                <FormItem>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                    <SelectTrigger><SelectValue placeholder="Month" /></SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    {months.map(month => <SelectItem key={month.value} value={month.value}>{month.label}</SelectItem>)}
-                    </SelectContent>
-                </Select>
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name={`${type}Year` as const}
-            render={({ field }) => (
-                <FormItem>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                    <SelectTrigger><SelectValue placeholder="Year" /></SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    {years.map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
-                    </SelectContent>
-                </Select>
-                </FormItem>
-            )}
-            />
-        </div>
-         {errorMessage && <FormMessage>{errorMessage}</FormMessage>}
-        </div>
-    );
-};
-
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -348,14 +228,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                       <FormLabel>Trip Type</FormLabel>
                       <FormControl>
                         <RadioGroup
-                          onValueChange={(value) => {
-                              field.onChange(value);
-                              if (value === 'one-way') {
-                                  form.setValue('returnDay', undefined);
-                                  form.setValue('returnMonth', undefined);
-                                  form.setValue('returnYear', '2026');
-                              }
-                          }}
+                          onValueChange={field.onChange}
                           defaultValue={field.value}
                           className="flex space-x-4 pt-2"
                         >
@@ -416,9 +289,90 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     />
                 </div>
                  <div className="grid md:grid-cols-2 gap-6">
-                    <DateSelector type="departure" />
+                    <FormField
+                      control={form.control}
+                      name="departureDate"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel>Departure Date*</FormLabel>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant={"outline"}
+                                  className={cn(
+                                    "w-full pl-3 text-left font-normal",
+                                    !field.value && "text-muted-foreground"
+                                  )}
+                                >
+                                  {field.value ? (
+                                    format(field.value, "PPP")
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                disabled={(date) => minDate ? date < minDate : false}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     {tripType === 'round-trip' && (
-                       <DateSelector type="return" />
+                       <FormField
+                        control={form.control}
+                        name="returnDate"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col">
+                            <FormLabel>Return Date*</FormLabel>
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                      "w-full pl-3 text-left font-normal",
+                                      !field.value && "text-muted-foreground"
+                                    )}
+                                  >
+                                    {field.value ? (
+                                      format(field.value, "PPP")
+                                    ) : (
+                                      <span>Pick a date</span>
+                                    )}
+                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                  mode="single"
+                                  selected={field.value}
+                                  onSelect={field.onChange}
+                                  disabled={(date) => {
+                                    const departureDate = form.getValues("departureDate");
+                                    if(departureDate && date <= departureDate) return true;
+                                    if(minDate && date < minDate) return true;
+                                    return false;
+                                  }}
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     )}
                  </div>
                 </>
@@ -543,7 +497,45 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
             />
 
             <div className="grid md:grid-cols-2 gap-6">
-                <DateSelector type="preferredCall" />
+                <FormField
+                  control={form.control}
+                  name="preferredCallDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Preferred Call Date</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) => (minDate && date < minDate) || date.getDay() === 0 || date.getDay() === 6}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                 control={form.control}
                 name="preferredCallTime"
