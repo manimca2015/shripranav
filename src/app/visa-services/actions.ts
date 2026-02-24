@@ -8,11 +8,15 @@ const visaEnquirySchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  city: z.string().optional(),
+  preferredCallDate: z.string().optional(),
+  preferredCallTime: z.string().optional(),
   destination: z.string(),
   visaType: z.enum(['tourist', 'business', 'student', 'other']),
   travelDate: z.string().optional(),
   message: z.string().optional(),
   honeypot: z.string().optional(),
+  consent: z.boolean(),
 });
 
 export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema>) {
@@ -25,10 +29,14 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
+        City: values.city,
+        'Preferred Call Date': values.preferredCallDate,
+        'Preferred Call Time': values.preferredCallTime,
         Destination: values.destination,
         'Visa Type': values.visaType,
         'Travel Date (Visa)': values.travelDate,
         Message: values.message,
+        Consent: values.consent,
     });
     return { success: true, message: 'Your visa enquiry has been sent successfully!' };
   } catch (error) {

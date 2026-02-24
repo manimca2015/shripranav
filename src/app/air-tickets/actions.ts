@@ -8,6 +8,9 @@ const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
   email: z.string().email('A valid email is required.'),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  city: z.string().optional(),
+  preferredCallDate: z.string().optional(),
+  preferredCallTime: z.string().optional(),
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
@@ -19,6 +22,7 @@ const airTicketFormSchema = z.object({
   travelClass: z.enum(['economy', 'premium-economy', 'business', 'first']),
   message: z.string().optional(),
   honeypot: z.string().optional(),
+  consent: z.boolean(),
 });
 
 export async function submitAirTicketRequest(values: z.infer<typeof airTicketFormSchema>) {
@@ -31,6 +35,9 @@ export async function submitAirTicketRequest(values: z.infer<typeof airTicketFor
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
+        City: values.city,
+        'Preferred Call Date': values.preferredCallDate,
+        'Preferred Call Time': values.preferredCallTime,
         'Trip Type': values.tripType,
         'From (Flight)': values.from,
         'To (Flight)': values.to,
@@ -40,7 +47,8 @@ export async function submitAirTicketRequest(values: z.infer<typeof airTicketFor
         Children: values.children,
         Infants: values.infants,
         'Travel Class': values.travelClass,
-        Message: values.message
+        Message: values.message,
+        Consent: values.consent,
     });
     return { success: true, message: 'Your request has been sent successfully!' };
   } catch (error) {

@@ -1,3 +1,4 @@
+
 'use server';
 
 import { google } from 'googleapis';
@@ -8,6 +9,10 @@ const headers = [
     'Name',
     'Email',
     'Phone',
+    'City',
+    'Preferred Call Date',
+    'Preferred Call Time',
+    'Consent',
     'Subject',
     'Message',
     'Destination',
@@ -28,7 +33,7 @@ const headers = [
 ];
 
 type SheetRowData = {
-    [key in typeof headers[number]]?: string | undefined;
+    [key in typeof headers[number]]?: string | boolean | undefined;
 };
 
 
@@ -62,7 +67,13 @@ export async function appendToSheet(data: SheetRowData) {
       ...data
     };
 
-    const row = headers.map(header => rowData[header] || '');
+    const row = headers.map(header => {
+      const value = rowData[header];
+      if (typeof value === 'boolean') {
+          return value ? 'Yes' : 'No';
+      }
+      return value === undefined || value === null ? '' : String(value);
+    });
     
     const sheetName = process.env.GOOGLE_SHEET_TAB_NAME || 'Leads';
     

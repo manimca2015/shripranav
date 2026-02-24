@@ -27,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import {
   Dialog,
@@ -43,6 +44,11 @@ const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
   email: z.string().email('A valid email is required.'),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  city: z.string().optional(),
+  preferredCallDay: z.string().optional(),
+  preferredCallMonth: z.string().optional(),
+  preferredCallYear: z.string().optional(),
+  preferredCallTime: z.string().optional(),
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
@@ -61,6 +67,9 @@ const airTicketFormSchema = z.object({
   travelClass: z.enum(['economy', 'premium-economy', 'business', 'first']),
   message: z.string().optional(),
   honeypot: z.string().optional(),
+  consent: z.literal(true, {
+    errorMap: () => ({ message: "You must consent to be contacted." }),
+  }),
 }).superRefine((data, ctx) => {
     // Check if departure date is valid
     const dDay = parseInt(data.departureDay, 10);
@@ -107,6 +116,20 @@ const airTicketFormSchema = z.object({
               });
         }
     }
+    if (data.preferredCallDay && data.preferredCallMonth && data.preferredCallYear) {
+        const pDay = parseInt(data.preferredCallDay, 10);
+        const pMonth = parseInt(data.preferredCallMonth, 10);
+        const pYear = parseInt(data.preferredCallYear, 10);
+        const preferredDate = new Date(pYear, pMonth - 1, pDay);
+        if (preferredDate.getFullYear() !== pYear || preferredDate.getMonth() !== pMonth - 1 || preferredDate.getDate() !== pDay) {
+            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Invalid preferred call date.', path: ['preferredCallDay'] });
+        } else {
+            const dayOfWeek = preferredDate.getDay();
+            if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
+                ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDay'] });
+            }
+        }
+    }
 });
 
 
@@ -118,6 +141,13 @@ type AirTicketFormModalProps = {
 const years = Array.from({ length: 5 }, (_, i) => (2026 + i).toString());
 const months = Array.from({ length: 12 }, (_, i) => ({ value: (i + 1).toString(), label: new Date(0, i).toLocaleString('default', { month: 'long' }) }));
 const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+const timeSlots = [
+    '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+    '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM',
+    '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM',
+    '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM',
+    '06:00 PM', '06:30 PM', '07:00 PM'
+];
 
 
 export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps) {
@@ -135,6 +165,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
       to: '',
       departureYear: '2026',
       returnYear: '2026',
+      preferredCallYear: '2026',
       adults: '1',
       children: '0',
       infants: '0',
@@ -154,10 +185,16 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
         returnDate = `${values.returnDay.padStart(2, '0')}/${values.returnMonth.padStart(2, '0')}/${values.returnYear}`;
     }
 
+    let preferredCallDate: string | undefined = undefined;
+    if (values.preferredCallDay && values.preferredCallMonth && values.preferredCallYear) {
+        preferredCallDate = `${values.preferredCallDay.padStart(2, '0')}/${values.preferredCallMonth.padStart(2, '0')}/${values.preferredCallYear}`;
+    }
+
     const result = await submitAirTicketRequest({
         ...values,
         departureDate,
         returnDate,
+        preferredCallDate,
     });
     
     if (result.success) {
@@ -177,18 +214,23 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     }
   }
 
-  const DateSelector = ({ type }: { type: 'departure' | 'return' }) => {
+  const DateSelector = ({ type }: { type: 'departure' | 'return' | 'preferredCall' }) => {
     const fieldErrors = form.formState.errors;
     const dayError = fieldErrors[`${type}Day` as const];
     const monthError = fieldErrors[`${type}Month` as const];
     const yearError = fieldErrors[`${type}Year` as const];
     
-    // Combine messages, prioritizing the day field for display
+    const labelMap = {
+        departure: 'Departure Date*',
+        return: 'Return Date*',
+        preferredCall: 'Preferred Call Date'
+    }
+
     const errorMessage = dayError?.message || monthError?.message || yearError?.message;
 
     return (
         <div className="space-y-2">
-        <FormLabel>{type === 'departure' ? 'Departure Date*' : 'Return Date*'}</FormLabel>
+        <FormLabel>{labelMap[type]}</FormLabel>
         <div className="grid grid-cols-3 gap-2">
             <FormField
             control={form.control}
@@ -485,6 +527,65 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     )}
                 />
             )}
+
+            <FormField
+                control={form.control}
+                name="city"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>City</FormLabel>
+                    <FormControl>
+                        <Input placeholder="Your City" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+            />
+
+            <div className="grid md:grid-cols-2 gap-6">
+                <DateSelector type="preferredCall" />
+                <FormField
+                control={form.control}
+                name="preferredCallTime"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Preferred Call Time</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select a time slot" />
+                        </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                        {timeSlots.map(slot => <SelectItem key={slot} value={slot}>{slot}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+            </div>
+
+            <FormField
+              control={form.control}
+              name="consent"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      I consent to be contacted via Phone, Email, and WhatsApp.
+                    </FormLabel>
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
 
             {/* Honeypot field */}
             <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">

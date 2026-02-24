@@ -8,9 +8,13 @@ const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email(),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  city: z.string().optional(),
+  preferredCallDate: z.string().optional(),
+  preferredCallTime: z.string().optional(),
   subject: z.string().min(5, { message: 'Subject must be at least 5 characters.' }),
   message: z.string().optional(),
   honeypot: z.string().optional(),
+  consent: z.boolean(),
 });
 
 export async function submitContactForm(values: z.infer<typeof formSchema>) {
@@ -24,8 +28,12 @@ export async function submitContactForm(values: z.infer<typeof formSchema>) {
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
+        City: values.city,
+        'Preferred Call Date': values.preferredCallDate,
+        'Preferred Call Time': values.preferredCallTime,
         Subject: values.subject,
         Message: values.message,
+        Consent: values.consent,
     });
     return { success: true, message: 'Message sent successfully!' };
   } catch (error) {
