@@ -39,9 +39,9 @@ const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
-  city: z.string().optional(),
-  preferredCallDate: z.string().optional(),
-  preferredCallTime: z.string().optional(),
+  city: z.string().min(1, { message: 'City is required.' }),
+  preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }),
+  preferredCallTime: z.string({ required_error: 'Please select a preferred call time.' }),
   message: z.string().optional(),
   tourName: z.string(),
   honeypot: z.string().optional(),
@@ -85,6 +85,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
       name: '',
       email: '',
       phone: '',
+      city: '',
       message: '',
       tourName: tourName,
       honeypot: '',
@@ -184,10 +185,50 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                 name="city"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>City</FormLabel>
+                    <FormLabel>City*</FormLabel>
                     <FormControl>
                         <Input placeholder="Your City" {...field} />
                     </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="preferredCallDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Preferred Call Date*</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="date"
+                            min={todayForDateInput}
+                            {...field}
+                            value={field.value ?? ''}
+                          />
+                        </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                control={form.control}
+                name="preferredCallTime"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Preferred Call Time*</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select a time slot" />
+                        </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                        {timeSlots.map(slot => <SelectItem key={slot} value={slot}>{slot}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
                     <FormMessage />
                     </FormItem>
                 )}
@@ -206,46 +247,6 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                 </FormItem>
               )}
             />
-            <div className="grid md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="preferredCallDate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Preferred Call Date</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="date"
-                            min={todayForDateInput}
-                            {...field}
-                            value={field.value ?? ''}
-                          />
-                        </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                control={form.control}
-                name="preferredCallTime"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Preferred Call Time</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select a time slot" />
-                        </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                        {timeSlots.map(slot => <SelectItem key={slot} value={slot}>{slot}</SelectItem>)}
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
-            </div>
              <FormField
                 control={form.control}
                 name="consent"
