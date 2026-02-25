@@ -84,7 +84,17 @@ export function Header() {
                 className={cn("hidden lg:flex items-center gap-6 font-bold relative", navLinkColorClasses)}
             >
                 {navLinks.map(link => (
-                    <Link key={link.href} href={link.href} className="hover:text-accent transition-colors">{link.label}</Link>
+                    link.href === "/tours" ? (
+                        <Link
+                            key={link.href}
+                            href={link.href}
+                            className="px-5 py-2 rounded-full transition-colors duration-300 hover:bg-[#dfae29]"
+                        >
+                            {link.label}
+                        </Link>
+                    ) : (
+                        <Link key={link.href} href={link.href} className="hover:text-accent transition-colors">{link.label}</Link>
+                    )
                 ))}
             </nav>
             <div className="flex items-center gap-2 sm:gap-6">
