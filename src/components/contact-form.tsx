@@ -27,6 +27,11 @@ import { useToast } from '@/hooks/use-toast';
 import { submitContactForm } from '@/app/contact-us/actions';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 
 const formSchema = z.object({
@@ -201,15 +206,43 @@ export function ContactForm() {
             control={form.control}
             name="preferredCallDate"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel>Preferred Call Date</FormLabel>
-                <FormControl>
-                    <Input 
-                        type="date"
-                        {...field}
-                        min={new Date().toISOString().split("T")[0]}
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={'outline'}
+                        className={cn(
+                          'w-full pl-3 text-left font-normal',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      >
+                        {field.value ? (
+                          format(new Date(field.value + 'T00:00:00'), 'PPP')
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
+                      onSelect={(date) => field.onChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                      disabled={(date) => {
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        if (date < today) return true;
+                        const day = date.getDay();
+                        return day === 0 || day === 6;
+                      }}
+                      initialFocus
                     />
-                </FormControl>
+                  </PopoverContent>
+                </Popover>
                 <FormMessage />
               </FormItem>
             )}
