@@ -8,8 +8,7 @@ import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import { Calendar } from '@/components/ui/calendar';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -87,12 +86,6 @@ const airTicketFormSchema = z.object({
               });
         }
     }
-    if (data.preferredCallDate) {
-        const dayOfWeek = new Date(data.preferredCallDate).getDay();
-        if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
-        }
-    }
 });
 
 
@@ -155,33 +148,6 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
       });
     }
   }
-
-  const isWeekday = (date: Date) => {
-    const day = date.getDay();
-    return day !== 0 && day !== 6;
-  };
-  
-  const tileDisabled = ({ date, view }: { date: Date, view: string }) => {
-    if (view === 'month') {
-      return !isWeekday(date) || date < new Date(new Date().setHours(0, 0, 0, 0));
-    }
-    return false;
-  };
-  
-  const departureTileDisabled = ({ date, view }: { date: Date, view: string }) => {
-    if (view === 'month') {
-        return date < new Date(new Date().setHours(0, 0, 0, 0));
-    }
-    return false;
-  };
-
-  const returnTileDisabled = ({ date, view }: { date: Date, view: string }) => {
-    if (view === 'month') {
-        const depDate = departureDate ? new Date(departureDate) : new Date();
-        return date <= depDate;
-    }
-    return false;
-  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -332,9 +298,11 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0" align="start">
                               <Calendar
-                                onChange={(value) => field.onChange(value ? format(value as Date, "yyyy-MM-dd") : '')}
-                                value={field.value ? new Date(field.value) : null}
-                                tileDisabled={departureTileDisabled}
+                                mode="single"
+                                selected={field.value ? new Date(field.value) : undefined}
+                                onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
+                                disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                                initialFocus
                               />
                             </PopoverContent>
                           </Popover>
@@ -371,9 +339,11 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                               </PopoverTrigger>
                               <PopoverContent className="w-auto p-0" align="start">
                                 <Calendar
-                                  onChange={(value) => field.onChange(value ? format(value as Date, "yyyy-MM-dd") : '')}
-                                  value={field.value ? new Date(field.value) : null}
-                                  tileDisabled={returnTileDisabled}
+                                  mode="single"
+                                  selected={field.value ? new Date(field.value) : undefined}
+                                  onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
+                                  disabled={(date) => departureDate ? date <= new Date(departureDate) : false}
+                                  initialFocus
                                 />
                               </PopoverContent>
                             </Popover>
@@ -535,9 +505,15 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                            <Calendar
-                                onChange={(value) => field.onChange(value ? format(value as Date, "yyyy-MM-dd") : '')}
-                                value={field.value ? new Date(field.value) : null}
-                                tileDisabled={tileDisabled}
+                                mode="single"
+                                selected={field.value ? new Date(field.value) : undefined}
+                                onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
+                                disabled={(date) =>
+                                    date < new Date(new Date().setHours(0, 0, 0, 0)) ||
+                                    date.getDay() === 0 ||
+                                    date.getDay() === 6
+                                }
+                                initialFocus
                               />
                         </PopoverContent>
                       </Popover>

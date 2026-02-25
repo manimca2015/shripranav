@@ -35,11 +35,10 @@ import {
 import { submitEnquiry } from '@/app/actions';
 import { useRouter } from 'next/navigation';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -54,13 +53,6 @@ const formSchema = z.object({
   consent: z.literal(true, {
     errorMap: () => ({ message: "You must consent to be contacted." }),
   }),
-}).superRefine((data, ctx) => {
-    if (data.preferredCallDate) {
-        const dayOfWeek = new Date(data.preferredCallDate).getDay();
-        if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
-        }
-    }
 });
 
 type EnquiryFormValues = z.infer<typeof formSchema>;
@@ -124,19 +116,6 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
   const dialogDescription = isGeneralEnquiry
     ? 'Have a question? Fill out the form below and we will get back to you.'
     : 'Fill out the form below and our team will get back to you with more details.';
-
-  const isWeekday = (date: Date) => {
-    const day = date.getDay();
-    return day !== 0 && day !== 6;
-  };
-  
-  const tileDisabled = ({ date, view }: { date: Date, view: string }) => {
-    if (view === 'month') {
-      return !isWeekday(date) || date < new Date(new Date().setHours(0, 0, 0, 0));
-    }
-    return false;
-  };
-
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -238,9 +217,15 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                            <Calendar
-                                onChange={(value) => field.onChange(value ? format(value as Date, "yyyy-MM-dd") : '')}
-                                value={field.value ? new Date(field.value) : null}
-                                tileDisabled={tileDisabled}
+                                mode="single"
+                                selected={field.value ? new Date(field.value) : undefined}
+                                onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : "")}
+                                disabled={(date) =>
+                                    date < new Date(new Date().setHours(0, 0, 0, 0)) ||
+                                    date.getDay() === 0 ||
+                                    date.getDay() === 6
+                                }
+                                initialFocus
                               />
                         </PopoverContent>
                       </Popover>
