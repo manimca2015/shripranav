@@ -9,7 +9,11 @@ const airTicketFormSchema = z.object({
   email: z.string().email('A valid email is required.'),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }),
+  preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }).refine(date => {
+    if (!date) return true;
+    const day = new Date(date + 'T00:00:00').getDay();
+    return day !== 0 && day !== 6;
+  }, { message: "Please select a weekday (Monday to Friday only)." }),
   preferredCallTime: z.string({ required_error: 'Please select a preferred call time.' }),
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),

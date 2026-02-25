@@ -9,7 +9,11 @@ const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDate: z.string().optional(),
+  preferredCallDate: z.string().optional().refine(date => {
+    if (!date) return true;
+    const day = new Date(date + 'T00:00:00').getDay();
+    return day !== 0 && day !== 6;
+  }, { message: "Please select a weekday (Monday to Friday only)." }),
   preferredCallTime: z.string().optional(),
   destination: z.string(),
   pax: z.string().optional(),
