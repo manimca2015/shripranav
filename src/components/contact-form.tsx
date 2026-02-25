@@ -26,6 +26,11 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { submitContactForm } from '@/app/contact-us/actions';
 import { useRouter } from 'next/navigation';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -48,7 +53,7 @@ const formSchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const dayOfWeek = new Date(data.preferredCallDate + 'T12:00:00Z').getUTCDay();
+        const dayOfWeek = new Date(data.preferredCallDate.replace(/-/g, '/')).getDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
             ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
         }
@@ -62,8 +67,6 @@ const timeSlots = [
     '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM',
     '06:00 PM', '06:30 PM', '07:00 PM'
 ];
-
-const todayForDateInput = new Date().toISOString().split('T')[0];
 
 export function ContactForm() {
   const { toast } = useToast();
@@ -191,16 +194,43 @@ export function ContactForm() {
               control={form.control}
               name="preferredCallDate"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col">
                   <FormLabel>Preferred Call Date</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="date"
-                        min={todayForDateInput}
-                        {...field}
-                        value={field.value ?? ''}
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(new Date(field.value.replace(/-/g, '/')), "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value ? new Date(field.value.replace(/-/g, '/')) : undefined}
+                        onSelect={(date) =>
+                          field.onChange(date ? format(date, "yyyy-MM-dd") : undefined)
+                        }
+                        disabled={(date) =>
+                          date < new Date(new Date().setHours(0, 0, 0, 0)) ||
+                          date.getDay() === 0 ||
+                          date.getDay() === 6
+                        }
+                        initialFocus
                       />
-                    </FormControl>
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}
@@ -268,3 +298,5 @@ export function ContactForm() {
     </Form>
   );
 }
+
+    

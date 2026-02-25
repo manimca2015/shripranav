@@ -5,6 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -36,6 +39,8 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
 
 
@@ -82,7 +87,7 @@ const airTicketFormSchema = z.object({
         }
     }
     if (data.preferredCallDate) {
-        const dayOfWeek = new Date(data.preferredCallDate + 'T12:00:00Z').getUTCDay();
+        const dayOfWeek = new Date(data.preferredCallDate.replace(/-/g, '/')).getDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
             ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
         }
@@ -103,7 +108,6 @@ const timeSlots = [
     '06:00 PM', '06:30 PM', '07:00 PM'
 ];
 
-const todayForDateInput = new Date().toISOString().split('T')[0];
 
 export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps) {
   const { toast } = useToast();
@@ -277,16 +281,41 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                       control={form.control}
                       name="departureDate"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="flex flex-col">
                           <FormLabel>Departure Date*</FormLabel>
-                           <FormControl>
-                              <Input
-                                type="date"
-                                min={todayForDateInput}
-                                {...field}
-                                value={field.value ?? ''}
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant={"outline"}
+                                  className={cn(
+                                    "w-full pl-3 text-left font-normal",
+                                    !field.value && "text-muted-foreground"
+                                  )}
+                                >
+                                  {field.value ? (
+                                    format(new Date(field.value.replace(/-/g, '/')), "PPP")
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                              <Calendar
+                                mode="single"
+                                selected={field.value ? new Date(field.value.replace(/-/g, '/')) : undefined}
+                                onSelect={(date) =>
+                                  field.onChange(date ? format(date, "yyyy-MM-dd") : undefined)
+                                }
+                                disabled={(date) =>
+                                  date < new Date(new Date().setHours(0, 0, 0, 0))
+                                }
+                                initialFocus
                               />
-                            </FormControl>
+                            </PopoverContent>
+                          </Popover>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -296,17 +325,42 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         control={form.control}
                         name="returnDate"
                         render={({ field }) => (
-                          <FormItem>
+                          <FormItem className="flex flex-col">
                             <FormLabel>Return Date*</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="date"
-                                min={departureDate || todayForDateInput}
-                                disabled={!departureDate}
-                                {...field}
-                                value={field.value ?? ''}
-                              />
-                            </FormControl>
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                      "w-full pl-3 text-left font-normal",
+                                      !field.value && "text-muted-foreground"
+                                    )}
+                                    disabled={!departureDate}
+                                  >
+                                    {field.value ? (
+                                      format(new Date(field.value.replace(/-/g, '/')), "PPP")
+                                    ) : (
+                                      <span>Pick a date</span>
+                                    )}
+                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                  mode="single"
+                                  selected={field.value ? new Date(field.value.replace(/-/g, '/')) : undefined}
+                                  onSelect={(date) =>
+                                    field.onChange(date ? format(date, "yyyy-MM-dd") : undefined)
+                                  }
+                                  disabled={(date) =>
+                                    !departureDate || date <= new Date(departureDate.replace(/-/g, '/'))
+                                  }
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                            </Popover>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -323,7 +377,10 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormLabel>Itinerary Details*</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Please describe your multi-city travel plans. For example:&#10;1. New York (JFK) to London (LHR) on 10/12/2026&#10;2. London (LHR) to Paris (CDG) on 17/12/2026&#10;3. Paris (CDG) to New York (JFK) on 24/12/2026"
+                        placeholder="Please describe your multi-city travel plans. For example:
+1. New York (JFK) to London (LHR) on 10/12/2026
+2. London (LHR) to Paris (CDG) on 17/12/2026
+3. Paris (CDG) to New York (JFK) on 24/12/2026"
                         className="min-h-[60px]"
                         {...field}
                       />
@@ -439,16 +496,43 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                   control={form.control}
                   name="preferredCallDate"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Preferred Call Date*</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="date"
-                          min={todayForDateInput}
-                          {...field}
-                          value={field.value ?? ''}
-                        />
-                      </FormControl>
+                       <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(new Date(field.value.replace(/-/g, '/')), "PPP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value ? new Date(field.value.replace(/-/g, '/')) : undefined}
+                            onSelect={(date) =>
+                              field.onChange(date ? format(date, "yyyy-MM-dd") : undefined)
+                            }
+                            disabled={(date) =>
+                              date < new Date(new Date().setHours(0, 0, 0, 0)) ||
+                              date.getDay() === 0 ||
+                              date.getDay() === 6
+                            }
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -523,3 +607,5 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     </Dialog>
   );
 }
+
+    
