@@ -34,7 +34,13 @@ import {
 } from '@/components/ui/dialog';
 import { submitVisaEnquiry } from '@/app/visa-services/actions';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
 
 const visaEnquirySchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -53,9 +59,16 @@ const visaEnquirySchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const dayOfWeek = new Date(data.preferredCallDate).getUTCDay();
+        const dateParts = data.preferredCallDate.split('-').map(Number);
+        const selectedDate = new Date(Date.UTC(dateParts[0], dateParts[1] - 1, dateParts[2]));
+        const dayOfWeek = selectedDate.getUTCDay();
+
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
+            ctx.addIssue({ 
+                code: z.ZodIssueCode.custom, 
+                message: 'Please select a weekday (Monday to Friday only).', 
+                path: ['preferredCallDate'] 
+            });
         }
     }
 });
@@ -79,11 +92,6 @@ const timeSlots = [
 export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryModalProps) {
   const { toast } = useToast();
   const router = useRouter();
-  const [minDate, setMinDate] = useState('');
-
-  useEffect(() => {
-    setMinDate(new Date().toISOString().split("T")[0]);
-  }, []);
 
   const form = useForm<VisaEnquiryFormValues>({
     resolver: zodResolver(visaEnquirySchema),
@@ -246,19 +254,49 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
               )}
             />
             <div className="grid md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="preferredCallDate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Preferred Call Date</FormLabel>
-                      <FormControl>
-                        <Input type="date" {...field} min={minDate} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <FormField
+                control={form.control}
+                name="preferredCallDate"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Preferred Call Date</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(new Date(field.value), "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value ? new Date(field.value) : undefined}
+                          onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
+                          disabled={(date) =>
+                            date < new Date(new Date().setHours(0, 0, 0, 0)) ||
+                            date.getDay() === 0 ||
+                            date.getDay() === 6
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
                 <FormField
                 control={form.control}
                 name="preferredCallTime"
