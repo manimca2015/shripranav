@@ -9,7 +9,6 @@ import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
-
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -55,10 +54,8 @@ const airTicketFormSchema = z.object({
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
-  
   departureDate: z.string({ required_error: 'Departure date is required.' }),
   returnDate: z.string().optional(),
-
   adults: z.string().min(1, 'At least one adult is required.'),
   children: z.string().optional(),
   infants: z.string().optional(),
@@ -76,7 +73,7 @@ const airTicketFormSchema = z.object({
                 message: 'Return date is required.',
                 path: ['returnDate'],
             });
-        } else if (new Date(data.returnDate) <= new Date(data.departureDate)) {
+        } else if (data.departureDate && new Date(data.returnDate) <= new Date(data.departureDate)) {
              ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Return date must be after departure date.',
@@ -85,8 +82,8 @@ const airTicketFormSchema = z.object({
         }
     }
     if (data.preferredCallDate) {
-        const selectedDate = new Date(data.preferredCallDate);
-        const dayOfWeek = selectedDate.getUTCDay();
+        const selectedDate = new Date(data.preferredCallDate + 'T00:00:00');
+        const dayOfWeek = selectedDate.getDay();
 
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
             ctx.addIssue({
@@ -609,7 +606,3 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     </Dialog>
   );
 }
-
-    
-
-    

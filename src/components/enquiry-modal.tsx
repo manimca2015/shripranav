@@ -34,7 +34,7 @@ import {
 } from '@/components/ui/dialog';
 import { submitEnquiry } from '@/app/actions';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -56,8 +56,8 @@ const formSchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const selectedDate = new Date(data.preferredCallDate);
-        const dayOfWeek = selectedDate.getUTCDay();
+        const selectedDate = new Date(data.preferredCallDate + 'T00:00:00');
+        const dayOfWeek = selectedDate.getDay();
 
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday is 0, Saturday is 6
             ctx.addIssue({
@@ -104,6 +104,21 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
       consent: false,
     },
   });
+
+  useEffect(() => {
+    form.reset({
+      tourName: tourName,
+      name: '',
+      email: '',
+      phone: '',
+      city: '',
+      preferredCallDate: '',
+      preferredCallTime: '',
+      message: '',
+      honeypot: '',
+      consent: false,
+    });
+  }, [tourName, form]);
 
   async function onSubmit(values: EnquiryFormValues) {
     const result = await submitEnquiry(values);
@@ -332,7 +347,3 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
     </Dialog>
   );
 }
-
-    
-
-    

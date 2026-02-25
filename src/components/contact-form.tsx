@@ -26,7 +26,6 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { submitContactForm } from '@/app/contact-us/actions';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -55,8 +54,8 @@ const formSchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const selectedDate = new Date(data.preferredCallDate);
-        const dayOfWeek = selectedDate.getUTCDay();
+        const selectedDate = new Date(data.preferredCallDate + 'T00:00:00');
+        const dayOfWeek = selectedDate.getDay();
 
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
             ctx.addIssue({ 
@@ -310,7 +309,3 @@ export function ContactForm() {
     </Form>
   );
 }
-
-    
-
-    
