@@ -91,10 +91,15 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
       name: '',
       email: '',
       phone: '',
+      city: '',
+      preferredCallDate: '',
+      preferredCallTime: '',
       destination: destination,
+      visaType: 'tourist',
       travelDate: '',
       message: '',
       honeypot: '',
+      consent: false,
     },
   });
 

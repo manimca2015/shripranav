@@ -92,11 +92,15 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
       name: '',
       email: '',
       phone: '',
+      city: '',
+      preferredCallDate: '',
+      preferredCallTime: '',
       destination: destination,
       pax: '',
       travelDates: '',
       message: '',
       honeypot: '',
+      consent: false,
     },
   });
 

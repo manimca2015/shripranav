@@ -79,9 +79,13 @@ export function ContactForm() {
       name: '',
       email: '',
       phone: '',
+      city: '',
+      preferredCallDate: '',
+      preferredCallTime: '',
       subject: '',
       message: '',
       honeypot: '',
+      consent: false,
     },
   });
 
