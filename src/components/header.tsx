@@ -88,7 +88,7 @@ export function Header() {
                     <Link
                         key={link.href}
                         href={link.href}
-                        className="px-4 py-2 rounded-full transition-colors duration-300 hover:bg-[#dfae29]"
+                        className="px-2 py-2 rounded-full transition-colors duration-300 hover:bg-[#dfae29] whitespace-nowrap"
                     >
                         {link.label}
                     </Link>
