@@ -37,6 +37,10 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 
 const airTicketFormSchema = z.object({
@@ -168,7 +172,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormItem>
                     <FormLabel>Full Name*</FormLabel>
                     <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input placeholder="John Doe" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -181,7 +185,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormItem>
                     <FormLabel>Email Address*</FormLabel>
                     <FormControl>
-                        <Input placeholder="you@example.com" {...field} />
+                        <Input placeholder="you@example.com" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -196,7 +200,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormItem>
                     <FormLabel>Phone Number*</FormLabel>
                     <FormControl>
-                        <Input placeholder="+1 234 567 890" {...field} />
+                        <Input placeholder="+1 234 567 890" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -250,7 +254,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                             <FormItem>
                             <FormLabel>From*</FormLabel>
                             <FormControl>
-                                <Input placeholder="e.g. New York (JFK)" {...field} />
+                                <Input placeholder="e.g. New York (JFK)" {...field} value={field.value || ''} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
@@ -263,7 +267,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                             <FormItem>
                             <FormLabel>To*</FormLabel>
                             <FormControl>
-                                <Input placeholder="e.g. London (LHR)" {...field} />
+                                <Input placeholder="e.g. London (LHR)" {...field} value={field.value || ''} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
@@ -282,6 +286,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                                 type="date"
                                 min={format(new Date(), 'yyyy-MM-dd')}
                                 {...field}
+                                value={field.value || ''}
                             />
                            </FormControl>
                           <FormMessage />
@@ -301,6 +306,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                                 min={departureDate || format(new Date(), 'yyyy-MM-dd')}
                                 disabled={!departureDate}
                                 {...field}
+                                value={field.value || ''}
                               />
                              </FormControl>
                             <FormMessage />
@@ -325,6 +331,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
 3. Paris (CDG) to New York (JFK) on 24/12/2026"
                         className="min-h-[60px]"
                         {...field}
+                        value={field.value || ''}
                       />
                     </FormControl>
                     <FormDescription>For multi-city trips, please detail your required flights in the message box.</FormDescription>
@@ -342,7 +349,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormItem>
                     <FormLabel>Adults*</FormLabel>
                     <FormControl>
-                        <Input type="number" min="1" {...field} />
+                        <Input type="number" min="1" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -355,7 +362,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormItem>
                     <FormLabel>Children</FormLabel>
                     <FormControl>
-                        <Input type="number" min="0" {...field} />
+                        <Input type="number" min="0" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -368,7 +375,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormItem>
                     <FormLabel>Infants</FormLabel>
                     <FormControl>
-                        <Input type="number" min="0" {...field} />
+                        <Input type="number" min="0" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -411,6 +418,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                             placeholder="Any special requests or preferences?"
                             className="min-h-[60px]"
                             {...field}
+                            value={field.value || ''}
                         />
                         </FormControl>
                         <FormMessage />
@@ -426,7 +434,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                     <FormItem>
                     <FormLabel>City</FormLabel>
                     <FormControl>
-                        <Input placeholder="Your City" {...field} />
+                        <Input placeholder="Your City" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -438,15 +446,43 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                   control={form.control}
                   name="preferredCallDate"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Preferred Call Date*</FormLabel>
-                      <FormControl>
-                        <Input
-                            type="date"
-                            min={format(new Date(), 'yyyy-MM-dd')}
-                            {...field}
-                        />
-                      </FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={'outline'}
+                              className={cn(
+                                'w-full pl-3 text-left font-normal',
+                                !field.value && 'text-muted-foreground'
+                              )}
+                            >
+                              {field.value ? (
+                                format(new Date(field.value + 'T00:00:00'), 'PPP')
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
+                            onSelect={(date) => field.onChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                            disabled={(date) => {
+                              const today = new Date();
+                              today.setHours(0, 0, 0, 0);
+                              if (date < today) return true;
+                              const day = date.getDay();
+                              return day === 0 || day === 6;
+                            }}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -521,7 +557,3 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     </Dialog>
   );
 }
-
-    
-
-    

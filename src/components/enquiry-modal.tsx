@@ -36,6 +36,10 @@ import { submitEnquiry } from '@/app/actions';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -160,7 +164,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                     <FormItem>
                       <FormLabel>Full Name*</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input placeholder="John Doe" {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -173,7 +177,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                     <FormItem>
                       <FormLabel>Email*</FormLabel>
                       <FormControl>
-                        <Input placeholder="you@example.com" {...field} />
+                        <Input placeholder="you@example.com" {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -188,7 +192,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                   <FormItem>
                     <FormLabel>Phone Number*</FormLabel>
                     <FormControl>
-                      <Input placeholder="+1 234 567 890" {...field} />
+                      <Input placeholder="+1 234 567 890" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -201,7 +205,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                     <FormItem>
                     <FormLabel>City*</FormLabel>
                     <FormControl>
-                        <Input placeholder="Your City" {...field} />
+                        <Input placeholder="Your City" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -213,15 +217,43 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                 control={form.control}
                 name="preferredCallDate"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Preferred Call Date*</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="date"
-                        min={format(new Date(), 'yyyy-MM-dd')}
-                        {...field}
-                      />
-                    </FormControl>
+                     <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={'outline'}
+                              className={cn(
+                                'w-full pl-3 text-left font-normal',
+                                !field.value && 'text-muted-foreground'
+                              )}
+                            >
+                              {field.value ? (
+                                format(new Date(field.value + 'T00:00:00'), 'PPP')
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
+                            onSelect={(date) => field.onChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                            disabled={(date) => {
+                              const today = new Date();
+                              today.setHours(0, 0, 0, 0);
+                              if (date < today) return true;
+                              const day = date.getDay();
+                              return day === 0 || day === 6;
+                            }}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -254,7 +286,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                 <FormItem>
                   <FormLabel>Message</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Any specific questions?" {...field} />
+                    <Textarea placeholder="Any specific questions?" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -306,7 +338,3 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
     </Dialog>
   );
 }
-
-    
-
-    

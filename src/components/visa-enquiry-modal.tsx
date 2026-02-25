@@ -35,6 +35,10 @@ import {
 import { submitVisaEnquiry } from '@/app/visa-services/actions';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 
 const visaEnquirySchema = z.object({
@@ -139,7 +143,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                     <FormItem>
                     <FormLabel>Full Name*</FormLabel>
                     <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input placeholder="John Doe" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -152,7 +156,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                     <FormItem>
                     <FormLabel>Email*</FormLabel>
                     <FormControl>
-                        <Input placeholder="you@example.com" {...field} />
+                        <Input placeholder="you@example.com" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -167,7 +171,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                   <FormItem>
                     <FormLabel>Phone Number*</FormLabel>
                     <FormControl>
-                      <Input placeholder="+1 234 567 890" {...field} />
+                      <Input placeholder="+1 234 567 890" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -180,7 +184,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                       <FormItem>
                       <FormLabel>City</FormLabel>
                       <FormControl>
-                          <Input placeholder="Your City" {...field} />
+                          <Input placeholder="Your City" {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                       </FormItem>
@@ -218,7 +222,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                     <FormItem>
                     <FormLabel>Travel Date</FormLabel>
                     <FormControl>
-                        <Input placeholder="e.g., December 2024" {...field} />
+                        <Input placeholder="e.g., December 2024" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -232,7 +236,7 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                 <FormItem>
                   <FormLabel>Additional Information</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Any other details we should know?" {...field} />
+                    <Textarea placeholder="Any other details we should know?" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -243,15 +247,43 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                 control={form.control}
                 name="preferredCallDate"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Preferred Call Date</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="date"
-                        min={format(new Date(), 'yyyy-MM-dd')}
-                        {...field}
-                      />
-                    </FormControl>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={'outline'}
+                              className={cn(
+                                'w-full pl-3 text-left font-normal',
+                                !field.value && 'text-muted-foreground'
+                              )}
+                            >
+                              {field.value ? (
+                                format(new Date(field.value + 'T00:00:00'), 'PPP')
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
+                            onSelect={(date) => field.onChange(date ? format(date, 'yyyy-MM-dd') : '')}
+                            disabled={(date) => {
+                              const today = new Date();
+                              today.setHours(0, 0, 0, 0);
+                              if (date < today) return true;
+                              const day = date.getDay();
+                              return day === 0 || day === 6;
+                            }}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -323,7 +355,3 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
     </Dialog>
   );
 }
-
-    
-
-    
