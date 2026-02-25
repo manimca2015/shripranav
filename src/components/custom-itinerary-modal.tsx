@@ -34,11 +34,7 @@ import {
 } from '@/components/ui/dialog';
 import { submitCustomItineraryRequest } from '@/app/holiday-packages/actions';
 import { useRouter } from 'next/navigation';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
+import { useEffect, useState } from 'react';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -57,7 +53,7 @@ const formSchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const dayOfWeek = new Date(data.preferredCallDate).getDay();
+        const dayOfWeek = new Date(data.preferredCallDate).getUTCDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
             ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
         }
@@ -84,6 +80,11 @@ const timeSlots = [
 export function CustomItineraryModal({ isOpen, onClose, destination }: CustomItineraryModalProps) {
   const { toast } = useToast();
   const router = useRouter();
+  const [minDate, setMinDate] = useState('');
+
+  useEffect(() => {
+    setMinDate(new Date().toISOString().split("T")[0]);
+  }, []);
 
   const form = useForm<CustomItineraryFormValues>({
     resolver: zodResolver(formSchema),
@@ -238,41 +239,11 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                   control={form.control}
                   name="preferredCallDate"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Preferred Call Date</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value ? (
-                                format(new Date(field.value), "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value ? new Date(field.value) : undefined}
-                            onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
-                            disabled={(date) =>
-                                date < new Date(new Date().setHours(0, 0, 0, 0)) ||
-                                date.getDay() === 0 ||
-                                date.getDay() === 6
-                            }
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <FormControl>
+                        <Input type="date" {...field} min={minDate} />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -344,5 +315,3 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
     </Dialog>
   );
 }
-
-    

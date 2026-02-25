@@ -42,6 +42,7 @@ import {
 } from '@/components/ui/dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
+import { useEffect, useState } from 'react';
 
 
 const airTicketFormSchema = z.object({
@@ -75,15 +76,22 @@ const airTicketFormSchema = z.object({
                 message: 'Return date is required.',
                 path: ['returnDate'],
             });
-            return;
-        }
-
-        if (new Date(data.returnDate) <= new Date(data.departureDate)) {
+        } else if (new Date(data.returnDate) <= new Date(data.departureDate)) {
              ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Return date must be after departure date.',
                 path: ['returnDate'],
               });
+        }
+    }
+    if (data.preferredCallDate) {
+        const dayOfWeek = new Date(data.preferredCallDate).getUTCDay();
+        if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday is 0, Saturday is 6
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Please select a weekday (Mon-Fri).',
+                path: ['preferredCallDate']
+            });
         }
     }
 });
@@ -106,6 +114,11 @@ const timeSlots = [
 export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps) {
   const { toast } = useToast();
   const router = useRouter();
+  const [minDate, setMinDate] = useState('');
+
+  useEffect(() => {
+    setMinDate(new Date().toISOString().split("T")[0]);
+  }, []);
 
   const form = useForm<z.infer<typeof airTicketFormSchema>>({
     resolver: zodResolver(airTicketFormSchema),
@@ -482,41 +495,11 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                   control={form.control}
                   name="preferredCallDate"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Preferred Call Date*</FormLabel>
-                       <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value ? (
-                                format(new Date(field.value), "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                           <Calendar
-                                mode="single"
-                                selected={field.value ? new Date(field.value) : undefined}
-                                onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
-                                disabled={(date) =>
-                                    date < new Date(new Date().setHours(0, 0, 0, 0)) ||
-                                    date.getDay() === 0 ||
-                                    date.getDay() === 6
-                                }
-                                initialFocus
-                              />
-                        </PopoverContent>
-                      </Popover>
+                      <FormControl>
+                        <Input type="date" {...field} min={minDate} />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -591,5 +574,3 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     </Dialog>
   );
 }
-
-    
