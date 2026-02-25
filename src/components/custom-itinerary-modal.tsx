@@ -35,11 +35,6 @@ import {
 import { submitCustomItineraryRequest } from '@/app/holiday-packages/actions';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 
 const formSchema = z.object({
@@ -59,7 +54,7 @@ const formSchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const selectedDate = new Date(data.preferredCallDate + 'T00:00:00');
+        const selectedDate = new Date(data.preferredCallDate);
         const dayOfWeek = selectedDate.getUTCDay();
 
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
@@ -250,41 +245,15 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                 control={form.control}
                 name="preferredCallDate"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
+                  <FormItem>
                     <FormLabel>Preferred Call Date</FormLabel>
-                     <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(new Date(field.value + 'T00:00:00'), "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
-                          onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
-                          disabled={(date) =>
-                            date < new Date(new Date().setHours(0, 0, 0, 0)) ||
-                            date.getDay() === 0 ||
-                            date.getDay() === 6
-                          }
-                          initialFocus
+                    <FormControl>
+                        <Input 
+                            type="date"
+                            {...field}
+                            min={new Date().toISOString().split("T")[0]}
                         />
-                      </PopoverContent>
-                    </Popover>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

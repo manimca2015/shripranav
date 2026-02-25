@@ -85,7 +85,7 @@ const airTicketFormSchema = z.object({
         }
     }
     if (data.preferredCallDate) {
-        const selectedDate = new Date(data.preferredCallDate + 'T00:00:00');
+        const selectedDate = new Date(data.preferredCallDate);
         const dayOfWeek = selectedDate.getUTCDay();
 
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
@@ -498,41 +498,15 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                   control={form.control}
                   name="preferredCallDate"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Preferred Call Date*</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value ? (
-                                format(new Date(field.value + 'T00:00:00'), "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
-                            onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
-                            disabled={(date) =>
-                              date < new Date(new Date().setHours(0, 0, 0, 0)) ||
-                              date.getDay() === 0 ||
-                              date.getDay() === 6
-                            }
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <FormControl>
+                        <Input
+                          type="date"
+                          {...field}
+                          min={new Date().toISOString().split("T")[0]}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
