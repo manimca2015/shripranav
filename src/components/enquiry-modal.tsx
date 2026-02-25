@@ -35,7 +35,8 @@ import {
 import { submitEnquiry } from '@/app/actions';
 import { useRouter } from 'next/navigation';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -55,7 +56,7 @@ const formSchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const dayOfWeek = new Date(data.preferredCallDate.replace(/-/g, '/')).getDay();
+        const dayOfWeek = new Date(data.preferredCallDate).getDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
             ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Please select a weekday (Mon-Fri).', path: ['preferredCallDate'] });
         }
@@ -124,10 +125,22 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
     ? 'Have a question? Fill out the form below and we will get back to you.'
     : 'Fill out the form below and our team will get back to you with more details.';
 
+  const isWeekday = (date: Date) => {
+    const day = date.getDay();
+    return day !== 0 && day !== 6;
+  };
+  
+  const tileDisabled = ({ date, view }: { date: Date, view: string }) => {
+    if (view === 'month') {
+      return !isWeekday(date) || date < new Date(new Date().setHours(0, 0, 0, 0));
+    }
+    return false;
+  };
+
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] sm:max-h-none sm:overflow-y-auto overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>
@@ -215,7 +228,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                               )}
                             >
                               {field.value ? (
-                                format(new Date(field.value.replace(/-/g, '/')), "PPP")
+                                format(new Date(field.value), "PPP")
                               ) : (
                                 <span>Pick a date</span>
                               )}
@@ -224,19 +237,11 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value ? new Date(field.value.replace(/-/g, '/')) : undefined}
-                            onSelect={(date) =>
-                              field.onChange(date ? format(date, "yyyy-MM-dd") : undefined)
-                            }
-                            disabled={(date) =>
-                              date < new Date(new Date().setHours(0, 0, 0, 0)) ||
-                              date.getDay() === 0 ||
-                              date.getDay() === 6
-                            }
-                            initialFocus
-                          />
+                           <Calendar
+                                onChange={(value) => field.onChange(value ? format(value as Date, "yyyy-MM-dd") : '')}
+                                value={field.value ? new Date(field.value) : null}
+                                tileDisabled={tileDisabled}
+                              />
                         </PopoverContent>
                       </Popover>
                       <FormMessage />
