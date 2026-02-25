@@ -44,8 +44,8 @@ const airTicketFormSchema = z.object({
   email: z.string().email('A valid email is required.'),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDate: z.string().optional(),
-  preferredCallTime: z.string().optional(),
+  preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }),
+  preferredCallTime: z.string({ required_error: 'Please select a preferred call time.' }),
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
@@ -440,7 +440,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                   name="preferredCallDate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Preferred Call Date</FormLabel>
+                      <FormLabel>Preferred Call Date*</FormLabel>
                       <FormControl>
                         <Input
                           type="date"
@@ -458,7 +458,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 name="preferredCallTime"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Preferred Call Time</FormLabel>
+                    <FormLabel>Preferred Call Time*</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                         <SelectTrigger>
