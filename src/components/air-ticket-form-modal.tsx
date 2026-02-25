@@ -6,9 +6,6 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -39,9 +36,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
-import { useState } from 'react';
 
 
 const airTicketFormSchema = z.object({
@@ -49,12 +44,16 @@ const airTicketFormSchema = z.object({
   email: z.string().email('A valid email is required.'),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }),
+  preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }).refine(date => {
+    if (!date) return false;
+    const day = new Date(date + 'T00:00:00').getDay();
+    return day !== 0 && day !== 6;
+  }, { message: "Weekends are not allowed. Please select Monday to Friday." }),
   preferredCallTime: z.string({ required_error: 'Please select a preferred call time.' }),
   tripType: z.enum(['one-way', 'round-trip', 'multi-city']),
   from: z.string().min(3, 'Departure city/airport is required.'),
   to: z.string().min(3, 'Arrival city/airport is required.'),
-  departureDate: z.string({ required_error: 'Departure date is required.' }),
+  departureDate: z.string({ required_error: "Departure date is required."}),
   returnDate: z.string().optional(),
   adults: z.string().min(1, 'At least one adult is required.'),
   children: z.string().optional(),
@@ -79,18 +78,6 @@ const airTicketFormSchema = z.object({
                 message: 'Return date must be after departure date.',
                 path: ['returnDate'],
               });
-        }
-    }
-    if (data.preferredCallDate) {
-        const selectedDate = new Date(data.preferredCallDate + 'T00:00:00');
-        const dayOfWeek = selectedDate.getDay();
-
-        if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
-            ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                message: 'Please select a weekday (Monday to Friday only).',
-                path: ['preferredCallDate']
-            });
         }
     }
 });
@@ -288,37 +275,15 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                       control={form.control}
                       name="departureDate"
                       render={({ field }) => (
-                        <FormItem className="flex flex-col">
+                        <FormItem>
                           <FormLabel>Departure Date*</FormLabel>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <FormControl>
-                                <Button
-                                  variant={"outline"}
-                                  className={cn(
-                                    "w-full pl-3 text-left font-normal",
-                                    !field.value && "text-muted-foreground"
-                                  )}
-                                >
-                                  {field.value ? (
-                                    format(new Date(field.value + 'T00:00:00'), "PPP")
-                                  ) : (
-                                    <span>Pick a date</span>
-                                  )}
-                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                </Button>
-                              </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                              <Calendar
-                                mode="single"
-                                selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
-                                onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
-                                disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
+                           <FormControl>
+                            <Input
+                                type="date"
+                                min={format(new Date(), 'yyyy-MM-dd')}
+                                {...field}
+                            />
+                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -328,38 +293,16 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                         control={form.control}
                         name="returnDate"
                         render={({ field }) => (
-                          <FormItem className="flex flex-col">
+                           <FormItem>
                             <FormLabel>Return Date*</FormLabel>
-                            <Popover>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                      "w-full pl-3 text-left font-normal",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                    disabled={!departureDate}
-                                  >
-                                    {field.value ? (
-                                      format(new Date(field.value + 'T00:00:00'), "PPP")
-                                    ) : (
-                                      <span>Pick a date</span>
-                                    )}
-                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar
-                                  mode="single"
-                                  selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
-                                  onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
-                                  disabled={(date) => departureDate ? date <= new Date(departureDate + 'T00:00:00') : true}
-                                  initialFocus
-                                />
-                              </PopoverContent>
-                            </Popover>
+                             <FormControl>
+                              <Input
+                                type="date"
+                                min={departureDate || format(new Date(), 'yyyy-MM-dd')}
+                                disabled={!departureDate}
+                                {...field}
+                              />
+                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -578,5 +521,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     </Dialog>
   );
 }
+
+    
 
     

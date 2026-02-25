@@ -42,7 +42,11 @@ const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDate: z.string().optional(),
+  preferredCallDate: z.string().optional().refine(date => {
+    if (!date) return true; // Optional field is valid if empty
+    const day = new Date(date + 'T00:00:00').getDay();
+    return day !== 0 && day !== 6;
+  }, { message: "Weekends are not allowed. Please select Monday to Friday." }),
   preferredCallTime: z.string().optional(),
   destination: z.string(),
   pax: z.string().optional(),
@@ -52,19 +56,6 @@ const formSchema = z.object({
   consent: z.literal(true, {
     errorMap: () => ({ message: "You must consent to be contacted." }),
   }),
-}).superRefine((data, ctx) => {
-    if (data.preferredCallDate) {
-        const selectedDate = new Date(data.preferredCallDate + 'T00:00:00');
-        const dayOfWeek = selectedDate.getDay();
-
-        if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
-            ctx.addIssue({ 
-                code: z.ZodIssueCode.custom, 
-                message: 'Please select a weekday (Monday to Friday only).', 
-                path: ['preferredCallDate'] 
-            });
-        }
-    }
 });
 
 
@@ -325,5 +316,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
     </Dialog>
   );
 }
+
+    
 
     
