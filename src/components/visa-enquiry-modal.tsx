@@ -34,11 +34,6 @@ import {
 } from '@/components/ui/dialog';
 import { submitVisaEnquiry } from '@/app/visa-services/actions';
 import { useRouter } from 'next/navigation';
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 
 const visaEnquirySchema = z.object({
@@ -123,12 +118,6 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
         className="sm:max-w-2xl max-h-[90vh] sm:max-h-none sm:overflow-y-auto overflow-y-auto"
-        onPointerDownOutside={(e) => {
-          const target = e.target as HTMLElement;
-          if (target.closest('[data-radix-popper-content-wrapper]')) {
-              e.preventDefault();
-          }
-        }}
       >
         <DialogHeader>
           <DialogTitle>Visa Enquiry for {destination}</DialogTitle>
@@ -255,43 +244,16 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                 control={form.control}
                 name="preferredCallDate"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
+                  <FormItem>
                     <FormLabel>Preferred Call Date</FormLabel>
-                    <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'outline'}
-                              className={cn(
-                                'w-full pl-3 text-left font-normal',
-                                !field.value && 'text-muted-foreground'
-                              )}
-                            >
-                              {field.value ? (
-                                format(new Date(field.value + 'T00:00:00'), 'PPP')
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
-                            onSelect={(date) => field.onChange(date ? format(date, 'yyyy-MM-dd') : '')}
-                            disabled={(date) => {
-                              const today = new Date();
-                              today.setHours(0, 0, 0, 0);
-                              if (date < today) return true;
-                              const day = date.getDay();
-                              return day === 0 || day === 6;
-                            }}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
+                    <FormControl>
+                      <Input
+                        type="date"
+                        {...field}
+                        value={field.value || ''}
+                        min={new Date().toISOString().split("T")[0]}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
