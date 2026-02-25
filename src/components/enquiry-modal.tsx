@@ -57,8 +57,7 @@ const formSchema = z.object({
   }),
 }).superRefine((data, ctx) => {
     if (data.preferredCallDate) {
-        const dateParts = data.preferredCallDate.split('-').map(Number);
-        const selectedDate = new Date(Date.UTC(dateParts[0], dateParts[1] - 1, dateParts[2]));
+        const selectedDate = new Date(data.preferredCallDate + 'T00:00:00');
         const dayOfWeek = selectedDate.getUTCDay();
 
         if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday is 0, Saturday is 6
@@ -226,7 +225,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                             )}
                           >
                             {field.value ? (
-                              format(new Date(field.value), "PPP")
+                              format(new Date(field.value + 'T00:00:00'), "PPP")
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -237,7 +236,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
-                          selected={field.value ? new Date(field.value) : undefined}
+                          selected={field.value ? new Date(field.value + 'T00:00:00') : undefined}
                           onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : '')}
                           disabled={(date) =>
                             date < new Date(new Date().setHours(0, 0, 0, 0)) ||
@@ -332,3 +331,5 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
     </Dialog>
   );
 }
+
+    
