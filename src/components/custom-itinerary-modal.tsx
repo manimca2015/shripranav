@@ -50,7 +50,7 @@ const formSchema = z.object({
     if (!date) return true; // Optional field is valid if empty
     const day = new Date(date + 'T00:00:00').getDay();
     return day !== 0 && day !== 6;
-  }, { message: "Weekends are not allowed. Please select Monday to Friday." }),
+  }, { message: "Please select a weekday (Monday to Friday only)." }),
   preferredCallTime: z.string().optional(),
   destination: z.string(),
   pax: z.string().optional(),
@@ -122,7 +122,15 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] sm:max-h-none sm:overflow-y-auto overflow-y-auto">
+      <DialogContent 
+        className="sm:max-w-2xl max-h-[90vh] sm:max-h-none sm:overflow-y-auto overflow-y-auto"
+        onPointerDownOutside={(e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest('[data-radix-popper-content-wrapper]')) {
+              e.preventDefault();
+          }
+        }}
+      >
         <DialogHeader>
           <DialogTitle>Request a Custom Itinerary for {destination}</DialogTitle>
           <DialogDescription>

@@ -46,7 +46,7 @@ const formSchema = z.object({
     if (!date) return true; // Optional field is valid if empty
     const day = new Date(date + 'T00:00:00').getDay();
     return day !== 0 && day !== 6;
-  }, { message: "Weekends are not allowed. Please select Monday to Friday." }),
+  }, { message: "Please select a weekday (Monday to Friday only)." }),
   preferredCallTime: z.string().optional(),
   subject: z.string().min(5, {
     message: 'Subject must be at least 5 characters.',

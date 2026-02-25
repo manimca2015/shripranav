@@ -50,7 +50,7 @@ const visaEnquirySchema = z.object({
     if (!date) return true;
     const day = new Date(date + 'T00:00:00').getDay();
     return day !== 0 && day !== 6;
-  }, { message: "Weekends are not allowed. Please select Monday to Friday." }),
+  }, { message: "Please select a weekday (Monday to Friday only)." }),
   preferredCallTime: z.string().optional(),
   destination: z.string(),
   visaType: z.enum(['tourist', 'business', 'student', 'other'], { required_error: 'Please select a visa type.' }),
@@ -121,7 +121,15 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] sm:max-h-none sm:overflow-y-auto overflow-y-auto">
+      <DialogContent 
+        className="sm:max-w-2xl max-h-[90vh] sm:max-h-none sm:overflow-y-auto overflow-y-auto"
+        onPointerDownOutside={(e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest('[data-radix-popper-content-wrapper]')) {
+              e.preventDefault();
+          }
+        }}
+      >
         <DialogHeader>
           <DialogTitle>Visa Enquiry for {destination}</DialogTitle>
           <DialogDescription>

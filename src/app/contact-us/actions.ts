@@ -9,12 +9,18 @@ const formSchema = z.object({
   email: z.string().email(),
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   city: z.string().optional(),
-  preferredCallDate: z.string().optional(),
+  preferredCallDate: z.string().optional().refine(date => {
+    if (!date) return true; // Optional field is valid if empty
+    const day = new Date(date + 'T00:00:00').getDay();
+    return day !== 0 && day !== 6;
+  }, { message: "Please select a weekday (Monday to Friday only)." }),
   preferredCallTime: z.string().optional(),
   subject: z.string().min(5, { message: 'Subject must be at least 5 characters.' }),
   message: z.string().optional(),
   honeypot: z.string().optional(),
-  consent: z.boolean(),
+  consent: z.literal(true, {
+    errorMap: () => ({ message: "You must consent to be contacted." }),
+  }),
 });
 
 export async function submitContactForm(values: z.infer<typeof formSchema>) {
