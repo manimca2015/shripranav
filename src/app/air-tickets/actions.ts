@@ -34,14 +34,17 @@ export async function submitAirTicketRequest(values: z.infer<typeof airTicketFor
     return { success: true, message: 'Your request has been sent successfully!' };
   }
   try {
+    const preferredDateTime = (values.preferredCallDate && values.preferredCallTime) 
+        ? `${values.preferredCallDate} at ${values.preferredCallTime}` 
+        : values.preferredCallDate || values.preferredCallTime || '';
+    
     await appendToSheet({
         Purpose: 'Air Ticket Request',
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
         City: values.city,
-        'Preferred Call Date': values.preferredCallDate,
-        'Preferred Call Time': values.preferredCallTime,
+        'Preferred Date and Time': preferredDateTime,
         'Trip Type': values.tripType,
         'From (Flight)': values.from,
         'To (Flight)': values.to,

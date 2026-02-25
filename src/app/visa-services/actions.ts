@@ -28,14 +28,17 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
     return { success: true, message: 'Your visa enquiry has been sent successfully!' };
   }
   try {
+    const preferredDateTime = (values.preferredCallDate && values.preferredCallTime) 
+        ? `${values.preferredCallDate} at ${values.preferredCallTime}` 
+        : values.preferredCallDate || values.preferredCallTime || '';
+    
     await appendToSheet({
         Purpose: `Visa Enquiry: ${values.destination}`,
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
         City: values.city,
-        'Preferred Call Date': values.preferredCallDate,
-        'Preferred Call Time': values.preferredCallTime,
+        'Preferred Date and Time': preferredDateTime,
         Destination: values.destination,
         'Visa Type': values.visaType,
         'Travel Date (Visa)': values.travelDate,

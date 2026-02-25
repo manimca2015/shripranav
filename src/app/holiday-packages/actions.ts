@@ -28,14 +28,17 @@ export async function submitCustomItineraryRequest(values: z.infer<typeof formSc
     return { success: true, message: 'Request sent successfully!' };
   }
   try {
+    const preferredDateTime = (values.preferredCallDate && values.preferredCallTime) 
+        ? `${values.preferredCallDate} at ${values.preferredCallTime}` 
+        : values.preferredCallDate || values.preferredCallTime || '';
+
     await appendToSheet({
         Purpose: `Custom Itinerary: ${values.destination}`,
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
         City: values.city,
-        'Preferred Call Date': values.preferredCallDate,
-        'Preferred Call Time': values.preferredCallTime,
+        'Preferred Date and Time': preferredDateTime,
         Destination: values.destination,
         'Pax (People)': values.pax,
         'Ideal Travel Dates': values.travelDates,

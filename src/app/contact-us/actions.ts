@@ -29,14 +29,17 @@ export async function submitContactForm(values: z.infer<typeof formSchema>) {
     return { success: true, message: 'Message sent successfully!' };
   }
   try {
+    const preferredDateTime = (values.preferredCallDate && values.preferredCallTime) 
+        ? `${values.preferredCallDate} at ${values.preferredCallTime}` 
+        : values.preferredCallDate || values.preferredCallTime || '';
+    
     await appendToSheet({
         Purpose: 'Contact Form Submission',
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
         City: values.city,
-        'Preferred Call Date': values.preferredCallDate,
-        'Preferred Call Time': values.preferredCallTime,
+        'Preferred Date and Time': preferredDateTime,
         Subject: values.subject,
         Message: values.message,
         Consent: values.consent,

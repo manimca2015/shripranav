@@ -26,6 +26,10 @@ export async function submitEnquiry(values: z.infer<typeof enquirySchema>) {
         return { success: true };
     }
     try {
+        const preferredDateTime = (values.preferredCallDate && values.preferredCallTime) 
+            ? `${values.preferredCallDate} at ${values.preferredCallTime}` 
+            : values.preferredCallDate || values.preferredCallTime || '';
+
         await appendToSheet({
             Purpose: `Enquiry: ${values.tourName}`,
             'Tour Name': values.tourName,
@@ -33,8 +37,7 @@ export async function submitEnquiry(values: z.infer<typeof enquirySchema>) {
             Email: values.email,
             Phone: values.phone,
             City: values.city,
-            'Preferred Call Date': values.preferredCallDate,
-            'Preferred Call Time': values.preferredCallTime,
+            'Preferred Date and Time': preferredDateTime,
             Message: values.message,
             Consent: values.consent,
         });
