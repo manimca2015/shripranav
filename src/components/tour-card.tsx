@@ -11,6 +11,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { cn } from '@/lib/utils';
 import { EnquiryModal } from './enquiry-modal';
+import { BrochureEnquiryModal } from './brochure-enquiry-modal';
 
 type TourCardProps = {
   tour: Tour;
@@ -18,6 +19,7 @@ type TourCardProps = {
 
 export function TourCard({ tour }: TourCardProps) {
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
+  const [isBrochureModalOpen, setBrochureModalOpen] = useState(false);
   const tourImage = PlaceHolderImages.find((p) => p.id === tour.image);
 
   return (
@@ -99,14 +101,17 @@ export function TourCard({ tour }: TourCardProps) {
 
                 <div className="flex items-center gap-3">
                     {tour.brochureUrl ? (
-                      <Button asChild variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-[#e0af29] hover:text-black transition-all shadow-lg">
-                        <a href={tour.brochureUrl} download>
-                            <Download className="h-5 w-5" />
-                            <span className="sr-only">Download Brochure</span>
-                        </a>
+                      <Button 
+                        variant="outline" 
+                        size="icon" 
+                        className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-[#e0af29] hover:text-black transition-all shadow-lg"
+                        onClick={() => setBrochureModalOpen(true)}
+                      >
+                        <Download className="h-5 w-5" />
+                        <span className="sr-only">Download Brochure</span>
                       </Button>
                     ) : (
-                      <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white transition-all shadow-lg opacity-50">
+                      <Button variant="outline" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-white/10 backdrop-blur-sm border-white/30 text-white transition-all shadow-lg opacity-50" disabled>
                         <Download className="h-5 w-5" />
                         <span className="sr-only">Download Brochure</span>
                       </Button>
@@ -126,6 +131,14 @@ export function TourCard({ tour }: TourCardProps) {
         onClose={() => setEnquiryModalOpen(false)}
         tourName={tour.title}
       />
+      {tour.brochureUrl && (
+        <BrochureEnquiryModal
+          isOpen={isBrochureModalOpen}
+          onClose={() => setBrochureModalOpen(false)}
+          tourName={tour.title}
+          brochureUrl={tour.brochureUrl}
+        />
+      )}
     </>
   );
 }
