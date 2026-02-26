@@ -53,7 +53,7 @@ export async function submitEnquiry(values: z.infer<typeof enquirySchema>) {
 const brochureEnquirySchema = z.object({
   name: z.string().min(2, { message: 'Name is required.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
-  phone: z.string().regex(/^\d+$/, { message: 'Phone number must contain only digits.' }).min(10, { message: 'Phone number must be at least 10 digits.' }),
+  phone: z.string().regex(/^\+?\d+$/, { message: 'Invalid phone format.' }).min(10, { message: 'Phone number must be at least 10 digits.' }),
   tourName: z.string(),
 });
 
