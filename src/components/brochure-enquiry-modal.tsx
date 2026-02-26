@@ -159,17 +159,19 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
                         control={form.control}
                         name="countryCode"
                         render={({ field }) => (
-                            <FormItem className="w-[110px] shrink-0">
+                            <FormItem className="w-[85px] shrink-0">
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Code" />
+                                        <SelectTrigger className="w-full text-left font-medium">
+                                            {/* We render the field value directly to show only the code in the trigger */}
+                                            <span>{field.value}</span>
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent className="max-h-[300px]">
                                         {countryCodes.map((c) => (
                                             <SelectItem key={c.code} value={c.code}>
-                                                {c.code} ({c.country})
+                                                <span className="font-bold">{c.code}</span>
+                                                <span className="ml-2 text-muted-foreground text-xs">({c.country})</span>
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
