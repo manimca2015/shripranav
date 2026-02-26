@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { holidayPackages } from '@/lib/holiday-packages-data';
@@ -58,18 +57,11 @@ export default function HolidayPackagesPage() {
 
     const cardWrapperClass = "overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col";
 
-    if (pkg.category === 'group') {
-      return (
-        <Link href={pkg.href} className="group block h-full">
-          <Card className={cardWrapperClass}>
-            {cardInnerContent}
-          </Card>
-        </Link>
-      );
-    }
-    
     return (
-      <button onClick={() => handleExploreClick(pkg.title)} className="group block text-left h-full w-full">
+      <button 
+        onClick={() => handleExploreClick(pkg.title)} 
+        className="group block text-left h-full w-full focus:outline-none"
+      >
         <Card className={cardWrapperClass}>
             {cardInnerContent}
         </Card>
