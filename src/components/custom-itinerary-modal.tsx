@@ -33,6 +33,7 @@ import {
 } from '@/components/ui/dialog';
 import { submitCustomItineraryRequest } from '@/app/holiday-packages/actions';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { countryCodes } from '@/lib/country-codes';
 
 const formSchema = z.object({
@@ -96,6 +97,25 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
     },
   });
 
+  // Reset form when destination changes
+  useEffect(() => {
+    form.reset({
+      name: '',
+      email: '',
+      countryName: 'India',
+      phone: '',
+      city: '',
+      preferredCallDate: '',
+      preferredCallTime: '',
+      destination: destination,
+      pax: '',
+      travelDates: '',
+      message: '',
+      honeypot: '',
+      consent: false,
+    });
+  }, [destination, form]);
+
   async function onSubmit(values: CustomItineraryFormValues) {
     const { countryName, phone, ...rest } = values;
     const countryObj = countryCodes.find(c => c.country === countryName);
@@ -157,7 +177,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Email*</FormLabel>
+                    <FormLabel>Email Address*</FormLabel>
                     <FormControl>
                         <Input placeholder="Your Email" {...field} value={field.value || ''} />
                     </FormControl>

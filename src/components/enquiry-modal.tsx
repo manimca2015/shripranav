@@ -169,7 +169,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                     <FormItem>
                       <FormLabel>Full Name*</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} value={field.value || ''} />
+                        <Input placeholder="Your Name" {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -182,7 +182,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                     <FormItem>
                       <FormLabel>Email*</FormLabel>
                       <FormControl>
-                        <Input placeholder="you@example.com" {...field} value={field.value || ''} />
+                        <Input placeholder="Your Email" {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
