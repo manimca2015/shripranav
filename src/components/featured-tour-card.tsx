@@ -43,9 +43,15 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
                     <span className="text-primary font-bold">{tour.level}</span>
                 </div>
             </div>
-            <Button asChild className="w-full py-4 h-auto rounded-xl bg-primary text-white font-bold hover:bg-accent hover:text-accent-foreground transition-all">
-              <a href={tour.brochureUrl} target="_blank" rel="noopener noreferrer">View Full Itinerary</a>
-            </Button>
+            {tour.brochureUrl ? (
+              <Button asChild className="w-full py-4 h-auto rounded-xl bg-primary text-white font-bold hover:bg-accent hover:text-accent-foreground transition-all">
+                <a href={tour.brochureUrl} target="_blank" rel="noopener noreferrer">View Full Itinerary</a>
+              </Button>
+            ) : (
+              <Button disabled className="w-full py-4 h-auto rounded-xl bg-primary/50 text-white font-bold cursor-not-allowed">
+                View Full Itinerary
+              </Button>
+            )}
         </CardContent>
     </Card>
   );
