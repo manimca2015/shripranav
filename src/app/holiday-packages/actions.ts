@@ -1,4 +1,3 @@
-
 'use server';
 
 import { z } from 'zod';
@@ -34,6 +33,7 @@ export async function submitCustomItineraryRequest(values: z.infer<typeof formSc
 
     await appendToSheet({
         Purpose: `Custom Itinerary: ${values.destination}`,
+        Subject: `Custom Itinerary Request: ${values.destination}`,
         Name: values.name,
         Email: values.email,
         Phone: values.phone,

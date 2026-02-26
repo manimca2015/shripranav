@@ -146,7 +146,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                     <FormItem>
                     <FormLabel>Full Name*</FormLabel>
                     <FormControl>
-                        <Input placeholder="John Doe" {...field} value={field.value || ''} />
+                        <Input placeholder="Your Name" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -159,7 +159,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                     <FormItem>
                     <FormLabel>Email*</FormLabel>
                     <FormControl>
-                        <Input placeholder="you@example.com" {...field} value={field.value || ''} />
+                        <Input placeholder="Your Email" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -174,7 +174,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                           control={form.control}
                           name="countryName"
                           render={({ field }) => (
-                              <FormItem className="w-[85px] shrink-0">
+                              <FormItem className="w-[80px] shrink-0">
                                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                                       <FormControl>
                                           <SelectTrigger className="w-full text-left font-medium">
@@ -248,7 +248,7 @@ export function CustomItineraryModal({ isOpen, onClose, destination }: CustomIti
                     <FormItem>
                     <FormLabel>Ideal Travel Dates</FormLabel>
                     <FormControl>
-                        <Input placeholder="e.g., December 2024" {...field} value={field.value || ''} />
+                        <Input placeholder="e.g., December 2026" {...field} value={field.value || ''} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>

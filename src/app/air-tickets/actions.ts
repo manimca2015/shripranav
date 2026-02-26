@@ -1,4 +1,3 @@
-
 'use server';
 
 import { z } from 'zod';
@@ -40,6 +39,7 @@ export async function submitAirTicketRequest(values: z.infer<typeof airTicketFor
     
     await appendToSheet({
         Purpose: 'Air Ticket Request',
+        Subject: 'Air Ticket Quote Request',
         Name: values.name,
         Email: values.email,
         Phone: values.phone,

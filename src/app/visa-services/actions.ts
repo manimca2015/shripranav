@@ -1,4 +1,3 @@
-
 'use server';
 
 import { z } from 'zod';
@@ -34,6 +33,7 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
     
     await appendToSheet({
         Purpose: `Visa Enquiry: ${values.destination}`,
+        Subject: `Visa Enquiry: ${values.destination}`,
         Name: values.name,
         Email: values.email,
         Phone: values.phone,

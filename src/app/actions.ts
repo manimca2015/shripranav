@@ -31,6 +31,7 @@ export async function submitEnquiry(values: z.infer<typeof enquirySchema>) {
 
         await appendToSheet({
             Purpose: `Enquiry: ${values.tourName}`,
+            Subject: `Enquiry: ${values.tourName}`,
             'Tour Name': values.tourName,
             Name: values.name,
             Email: values.email,
@@ -61,10 +62,10 @@ export async function submitBrochureEnquiry(values: z.infer<typeof brochureEnqui
     try {
         await appendToSheet({
             Purpose: 'Brochure Download Request',
+            Subject: `Downloaded Brochure: ${values.tourName}`,
             Name: values.name,
             Email: values.email,
             Phone: values.phone,
-            Subject: `Downloaded Brochure: ${values.tourName}`,
             'Tour Name': values.tourName,
         });
         return { success: true };
