@@ -146,7 +146,7 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
                 <FormItem>
                   <FormLabel>Email Address*</FormLabel>
                   <FormControl>
-                    <Input placeholder="you@example.com" {...field} />
+                    <Input placeholder="Your Email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
