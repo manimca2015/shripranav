@@ -183,7 +183,7 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
                         render={({ field }) => (
                             <FormItem className="flex-1">
                                 <FormControl>
-                                    <Input placeholder="1234567890" {...field} />
+                                    <Input placeholder="Phone No" {...field} />
                                 </FormControl>
                             </FormItem>
                         )}
