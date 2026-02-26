@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,11 +34,13 @@ import {
 import { submitEnquiry } from '@/app/actions';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { countryCodes } from '@/lib/country-codes';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
-  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  countryName: z.string().min(1, { message: 'Required' }),
+  phone: z.string().regex(/^\d+$/, { message: 'Phone number must contain only digits.' }).min(10, { message: 'Phone number must be at least 10 digits.' }),
   city: z.string().min(1, { message: 'City is required.' }),
   preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }).refine(date => {
     if (!date) return true;
@@ -80,6 +81,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
     defaultValues: {
       name: '',
       email: '',
+      countryName: 'India',
       phone: '',
       city: '',
       preferredCallDate: '',
@@ -96,6 +98,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
       tourName: tourName,
       name: '',
       email: '',
+      countryName: 'India',
       phone: '',
       city: '',
       preferredCallDate: '',
@@ -107,7 +110,12 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
   }, [tourName, form]);
 
   async function onSubmit(values: EnquiryFormValues) {
-    const result = await submitEnquiry(values);
+    const { countryName, phone, ...rest } = values;
+    const countryObj = countryCodes.find(c => c.country === countryName);
+    const code = countryObj?.code || '+91';
+    const combinedPhone = `${code}${phone}`;
+
+    const result = await submitEnquiry({ ...rest, phone: combinedPhone });
     
     if (result.success) {
       const isGeneralEnquiry = tourName === 'General Enquiry';
@@ -182,19 +190,52 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                 />
             </div>
             <div className="grid md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="+1 234 567 890" {...field} value={field.value || ''} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="space-y-2">
+                  <FormLabel>Phone Number*</FormLabel>
+                  <div className="flex gap-2">
+                      <FormField
+                          control={form.control}
+                          name="countryName"
+                          render={({ field }) => (
+                              <FormItem className="w-[85px] shrink-0">
+                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                      <FormControl>
+                                          <SelectTrigger className="w-full text-left font-medium">
+                                              <span>
+                                                  {countryCodes.find(c => c.country === field.value)?.code || '+91'}
+                                              </span>
+                                          </SelectTrigger>
+                                      </FormControl>
+                                      <SelectContent className="max-h-[300px]">
+                                          {countryCodes.map((c) => (
+                                              <SelectItem key={c.country} value={c.country}>
+                                                  <span className="font-bold">{c.code}</span>
+                                                  <span className="ml-2 text-muted-foreground text-xs">({c.country})</span>
+                                              </SelectItem>
+                                          ))}
+                                      </SelectContent>
+                                  </Select>
+                              </FormItem>
+                          )}
+                      />
+                      <FormField
+                          control={form.control}
+                          name="phone"
+                          render={({ field }) => (
+                              <FormItem className="flex-1">
+                                  <FormControl>
+                                      <Input placeholder="Phone No" {...field} />
+                                  </FormControl>
+                              </FormItem>
+                          )}
+                      />
+                  </div>
+                  {form.formState.errors.phone && (
+                      <p className="text-sm font-medium text-destructive">
+                          {form.formState.errors.phone.message}
+                      </p>
+                  )}
+              </div>
                <FormField
                 control={form.control}
                 name="city"
@@ -282,7 +323,6 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                 </FormItem>
                 )}
             />
-            {/* Honeypot field */}
             <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
                 <FormField
                     control={form.control}

@@ -29,68 +29,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-
-const countryCodes = [
-  { code: '+91', country: 'India' },
-  { code: '+1', country: 'USA' },
-  { code: '+1', country: 'Canada' },
-  { code: '+44', country: 'UK' },
-  { code: '+971', country: 'UAE' },
-  { code: '+65', country: 'Singapore' },
-  { code: '+60', country: 'Malaysia' },
-  { code: '+66', country: 'Thailand' },
-  { code: '+61', country: 'Australia' },
-  { code: '+64', country: 'New Zealand' },
-  { code: '+974', country: 'Qatar' },
-  { code: '+968', country: 'Oman' },
-  { code: '+965', country: 'Kuwait' },
-  { code: '+966', country: 'Saudi Arabia' },
-  { code: '+973', country: 'Bahrain' },
-  { code: '+49', country: 'Germany' },
-  { code: '+33', country: 'France' },
-  { code: '+39', country: 'Italy' },
-  { code: '+34', country: 'Spain' },
-  { code: '+41', country: 'Switzerland' },
-  { code: '+31', country: 'Netherlands' },
-  { code: '+353', country: 'Ireland' },
-  { code: '+46', country: 'Sweden' },
-  { code: '+47', country: 'Norway' },
-  { code: '+45', country: 'Denmark' },
-  { code: '+358', country: 'Finland' },
-  { code: '+48', country: 'Poland' },
-  { code: '+90', country: 'Turkey' },
-  { code: '+972', country: 'Israel' },
-  { code: '+81', country: 'Japan' },
-  { code: '+82', country: 'South Korea' },
-  { code: '+86', country: 'China' },
-  { code: '+852', country: 'Hong Kong' },
-  { code: '+84', country: 'Vietnam' },
-  { code: '+62', country: 'Indonesia' },
-  { code: '+63', country: 'Philippines' },
-  { code: '+94', country: 'Sri Lanka' },
-  { code: '+977', country: 'Nepal' },
-  { code: '+960', country: 'Maldives' },
-  { code: '+27', country: 'South Africa' },
-  { code: '+254', country: 'Kenya' },
-  { code: '+234', country: 'Nigeria' },
-  { code: '+20', country: 'Egypt' },
-  { code: '+55', country: 'Brazil' },
-  { code: '+52', country: 'Mexico' },
-  { code: '+54', country: 'Argentina' },
-  { code: '+7', country: 'Russia' },
-  { code: '+351', country: 'Portugal' },
-  { code: '+30', country: 'Greece' },
-  { code: '+43', country: 'Austria' },
-  { code: '+32', country: 'Belgium' },
-  { code: '+420', country: 'Czech Republic' },
-  { code: '+36', country: 'Hungary' },
-  { code: '+40', country: 'Romania' },
-  { code: '+380', country: 'Ukraine' },
-  { code: '+92', country: 'Pakistan' },
-  { code: '+880', country: 'Bangladesh' },
-  { code: '+212', country: 'Morocco' },
-];
+} from "@/components/ui/select";
+import { countryCodes } from '@/lib/country-codes';
 
 const brochureEnquirySchema = z.object({
   name: z.string().min(2, { message: 'Name is required.' }),
@@ -137,7 +77,6 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
     });
     
     if (result.success) {
-        // Trigger download
         const link = document.createElement('a');
         link.href = brochureUrl;
         link.setAttribute('download', brochureUrl.split('/').pop() || 'itinerary.pdf');
@@ -208,7 +147,6 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
                                         <SelectTrigger className="w-full text-left font-medium">
-                                            {/* We find the code based on the selected country name */}
                                             <span>
                                                 {countryCodes.find(c => c.country === field.value)?.code || '+91'}
                                             </span>

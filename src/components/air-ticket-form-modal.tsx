@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -36,12 +35,14 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { submitAirTicketRequest } from '@/app/air-tickets/actions';
+import { countryCodes } from '@/lib/country-codes';
 
 
 const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
   email: z.string().email('A valid email is required.'),
-  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  countryName: z.string().min(1, { message: 'Required' }),
+  phone: z.string().regex(/^\d+$/, { message: 'Phone number must contain only digits.' }).min(10, { message: 'Phone number must be at least 10 digits.' }),
   city: z.string().optional(),
   preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }).refine(date => {
     if (!date) return true;
@@ -105,6 +106,7 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
     defaultValues: {
       name: '',
       email: '',
+      countryName: 'India',
       phone: '',
       city: '',
       preferredCallDate: '',
@@ -128,8 +130,12 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
   const departureDate = form.watch('departureDate');
 
   async function onSubmit(values: z.infer<typeof airTicketFormSchema>) {
-    
-    const result = await submitAirTicketRequest(values);
+    const { countryName, phone, ...rest } = values;
+    const countryObj = countryCodes.find(c => c.country === countryName);
+    const code = countryObj?.code || '+91';
+    const combinedPhone = `${code}${phone}`;
+
+    const result = await submitAirTicketRequest({ ...rest, phone: combinedPhone });
     
     if (result.success) {
       toast({
@@ -190,19 +196,52 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                 />
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-                 <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                    <FormItem>
+                 <div className="space-y-2">
                     <FormLabel>Phone Number*</FormLabel>
-                    <FormControl>
-                        <Input placeholder="+1 234 567 890" {...field} value={field.value || ''} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
+                    <div className="flex gap-2">
+                        <FormField
+                            control={form.control}
+                            name="countryName"
+                            render={({ field }) => (
+                                <FormItem className="w-[85px] shrink-0">
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger className="w-full text-left font-medium">
+                                                <span>
+                                                    {countryCodes.find(c => c.country === field.value)?.code || '+91'}
+                                                </span>
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent className="max-h-[300px]">
+                                            {countryCodes.map((c) => (
+                                                <SelectItem key={c.country} value={c.country}>
+                                                    <span className="font-bold">{c.code}</span>
+                                                    <span className="ml-2 text-muted-foreground text-xs">({c.country})</span>
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                                <FormItem className="flex-1">
+                                    <FormControl>
+                                        <Input placeholder="Phone No" {...field} />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    {form.formState.errors.phone && (
+                        <p className="text-sm font-medium text-destructive">
+                            {form.formState.errors.phone.message}
+                        </p>
+                    )}
+                </div>
                 <FormField
                   control={form.control}
                   name="tripType"
@@ -499,7 +538,6 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
               )}
             />
 
-            {/* Honeypot field */}
             <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
                 <FormField
                     control={form.control}
