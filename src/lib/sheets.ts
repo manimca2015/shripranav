@@ -1,4 +1,3 @@
-
 'use server';
 
 import { google } from 'googleapis';
@@ -10,9 +9,9 @@ const headers = [
     'Email',
     'Phone',
     'Preferred Date and Time',
-    'City',
+    'Subject', // Column G (Index 6)
     'Consent',
-    'Subject',
+    'City', // Moved to Index 8
     'Message',
     'Destination',
     'Tour Name',

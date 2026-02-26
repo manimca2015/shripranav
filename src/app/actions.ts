@@ -1,4 +1,3 @@
-
 'use server';
 
 import { z } from 'zod';
@@ -40,6 +39,33 @@ export async function submitEnquiry(values: z.infer<typeof enquirySchema>) {
             'Preferred Date and Time': preferredDateTime,
             Message: values.message,
             Consent: values.consent,
+        });
+        return { success: true };
+    } catch (error) {
+        console.error(error);
+        if (error instanceof Error) {
+            return { success: false, message: error.message };
+        }
+        return { success: false, message: 'An unknown error occurred.' };
+    }
+}
+
+const brochureEnquirySchema = z.object({
+  name: z.string().min(2, { message: 'Name is required.' }),
+  email: z.string().email({ message: 'Please enter a valid email address.' }),
+  phone: z.string().regex(/^\d+$/, { message: 'Phone number must contain only digits.' }).min(10, { message: 'Phone number must be at least 10 digits.' }),
+  tourName: z.string(),
+});
+
+export async function submitBrochureEnquiry(values: z.infer<typeof brochureEnquirySchema>) {
+    try {
+        await appendToSheet({
+            Purpose: 'Brochure Download Request',
+            Name: values.name,
+            Email: values.email,
+            Phone: values.phone,
+            Subject: `Downloaded Brochure: ${values.tourName}`,
+            'Tour Name': values.tourName,
         });
         return { success: true };
     } catch (error) {
