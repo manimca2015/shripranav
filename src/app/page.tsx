@@ -237,14 +237,14 @@ export default function Home() {
             <div className="flex flex-col items-center mb-12 space-y-8">
               <div className="text-center space-y-3">
                   <span className="text-accent font-semibold tracking-widest text-xs uppercase">Your Next Adventure Awaits</span>
-                  <h2 className="text-4xl md:text-5xl font-headline font-bold text-primary">Upcoming Expeditions</h2>
+                  <h2 className="text-4xl md:text-5xl font-headline font-bold text-primary">Upcoming Experiences</h2>
                   <p className="text-muted-foreground max-w-2xl mx-auto font-light">Join our curated journeys across the globe. Experience the thrill of the open road.</p>
               </div>
               <TourListings tours={tours} />
             </div>
             <div className="mt-16 text-center">
               <Link href="#" className="inline-flex items-center gap-2 text-accent font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-accent pb-0.5">
-                  View All Expeditions <ArrowRight className="text-sm" />
+                  View All Experiences <ArrowRight className="text-sm" />
               </Link>
             </div>
           </div>
@@ -486,5 +486,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
