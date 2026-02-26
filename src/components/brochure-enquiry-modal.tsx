@@ -133,7 +133,7 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
                 <FormItem>
                   <FormLabel>Full Name*</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} />
+                    <Input placeholder="Your Name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
