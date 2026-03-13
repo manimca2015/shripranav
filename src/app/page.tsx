@@ -278,11 +278,11 @@ export default function Home() {
             </div>
         </section>
 
-        <section id="upcoming-experiences" className="relative py-24 bg-slate-50 overflow-hidden">
+        <section id="upcoming-experiences" className="relative py-12 bg-slate-50 overflow-hidden">
             <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23000000\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
             
             <div className="container mx-auto px-6 relative z-10 max-w-7xl">
-                <div className="text-center mb-16">
+                <div className="text-center mb-8">
                     <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Your Next Adventure Awaits</span>
                     <h2 className="text-5xl font-headline font-bold text-primary mb-6">Upcoming Experiences</h2>
                     <p className="text-slate-600 text-lg max-w-3xl mx-auto mb-12">Our meticulously planned driving adventures, designed for the ultimate road trip experience.</p>
@@ -312,7 +312,7 @@ export default function Home() {
                     ))}
                 </div>
 
-                <div className="mt-16 text-center">
+                <div className="mt-8 text-center">
                     <Link href="/tours" className="inline-flex items-center gap-2 text-accent font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-accent pb-0.5">
                         View All Experiences <ArrowRight className="text-sm" />
                     </Link>
