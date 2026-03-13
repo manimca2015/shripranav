@@ -32,14 +32,20 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
                   data-ai-hint={tourImage.imageHint}
                   />
               )}
-              <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg">{tour.date}</div>
+              {/* Date Badge - Top Left */}
+              <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg z-10">
+                {tour.date}
+              </div>
+              
+              {/* Duration Badge - Top Right */}
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-primary px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg flex items-center gap-1.5 border border-slate-100 z-10">
+                <Clock className="w-3 h-3 text-accent" />
+                <span>{tour.duration}</span>
+              </div>
           </div>
           <CardContent className="p-6 flex flex-col flex-grow">
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <h3 className="text-xl font-bold font-headline text-primary leading-tight">{tour.title}</h3>
-                <Badge variant="secondary" className="bg-accent/10 text-accent hover:bg-accent/20 border-none font-bold py-0.5 h-6">
-                  <Clock className="w-3 h-3 mr-1" /> {tour.duration}
-                </Badge>
               </div>
               <p className="text-slate-600 mb-4 text-xs leading-relaxed flex-grow line-clamp-2">{tour.description}</p>
               
