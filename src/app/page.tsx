@@ -210,7 +210,7 @@ export default function Home() {
                     onClick={scrollNext}
                     aria-label="Next slide"
                 >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="h-6 h-6" />
                 </Button>
             </div>
 
@@ -252,13 +252,12 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                {/* Replaced Sphere with Video Player */}
                 <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl bg-primary group">
                     <StreamingVideo
                         src="/videos/desktop/desktop.m3u8"
                         poster="/videos/Malaysia_Expedition.webp"
-                        autoplay={false}
-                        loop
+                        autoplay={true}
+                        maxLoops={3}
                         muted={isMuted}
                         controls
                         className="w-full h-full object-cover"

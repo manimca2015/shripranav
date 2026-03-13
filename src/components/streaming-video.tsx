@@ -10,6 +10,7 @@ type StreamingVideoProps = {
   autoplay?: boolean;
   muted?: boolean;
   loop?: boolean;
+  maxLoops?: number;
   controls?: boolean;
   className?: string;
 };
@@ -20,10 +21,12 @@ const StreamingVideo = ({
   autoplay = false,
   muted = false,
   loop = false,
+  maxLoops,
   controls = false,
   className,
 }: StreamingVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const loopCountRef = useRef(0);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -38,6 +41,12 @@ const StreamingVideo = ({
       });
       hls.loadSource(src);
       hls.attachMedia(video);
+      
+      if (autoplay) {
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          video.play().catch(e => console.log("Autoplay prevented:", e));
+        });
+      }
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = src;
     }
@@ -45,7 +54,20 @@ const StreamingVideo = ({
     return () => {
       hls?.destroy();
     };
-  }, [src]);
+  }, [src, autoplay]);
+
+  const handleEnded = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (maxLoops && maxLoops > 0) {
+      loopCountRef.current += 1;
+      if (loopCountRef.current < maxLoops) {
+        video.currentTime = 0;
+        video.play().catch(e => console.log("Loop play prevented:", e));
+      }
+    }
+  };
 
   return (
     <video
@@ -53,7 +75,8 @@ const StreamingVideo = ({
       poster={poster}
       autoPlay={autoplay}
       muted={muted}
-      loop={loop}
+      loop={maxLoops ? false : loop}
+      onEnded={handleEnded}
       playsInline
       controls={controls}
       preload="metadata"
