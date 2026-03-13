@@ -3,7 +3,6 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { TourListings } from '@/components/tour-listings';
 import { tours } from '@/lib/data';
 import type { Tour } from '@/lib/types';
 import Image from 'next/image';
@@ -19,6 +18,8 @@ import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 import StreamingVideo from '@/components/streaming-video';
 import useEmblaCarousel from 'embla-carousel-react';
+import { parse, format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 const heroContent = {
   subheading: "India's Premium Driving Holiday Experts",
@@ -52,17 +53,17 @@ export default function Home() {
   }, [emblaApi]);
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!api) return;
     onSelect();
-    emblaApi.on('select', onSelect);
+    api.on('select', onSelect);
     
     const interval = setInterval(() => {
-      emblaApi.scrollNext();
+      api.scrollNext();
     }, 6000);
 
     return () => {
       clearInterval(interval);
-      emblaApi.off('select', onSelect);
+      api.off('select', onSelect);
     };
   }, [emblaApi, onSelect]);
 
@@ -70,6 +71,29 @@ export default function Home() {
     heroSliderImages.map(id => PlaceHolderImages.find(img => img.id === id)).filter(Boolean) as ImagePlaceholder[], 
   []);
   
+  // Month Filtering Logic
+  const availableMonths = useMemo(() => {
+    if (!tours || tours.length === 0) return [];
+    const dates = tours.map(tour => {
+      try {
+        return parse(tour.date, 'MMMM yyyy', new Date());
+      } catch (e) {
+        return null;
+      }
+    }).filter((date): date is Date => date !== null);
+    
+    dates.sort((a, b) => a.getTime() - b.getTime());
+    const monthStrings = dates.map(date => format(date, 'MMMM yyyy'));
+    return ['All', ...new Set(monthStrings)];
+  }, []);
+
+  const [selectedMonth, setSelectedMonth] = useState<string>('All');
+
+  const filteredTours = useMemo(() => {
+    if (selectedMonth === 'All') return tours;
+    return tours.filter((tour) => tour.date === selectedMonth);
+  }, [selectedMonth]);
+
   const { bentoGalleryImages, bottomGalleryImage } = useMemo(() => {
     const jordanAlbum = galleryData.photoAlbums.find(a => a.destination === 'Jordan');
     const thailandAlbum = galleryData.photoAlbums.find(a => a.destination === 'Thailand');
@@ -127,12 +151,6 @@ export default function Home() {
     return { bentoGalleryImages: bentoImages, bottomGalleryImage: bottomImage };
   }, []);
 
-  const featuredTourIds = ['jordan', 'south-africa', 'thailand'];
-  const featuredTours = useMemo(() => 
-      featuredTourIds.map(id => tours.find(t => t.id === id)).filter((t): t is Tour => !!t), 
-    [featuredTourIds]
-  );
-
   const allGalleryImages: ImagePlaceholder[] = [...bentoGalleryImages, bottomGalleryImage].filter(
     (img): img is ImagePlaceholder => !!(img && img.imageUrl)
   );
@@ -180,7 +198,7 @@ export default function Home() {
                         <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">{heroContent.paragraph}</p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
-                            <a href="#upcoming-convoys-2026">Upcoming Experiences 2026</a>
+                            <a href="#upcoming-experiences">Upcoming Experiences 2026</a>
                             </Button>
                         </div>
                     </div>
@@ -260,35 +278,44 @@ export default function Home() {
             </div>
         </section>
 
-        <section id="upcoming-convoys-2026" className="relative py-20 min-h-[900px] flex flex-col justify-center overflow-hidden section-bg-subtle">
-          <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23000000\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
-          <div className="container mx-auto px-4 relative z-10 max-w-7xl">
-            <div className="flex flex-col items-center mb-12 space-y-8">
-              <div className="text-center space-y-3">
-                  <span className="text-accent font-semibold tracking-widest text-xs uppercase">Your Next Adventure Awaits</span>
-                  <h2 className="text-4xl md:text-5xl font-headline font-bold text-primary">Upcoming Experiences</h2>
-                  <p className="text-muted-foreground max-w-2xl mx-auto font-light">Join our curated journeys across the globe. Experience the thrill of the open road.</p>
-              </div>
-              <TourListings tours={tours} />
-            </div>
-            <div className="mt-16 text-center">
-              <Link href="/tours" className="inline-flex items-center gap-2 text-accent font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-accent pb-0.5">
-                  View All Experiences <ArrowRight className="text-sm" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section id="featured-mega-tours" className="py-24 px-4 bg-white">
-            <div className="max-w-7xl mx-auto px-4">
+        <section id="upcoming-experiences" className="relative py-24 bg-slate-50 overflow-hidden">
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23000000\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
+            
+            <div className="container mx-auto px-6 relative z-10 max-w-7xl">
                 <div className="text-center mb-16">
-                    <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Signature Expeditions</span>
-                    <h2 className="text-5xl font-headline font-bold text-primary mb-6">Featured Mega Tours</h2>
-                    <p className="text-slate-600 text-lg max-w-3xl mx-auto">Our most popular and comprehensive driving adventures, designed for the ultimate road trip experience.</p>
+                    <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Your Next Adventure Awaits</span>
+                    <h2 className="text-5xl font-headline font-bold text-primary mb-6">Upcoming Experiences</h2>
+                    <p className="text-slate-600 text-lg max-w-3xl mx-auto mb-12">Our meticulously planned driving adventures, designed for the ultimate road trip experience.</p>
+                    
+                    {/* Month Filter Tabs */}
+                    <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-4 mb-12">
+                        {availableMonths.map((month) => (
+                            <button
+                                key={month}
+                                onClick={() => setSelectedMonth(month)}
+                                className={cn(
+                                    'px-6 py-2.5 rounded-full font-bold text-sm transition-all whitespace-nowrap shadow-sm border',
+                                    selectedMonth === month
+                                        ? 'bg-accent text-accent-foreground border-accent'
+                                        : 'bg-white border-slate-200 text-slate-600 hover:border-accent hover:text-accent'
+                                )}
+                            >
+                                {month === 'All' ? 'Show All' : format(parse(month, 'MMMM yyyy', new Date()), 'MMMM yyyy')}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {featuredTours.map(tour => <FeaturedTourCard key={tour.id} tour={tour} />)}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {filteredTours.map(tour => (
+                      <FeaturedTourCard key={tour.id} tour={tour} />
+                    ))}
+                </div>
+
+                <div className="mt-16 text-center">
+                    <Link href="/tours" className="inline-flex items-center gap-2 text-accent font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-accent pb-0.5">
+                        View All Experiences <ArrowRight className="text-sm" />
+                    </Link>
                 </div>
             </div>
         </section>
