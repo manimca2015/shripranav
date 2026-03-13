@@ -221,8 +221,8 @@ export default function Home() {
         <section id="about-fair-future" className="py-20 px-4 bg-white">
             <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
                 <div>
-                    <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Premium Positioning</span>
-                    <h2 className="text-5xl font-headline font-bold text-primary mb-6 leading-tight">We Don't Cater to the Masses</h2>
+                    <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Bespoke Expeditions</span>
+                    <h2 className="text-5xl font-headline font-bold text-primary mb-6 leading-tight">Small Groups. Big Experiences.</h2>
                     <p className="text-slate-600 text-lg leading-relaxed mb-6">Fair Future Travels & Vacations is India's leading premium driving holiday specialist. Since our inception, we've been crafting extraordinary self-drive expeditions across the globe's most breathtaking landscapes.</p>
                     <p className="text-slate-600 text-lg leading-relaxed mb-8">Our meticulously planned convoys combine the thrill of adventure driving with the comfort of luxury travel. Every route is pre-scouted, every hotel hand-picked, and every detail managed by our expert team.</p>
                     <div className="flex gap-6 mb-8 md:mb-0">
