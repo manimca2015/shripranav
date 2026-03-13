@@ -18,7 +18,6 @@ import DomeGallery from '@/components/dome-gallery';
 import { WhatsAppIcon } from '@/components/icons/whatsapp-icon';
 import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import GalleryModal from '@/components/gallery-modal';
-import { BrochureDownloadModal } from '@/components/brochure-download-modal';
 import domeGalleryData from '@/lib/dome-gallery.json';
 import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
@@ -33,7 +32,6 @@ const heroContent = {
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [isBrochureModalOpen, setBrochureModalOpen] = useState(false);
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
@@ -162,15 +160,7 @@ export default function Home() {
                         <p className="text-base md:text-lg text-primary-foreground/90 mb-10 leading-relaxed max-w-xl">{heroContent.paragraph}</p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Button asChild size="lg" className="bg-accent text-accent-foreground px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-accent/90 transition-all shadow-xl-accent btn-hover-lift">
-                            <a href="#upcoming-convoys-2026">Upcoming Tours 2026</a>
-                            </Button>
-                            <Button
-                            size="lg"
-                            variant="outline"
-                            className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 px-6 sm:px-10 py-3 sm:py-4 h-auto rounded-full font-bold text-sm md:text-base hover:bg-white hover:text-primary transition-all btn-hover-lift"
-                            onClick={() => setBrochureModalOpen(true)}
-                            >
-                            Download Brochure
+                            <a href="#upcoming-convoys-2026">Upcoming Experiences 2026</a>
                             </Button>
                         </div>
                     </div>
@@ -243,7 +233,7 @@ export default function Home() {
               <TourListings tours={tours} />
             </div>
             <div className="mt-16 text-center">
-              <Link href="#" className="inline-flex items-center gap-2 text-accent font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-accent pb-0.5">
+              <Link href="/tours" className="inline-flex items-center gap-2 text-accent font-semibold hover:text-primary transition-colors border-b-2 border-transparent hover:border-accent pb-0.5">
                   View All Experiences <ArrowRight className="text-sm" />
               </Link>
             </div>
@@ -423,15 +413,8 @@ export default function Home() {
           <div className="absolute inset-0 bg-primary/80" />
           <div className="relative z-10 max-w-5xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-headline font-bold mb-6 leading-tight">Ready to Start Your <span className="text-accent">Driving Adventure?</span></h2>
-            <p className="text-lg md:text-xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed">Join our exclusive community of driving enthusiasts. Download our comprehensive brochures or speak with our expedition experts today.</p>
+            <p className="text-lg md:text-xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed">Join our exclusive community of driving enthusiasts. Speak with our expedition experts today or reach out via WhatsApp.</p>
             <div className="flex flex-wrap justify-center gap-6 mb-16">
-                <Button 
-                  size="lg" 
-                  className="bg-accent text-accent-foreground px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl-accent btn-hover-lift"
-                  onClick={() => setBrochureModalOpen(true)}
-                >
-                    <Download className="mr-3" /> Download Brochure
-                </Button>
                 <Button asChild size="lg" className="bg-white text-primary px-12 py-5 h-auto rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl btn-hover-lift">
                     <Link href="https://wa.me/917907526773" target="_blank" rel="noopener noreferrer">
                       <WhatsAppIcon className="mr-3 w-6 h-6"/> WhatsApp Us
@@ -474,10 +457,6 @@ export default function Home() {
           startIndex={startIndex}
         />
       )}
-      <BrochureDownloadModal 
-        isOpen={isBrochureModalOpen}
-        onClose={() => setBrochureModalOpen(false)}
-      />
       <EnquiryModal 
         isOpen={isEnquiryModalOpen}
         onClose={() => setEnquiryModalOpen(false)}
