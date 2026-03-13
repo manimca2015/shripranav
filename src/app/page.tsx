@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { TourListings } from '@/components/tour-listings';
@@ -9,19 +9,17 @@ import { tours } from '@/lib/data';
 import type { Tour } from '@/lib/types';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ShieldCheck, Users, Route, MapPin, Hotel, Truck, Headset, Star, Download, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Users, MapPin, Hotel, Truck, Headset, Star, Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { FeaturedTourCard } from '@/components/featured-tour-card';
-import { Card } from "@/components/ui/card"
-import DomeGallery from '@/components/dome-gallery';
 import { WhatsAppIcon } from '@/components/icons/whatsapp-icon';
 import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import GalleryModal from '@/components/gallery-modal';
-import domeGalleryData from '@/lib/dome-gallery.json';
 import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 import StreamingVideo from '@/components/streaming-video';
+import useEmblaCarousel from 'embla-carousel-react';
 
 const heroContent = {
   subheading: "India's Premium Driving Holiday Experts",
@@ -29,14 +27,50 @@ const heroContent = {
   paragraph: "Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses."
 };
 
+const heroSliderImages = [
+  'tours-hero',
+  'mega-tour-sa',
+  'tour-spiti',
+  'tour-jordan'
+];
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
-
   const [isMuted, setIsMuted] = useState(true);
+
+  // Hero Slider
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    
+    const interval = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 6000);
+
+    return () => {
+      clearInterval(interval);
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  const heroImages = useMemo(() => 
+    heroSliderImages.map(id => PlaceHolderImages.find(img => img.id === id)).filter(Boolean) as ImagePlaceholder[], 
+  []);
   
   const { bentoGalleryImages, bottomGalleryImage } = useMemo(() => {
     const jordanAlbum = galleryData.photoAlbums.find(a => a.destination === 'Jordan');
@@ -99,13 +133,6 @@ export default function Home() {
     setIsMuted(!isMuted);
   };
 
-  const domeImages: { src: string; alt: string }[] = domeGalleryData.images.map(
-    (p) => ({
-      src: p.src,
-      alt: p.alt,
-    })
-  );
-
   const featuredTourIds = ['jordan', 'south-africa', 'thailand'];
   const featuredTours = useMemo(() => 
       featuredTourIds.map(id => tours.find(t => t.id === id)).filter((t): t is Tour => !!t), 
@@ -132,23 +159,22 @@ export default function Home() {
       <Header />
       <main>
         <section id="hero-section" className="relative w-full h-screen overflow-hidden">
-            <div className="absolute inset-0 z-0">
-                <StreamingVideo
-                    src="/videos/desktop/desktop.m3u8"
-                    poster="/videos/Malaysia_Expedition.webp"
-                    autoplay
-                    loop
-                    muted={isMuted}
-                    className="w-full h-full object-cover hidden md:block"
-                />
-                <StreamingVideo
-                    src="/videos/mobile/mobile.m3u8"
-                    poster="/videos/Malaysia_Expedition.webp"
-                    autoplay
-                    loop
-                    muted={isMuted}
-                    className="w-full h-full object-cover md:hidden"
-                />
+            {/* Image Slider Background */}
+            <div className="absolute inset-0 z-0 overflow-hidden" ref={emblaRef}>
+                <div className="flex h-full">
+                    {heroImages.map((image, index) => (
+                        <div key={image.id} className="relative flex-[0_0_100%] h-full">
+                            <Image
+                                src={image.imageUrl}
+                                alt={image.description}
+                                fill
+                                priority={index === 0}
+                                className="object-cover"
+                                data-ai-hint={image.imageHint}
+                            />
+                        </div>
+                    ))}
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-transparent"></div>
             </div>
 
@@ -167,16 +193,34 @@ export default function Home() {
                 </div>
             </div>
             
-            <div className="absolute bottom-12 left-12 z-20 hidden sm:flex gap-2">
+            <div className="absolute bottom-12 right-12 z-20 flex gap-4">
                 <Button
                     size="icon"
-                    variant="ghost"
-                    className="text-white hover:bg-transparent hover:text-white/80"
-                    onClick={toggleMute}
-                    aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                    variant="outline"
+                    className="bg-white/10 backdrop-blur-md text-white border-white/20 hover:bg-accent hover:text-accent-foreground rounded-full h-12 w-12"
+                    onClick={scrollPrev}
+                    aria-label="Previous slide"
                 >
-                    {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
+                    <ChevronLeft className="w-6 h-6" />
                 </Button>
+                <Button
+                    size="icon"
+                    variant="outline"
+                    className="bg-white/10 backdrop-blur-md text-white border-white/20 hover:bg-accent hover:text-accent-foreground rounded-full h-12 w-12"
+                    onClick={scrollNext}
+                    aria-label="Next slide"
+                >
+                    <ChevronRight className="w-6 h-6" />
+                </Button>
+            </div>
+
+            <div className="absolute bottom-12 left-12 z-20 hidden md:flex items-center gap-2">
+                {heroImages.map((_, i) => (
+                    <div 
+                        key={i} 
+                        className={`h-1 rounded-full transition-all duration-500 ${selectedIndex === i ? 'w-8 bg-accent' : 'w-2 bg-white/30'}`}
+                    />
+                ))}
             </div>
         </section>
 
@@ -187,7 +231,7 @@ export default function Home() {
                     <h2 className="text-5xl font-headline font-bold text-primary mb-6 leading-tight">We Don't Cater to the Masses</h2>
                     <p className="text-slate-600 text-lg leading-relaxed mb-6">Fair Future Travels & Vacations is India's leading premium driving holiday specialist. Since our inception, we've been crafting extraordinary self-drive expeditions across the globe's most breathtaking landscapes.</p>
                     <p className="text-slate-600 text-lg leading-relaxed mb-8">Our meticulously planned convoys combine the thrill of adventure driving with the comfort of luxury travel. Every route is pre-scouted, every hotel hand-picked, and every detail managed by our expert team.</p>
-                    <div className="flex gap-6">
+                    <div className="flex gap-6 mb-8 md:mb-0">
                         <div className="flex items-center gap-3">
                             <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center">
                                 <ShieldCheck className="text-accent text-xl" />
@@ -208,15 +252,28 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="relative w-full max-w-[500px] aspect-square justify-self-center">
-                  <DomeGallery
-                    images={domeImages.filter((image) => image.src)}
-                    fit={0.8}
-                    minRadius={600}
-                    maxVerticalRotationDeg={0}
-                    segments={34}
-                    dragDampening={2}
-                  />
+                {/* Replaced Sphere with Video Player */}
+                <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl bg-primary group">
+                    <StreamingVideo
+                        src="/videos/desktop/desktop.m3u8"
+                        poster="/videos/Malaysia_Expedition.webp"
+                        autoplay={false}
+                        loop
+                        muted={isMuted}
+                        controls
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-4 right-4 z-20 pointer-events-none group-hover:pointer-events-auto">
+                        <Button
+                            size="icon"
+                            variant="ghost"
+                            className="text-white hover:bg-black/20 hover:text-white"
+                            onClick={toggleMute}
+                            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                        >
+                            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                        </Button>
+                    </div>
                 </div>
             </div>
         </section>
