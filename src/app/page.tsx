@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
@@ -9,7 +8,7 @@ import { tours } from '@/lib/data';
 import type { Tour } from '@/lib/types';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ShieldCheck, Users, MapPin, Hotel, Truck, Headset, Star, Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Users, MapPin, Hotel, Truck, Headset, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { FeaturedTourCard } from '@/components/featured-tour-card';
@@ -39,7 +38,6 @@ export default function Home() {
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
 
   // Hero Slider
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 });
@@ -128,10 +126,6 @@ export default function Home() {
     
     return { bentoGalleryImages: bentoImages, bottomGalleryImage: bottomImage };
   }, []);
-
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
 
   const featuredTourIds = ['jordan', 'south-africa', 'thailand'];
   const featuredTours = useMemo(() => 
@@ -258,21 +252,10 @@ export default function Home() {
                         poster="/videos/Malaysia_Expedition.webp"
                         autoplay={true}
                         maxLoops={3}
-                        muted={isMuted}
+                        muted={true}
                         controls
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute bottom-4 right-4 z-20 pointer-events-none group-hover:pointer-events-auto">
-                        <Button
-                            size="icon"
-                            variant="ghost"
-                            className="text-white hover:bg-black/20 hover:text-white"
-                            onClick={toggleMute}
-                            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-                        >
-                            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-                        </Button>
-                    </div>
                 </div>
             </div>
         </section>
