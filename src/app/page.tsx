@@ -53,17 +53,17 @@ export default function Home() {
   }, [emblaApi]);
 
   useEffect(() => {
-    if (!api) return;
+    if (!emblaApi) return;
     onSelect();
-    api.on('select', onSelect);
+    emblaApi.on('select', onSelect);
     
     const interval = setInterval(() => {
-      api.scrollNext();
+      emblaApi.scrollNext();
     }, 6000);
 
     return () => {
       clearInterval(interval);
-      api.off('select', onSelect);
+      emblaApi.off('select', onSelect);
     };
   }, [emblaApi, onSelect]);
 
