@@ -320,12 +320,12 @@ export default function Home() {
             </div>
         </section>
         
-        <section id="features" className="relative py-24 bg-primary overflow-hidden">
+        <section id="features" className="relative py-12 bg-primary overflow-hidden">
             <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-accent/10 rounded-full opacity-50 blur-3xl"></div>
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-accent/5 rounded-full opacity-30 blur-3xl"></div>
 
             <div className="container mx-auto px-6 relative z-10 max-w-7xl">
-                <div className="text-center mb-20">
+                <div className="text-center mb-10">
                     <span className="text-accent font-semibold tracking-[0.2em] text-sm uppercase mb-3 block">Premium Service</span>
                     <h2 className="text-4xl md:text-5xl font-headline text-primary-foreground font-bold mb-6">Why Choose Fair Future?</h2>
                     <p className="text-slate-400 max-w-2xl mx-auto text-lg font-light leading-relaxed">
