@@ -23,7 +23,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 const heroContent = {
   subheading: "India's Premium Driving Holiday Experts",
   heading: <>Self-Drive <br/><span className="text-accent">Adventures</span> Worldwide</>,
-  paragraph: "Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support. We don't cater to the masses."
+  paragraph: "Experience the world's most iconic driving routes with expert convoy management, luxury accommodations, and 24/7 ground support."
 };
 
 const heroSliderImages = [
