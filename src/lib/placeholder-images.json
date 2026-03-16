@@ -73,6 +73,18 @@
       "imageHint": "luxury driving"
     },
     {
+      "id": "hero-slider-2",
+      "description": "Premium 4x4 vehicle in a vast desert landscape",
+      "imageUrl": "https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/c06e4a54-7ddb-4aec-8920-2d99f8f45400/public",
+      "imageHint": "desert adventure"
+    },
+    {
+      "id": "hero-slider-3",
+      "description": "Convoy of vehicles exploring rugged mountain terrain",
+      "imageUrl": "https://imagedelivery.net/68xUppJvd93NaMkHF9uGeQ/dc6c6cfe-4527-4f0c-4c77-857a188e0000/public",
+      "imageHint": "mountain convoy"
+    },
+    {
       "id": "review-avatar-1",
       "description": "Avatar of Rajesh Kumar",
       "imageUrl": "https://avatar.iran.liara.run/public/boy?username=Rajesh+Kumar",

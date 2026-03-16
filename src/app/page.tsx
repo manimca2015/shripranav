@@ -29,10 +29,8 @@ const heroContent = {
 
 const heroSliderImages = [
   'hero-slider-main',
-  'tours-hero',
-  'mega-tour-sa',
-  'mega-tour-iceland',
-  'mega-tour-namibia'
+  'hero-slider-2',
+  'hero-slider-3'
 ];
 
 export default function Home() {
