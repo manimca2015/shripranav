@@ -225,7 +225,7 @@ export default function Home() {
                 </Button>
             </div>
 
-            <div className="absolute bottom-12 left-12 z-20 hidden md:flex items-center gap-2">
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 hidden md:flex items-center gap-2">
                 {heroImages.map((_, i) => (
                     <div 
                         key={i} 
