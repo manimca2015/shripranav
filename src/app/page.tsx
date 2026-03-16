@@ -397,9 +397,9 @@ export default function Home() {
             </div>
         </section>
 
-        <section id="testimonials" className="py-24 bg-white">
+        <section id="testimonials" className="py-12 bg-white">
             <div className="container mx-auto px-6 max-w-7xl">
-                <div className="text-center mb-16">
+                <div className="text-center mb-8">
                     <span className="text-accent font-semibold tracking-[0.2em] text-sm uppercase mb-3 block">Trusted By Travelers</span>
                     <h2 className="text-4xl md:text-5xl font-headline text-primary font-bold mb-4">What Our Clients Say</h2>
                     <div className="flex items-center justify-center gap-2 text-yellow-400 text-lg">
@@ -412,9 +412,9 @@ export default function Home() {
             </div>
         </section>
 
-        <section id="gallery" className="py-24 bg-slate-50">
+        <section id="gallery" className="py-12 bg-slate-50">
             <div className="max-w-7xl mx-auto px-6">
-                <div className="text-center mb-16">
+                <div className="text-center mb-8">
                     <span className="text-accent font-bold text-sm tracking-[0.2em] uppercase">Gallery</span>
                     <h2 className="text-4xl md:text-5xl font-headline font-bold text-primary mt-4 mb-4">
                         From Our Adventurers' Lens
