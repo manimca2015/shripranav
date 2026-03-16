@@ -28,10 +28,11 @@ const heroContent = {
 };
 
 const heroSliderImages = [
+  'hero-slider-main',
   'tours-hero',
   'mega-tour-sa',
-  'tour-spiti',
-  'tour-jordan'
+  'mega-tour-iceland',
+  'mega-tour-namibia'
 ];
 
 export default function Home() {
@@ -236,7 +237,7 @@ export default function Home() {
             </div>
         </section>
 
-        <section id="about-fair-future" className="py-20 px-4 bg-white">
+        <section id="about-fair-future" className="py-10 px-4 bg-white">
             <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
                 <div>
                     <span className="text-accent font-bold tracking-[0.2em] uppercase mb-4 block">Bespoke Expeditions</span>
