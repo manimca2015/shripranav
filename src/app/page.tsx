@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
@@ -204,7 +205,7 @@ export default function Home() {
                 </div>
             </div>
             
-            <div className="absolute bottom-12 right-12 z-20 flex gap-4">
+            <div className="absolute bottom-6 md:bottom-12 right-6 md:right-12 z-20 flex gap-4">
                 <Button
                     size="icon"
                     variant="outline"
