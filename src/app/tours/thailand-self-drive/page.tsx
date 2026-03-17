@@ -114,7 +114,7 @@ export default function ThailandItineraryPage() {
                   <Button className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-10 py-7 rounded-xl transition-all hover:scale-105 shadow-2xl text-lg">
                     Book Now
                   </Button>
-                  <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-10 py-7 rounded-xl border-white/20 transition-all hover:bg-white/20 text-lg">
+                  <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-10 py-7 rounded-xl border-white/20 transition-all hover:bg-[#e0af29] hover:text-black hover:border-[#e0af29] text-lg">
                     Enquire
                   </Button>
                 </div>
