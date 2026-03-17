@@ -97,7 +97,7 @@ export default function ThailandItineraryPage() {
           {/* SECTION 2 — BOOKING BAR (Now an overlay above the image) */}
           <div id="booking-bar" className="absolute bottom-0 left-0 w-full z-30 bg-gradient-to-t from-black/80 via-black/50 to-black/20 backdrop-blur-md border-t border-white/10">
             <div className="container mx-auto px-4">
-              <div className="flex flex-col md:flex-row items-center justify-between py-6 gap-4">
+              <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
                 <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
                   <div className="text-center md:text-left">
                       <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Starting from</p>
@@ -111,10 +111,10 @@ export default function ThailandItineraryPage() {
                 </div>
                 
                 <div className="flex gap-4 w-full md:w-auto">
-                  <Button className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-6 h-auto rounded-xl transition-all hover:bg-white hover:text-[#e0af29] border-2 border-transparent hover:border-[#e0af29] text-base">
+                  <Button className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-3 h-auto rounded-xl transition-all hover:bg-white hover:text-[#e0af29] border-2 border-transparent hover:border-[#e0af29] text-base">
                     Book Now
                   </Button>
-                  <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-8 py-6 h-auto rounded-xl border border-white/20 transition-all hover:bg-[#e0af29] hover:text-black hover:border-[#e0af29] text-base">
+                  <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-8 py-3 h-auto rounded-xl border border-white/20 transition-all hover:bg-[#e0af29] hover:text-black hover:border-[#e0af29] text-base">
                     Enquire
                   </Button>
                 </div>
