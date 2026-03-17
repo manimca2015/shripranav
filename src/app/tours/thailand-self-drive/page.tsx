@@ -38,10 +38,10 @@ export default function ThailandItineraryPage() {
       <Header />
       
       <main>
-        {/* SECTION 1 — HERO (Matching HTML Style) */}
-        <section id="hero-itinerary" className="relative h-[600px] lg:h-[750px] w-full overflow-hidden">
+        {/* SECTION 1 — HERO */}
+        <section id="hero-itinerary" className="relative h-[650px] lg:h-[800px] w-full overflow-hidden">
           {/* Dark Gradient Overlay per HTML */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80 z-10" />
           
           {/* Background Image */}
           {heroImage && (
@@ -55,19 +55,19 @@ export default function ThailandItineraryPage() {
             />
           )}
           
-          <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-12 lg:pb-20">
+          <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-32 lg:pb-40">
             <div className="max-w-4xl">
-              {/* Badges / Breadcrumbs per HTML */}
-              <div className="flex flex-wrap gap-3 mb-4">
-                <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-sm font-bold">6 Nights / 7 Days</span>
-                <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-sm font-semibold">Self Drive SUV</span>
-                <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-sm font-semibold">International</span>
+              {/* Badges / Breadcrumbs */}
+              <div className="flex flex-wrap gap-3 mb-6">
+                <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">6 Nights / 7 Days</span>
+                <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">Self Drive SUV</span>
+                <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">International</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 font-headline uppercase tracking-tight">
+              <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 font-headline uppercase tracking-tight leading-none">
                 THAILAND
               </h1>
-              <p className="text-accent font-bold tracking-[0.2em] text-lg uppercase mb-4 block">
+              <p className="text-accent font-bold tracking-[0.3em] text-lg uppercase mb-6 block">
                 Wander Thailand's Hidden Roads
               </p>
 
@@ -75,7 +75,7 @@ export default function ThailandItineraryPage() {
                 Experience Thailand on a 6-night, 7-day self-drive coastal adventure that combines lively cities, tropical beaches, and scenic highway drives.
               </p>
               
-              {/* Info Row per HTML */}
+              {/* Info Row directly in Hero */}
               <div className="flex flex-wrap gap-6 items-center text-white">
                 <div className="flex items-center gap-2">
                     <Star className="w-5 h-5 text-accent" fill="currentColor" />
@@ -93,38 +93,38 @@ export default function ThailandItineraryPage() {
               </div>
             </div>
           </div>
-        </section>
 
-        {/* SECTION 2 — STICKY BOOKING BAR (Matching HTML Style) */}
-        <section id="booking-bar" className="sticky top-0 z-50 bg-gradient-to-t from-primary/95 to-primary/80 backdrop-blur-md shadow-lg border-b border-white/10">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
-              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-                <div>
-                    <p className="text-white/70 text-xs">Starting from</p>
-                    <p className="text-2xl md:text-3xl font-bold text-accent">₹1,60,000 <span className="text-sm text-white/70 font-normal">per person</span></p>
+          {/* SECTION 2 — BOOKING BAR (Now an overlay above the image) */}
+          <div id="booking-bar" className="absolute bottom-0 left-0 w-full z-30 bg-black/60 backdrop-blur-lg border-t border-white/10">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-col md:flex-row items-center justify-between py-6 gap-4">
+                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
+                  <div className="text-center md:text-left">
+                      <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Starting from</p>
+                      <p className="text-3xl md:text-4xl font-bold text-accent tracking-tighter">₹1,60,000 <span className="text-xs text-white/60 font-normal tracking-normal uppercase ml-1">per person</span></p>
+                  </div>
+                  <div className="hidden md:block w-px h-12 bg-white/20" />
+                  <div className="text-center md:text-left">
+                      <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Next Available</p>
+                      <p className="text-white font-bold text-lg tracking-tight">May 1 – May 7, 2026</p>
+                  </div>
                 </div>
-                <div className="hidden md:block w-px h-12 bg-white/20" />
-                <div className="text-center md:text-left">
-                    <p className="text-white/70 text-xs">Next Available</p>
-                    <p className="text-white font-semibold">May 1 – May 7, 2026</p>
+                
+                <div className="flex gap-4 w-full md:w-auto">
+                  <Button className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-10 py-7 rounded-xl transition-all hover:scale-105 shadow-2xl text-lg">
+                    Book Now
+                  </Button>
+                  <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-10 py-7 rounded-xl border-white/20 transition-all hover:bg-white/20 text-lg">
+                    Enquire
+                  </Button>
                 </div>
-              </div>
-              
-              <div className="flex gap-3 w-full md:w-auto">
-                <Button className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-6 rounded-lg transition-all hover:scale-105 shadow-lg">
-                  Book Now
-                </Button>
-                <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-semibold px-8 py-6 rounded-lg border-white/30 transition-all hover:bg-white/20">
-                  Enquire
-                </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SECTION 3 — CONTENT NAVIGATION (Matching HTML Style) */}
-        <section id="content-navigation" className="bg-slate-50 border-b border-slate-200 sticky top-[152px] md:top-[88px] z-40">
+        {/* SECTION 3 — CONTENT NAVIGATION */}
+        <section id="content-navigation" className="bg-slate-50 border-b border-slate-200 sticky top-[88px] z-40">
           <div className="container mx-auto px-4">
             <nav className="flex overflow-x-auto gap-1 py-2 no-scrollbar">
               <Link href="#overview" className="whitespace-nowrap px-6 py-3 text-sm font-bold text-slate-700 hover:text-accent hover:bg-white rounded-lg transition-all">
@@ -201,7 +201,7 @@ export default function ThailandItineraryPage() {
 
               {/* RIGHT COLUMN — SIDEBAR */}
               <div className="lg:col-span-1">
-                <div className="sticky top-[220px] space-y-6">
+                <div className="sticky top-[160px] space-y-6">
                   {/* Booking Card */}
                   <Card className="border-2 border-accent rounded-3xl overflow-hidden shadow-xl bg-white">
                     <CardContent className="p-8">
