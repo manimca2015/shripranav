@@ -95,7 +95,7 @@ export default function ThailandItineraryPage() {
           </div>
 
           {/* SECTION 2 — BOOKING BAR (Now an overlay above the image) */}
-          <div id="booking-bar" className="absolute bottom-0 left-0 w-full z-30 bg-black/60 backdrop-blur-lg border-t border-white/10">
+          <div id="booking-bar" className="absolute bottom-0 left-0 w-full z-30 bg-gradient-to-t from-black/80 via-black/50 to-black/20 backdrop-blur-md border-t border-white/10">
             <div className="container mx-auto px-4">
               <div className="flex flex-col md:flex-row items-center justify-between py-6 gap-4">
                 <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
