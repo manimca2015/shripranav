@@ -111,7 +111,7 @@ export default function ThailandItineraryPage() {
                 </div>
                 
                 <div className="flex gap-4 w-full md:w-auto">
-                  <Button className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-3 h-auto rounded-xl transition-all hover:bg-white hover:text-[#e0af29] border-2 border-transparent hover:border-[#e0af29] text-base">
+                  <Button className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-3 h-auto rounded-xl transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] text-base">
                     Book Now
                   </Button>
                   <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-8 py-3 h-auto rounded-xl border border-white/20 transition-all hover:bg-[#e0af29] hover:text-black hover:border-[#e0af29] text-base">
@@ -233,7 +233,7 @@ export default function ThailandItineraryPage() {
                       </div>
                       
                       <div className="space-y-3">
-                        <Button className="w-full h-auto py-4 rounded-xl bg-accent text-accent-foreground font-bold text-base transition-all hover:bg-white hover:text-[#e0af29] border-2 border-transparent hover:border-[#e0af29] shadow-lg">
+                        <Button className="w-full h-auto py-4 rounded-xl bg-accent text-accent-foreground font-bold text-base transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] shadow-lg">
                           Book Now
                         </Button>
                         <Button variant="outline" className="w-full h-auto py-4 rounded-xl border-2 border-slate-200 text-primary font-bold text-base hover:bg-slate-50 transition-all">
