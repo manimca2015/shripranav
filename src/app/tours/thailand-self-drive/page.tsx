@@ -145,29 +145,7 @@ export default function ThailandItineraryPage() {
               {/* LEFT COLUMN */}
               <div className="lg:col-span-2 space-y-12">
                 
-                {/* SECTION 4 — UNIQUE ATTRACTIONS */}
-                <div className="space-y-8">
-                  <h3 className="text-3xl font-headline font-bold text-primary">Destination Highlights</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {attractionImages.map((attr, idx) => (
-                      <div key={idx} className="group text-center">
-                        <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-100">
-                          {attr.image && (
-                            <Image
-                              src={attr.image.imageUrl}
-                              alt={attr.label}
-                              fill
-                              className="object-cover group-hover:scale-110 transition-transform duration-700"
-                            />
-                          )}
-                        </div>
-                        <p className="text-sm font-bold text-slate-800 tracking-tight">{attr.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* SECTION 5 — ITINERARY BRIEF / OVERVIEW */}
+                {/* SECTION 5 — ITINERARY BRIEF / OVERVIEW (Moved to top) */}
                 <div id="overview" className="scroll-mt-48 space-y-8">
                   <h2 className="text-4xl font-headline font-bold text-primary tracking-tight">Itinerary Brief</h2>
                   <div className="prose prose-xl max-w-none text-slate-600 leading-relaxed font-light">
@@ -197,6 +175,29 @@ export default function ThailandItineraryPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* SECTION 4 — UNIQUE ATTRACTIONS */}
+                <div className="space-y-8">
+                  <h3 className="text-3xl font-headline font-bold text-primary">Destination Highlights</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {attractionImages.map((attr, idx) => (
+                      <div key={idx} className="group text-center">
+                        <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-100">
+                          {attr.image && (
+                            <Image
+                              src={attr.image.imageUrl}
+                              alt={attr.label}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-700"
+                            />
+                          )}
+                        </div>
+                        <p className="text-sm font-bold text-slate-800 tracking-tight">{attr.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
               </div>
 
               {/* RIGHT COLUMN — SIDEBAR */}
