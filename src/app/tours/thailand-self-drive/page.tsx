@@ -96,7 +96,7 @@ export default function ThailandItineraryPage() {
         </section>
 
         {/* SECTION 2 — STICKY BOOKING BAR (Matching HTML Style) */}
-        <section id="booking-bar" className="sticky top-0 z-50 bg-primary shadow-lg border-b border-white/10">
+        <section id="booking-bar" className="sticky top-0 z-50 bg-gradient-to-t from-primary/95 to-primary/80 backdrop-blur-md shadow-lg border-b border-white/10">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
