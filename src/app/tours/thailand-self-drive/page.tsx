@@ -22,12 +22,12 @@ import { Card, CardContent } from '@/components/ui/card';
 export default function ThailandItineraryPage() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'tour-thailand');
   
-  // Attraction images mapping
+  // Attraction images mapping using Thailand Album images
   const attractionImages = [
-    { id: 'gallery-thailand-11', label: 'James Bond Island' },
-    { id: 'gallery-thailand-8', label: 'Bangkok Temple' },
-    { id: 'gallery-thailand-1', label: 'Phraya Nakhon Cave' },
+    { id: 'gallery-thailand-3', label: 'Phuket Coastal Drive' },
     { id: 'gallery-thailand-4', label: 'Ao Nang Beach' },
+    { id: 'gallery-thailand-8', label: 'Bangkok Landmarks' },
+    { id: 'gallery-thailand-11', label: 'James Bond Island' },
   ].map(attr => ({
     ...attr,
     image: PlaceHolderImages.find(p => p.id === attr.id)
@@ -40,7 +40,7 @@ export default function ThailandItineraryPage() {
       <main>
         {/* SECTION 1 — HERO */}
         <section id="hero-itinerary" className="relative h-[650px] lg:h-[800px] w-full overflow-hidden">
-          {/* Dark Gradient Overlay per HTML */}
+          {/* Dark Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80 z-10" />
           
           {/* Background Image */}
@@ -57,7 +57,7 @@ export default function ThailandItineraryPage() {
           
           <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-32 lg:pb-40">
             <div className="max-w-4xl">
-              {/* Badges / Breadcrumbs */}
+              {/* Badges */}
               <div className="flex flex-wrap gap-3 mb-6">
                 <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">6 Nights / 7 Days</span>
                 <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">Self Drive SUV</span>
@@ -75,7 +75,6 @@ export default function ThailandItineraryPage() {
                 Experience Thailand on a 6-night, 7-day self-drive coastal adventure that combines lively cities, tropical beaches, and scenic highway drives.
               </p>
               
-              {/* Info Row directly in Hero */}
               <div className="flex flex-wrap gap-6 items-center text-white">
                 <div className="flex items-center gap-2">
                     <Star className="w-5 h-5 text-accent" fill="currentColor" />
@@ -94,7 +93,7 @@ export default function ThailandItineraryPage() {
             </div>
           </div>
 
-          {/* SECTION 2 — BOOKING BAR (Now an overlay above the image) */}
+          {/* SECTION 2 — BOOKING BAR OVERLAY */}
           <div id="booking-bar" className="absolute bottom-0 left-0 w-full z-30 bg-gradient-to-t from-black/80 via-black/50 to-black/20 backdrop-blur-md border-t border-white/10">
             <div className="container mx-auto px-4">
               <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
@@ -114,7 +113,7 @@ export default function ThailandItineraryPage() {
                   <Button className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-3 h-auto rounded-xl transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] text-base">
                     Book Now
                   </Button>
-                  <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-8 py-3 h-auto rounded-xl border border-white/20 transition-all hover:bg-[#e0af29] hover:text-black hover:border-[#e0af29] text-base">
+                  <Button variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-8 py-3 h-auto rounded-xl border border-white/20 transition-all hover:bg-[#e0af29] hover:text-accent-foreground hover:border-[#e0af29] text-base">
                     Enquire
                   </Button>
                 </div>
@@ -128,10 +127,10 @@ export default function ThailandItineraryPage() {
           <div className="container mx-auto px-4">
             <nav className="flex overflow-x-auto gap-1 py-2 no-scrollbar">
               <Link href="#overview" className="whitespace-nowrap px-6 py-3 text-sm font-bold text-slate-700 hover:text-accent hover:bg-white rounded-lg transition-all">
-                Overview
-              </Link>
-              <Link href="#overview" className="whitespace-nowrap px-6 py-3 text-sm font-bold text-slate-700 hover:text-accent hover:bg-white rounded-lg transition-all">
                 Itinerary Brief
+              </Link>
+              <Link href="#highlights" className="whitespace-nowrap px-6 py-3 text-sm font-bold text-slate-700 hover:text-accent hover:bg-white rounded-lg transition-all">
+                Destination Highlights
               </Link>
             </nav>
           </div>
@@ -145,7 +144,7 @@ export default function ThailandItineraryPage() {
               {/* LEFT COLUMN */}
               <div className="lg:col-span-2 space-y-12">
                 
-                {/* SECTION 5 — ITINERARY BRIEF / OVERVIEW (Moved to top) */}
+                {/* SECTION 5 — ITINERARY BRIEF */}
                 <div id="overview" className="scroll-mt-48 space-y-8">
                   <h2 className="text-4xl font-headline font-bold text-primary tracking-tight">Itinerary Brief</h2>
                   <div className="prose prose-xl max-w-none text-slate-600 leading-relaxed font-light">
@@ -177,7 +176,7 @@ export default function ThailandItineraryPage() {
                 </div>
 
                 {/* SECTION 4 — UNIQUE ATTRACTIONS */}
-                <div className="space-y-8">
+                <div id="highlights" className="scroll-mt-48 space-y-8">
                   <h3 className="text-3xl font-headline font-bold text-primary">Destination Highlights</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {attractionImages.map((attr, idx) => (
