@@ -212,7 +212,7 @@ export default function ThailandItineraryPage() {
                     {/* Booking Card */}
                     <Card className="border-2 border-accent rounded-3xl overflow-hidden shadow-xl bg-white">
                       <CardContent className="p-8">
-                        <h3 className="text-2xl font-headline font-bold text-primary mb-6">Get a Free Quote</h3>
+                        <h3 className="text-2xl font-headline font-bold text-primary mb-6">Plan Your Trip</h3>
                         
                         <div className="space-y-6 mb-8">
                           <div className="flex flex-col">

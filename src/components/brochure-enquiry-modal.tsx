@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -170,7 +171,7 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
                         render={({ field }) => (
                             <FormItem className="flex-1">
                                 <FormControl>
-                                    <Input placeholder="Phone No" {...field} />
+                                    <Input placeholder="Your Phone Number" {...field} />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -183,7 +184,7 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
                 )}
             </div>
             <DialogFooter>
-              <Button type="submit" className="w-full bg-primary text-white font-bold h-12 rounded-xl" disabled={form.formState.isSubmitting}>
+              <Button type="submit" className="w-full bg-primary text-white font-bold h-12 rounded-xl hover:bg-accent transition-colors" disabled={form.formState.isSubmitting}>
                 {form.formState.isSubmitting ? 'Submitting...' : 'Download PDF'}
               </Button>
             </DialogFooter>
