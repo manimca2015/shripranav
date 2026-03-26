@@ -6,14 +6,14 @@ import type { Tour } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from './ui/button';
-import { BrochureEnquiryModal } from './brochure-enquiry-modal';
 import { Badge } from './ui/badge';
 import { Clock } from 'lucide-react';
+import { EnquiryModal } from './enquiry-modal';
 
 type FeaturedTourCardProps = { tour: Tour };
 
 export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
   const tourImage = PlaceHolderImages.find((p) => p.id === tour.image);
 
   return (
@@ -78,32 +78,20 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
             </div>
           </div>
 
-          {tour.brochureUrl ? (
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              className="w-full py-3 h-auto rounded-xl bg-primary text-white font-bold text-sm hover:bg-accent hover:text-accent-foreground transition-all"
-            >
-              View Itinerary
-            </Button>
-          ) : (
-            <Button
-              disabled
-              className="w-full py-3 h-auto rounded-xl bg-primary/50 text-white font-bold text-sm cursor-not-allowed"
-            >
-              No Itinerary Available
-            </Button>
-          )}
+          <Button
+            onClick={() => setIsEnquiryModalOpen(true)}
+            className="w-full py-3 h-auto rounded-xl bg-primary text-white font-bold text-sm hover:bg-accent hover:text-accent-foreground transition-all"
+          >
+            Explore Itinerary
+          </Button>
         </CardContent>
       </Card>
 
-      {tour.brochureUrl && (
-        <BrochureEnquiryModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          tourName={tour.title}
-          brochureUrl={tour.brochureUrl}
-        />
-      )}
+      <EnquiryModal
+        isOpen={isEnquiryModalOpen}
+        onClose={() => setIsEnquiryModalOpen(false)}
+        tourName={tour.title}
+      />
     </>
   );
 }
