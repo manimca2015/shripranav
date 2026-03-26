@@ -36,8 +36,6 @@ export default function SpitiItineraryPage() {
 
   const tour = tours.find(t => t.id === 'spiti-valley');
 
-  const heroImage = PlaceHolderImages.find(p => p.id === 'tour-spiti');
-
   return (
     <>
       <div className="bg-white min-h-screen">
@@ -50,16 +48,13 @@ export default function SpitiItineraryPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80 z-10" />
             
             {/* Background Image */}
-            {heroImage && (
-              <Image
-                src={heroImage.imageUrl}
-                alt="Scenic Spiti Valley View"
-                fill
-                className="object-cover"
-                priority
-                data-ai-hint="spiti mountains"
-              />
-            )}
+            <Image
+              src="/spiti-valley/Key-Monastery-bg.jpg"
+              alt="Scenic Key Monastery in Spiti Valley"
+              fill
+              className="object-cover"
+              priority
+            />
             
             <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-32 lg:pb-40">
               <div className="max-w-4xl">
