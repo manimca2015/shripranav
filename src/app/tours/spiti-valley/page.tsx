@@ -21,6 +21,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 import { BrochureEnquiryModal } from '@/components/brochure-enquiry-modal';
+import GalleryModal from '@/components/gallery-modal';
 import { tours } from '@/lib/data';
 
 const spitiHighlights = [
@@ -33,8 +34,22 @@ const spitiHighlights = [
 export default function SpitiItineraryPage() {
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [isBrochureModalOpen, setBrochureModalOpen] = useState(false);
+  const [isGalleryOpen, setGalleryOpen] = useState(false);
+  const [galleryStartIndex, setGalleryStartIndex] = useState(0);
 
   const tour = tours.find(t => t.id === 'spiti-valley');
+
+  const galleryImages = spitiHighlights.map((h, idx) => ({
+    id: `spiti-highlight-${idx}`,
+    imageUrl: h.imageUrl,
+    description: h.name,
+    imageHint: 'spiti valley'
+  }));
+
+  const openGallery = (index: number) => {
+    setGalleryStartIndex(index);
+    setGalleryOpen(true);
+  };
 
   return (
     <>
@@ -181,7 +196,7 @@ export default function SpitiItineraryPage() {
                     <h3 className="text-3xl font-headline font-bold text-primary">Destination Highlights</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                       {spitiHighlights.map((attr, idx) => (
-                        <div key={idx} className="group text-center">
+                        <div key={idx} className="group text-center cursor-pointer" onClick={() => openGallery(idx)}>
                           <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 shadow-lg border border-slate-100">
                             <Image
                               src={attr.imageUrl}
@@ -284,6 +299,12 @@ export default function SpitiItineraryPage() {
             isOpen={isEnquiryModalOpen}
             onClose={() => setEnquiryModalOpen(false)}
             tourName={tour.title}
+          />
+          <GalleryModal
+            images={galleryImages}
+            isOpen={isGalleryOpen}
+            onClose={() => setGalleryOpen(false)}
+            startIndex={galleryStartIndex}
           />
         </>
       )}
