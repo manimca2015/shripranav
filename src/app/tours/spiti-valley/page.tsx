@@ -47,7 +47,7 @@ export default function SpitiItineraryPage() {
         
         <main>
           {/* SECTION 1 — HERO */}
-          <section id="hero-itinerary" className="relative h-[650px] lg:h-[800px] w-full overflow-hidden">
+          <section id="hero-itinerary" className="relative h-[850px] lg:h-[800px] w-full overflow-hidden">
             {/* Dark Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80 z-10" />
             
