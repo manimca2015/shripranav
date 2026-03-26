@@ -23,6 +23,13 @@ import { EnquiryModal } from '@/components/enquiry-modal';
 import { BrochureEnquiryModal } from '@/components/brochure-enquiry-modal';
 import { tours } from '@/lib/data';
 
+const spitiHighlights = [
+  { name: 'Baspa River', imageUrl: '/spiti-valley/Baspa-River.jpg' },
+  { name: 'Key Monastery', imageUrl: '/spiti-valley/Key-Monastery.jpg' },
+  { name: 'Langza Buddha', imageUrl: '/spiti-valley/Langza-Buddha.jpg' },
+  { name: 'Nako Village', imageUrl: '/spiti-valley/Nako-Village.jpg' },
+];
+
 export default function SpitiItineraryPage() {
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [isBrochureModalOpen, setBrochureModalOpen] = useState(false);
@@ -30,15 +37,6 @@ export default function SpitiItineraryPage() {
   const tour = tours.find(t => t.id === 'spiti-valley');
 
   const heroImage = PlaceHolderImages.find(p => p.id === 'tour-spiti');
-  
-  const spitiAlbum = galleryData.photoAlbums.find(a => a.destination === 'Spiti Valley');
-
-  const attractionImageIds = spitiAlbum ? spitiAlbum.imageIds.filter(id => id !== spitiAlbum.coverImageId).slice(0, 8) : [];
-
-  const attractionImages = attractionImageIds.map(id => ({
-    id: id,
-    image: PlaceHolderImages.find(p => p.id === id)
-  }));
 
   return (
     <>
@@ -187,18 +185,17 @@ export default function SpitiItineraryPage() {
                   <div id="highlights" className="scroll-mt-48 space-y-8">
                     <h3 className="text-3xl font-headline font-bold text-primary">Destination Highlights</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                      {attractionImages.map((attr, idx) => (
+                      {spitiHighlights.map((attr, idx) => (
                         <div key={idx} className="group text-center">
-                          <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-100">
-                            {attr.image && (
-                              <Image
-                                src={attr.image.imageUrl}
-                                alt={attr.image.description || 'Attraction image'}
-                                fill
-                                className="object-cover group-hover:scale-110 transition-transform duration-700"
-                              />
-                            )}
+                          <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 shadow-lg border border-slate-100">
+                            <Image
+                              src={attr.imageUrl}
+                              alt={attr.name}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-700"
+                            />
                           </div>
+                          <p className="font-bold text-primary text-sm uppercase tracking-wider">{attr.name}</p>
                         </div>
                       ))}
                     </div>
