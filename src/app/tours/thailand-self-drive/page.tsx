@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import Image from 'next/image';
@@ -22,10 +22,13 @@ import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 import { BrochureEnquiryModal } from '@/components/brochure-enquiry-modal';
 import { tours } from '@/lib/data';
+import GalleryModal from '@/components/gallery-modal';
 
 export default function ThailandItineraryPage() {
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [isBrochureModalOpen, setBrochureModalOpen] = useState(false);
+  const [isGalleryOpen, setGalleryOpen] = useState(false);
+  const [galleryStartIndex, setGalleryStartIndex] = useState(0);
 
   const tour = tours.find(t => t.id === 'thailand-self-drive-experience');
 
@@ -33,12 +36,19 @@ export default function ThailandItineraryPage() {
   
   const thailandAlbum = galleryData.photoAlbums.find(a => a.destination === 'Thailand');
 
-  const attractionImageIds = thailandAlbum ? thailandAlbum.imageIds.filter(id => id !== thailandAlbum.coverImageId).slice(0, 8) : [];
+  const attractionImages = useMemo(() => {
+    if (!thailandAlbum) return [];
+    return thailandAlbum.imageIds
+      .filter(id => id !== thailandAlbum.coverImageId)
+      .slice(0, 8)
+      .map(id => PlaceHolderImages.find(p => p.id === id))
+      .filter(Boolean);
+  }, [thailandAlbum]);
 
-  const attractionImages = attractionImageIds.map(id => ({
-    id: id,
-    image: PlaceHolderImages.find(p => p.id === id)
-  }));
+  const openGallery = (index: number) => {
+    setGalleryStartIndex(index);
+    setGalleryOpen(true);
+  };
 
   return (
     <>
@@ -121,9 +131,6 @@ export default function ThailandItineraryPage() {
                     <Button onClick={() => setEnquiryModalOpen(true)} className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-3 h-auto rounded-xl transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] text-base">
                       Explore Itinerary
                     </Button>
-                    <Button onClick={() => setEnquiryModalOpen(true)} variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-8 py-3 h-auto rounded-xl border border-white/20 transition-all hover:bg-[#e0af29] hover:text-accent-foreground hover:border-[#e0af29] text-base">
-                      Enquire Now
-                    </Button>
                   </div>
                 </div>
               </div>
@@ -187,13 +194,13 @@ export default function ThailandItineraryPage() {
                   <div id="highlights" className="scroll-mt-48 space-y-8">
                     <h3 className="text-3xl font-headline font-bold text-primary">Destination Highlights</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                      {attractionImages.map((attr, idx) => (
-                        <div key={idx} className="group text-center">
+                      {attractionImages.map((image, idx) => (
+                        <div key={idx} className="group text-center cursor-pointer" onClick={() => openGallery(idx)}>
                           <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-100">
-                            {attr.image && (
+                            {image && (
                               <Image
-                                src={attr.image.imageUrl}
-                                alt={attr.image.description || 'Attraction image'}
+                                src={image.imageUrl}
+                                alt={image.description || 'Attraction image'}
                                 fill
                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
                               />
@@ -243,9 +250,6 @@ export default function ThailandItineraryPage() {
                           <Button onClick={() => setEnquiryModalOpen(true)} className="w-full h-auto py-4 rounded-xl bg-accent text-accent-foreground font-bold text-base transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] shadow-lg">
                             Explore Itinerary
                           </Button>
-                          <Button onClick={() => setEnquiryModalOpen(true)} variant="outline" className="w-full h-auto py-4 rounded-xl border-2 border-slate-200 text-primary font-bold text-base hover:bg-slate-50 transition-all">
-                            Enquire Now
-                          </Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -292,6 +296,12 @@ export default function ThailandItineraryPage() {
             isOpen={isEnquiryModalOpen}
             onClose={() => setEnquiryModalOpen(false)}
             tourName={tour.title}
+          />
+          <GalleryModal
+            images={attractionImages as any}
+            isOpen={isGalleryOpen}
+            onClose={() => setGalleryOpen(false)}
+            startIndex={galleryStartIndex}
           />
         </>
       )}

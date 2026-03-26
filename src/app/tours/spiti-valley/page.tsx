@@ -129,9 +129,6 @@ export default function SpitiItineraryPage() {
                     <Button onClick={() => setEnquiryModalOpen(true)} className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-3 h-auto rounded-xl transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] text-base">
                       Explore Itinerary
                     </Button>
-                    <Button onClick={() => setEnquiryModalOpen(true)} variant="outline" className="flex-1 md:flex-none bg-white/10 text-white font-bold px-8 py-3 h-auto rounded-xl border border-white/20 transition-all hover:bg-[#e0af29] hover:text-accent-foreground hover:border-[#e0af29] text-base">
-                      Enquire Now
-                    </Button>
                   </div>
                 </div>
               </div>
@@ -249,9 +246,6 @@ export default function SpitiItineraryPage() {
                         <div className="space-y-3">
                           <Button onClick={() => setEnquiryModalOpen(true)} className="w-full h-auto py-4 rounded-xl bg-accent text-accent-foreground font-bold text-base transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] shadow-lg">
                             Explore Itinerary
-                          </Button>
-                          <Button onClick={() => setEnquiryModalOpen(true)} variant="outline" className="w-full h-auto py-4 rounded-xl border-2 border-slate-200 text-primary font-bold text-base hover:bg-slate-50 transition-all">
-                            Enquire Now
                           </Button>
                         </div>
                       </CardContent>
