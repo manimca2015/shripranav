@@ -1,6 +1,19 @@
-
 {
   "photoAlbums": [
+    {
+      "destination": "Spiti Valley",
+      "coverImageId": "tour-spiti",
+      "imageIds": [
+        "tour-spiti",
+        "gallery-3",
+        "tours-hero",
+        "tour-kyrgyzstan",
+        "gallery-bento-1",
+        "gallery-bento-4",
+        "tour-namibia",
+        "mega-tour-sa"
+      ]
+    },
     {
       "destination": "Jordan",
       "coverImageId": "gallery-jordan-1",
