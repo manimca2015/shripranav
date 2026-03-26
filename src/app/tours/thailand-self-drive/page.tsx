@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -23,6 +24,7 @@ import { EnquiryModal } from '@/components/enquiry-modal';
 import { BrochureEnquiryModal } from '@/components/brochure-enquiry-modal';
 import { tours } from '@/lib/data';
 import GalleryModal from '@/components/gallery-modal';
+import { TourLeadForm } from '@/components/tour-lead-form';
 
 export default function ThailandItineraryPage() {
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
@@ -246,10 +248,9 @@ export default function ThailandItineraryPage() {
                           </div>
                         </div>
                         
-                        <div className="space-y-3">
-                          <Button onClick={() => setEnquiryModalOpen(true)} className="w-full h-auto py-4 rounded-xl bg-accent text-accent-foreground font-bold text-base transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] shadow-lg">
-                            Explore Itinerary
-                          </Button>
+                        {/* Inline Lead Form */}
+                        <div className="pt-4 border-t border-slate-100">
+                          <TourLeadForm tourName="Thailand Self-Drive Experience" />
                         </div>
                       </CardContent>
                     </Card>
