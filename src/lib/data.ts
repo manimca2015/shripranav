@@ -24,7 +24,7 @@ export const tours: Tour[] = [
     brochureUrl: '/itinerary/Spiti_Summer_Expedition.pdf'
   },
   {
-    id: 'thailand-self-drive-experience',
+    id: 'thailand-self-drive',
     title: 'Thailand Self-Drive Experience',
     destination: 'Thailand',
     date: 'March 2026',

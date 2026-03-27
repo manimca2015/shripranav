@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -32,7 +31,7 @@ export default function ThailandItineraryPage() {
   const [isGalleryOpen, setGalleryOpen] = useState(false);
   const [galleryStartIndex, setGalleryStartIndex] = useState(0);
 
-  const tour = tours.find(t => t.id === 'thailand-self-drive-experience');
+  const tour = tours.find(t => t.id === 'thailand-self-drive');
 
   const heroImage = PlaceHolderImages.find(p => p.id === 'tour-thailand');
   
