@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -222,33 +223,8 @@ export default function ThailandItineraryPage() {
                       <CardContent className="p-8">
                         <h3 className="text-2xl font-headline font-bold text-primary mb-6">Plan Your Trip</h3>
                         
-                        <div className="space-y-6 mb-8">
-                          <div className="flex flex-col">
-                            <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">Starting from</span>
-                            <div className="flex items-baseline gap-2">
-                              <span className="text-4xl font-bold text-primary tracking-tight">₹1,60,000</span>
-                              <span className="text-slate-500 text-sm font-medium">/ person</span>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <div className="flex items-center gap-4 text-sm font-bold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                              <CalendarCheck className="w-5 h-5 text-accent" />
-                              May 1 – May 7
-                            </div>
-                            <div className="flex items-center gap-4 text-sm font-bold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                              <Clock className="w-5 h-5 text-accent" />
-                              6 Nights / 7 Days
-                            </div>
-                            <div className="flex items-center gap-4 text-sm font-bold text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                              <Car className="w-5 h-5 text-accent" />
-                              Self Drive
-                            </div>
-                          </div>
-                        </div>
-                        
                         {/* Inline Lead Form */}
-                        <div className="pt-4 border-t border-slate-100">
+                        <div className="pt-4">
                           <TourLeadForm tourName="Thailand Self-Drive Experience" />
                         </div>
                       </CardContent>
