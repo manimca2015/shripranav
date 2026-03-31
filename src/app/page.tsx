@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
@@ -325,7 +324,7 @@ export default function Home() {
         </section>
 
         {/* VISA & AIR TICKETS SECTION */}
-        <section id="visa-air-tickets" className="py-12 bg-white">
+        <section id="visa-air-tickets" className="py-12 bg-[#e0af29]">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Visa Services */}
