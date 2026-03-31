@@ -40,7 +40,7 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
 
     await appendToSheet({
         Purpose: `Visa Enquiry: ${values.destination}`,
-        Subject: subjectLine, // This maps to Column G
+        Subject: subjectLine, // This maps to Column G in the headers array
         Name: values.name,
         Email: values.email,
         Phone: values.phone,

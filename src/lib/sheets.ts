@@ -74,12 +74,49 @@ export async function appendToSheet(data: SheetRowData, tabName?: string) {
     });
     
     const sheetName = tabName || process.env.GOOGLE_SHEET_TAB_NAME || 'Leads';
-    
-    // Ensure the sheet name is quoted to handle spaces
     const safeSheetName = `'${sheetName}'`;
     
-    // First, try to get the first row to see if headers exist.
+    // Check if the sheet exists
+    let sheetExists = true;
     try {
+        await sheets.spreadsheets.values.get({
+            spreadsheetId: process.env.GOOGLE_SHEET_ID,
+            range: `${safeSheetName}!A1:A1`,
+        });
+    } catch (e: any) {
+        if (e.message?.includes('Unable to parse range')) {
+            sheetExists = false;
+        } else {
+            throw e;
+        }
+    }
+
+    // Auto-create the sheet if it's missing
+    if (!sheetExists) {
+        await sheets.spreadsheets.batchUpdate({
+            spreadsheetId: process.env.GOOGLE_SHEET_ID,
+            requestBody: {
+                requests: [{
+                    addSheet: {
+                        properties: {
+                            title: sheetName
+                        }
+                    }
+                }]
+            }
+        });
+        
+        // Add headers to the newly created sheet
+        await sheets.spreadsheets.values.update({
+            spreadsheetId: process.env.GOOGLE_SHEET_ID,
+            range: `${safeSheetName}!A1`,
+            valueInputOption: 'USER_ENTERED',
+            requestBody: {
+                values: [headers],
+            },
+        });
+    } else {
+        // If sheet exists but is empty, add headers
         const getHeader = await sheets.spreadsheets.values.get({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
             range: `${safeSheetName}!A1:Z1`,
@@ -95,15 +132,9 @@ export async function appendToSheet(data: SheetRowData, tabName?: string) {
                 },
             });
         }
-    } catch (e: any) {
-        // If the sheet doesn't exist, this will throw. 
-        // We provide a clearer error for the user.
-        if (e.message?.includes('Unable to parse range')) {
-            throw new Error(`The tab "${sheetName}" was not found in your spreadsheet. Please create it and try again.`);
-        }
-        throw e;
     }
 
+    // Append the lead data
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: `${safeSheetName}!A1`,
