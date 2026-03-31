@@ -33,14 +33,14 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
         ? `${values.preferredCallDate} at ${values.preferredCallTime}` 
         : values.preferredCallDate || values.preferredCallTime || '';
     
-    // Determine the subject line based on itinerary selection
+    // Format the subject line specifically for Column G (Subject)
     const subjectLine = values.itinerary 
       ? `Visa Enquiry: ${values.itinerary}` 
       : `Visa Enquiry: ${values.destination}`;
 
     await appendToSheet({
         Purpose: `Visa Enquiry: ${values.destination}`,
-        Subject: subjectLine,
+        Subject: subjectLine, // This maps to Column G
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
@@ -53,7 +53,8 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
         'Tour Name': values.itinerary,
         Message: values.message,
         Consent: values.consent,
-    }, process.env.TAB_VISA);
+    }, process.env.TAB_VISA || 'Visa Submissions');
+    
     return { success: true, message: 'Your visa enquiry has been sent successfully!' };
   } catch (error) {
      console.error(error);

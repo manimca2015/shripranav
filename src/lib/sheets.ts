@@ -75,26 +75,34 @@ export async function appendToSheet(data: SheetRowData, tabName?: string) {
     
     const sheetName = tabName || process.env.GOOGLE_SHEET_TAB_NAME || 'Leads';
     
-    // Use single quotes for sheet name to handle spaces/special characters
+    // Ensure the sheet name is quoted to handle spaces
     const safeSheetName = `'${sheetName}'`;
     
-    // First, check if headers exist. If not, add them.
-    const getHeader = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: `${safeSheetName}!1:1`,
-    });
-
-    if (!getHeader.data.values || getHeader.data.values.length === 0) {
-        await sheets.spreadsheets.values.update({
+    // First, try to get the first row to see if headers exist.
+    try {
+        const getHeader = await sheets.spreadsheets.values.get({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: `${safeSheetName}!A1`,
-            valueInputOption: 'USER_ENTERED',
-            requestBody: {
-                values: [headers],
-            },
+            range: `${safeSheetName}!A1:Z1`,
         });
-    }
 
+        if (!getHeader.data.values || getHeader.data.values.length === 0) {
+            await sheets.spreadsheets.values.update({
+                spreadsheetId: process.env.GOOGLE_SHEET_ID,
+                range: `${safeSheetName}!A1`,
+                valueInputOption: 'USER_ENTERED',
+                requestBody: {
+                    values: [headers],
+                },
+            });
+        }
+    } catch (e: any) {
+        // If the sheet doesn't exist, this will throw. 
+        // We provide a clearer error for the user.
+        if (e.message?.includes('Unable to parse range')) {
+            throw new Error(`The tab "${sheetName}" was not found in your spreadsheet. Please create it and try again.`);
+        }
+        throw e;
+    }
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -107,6 +115,6 @@ export async function appendToSheet(data: SheetRowData, tabName?: string) {
 
   } catch (error: any) {
     console.error('Error writing to Google Sheets:', error);
-    throw new Error(`Failed to save to sheets: ${error.message}`);
+    throw new Error(error.message || 'Failed to save to sheets.');
   }
 }
