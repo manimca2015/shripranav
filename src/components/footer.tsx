@@ -19,8 +19,8 @@ const drivingTours = [
     { href: '#', label: 'Iceland' },
     { href: '#', label: 'Namibia' },
     { href: '#', label: 'Jordan' },
-    { href: '#', label: 'Thailand' },
-    { href: '#', label: 'Spiti Valley' },
+    { href: '/tours/thailand-self-drive', label: 'Thailand' },
+    { href: '/tours/spiti-valley', label: 'Spiti Valley' },
 ];
 
 export function Footer() {
