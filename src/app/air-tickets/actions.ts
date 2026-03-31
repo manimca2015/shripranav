@@ -1,3 +1,4 @@
+
 'use server';
 
 import { z } from 'zod';
@@ -56,7 +57,7 @@ export async function submitAirTicketRequest(values: z.infer<typeof airTicketFor
         'Travel Class': values.travelClass,
         Message: values.message,
         Consent: values.consent,
-    }, process.env.TAB_AIR_TICKETS || 'Air Ticket');
+    }, process.env.TAB_AIR_TICKETS || 'Air Ticket Enquiries');
     return { success: true, message: 'Your request has been sent successfully!' };
   } catch (error) {
      console.error(error);
