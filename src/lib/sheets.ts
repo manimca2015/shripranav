@@ -9,9 +9,9 @@ const headers = [
     'Email',
     'Phone',
     'Preferred Date and Time',
-    'Subject', // Column G (Index 6)
+    'Subject',
     'Consent',
-    'City', // Moved to Index 8
+    'City',
     'Message',
     'Destination',
     'Tour Name',
@@ -27,15 +27,15 @@ const headers = [
     'Pax (People)',
     'Ideal Travel Dates',
     'Visa Type',
-    'Travel Date (Visa)'
+    'Travel Date (Visa)',
+    'Submission Location'
 ];
 
 type SheetRowData = {
     [key in typeof headers[number]]?: string | boolean | undefined;
 };
 
-
-export async function appendToSheet(data: SheetRowData) {
+export async function appendToSheet(data: SheetRowData, tabName?: string) {
   if (!process.env.GOOGLE_SHEETS_CLIENT_EMAIL || !process.env.GOOGLE_SHEETS_PRIVATE_KEY || !process.env.GOOGLE_SHEET_ID) {
     console.error('Google Sheets API credentials are not set in environment variables.');
     throw new Error('Server configuration error: Google Sheets credentials are not set.');
@@ -73,7 +73,7 @@ export async function appendToSheet(data: SheetRowData) {
       return value === undefined || value === null ? '' : String(value);
     });
     
-    const sheetName = process.env.GOOGLE_SHEET_TAB_NAME || 'Leads';
+    const sheetName = tabName || process.env.GOOGLE_SHEET_TAB_NAME || 'Leads';
     
     // First, check if headers exist. If not, add them.
     const getHeader = await sheets.spreadsheets.values.get({

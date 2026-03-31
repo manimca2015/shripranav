@@ -5,26 +5,36 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Tour } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Clock } from 'lucide-react';
 import { EnquiryModal } from './enquiry-modal';
+import { cn } from '@/lib/utils';
 
 type FeaturedTourCardProps = { tour: Tour };
 
 export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
   const tourImage = PlaceHolderImages.find((p) => p.id === tour.image);
+  
+  const hasDedicatedPage = ['spiti-valley', 'thailand-self-drive'].includes(tour.id);
+  const CardWrapper = hasDedicatedPage ? Link : 'div';
 
   return (
     <>
-      <Card className="rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 card-hover border border-slate-100 flex flex-col h-full group/card">
-        <Link href={`/tours/${tour.id}`} className="flex flex-col flex-grow group/card-link">
+      <Card className="rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 card-hover border border-slate-100 flex flex-col h-full group/card bg-white">
+        <CardWrapper 
+          {...(hasDedicatedPage ? { href: `/tours/${tour.id}` } : {})} 
+          className={cn("flex flex-col flex-grow group/card-link", hasDedicatedPage ? "cursor-pointer" : "cursor-default")}
+        >
           <div className="h-60 relative overflow-hidden shrink-0">
             {tourImage && (
               <Image
-                className="w-full h-full object-cover transition-transform duration-700 group-hover/card-link:scale-110"
+                className={cn(
+                  "w-full h-full object-cover transition-transform duration-700",
+                  hasDedicatedPage && "group-hover/card-link:scale-110"
+                )}
                 src={tourImage.imageUrl}
                 alt={tourImage.description}
                 fill
@@ -45,7 +55,10 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
           </div>
           <div className="p-6 flex flex-col flex-grow">
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <h3 className="text-xl font-bold font-headline text-primary leading-tight group-hover/card-link:text-accent transition-colors">
+              <h3 className={cn(
+                "text-xl font-bold font-headline text-primary leading-tight transition-colors",
+                hasDedicatedPage && "group-hover/card-link:text-accent"
+              )}>
                 {tour.title}
               </h3>
             </div>
@@ -80,7 +93,7 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
               </div>
             </div>
           </div>
-        </Link>
+        </CardWrapper>
         
         <div className="px-6 pb-6">
           <Button
@@ -90,7 +103,7 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
             }}
             className="w-full py-3 h-auto rounded-xl bg-primary text-white font-bold text-sm hover:bg-accent hover:text-accent-foreground transition-all"
           >
-            Explore Itinerary
+            Enquire Now
           </Button>
         </div>
       </Card>

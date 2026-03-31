@@ -40,7 +40,7 @@ export async function submitEnquiry(values: z.infer<typeof enquirySchema>) {
             'Preferred Date and Time': preferredDateTime,
             Message: values.message,
             Consent: values.consent,
-        });
+        }, process.env.TAB_TOURS);
         return { success: true };
     } catch (error) {
         console.error(error);
@@ -67,7 +67,7 @@ export async function submitBrochureEnquiry(values: z.infer<typeof brochureEnqui
             Email: values.email,
             Phone: values.phone,
             'Tour Name': values.tourName,
-        });
+        }, process.env.TAB_TOURS);
         return { success: true };
     } catch (error) {
         console.error(error);

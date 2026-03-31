@@ -218,7 +218,8 @@ export default function SpitiItineraryPage() {
                     {/* Booking Card */}
                     <Card className="border-2 border-accent rounded-3xl overflow-hidden shadow-xl bg-white">
                       <CardContent className="p-8">
-                        <h3 className="text-2xl font-headline font-bold text-primary mb-6">Book This Tour</h3>
+                        <h3 className="text-2xl font-headline font-bold text-primary mb-1">Ready to Hit the Road?</h3>
+                        <p className="text-slate-500 text-sm mb-6">Fill in your details and let's craft your perfect expedition.</p>
                         
                         {/* Inline Lead Form */}
                         <div className="pt-4">

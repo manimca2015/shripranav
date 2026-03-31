@@ -221,7 +221,8 @@ export default function ThailandItineraryPage() {
                     {/* Booking Card */}
                     <Card className="border-2 border-accent rounded-3xl overflow-hidden shadow-xl bg-white">
                       <CardContent className="p-8">
-                        <h3 className="text-2xl font-headline font-bold text-primary mb-6">Plan Your Trip</h3>
+                        <h3 className="text-2xl font-headline font-bold text-primary mb-1">Ready to Explore?</h3>
+                        <p className="text-slate-500 text-sm mb-6">Drop your details and we'll help you plan this epic coastal drive.</p>
                         
                         {/* Inline Lead Form */}
                         <div className="pt-4">

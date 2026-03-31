@@ -5,7 +5,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { TourCard } from '@/components/tour-card';
+import { FeaturedTourCard } from '@/components/featured-tour-card';
 import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import { tours } from '@/lib/data';
 import type { Tour } from '@/lib/types';
@@ -230,7 +230,7 @@ export default function WorldDrivingToursPage() {
           <div className="container mx-auto px-6 max-w-[1400px]">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {toursToShow.map(tour => (
-                <TourCard key={tour.id} tour={tour} />
+                <FeaturedTourCard key={tour.id} tour={tour} />
               ))}
             </div>
             {visibleCount < filteredAndSortedTours.length && (

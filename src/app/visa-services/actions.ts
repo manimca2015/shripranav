@@ -17,6 +17,8 @@ const visaEnquirySchema = z.object({
   destination: z.string(),
   visaType: z.enum(['tourist', 'business', 'student', 'other']),
   travelDate: z.string().optional(),
+  submissionLocation: z.string().optional(),
+  itinerary: z.string().optional(),
   message: z.string().optional(),
   honeypot: z.string().optional(),
   consent: z.boolean(),
@@ -42,9 +44,11 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
         Destination: values.destination,
         'Visa Type': values.visaType,
         'Travel Date (Visa)': values.travelDate,
+        'Submission Location': values.submissionLocation,
+        'Tour Name': values.itinerary,
         Message: values.message,
         Consent: values.consent,
-    });
+    }, process.env.TAB_VISA);
     return { success: true, message: 'Your visa enquiry has been sent successfully!' };
   } catch (error) {
      console.error(error);

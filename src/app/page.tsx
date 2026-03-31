@@ -8,7 +8,7 @@ import { tours } from '@/lib/data';
 import type { Tour } from '@/lib/types';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ShieldCheck, Users, MapPin, Hotel, Truck, Headset, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Users, MapPin, Hotel, Truck, Headset, Star, ChevronLeft, ChevronRight, Plane, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { FeaturedTourCard } from '@/components/featured-tour-card';
@@ -17,6 +17,8 @@ import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import GalleryModal from '@/components/gallery-modal';
 import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
+import { VisaEnquiryModal } from '@/components/visa-enquiry-modal';
+import { AirTicketFormModal } from '@/components/air-ticket-form-modal';
 import StreamingVideo from '@/components/streaming-video';
 import useEmblaCarousel from 'embla-carousel-react';
 import { parse, format } from 'date-fns';
@@ -37,6 +39,8 @@ const heroSliderImages = [
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
+  const [isVisaModalOpen, setVisaModalOpen] = useState(false);
+  const [isAirTicketModalOpen, setAirTicketModalOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState<ImagePlaceholder[]>([]);
   const [startIndex, setStartIndex] = useState(0);
 
@@ -319,6 +323,69 @@ export default function Home() {
                 </div>
             </div>
         </section>
+
+        {/* VISA & AIR TICKETS SECTION */}
+        <section id="visa-air-tickets" className="py-12 bg-white">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Visa Services */}
+                    <div className="relative group overflow-hidden rounded-[2rem] bg-slate-50 border border-slate-100 p-8 md:p-12 hover:shadow-2xl transition-all duration-500">
+                        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl group-hover:bg-accent/10 transition-colors"></div>
+                        <div className="relative z-10 h-full flex flex-col">
+                            <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent transition-all duration-500">
+                                <FileText className="w-8 h-8 text-accent group-hover:text-accent-foreground" />
+                            </div>
+                            <h3 className="text-3xl font-headline font-bold text-primary mb-4">Hassle-Free Visa Services</h3>
+                            <p className="text-slate-600 text-lg mb-8 flex-grow leading-relaxed">
+                                Navigate the complexities of international travel with ease. Our visa experts provide end-to-end assistance for over 40+ countries, ensuring a smooth application process.
+                            </p>
+                            <ul className="space-y-3 mb-10">
+                                {['Tourist, Business & Student Visas', 'Expert Documentation Review', 'Personalized Consultation'].map((item, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-slate-500 font-medium">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <Button 
+                                onClick={() => setVisaModalOpen(true)}
+                                className="w-full sm:w-auto px-10 py-4 h-auto rounded-xl bg-primary text-white font-bold text-lg hover:bg-accent hover:text-accent-foreground transition-all shadow-lg"
+                            >
+                                Apply for Visa
+                            </Button>
+                        </div>
+                    </div>
+
+                    {/* Air Tickets */}
+                    <div className="relative group overflow-hidden rounded-[2rem] bg-primary p-8 md:p-12 hover:shadow-2xl transition-all duration-500">
+                        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-colors"></div>
+                        <div className="relative z-10 h-full flex flex-col">
+                            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent transition-all duration-500">
+                                <Plane className="w-8 h-8 text-white group-hover:text-accent-foreground" />
+                            </div>
+                            <h3 className="text-3xl font-headline font-bold text-white mb-4">Best Flight Deals</h3>
+                            <p className="text-slate-300 text-lg mb-8 flex-grow leading-relaxed">
+                                Get exclusive quotes on domestic and international flights. We source the most competitive fares across all major airlines to get you to your destination comfortably.
+                            </p>
+                            <ul className="space-y-3 mb-10">
+                                {['Corporate & Leisure Travel', 'Special Group Fares', '24/7 Booking Support'].map((item, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-slate-400 font-medium">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <Button 
+                                onClick={() => setAirTicketModalOpen(true)}
+                                className="w-full sm:w-auto px-10 py-4 h-auto rounded-xl bg-accent text-accent-foreground font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-lg shadow-black/20"
+                            >
+                                Get a Quote
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         
         <section id="features" className="relative py-12 bg-primary overflow-hidden">
             <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-accent/10 rounded-full opacity-50 blur-3xl"></div>
@@ -527,6 +594,14 @@ export default function Home() {
         isOpen={isEnquiryModalOpen}
         onClose={() => setEnquiryModalOpen(false)}
         tourName="General Enquiry"
+      />
+      <VisaEnquiryModal
+        isOpen={isVisaModalOpen}
+        onClose={() => setVisaModalOpen(false)}
+      />
+      <AirTicketFormModal
+        isOpen={isAirTicketModalOpen}
+        onClose={() => setAirTicketModalOpen(false)}
       />
     </div>
   );
