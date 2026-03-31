@@ -75,16 +75,19 @@ export async function appendToSheet(data: SheetRowData, tabName?: string) {
     
     const sheetName = tabName || process.env.GOOGLE_SHEET_TAB_NAME || 'Leads';
     
+    // Use single quotes for sheet name to handle spaces/special characters
+    const safeSheetName = `'${sheetName}'`;
+    
     // First, check if headers exist. If not, add them.
     const getHeader = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: `${sheetName}!1:1`,
+        range: `${safeSheetName}!1:1`,
     });
 
     if (!getHeader.data.values || getHeader.data.values.length === 0) {
         await sheets.spreadsheets.values.update({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: `${sheetName}!A1`,
+            range: `${safeSheetName}!A1`,
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values: [headers],
@@ -95,7 +98,7 @@ export async function appendToSheet(data: SheetRowData, tabName?: string) {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: `${sheetName}!A1`,
+      range: `${safeSheetName}!A1`,
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [row],

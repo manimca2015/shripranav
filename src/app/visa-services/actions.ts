@@ -33,9 +33,14 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
         ? `${values.preferredCallDate} at ${values.preferredCallTime}` 
         : values.preferredCallDate || values.preferredCallTime || '';
     
+    // Determine the subject line based on itinerary selection
+    const subjectLine = values.itinerary 
+      ? `Visa Enquiry: ${values.itinerary}` 
+      : `Visa Enquiry: ${values.destination}`;
+
     await appendToSheet({
         Purpose: `Visa Enquiry: ${values.destination}`,
-        Subject: `Visa Enquiry: ${values.destination}`,
+        Subject: subjectLine,
         Name: values.name,
         Email: values.email,
         Phone: values.phone,
