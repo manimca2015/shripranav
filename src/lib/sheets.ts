@@ -84,7 +84,8 @@ export async function appendToSheet(data: SheetRowData, tabName?: string) {
             range: `${safeSheetName}!A1:A1`,
         });
     } catch (e: any) {
-        if (e.message?.includes('Unable to parse range')) {
+        // If the error code is 400 or message contains "Unable to parse range", the sheet doesn't exist
+        if (e.message?.includes('Unable to parse range') || e.code === 400) {
             sheetExists = false;
         } else {
             throw e;

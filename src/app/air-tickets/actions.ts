@@ -56,7 +56,7 @@ export async function submitAirTicketRequest(values: z.infer<typeof airTicketFor
         'Travel Class': values.travelClass,
         Message: values.message,
         Consent: values.consent,
-    }, process.env.TAB_AIR_TICKETS);
+    }, process.env.TAB_AIR_TICKETS || 'Air Ticket');
     return { success: true, message: 'Your request has been sent successfully!' };
   } catch (error) {
      console.error(error);
