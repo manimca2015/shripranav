@@ -18,7 +18,6 @@ const visaEnquirySchema = z.object({
   visaType: z.enum(['tourist', 'business', 'student', 'other']),
   travelDate: z.string().optional(),
   submissionLocation: z.string().optional(),
-  itinerary: z.string().optional(),
   message: z.string().optional(),
   honeypot: z.string().optional(),
   consent: z.boolean(),
@@ -34,9 +33,7 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
         : values.preferredCallDate || values.preferredCallTime || '';
     
     // Format the subject line specifically for Column G (Subject)
-    const subjectLine = values.itinerary 
-      ? `Visa Enquiry: ${values.itinerary}` 
-      : `Visa Enquiry: ${values.destination}`;
+    const subjectLine = `Visa Enquiry: ${values.destination}`;
 
     await appendToSheet({
         Purpose: `Visa Enquiry: ${values.destination}`,
@@ -50,7 +47,6 @@ export async function submitVisaEnquiry(values: z.infer<typeof visaEnquirySchema
         'Visa Type': values.visaType,
         'Travel Date (Visa)': values.travelDate,
         'Submission Location': values.submissionLocation,
-        'Tour Name': values.itinerary,
         Message: values.message,
         Consent: values.consent,
     }, process.env.TAB_VISA || 'Visa Submissions');

@@ -50,7 +50,6 @@ const visaEnquirySchema = z.object({
   destination: z.string().min(1, { message: 'Please select a destination.' }),
   visaType: z.enum(['tourist', 'business', 'student', 'other'], { required_error: 'Please select a visa type.' }),
   submissionLocation: z.string().min(1, { message: 'Please enter your location.' }),
-  itinerary: z.string().optional(),
   travelDate: z.string().optional(),
   message: z.string().optional(),
   honeypot: z.string().optional(),
@@ -79,14 +78,6 @@ const destinations = [
     'United Arab Emirates', 'Saudi Arabia', 'Qatar', 'Oman', 'Bahrain', 'Kuwait', 'Singapore', 'Malaysia', 'Thailand', 'Vietnam', 'Indonesia', 'Schengen Area', 'United Kingdom', 'United States', 'Canada', 'Australia', 'New Zealand', 'Turkey', 'Egypt', 'Other'
 ];
 
-const itineraries = [
-  'Spiti Valley Summer Expedition',
-  'Thailand Self-Drive Experience',
-  'Jordan Desert Expedition',
-  'South Africa Self-Drive Tour',
-  'Kyrgyzstan Self-Drive Adventure'
-];
-
 export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryModalProps) {
   const { toast } = useToast();
   const router = useRouter();
@@ -104,7 +95,6 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
       destination: destination || '',
       visaType: 'tourist',
       submissionLocation: '',
-      itinerary: '',
       travelDate: '',
       message: '',
       honeypot: '',
@@ -301,28 +291,6 @@ export function VisaEnquiryModal({ isOpen, onClose, destination }: VisaEnquiryMo
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="itinerary"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Itinerary</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select itinerary" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {itineraries.map(it => <SelectItem key={it} value={it}>{it}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                 control={form.control}
                 name="travelDate"
