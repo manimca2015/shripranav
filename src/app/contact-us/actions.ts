@@ -1,4 +1,3 @@
-
 'use server';
 
 import { z } from 'zod';
@@ -7,7 +6,7 @@ import { appendToSheet } from '@/lib/sheets';
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email(),
-  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  phone: z.string().regex(/\d{10}$/, { message: 'Please enter a valid 10-digit phone number' }),
   city: z.string().optional(),
   preferredCallDate: z.string().optional().refine(date => {
     if (!date) return true; // Optional field is valid if empty

@@ -1,4 +1,3 @@
-
 'use server';
 
 import { z } from 'zod';
@@ -7,7 +6,7 @@ import { appendToSheet } from '@/lib/sheets';
 const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
   email: z.string().email('A valid email is required.'),
-  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  phone: z.string().regex(/\d{10}$/, { message: 'Please enter a valid 10-digit phone number' }),
   city: z.string().optional(),
   preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }).refine(date => {
     if (!date) return true;

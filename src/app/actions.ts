@@ -6,7 +6,7 @@ import { appendToSheet } from '@/lib/sheets';
 const enquirySchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
-  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
+  phone: z.string().regex(/\d{10}$/, { message: 'Please enter a valid 10-digit phone number' }),
   city: z.string().optional(),
   preferredCallDate: z.string().optional().refine(date => {
     if (!date) return true; // Optional field is valid if empty
@@ -54,7 +54,7 @@ export async function submitEnquiry(values: z.infer<typeof enquirySchema>) {
 const brochureEnquirySchema = z.object({
   name: z.string().min(2, { message: 'Name is required.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
-  phone: z.string().regex(/^\+?\d+$/, { message: 'Invalid phone format.' }).min(10, { message: 'Phone number must be at least 10 digits.' }),
+  phone: z.string().regex(/\d{10}$/, { message: 'Please enter a valid 10-digit phone number' }),
   tourName: z.string(),
 });
 

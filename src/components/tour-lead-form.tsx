@@ -29,7 +29,7 @@ const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   countryName: z.string().min(1, { message: 'Required' }),
-  phone: z.string().regex(/^\d{10}$/, { message: 'Phone number must be exactly 10 digits.' }),
+  phone: z.string().regex(/^\d{10}$/, { message: 'Please enter a valid 10-digit phone number' }),
   tourName: z.string(),
 });
 
@@ -140,7 +140,15 @@ export function TourLeadForm({ tourName }: { tourName: string }) {
               render={({ field }) => (
                 <FormItem className="flex-1">
                   <FormControl>
-                    <Input placeholder="10 Digit Phone No" {...field} className="rounded-xl bg-slate-50 border-slate-100 h-12" />
+                    <Input 
+                      placeholder="10 Digit Phone No" 
+                      {...field} 
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                        field.onChange(val);
+                      }}
+                      className="rounded-xl bg-slate-50 border-slate-100 h-12" 
+                    />
                   </FormControl>
                 </FormItem>
               )}

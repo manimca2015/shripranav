@@ -42,7 +42,7 @@ const airTicketFormSchema = z.object({
   name: z.string().min(2, 'Name is required.'),
   email: z.string().email('A valid email is required.'),
   countryName: z.string().min(1, { message: 'Required' }),
-  phone: z.string().regex(/^\d{10}$/, { message: 'Phone number must be exactly 10 digits.' }),
+  phone: z.string().regex(/^\d{10}$/, { message: 'Please enter a valid 10-digit phone number' }),
   city: z.string().optional(),
   preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }).refine(date => {
     if (!date) return true;
@@ -230,7 +230,14 @@ export function AirTicketFormModal({ isOpen, onClose }: AirTicketFormModalProps)
                             render={({ field }) => (
                                 <FormItem className="flex-1">
                                     <FormControl>
-                                        <Input placeholder="10 Digit Phone No" {...field} />
+                                        <Input 
+                                          placeholder="10 Digit Phone No" 
+                                          {...field} 
+                                          onChange={(e) => {
+                                            const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                                            field.onChange(val);
+                                          }}
+                                        />
                                     </FormControl>
                                 </FormItem>
                             )}
