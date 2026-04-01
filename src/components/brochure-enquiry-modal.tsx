@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,7 +36,7 @@ const brochureEnquirySchema = z.object({
   name: z.string().min(2, { message: 'Name is required.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   countryName: z.string().min(1, { message: 'Required' }),
-  phone: z.string().regex(/^\d+$/, { message: 'Phone number must contain only digits.' }).min(10, { message: 'Phone number must be at least 10 digits.' }),
+  phone: z.string().regex(/^\d{10}$/, { message: 'Phone number must be exactly 10 digits.' }),
   tourName: z.string(),
 });
 
@@ -171,7 +170,7 @@ export function BrochureEnquiryModal({ isOpen, onClose, tourName, brochureUrl }:
                         render={({ field }) => (
                             <FormItem className="flex-1">
                                 <FormControl>
-                                    <Input placeholder="Your Phone Number" {...field} />
+                                    <Input placeholder="10 Digit Phone No" {...field} />
                                 </FormControl>
                             </FormItem>
                         )}

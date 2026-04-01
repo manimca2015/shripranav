@@ -40,7 +40,7 @@ const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   countryName: z.string().min(1, { message: 'Required' }),
-  phone: z.string().regex(/^\d+$/, { message: 'Phone number must contain only digits.' }).min(10, { message: 'Phone number must be at least 10 digits.' }),
+  phone: z.string().regex(/^\d{10}$/, { message: 'Phone number must be exactly 10 digits.' }),
   city: z.string().min(1, { message: 'City is required.' }),
   preferredCallDate: z.string({ required_error: 'Please select a preferred call date.' }).refine(date => {
     if (!date) return true;
@@ -180,7 +180,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email*</FormLabel>
+                      <FormLabel>Email Address*</FormLabel>
                       <FormControl>
                         <Input placeholder="Your Email" {...field} value={field.value || ''} />
                       </FormControl>
@@ -224,7 +224,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                           render={({ field }) => (
                               <FormItem className="flex-1">
                                   <FormControl>
-                                      <Input placeholder="Phone No" {...field} />
+                                      <Input placeholder="10 Digit Phone No" {...field} />
                                   </FormControl>
                               </FormItem>
                           )}
@@ -307,7 +307,7 @@ export function EnquiryModal({ isOpen, onClose, tourName }: EnquiryModalProps) {
                 control={form.control}
                 name="consent"
                 render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                <FormItem className="flex items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
                     <FormControl>
                     <Checkbox
                       checked={field.value}
