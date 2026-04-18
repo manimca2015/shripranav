@@ -88,7 +88,7 @@ export default function KyrgyzstanItineraryPage() {
                 </p>
 
                 <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl leading-relaxed font-light">
-                  Step into the wild, untouched landscapes of Central Asia with the Kyrgyzstan Self-Drive Adventure — a 7-night expedition where every road leads to towering mountain ranges, alpine lakes, remote valleys, and experiences rooted in nomadic culture. From the vibrant capital of Bishkek to the red canyon beauty of Kyzyl Oi, from the high-altitude serenity of Son-Kul Lake to the endless blue shores of Issyk-Kul, this journey blends off-road driving, breathtaking scenery, and authentic cultural encounters into one unforgettable experience. Drive your own 4x4 through dramatic passes, hidden gorges, and scenic routes that few travellers ever explore, while discovering traditions like eagle hunting, local hospitality, and life in the highlands. This is not just a trip — it’s a story of adventure, freedom, and exploration that stays with you long after the journey ends.
+                  Step into the wild landscapes of Central Asia on a 7-night self-drive adventure. Experience towering mountain ranges, alpine lakes, and authentic nomadic culture from behind the wheel of your own 4x4.
                 </p>
                 
                 <div className="flex flex-wrap gap-6 items-center text-white">
