@@ -77,7 +77,7 @@ export default function KyrgyzstanItineraryPage() {
             <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-32 lg:pb-40">
               <div className="max-w-4xl">
                 <div className="flex flex-wrap gap-3 mb-6">
-                  <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">8 Nights / 9 Days</span>
+                  <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">7 Nights / 8 Days</span>
                   <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">Self Drive 4x4</span>
                   <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">International</span>
                 </div>
@@ -90,7 +90,7 @@ export default function KyrgyzstanItineraryPage() {
                 </p>
 
                 <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl leading-relaxed font-light">
-                  Explore the stunning mountain passes and pristine lakes of Central Asia. An 8-night, 9-day self-drive adventure through the wild heart of the silk road.
+                  Explore the stunning mountain passes and pristine lakes of Central Asia. A 7-night self-drive adventure through the wild heart of the silk road.
                 </p>
                 
                 <div className="flex flex-wrap gap-6 items-center text-white">
@@ -162,7 +162,7 @@ export default function KyrgyzstanItineraryPage() {
                     <h2 className="text-4xl font-headline font-bold text-primary tracking-tight">Itinerary Brief</h2>
                     <div className="prose prose-xl max-w-none text-slate-600 leading-relaxed font-light">
                       <p>
-                        Explore Kyrgyzstan on an <strong className="font-bold text-primary">8-night, 9-day self-drive adventure</strong>. Discover the stunning mountain passes, pristine alpine lakes, and the nomadic culture of this hidden gem in Central Asia. Covering about <strong>1900 km</strong>, this expedition takes you through the most dramatic landscapes including <strong>Son-Kul Lake, Issyk-Kul, and Altyn Arashan</strong>. Experience luxury yurt stays, high-altitude driving, and breathtaking scenery with full professional support.
+                        Step into the wild, untouched landscapes of Central Asia with the Kyrgyzstan Self-Drive Adventure — a 7-night expedition where every road leads to towering mountain ranges, alpine lakes, remote valleys, and experiences rooted in nomadic culture. From the vibrant capital of Bishkek to the red canyon beauty of Kyzyl Oi, from the high-altitude serenity of Son-Kul Lake to the endless blue shores of Issyk-Kul, this journey blends off-road driving, breathtaking scenery, and authentic cultural encounters into one unforgettable experience. Drive your own 4x4 through dramatic passes, hidden gorges, and scenic routes that few travellers ever explore, while discovering traditions like eagle hunting, local hospitality, and life in the highlands. This is not just a trip — it’s a story of adventure, freedom, and exploration that stays with you long after the journey ends.
                       </p>
                     </div>
                     
