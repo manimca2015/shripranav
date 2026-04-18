@@ -64,16 +64,13 @@ export default function KyrgyzstanItineraryPage() {
           <section id="hero-itinerary" className="relative h-[650px] lg:h-[800px] w-full overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80 z-10" />
             
-            {heroImage && (
-              <Image
-                src={heroImage.imageUrl}
-                alt="Scenic Kyrgyzstan Mountains"
-                fill
-                className="object-cover"
-                priority
-                data-ai-hint="kyrgyzstan mountains"
-              />
-            )}
+            <Image
+              src="/Kyrgyzstan/Kyrgyzstan.jpg"
+              alt="Scenic Kyrgyzstan Mountains"
+              fill
+              className="object-cover"
+              priority
+            />
             
             <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-32 lg:pb-40">
               <div className="max-w-4xl">
@@ -91,7 +88,7 @@ export default function KyrgyzstanItineraryPage() {
                 </p>
 
                 <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl leading-relaxed font-light">
-                  Explore the stunning mountain passes and pristine lakes of Central Asia. A 7-night self-drive adventure through the wild heart of the silk road.
+                  Step into the wild, untouched landscapes of Central Asia with the Kyrgyzstan Self-Drive Adventure — a 7-night expedition where every road leads to towering mountain ranges, alpine lakes, remote valleys, and experiences rooted in nomadic culture. From the vibrant capital of Bishkek to the red canyon beauty of Kyzyl Oi, from the high-altitude serenity of Son-Kul Lake to the endless blue shores of Issyk-Kul, this journey blends off-road driving, breathtaking scenery, and authentic cultural encounters into one unforgettable experience. Drive your own 4x4 through dramatic passes, hidden gorges, and scenic routes that few travellers ever explore, while discovering traditions like eagle hunting, local hospitality, and life in the highlands. This is not just a trip — it’s a story of adventure, freedom, and exploration that stays with you long after the journey ends.
                 </p>
                 
                 <div className="flex flex-wrap gap-6 items-center text-white">
