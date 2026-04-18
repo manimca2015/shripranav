@@ -7,7 +7,6 @@ import type { Tour } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card } from '@/components/ui/card';
 import { Button } from './ui/button';
-import { Badge } from './ui/badge';
 import { Clock } from 'lucide-react';
 import { EnquiryModal } from './enquiry-modal';
 import { cn } from '@/lib/utils';
@@ -18,7 +17,7 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
   const tourImage = PlaceHolderImages.find((p) => p.id === tour.image);
   
-  const hasDedicatedPage = ['spiti-valley', 'thailand-self-drive'].includes(tour.id);
+  const hasDedicatedPage = ['spiti-valley', 'thailand-self-drive', 'kyrgyzstan'].includes(tour.id);
   const CardWrapper = hasDedicatedPage ? Link : 'div';
 
   return (
@@ -103,7 +102,7 @@ export function FeaturedTourCard({ tour }: FeaturedTourCardProps) {
             }}
             className="w-full py-3 h-auto rounded-xl bg-primary text-white font-bold text-sm hover:bg-accent hover:text-accent-foreground transition-all"
           >
-            Enquire Now
+            Explore Itinerary
           </Button>
         </div>
       </Card>

@@ -19,7 +19,7 @@ export function TourCard({ tour }: TourCardProps) {
   const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   const tourImage = PlaceHolderImages.find((p) => p.id === tour.image);
   
-  const hasDedicatedPage = ['spiti-valley', 'thailand-self-drive'].includes(tour.id);
+  const hasDedicatedPage = ['spiti-valley', 'thailand-self-drive', 'kyrgyzstan'].includes(tour.id);
   const CardWrapper = hasDedicatedPage ? Link : 'div';
 
   return (
@@ -120,7 +120,7 @@ export function TourCard({ tour }: TourCardProps) {
               tour.brochureUrl ? "flex-1" : "w-full"
             )}
           >
-            Enquire Now
+            Explore Itinerary
           </Button>
         </div>
       </Card>
