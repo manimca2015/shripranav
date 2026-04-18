@@ -693,31 +693,31 @@
     {
       "id": "attr-kyrgyzstan-ala-too",
       "description": "Bishkek Ala-Too Square with the statue of Manas and the National Historical Museum in the background.",
-      "imageUrl": "https://images.unsplash.com/photo-1569324545934-8c87f2e0220a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageUrl": "/Kyrgyzstan/Picture1.jpg",
       "imageHint": "Bishkek Manas"
     },
     {
       "id": "attr-kyrgyzstan-issyk-kul",
       "description": "Issyk-Kul Lake, the pearl of Kyrgyzstan, surrounded by the snowy peaks of the Tian Shan mountains.",
-      "imageUrl": "https://images.unsplash.com/photo-1589417865229-410a568285df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageUrl": "/Kyrgyzstan/Picture2.jpg",
       "imageHint": "Issyk-Kul Lake"
     },
     {
       "id": "attr-kyrgyzstan-son-kul",
       "description": "Son-Kul Lake with traditional Kyrgyz yurts and horses in the high-altitude pasture.",
-      "imageUrl": "https://images.unsplash.com/photo-1596464716127-f2a82984de30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageUrl": "/Kyrgyzstan/Picture3.jpg",
       "imageHint": "Son-Kul yurts"
     },
     {
       "id": "attr-kyrgyzstan-skazka",
       "description": "Skazka Canyon, also known as Fairy Tale Canyon, with its unique red sandstone formations.",
-      "imageUrl": "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageUrl": "/Kyrgyzstan/Picture4.jpg",
       "imageHint": "Skazka Canyon"
     },
     {
       "id": "attr-kyrgyzstan-altyn-arashan",
       "description": "Altyn Arashan valley with its alpine meadows, evergreen forests, and snow-capped peaks.",
-      "imageUrl": "https://images.unsplash.com/photo-1601338573197-e81c0022204c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageUrl": "/Kyrgyzstan/Picture5.jpg",
       "imageHint": "Altyn Arashan"
     }
   ]
