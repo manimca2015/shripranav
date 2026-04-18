@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -24,11 +25,11 @@ import GalleryModal from '@/components/gallery-modal';
 import { TourLeadForm } from '@/components/tour-lead-form';
 
 const uniqueAttractions = [
-  { name: 'Bishkek – Ala-Too Square', id: 'gallery-jordan-2' }, // placeholders used if real ones missing
-  { name: 'Issyk-Kul Lake', id: 'gallery-jordan-3' },
-  { name: 'Son-Kul Lake', id: 'tour-kyrgyzstan' },
-  { name: 'Skazka Canyon', id: 'gallery-jordan-4' },
-  { name: 'Altyn Arashan Valley', id: 'gallery-jordan-5' },
+  { name: 'Bishkek – Ala-Too Square', id: 'attr-kyrgyzstan-ala-too' },
+  { name: 'Issyk-Kul Lake', id: 'attr-kyrgyzstan-issyk-kul' },
+  { name: 'Son-Kul Lake', id: 'attr-kyrgyzstan-son-kul' },
+  { name: 'Skazka Canyon', id: 'attr-kyrgyzstan-skazka' },
+  { name: 'Altyn Arashan Valley', id: 'attr-kyrgyzstan-altyn-arashan' },
 ];
 
 export default function KyrgyzstanItineraryPage() {
