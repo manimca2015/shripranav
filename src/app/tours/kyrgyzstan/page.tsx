@@ -23,6 +23,14 @@ import { tours } from '@/lib/data';
 import GalleryModal from '@/components/gallery-modal';
 import { TourLeadForm } from '@/components/tour-lead-form';
 
+const uniqueAttractions = [
+  { name: 'Bishkek – Ala-Too Square', id: 'gallery-jordan-2' }, // placeholders used if real ones missing
+  { name: 'Issyk-Kul Lake', id: 'gallery-jordan-3' },
+  { name: 'Son-Kul Lake', id: 'tour-kyrgyzstan' },
+  { name: 'Skazka Canyon', id: 'gallery-jordan-4' },
+  { name: 'Altyn Arashan Valley', id: 'gallery-jordan-5' },
+];
+
 export default function KyrgyzstanItineraryPage() {
   const [isEnquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [isBrochureModalOpen, setBrochureModalOpen] = useState(false);
@@ -33,20 +41,12 @@ export default function KyrgyzstanItineraryPage() {
 
   const heroImage = PlaceHolderImages.find(p => p.id === 'tour-kyrgyzstan');
   
-  // Look for Kyrgyzstan album, fallback to general if not found
-  const kyrgyzstanAlbum = galleryData.photoAlbums.find(a => a.destination === 'Kyrgyzstan');
-
   const attractionImages = useMemo(() => {
-    if (!kyrgyzstanAlbum) {
-        // Fallback placeholders if no album exists yet
-        return PlaceHolderImages.filter(p => p.imageHint.includes('kyrgyzstan')).slice(0, 8);
-    }
-    return kyrgyzstanAlbum.imageIds
-      .filter(id => id !== kyrgyzstanAlbum.coverImageId)
-      .slice(0, 8)
-      .map(id => PlaceHolderImages.find(p => p.id === id))
-      .filter(Boolean);
-  }, [kyrgyzstanAlbum]);
+    return uniqueAttractions.map(attr => {
+        const img = PlaceHolderImages.find(p => p.id === attr.id);
+        return { ...img, description: attr.name };
+    });
+  }, []);
 
   const openGallery = (index: number) => {
     setGalleryStartIndex(index);
@@ -86,7 +86,7 @@ export default function KyrgyzstanItineraryPage() {
                   KYRGYZSTAN
                 </h1>
                 <p className="text-accent font-bold tracking-[0.3em] text-lg uppercase mb-6 block">
-                  Your Road. Your Rules. Your Kyrgyzstan
+                  “Your Road. Your Rules. Your Kyrgyzstan.”
                 </p>
 
                 <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl leading-relaxed font-light">
@@ -105,7 +105,7 @@ export default function KyrgyzstanItineraryPage() {
                   </div>
                   <div className="flex items-center gap-2">
                       <CalendarCheck className="w-5 h-5 text-accent" />
-                      <span>Next: May 22, 2026</span>
+                      <span>Next: TBA</span>
                   </div>
                 </div>
               </div>
@@ -118,18 +118,18 @@ export default function KyrgyzstanItineraryPage() {
                   <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
                     <div className="text-center md:text-left">
                         <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Starting from</p>
-                        <p className="text-3xl md:text-4xl font-bold text-accent tracking-tighter">Contact for Quote</p>
+                        <p className="text-3xl md:text-4xl font-bold text-accent tracking-tighter">₹2,71,000</p>
                     </div>
                     <div className="hidden md:block w-px h-12 bg-white/20" />
                     <div className="text-center md:text-left">
-                        <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Next Available</p>
-                        <p className="text-white font-bold text-lg tracking-tight">May 22 – May 30, 2026</p>
+                        <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Date</p>
+                        <p className="text-white font-bold text-lg tracking-tight">TBA</p>
                     </div>
                   </div>
                   
                   <div className="flex gap-4 w-full md:w-auto">
                     <Button onClick={() => setEnquiryModalOpen(true)} className="flex-1 md:flex-none bg-accent text-accent-foreground font-bold px-8 py-3 h-auto rounded-xl transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-[#e0af29] text-base">
-                      Explore Itinerary
+                      Enquire Now
                     </Button>
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export default function KyrgyzstanItineraryPage() {
                   Itinerary Brief
                 </Link>
                 <Link href="#highlights" className="whitespace-nowrap px-6 py-3 text-sm font-bold text-slate-700 hover:text-accent hover:bg-white rounded-lg transition-all">
-                  Destination Highlights
+                  Unique Attractions
                 </Link>
               </nav>
             </div>
@@ -164,6 +164,7 @@ export default function KyrgyzstanItineraryPage() {
                       <p>
                         Step into the wild, untouched landscapes of Central Asia with the Kyrgyzstan Self-Drive Adventure — a 7-night expedition where every road leads to towering mountain ranges, alpine lakes, remote valleys, and experiences rooted in nomadic culture. From the vibrant capital of Bishkek to the red canyon beauty of Kyzyl Oi, from the high-altitude serenity of Son-Kul Lake to the endless blue shores of Issyk-Kul, this journey blends off-road driving, breathtaking scenery, and authentic cultural encounters into one unforgettable experience. Drive your own 4x4 through dramatic passes, hidden gorges, and scenic routes that few travellers ever explore, while discovering traditions like eagle hunting, local hospitality, and life in the highlands. This is not just a trip — it’s a story of adventure, freedom, and exploration that stays with you long after the journey ends.
                       </p>
+                      <p className="mt-6 font-bold text-primary">Kyrgyzstan is waiting</p>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -189,12 +190,12 @@ export default function KyrgyzstanItineraryPage() {
                   </div>
 
                   <div id="highlights" className="scroll-mt-48 space-y-8">
-                    <h3 className="text-3xl font-headline font-bold text-primary">Destination Highlights</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <h3 className="text-3xl font-headline font-bold text-primary">Unique Attractions</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                       {attractionImages.map((image, idx) => (
                         <div key={idx} className="group text-center cursor-pointer" onClick={() => openGallery(idx)}>
                           <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-100">
-                            {image && (
+                            {image.imageUrl && (
                               <Image
                                 src={image.imageUrl}
                                 alt={image.description || 'Attraction image'}
@@ -202,6 +203,10 @@ export default function KyrgyzstanItineraryPage() {
                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
                               />
                             )}
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
+                            <div className="absolute bottom-4 left-4 right-4">
+                                <p className="text-white font-bold text-sm leading-tight drop-shadow-md">{image.description}</p>
+                            </div>
                           </div>
                         </div>
                       ))}

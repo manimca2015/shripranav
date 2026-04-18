@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -15,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, ChevronDown, ShieldCheck, Headset, Route, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { parse } from 'date-fns';
+import { parse, isValid } from 'date-fns';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -62,18 +61,28 @@ export default function WorldDrivingToursPage() {
       filtered = filtered.filter(tour => tour.driveCategory === tourType);
     }
 
-    const now = new Date('2026-02-04T00:00:00Z');
+    const now = new Date();
 
     const parseStartDate = (tour: Tour): Date => {
       const { fullDate, date } = tour;
-      const fallbackDate = parse(date, 'MMMM yyyy', new Date());
+      
+      const parseDateString = (str: string) => {
+        try {
+          const p = parse(str, 'MMMM yyyy', new Date());
+          return isValid(p) ? p : null;
+        } catch (e) {
+          return null;
+        }
+      };
 
-      if (!fullDate) return fallbackDate;
+      const fallbackDate = parseDateString(date) || new Date(2099, 11, 31); // Way in future if 'TBA'
+
+      if (!fullDate || fullDate === 'TBA') return fallbackDate;
 
       try {
         // Extract the first part of a date range. '21 – 29 Mar, 2026' -> '21 Mar, 2026'
         const firstDatePart = fullDate.split(/–|-/)[0].trim();
-        const year = fullDate.match(/\d{4}/)?.[0] || date.split(' ')[1];
+        const year = fullDate.match(/\d{4}/)?.[0] || date.split(' ')[1] || '2026';
         const monthMatch = firstDatePart.match(/[a-zA-Z]{3,}/);
         
         let dateStringToParse;
@@ -95,9 +104,9 @@ export default function WorldDrivingToursPage() {
         }
 
         // Try parsing with abbreviated month, then full month name
-        for (const format of ['d MMM yyyy', 'd MMMM yyyy']) {
-          const parsed = parse(dateStringToParse.replace(',', ''), format, new Date());
-          if (!isNaN(parsed.getTime())) {
+        for (const fmt of ['d MMM yyyy', 'd MMMM yyyy']) {
+          const parsed = parse(dateStringToParse.replace(',', ''), fmt, new Date());
+          if (isValid(parsed)) {
             return parsed;
           }
         }
@@ -109,11 +118,14 @@ export default function WorldDrivingToursPage() {
       }
     };
 
-    const augmentedTours = filtered.map(tour => ({
-      ...tour,
-      startDate: parseStartDate(tour),
-      isPast: parseStartDate(tour) < now
-    }));
+    const augmentedTours = filtered.map(tour => {
+      const startDate = parseStartDate(tour);
+      return {
+        ...tour,
+        startDate,
+        isPast: startDate < now && tour.date !== 'TBA' // TBA is never "past"
+      };
+    });
 
     const upcoming = augmentedTours.filter(t => !t.isPast).sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
     const past = augmentedTours.filter(t => t.isPast).sort((a, b) => b.startDate.getTime() - a.startDate.getTime());

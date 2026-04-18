@@ -20,7 +20,7 @@ import { VisaEnquiryModal } from '@/components/visa-enquiry-modal';
 import { AirTicketFormModal } from '@/components/air-ticket-form-modal';
 import StreamingVideo from '@/components/streaming-video';
 import useEmblaCarousel from 'embla-carousel-react';
-import { parse, format } from 'date-fns';
+import { parse, format, isValid } from 'date-fns';
 import { cn } from '@/lib/utils';
 
 const heroContent = {
@@ -78,8 +78,10 @@ export default function Home() {
   const availableMonths = useMemo(() => {
     if (!tours || tours.length === 0) return [];
     const dates = tours.map(tour => {
+      if (tour.date === 'TBA') return null;
       try {
-        return parse(tour.date, 'MMMM yyyy', new Date());
+        const parsed = parse(tour.date, 'MMMM yyyy', new Date());
+        return isValid(parsed) ? parsed : null;
       } catch (e) {
         return null;
       }
@@ -87,7 +89,14 @@ export default function Home() {
     
     dates.sort((a, b) => a.getTime() - b.getTime());
     const monthStrings = dates.map(date => format(date, 'MMMM yyyy'));
-    return ['All', ...new Set(monthStrings)];
+    const uniqueMonths = ['All', ...new Set(monthStrings)];
+    
+    // Explicitly add TBA if any tours have it
+    if (tours.some(t => t.date === 'TBA')) {
+      uniqueMonths.push('TBA');
+    }
+    
+    return uniqueMonths;
   }, []);
 
   const [selectedMonth, setSelectedMonth] = useState<string>('All');
@@ -292,20 +301,32 @@ export default function Home() {
                     
                     {/* Month Filter Tabs */}
                     <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-4 mb-12">
-                        {availableMonths.map((month) => (
-                            <button
-                                key={month}
-                                onClick={() => setSelectedMonth(month)}
-                                className={cn(
-                                    'px-6 py-2.5 rounded-full font-bold text-sm transition-all whitespace-nowrap shadow-sm border',
-                                    selectedMonth === month
-                                        ? 'bg-accent text-accent-foreground border-accent'
-                                        : 'bg-white border-slate-200 text-slate-600 hover:border-accent hover:text-accent'
-                                )}
-                            >
-                                {month === 'All' ? 'Show All' : format(parse(month, 'MMMM yyyy', new Date()), 'MMMM yyyy')}
-                            </button>
-                        ))}
+                        {availableMonths.map((month) => {
+                            let label = month;
+                            if (month === 'All') label = 'Show All';
+                            else if (month !== 'TBA') {
+                                try {
+                                    label = format(parse(month, 'MMMM yyyy', new Date()), 'MMMM yyyy');
+                                } catch (e) {
+                                    label = month;
+                                }
+                            }
+                            
+                            return (
+                                <button
+                                    key={month}
+                                    onClick={() => setSelectedMonth(month)}
+                                    className={cn(
+                                        'px-6 py-2.5 rounded-full font-bold text-sm transition-all whitespace-nowrap shadow-sm border',
+                                        selectedMonth === month
+                                            ? 'bg-accent text-accent-foreground border-accent'
+                                            : 'bg-white border-slate-200 text-slate-600 hover:border-accent hover:text-accent'
+                                    )}
+                                >
+                                    {label}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
 
