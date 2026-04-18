@@ -86,7 +86,7 @@ export default function KyrgyzstanItineraryPage() {
                   KYRGYZSTAN
                 </h1>
                 <p className="text-accent font-bold tracking-[0.3em] text-lg uppercase mb-6 block">
-                  The Hidden Gem of Central Asia
+                  Your Road. Your Rules. Your Kyrgyzstan
                 </p>
 
                 <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl leading-relaxed font-light">
