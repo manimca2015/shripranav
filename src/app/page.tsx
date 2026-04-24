@@ -87,7 +87,7 @@ export default function Home() {
     };
 
     const fallbackDate = parseDateString(date) || new Date(2099, 11, 31);
-    if (!fullDate || fullDate === 'TBA') return fallbackDate;
+    if (!fullDate || fullDate === 'TBA' || fullDate === 'June 2026') return fallbackDate;
 
     try {
       const firstDatePart = fullDate.split(/–|-/)[0].trim();
@@ -390,18 +390,28 @@ export default function Home() {
                             <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent transition-all duration-500">
                                 <FileText className="w-8 h-8 text-accent group-hover:text-accent-foreground" />
                             </div>
-                            <h3 className="text-3xl font-headline font-bold text-primary mb-4">Hassle-Free Visa Services</h3>
-                            <p className="text-slate-600 text-lg mb-8 flex-grow leading-relaxed">
-                                Navigate the complexities of international travel with ease. Our visa experts provide end-to-end assistance for over 40+ countries, ensuring a smooth application process.
+                            <h3 className="text-3xl font-headline font-bold text-primary mb-2">VISA ASSISTANCE</h3>
+                            <p className="text-accent font-bold text-sm uppercase tracking-wider mb-4">Connect with Our Expert Visa Support Team</p>
+                            <p className="text-slate-600 text-base mb-6 flex-grow leading-relaxed">
+                                A visa approval is a crucial milestone in your study abroad journey. At Fair Future, our experienced consultants guide you through every step so the process stays clear, organized, and stress-free.
                             </p>
-                            <ul className="space-y-3 mb-10">
-                                {['Tourist, Business & Student Visas', 'Expert Documentation Review', 'Personalized Consultation'].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-3 text-slate-500 font-medium">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mb-8">
+                                {[
+                                    'Dependent Visa',
+                                    'Family/Visitor Visa',
+                                    'Canada - Super Visa',
+                                    'Canada - Extensions',
+                                    'UK - PLAB Visa',
+                                    'UK - Settlement & PR',
+                                    'Schengen - Religious Visas',
+                                    'USA Visit Visa'
+                                ].map((item, i) => (
+                                    <div key={i} className="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase">
+                                        <div className="w-1 h-1 rounded-full bg-accent"></div>
                                         {item}
-                                    </li>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                             <Button 
                                 onClick={() => setVisaModalOpen(true)}
                                 className="w-full sm:w-auto px-10 py-4 h-auto rounded-xl bg-primary text-white font-bold text-lg hover:bg-accent hover:text-accent-foreground transition-all shadow-lg"
@@ -418,12 +428,18 @@ export default function Home() {
                             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent transition-all duration-500">
                                 <Plane className="w-8 h-8 text-white group-hover:text-accent-foreground" />
                             </div>
-                            <h3 className="text-3xl font-headline font-bold text-white mb-4">Best Flight Deals</h3>
+                            <h3 className="text-3xl font-headline font-bold text-white mb-4">AIR TICKET</h3>
                             <p className="text-slate-300 text-lg mb-8 flex-grow leading-relaxed">
-                                Get exclusive quotes on domestic and international flights. We source the most competitive fares across all major airlines to get you to your destination comfortably.
+                                From domestic routes to international destinations, Fair Future provides reliable air ticket booking services with the best available fares and travel options.
                             </p>
                             <ul className="space-y-3 mb-10">
-                                {['Corporate & Leisure Travel', 'Special Group Fares', '24/7 Booking Support'].map((item, i) => (
+                                {[
+                                    'Domestic & International Tickets (IATA Certified)',
+                                    'Best Prices Guarantee',
+                                    'Group Bookings',
+                                    'Student Fares',
+                                    'Corporate Bookings'
+                                ].map((item, i) => (
                                     <li key={i} className="flex items-center gap-3 text-slate-400 font-medium">
                                         <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
                                         {item}
