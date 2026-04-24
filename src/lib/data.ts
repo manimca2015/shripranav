@@ -17,7 +17,7 @@ export const tours: Tour[] = [
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
     status: 'Upcoming',
     rating: 4.6,
-    fullDate: 'Mid - June, 2026',
+    fullDate: 'June 2026',
     driveType: 'Self-Drive 4x4 Expedition',
     driveCategory: 'Self-Drive',
     level: 'Adventure',
