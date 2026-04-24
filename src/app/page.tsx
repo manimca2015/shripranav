@@ -395,7 +395,7 @@ export default function Home() {
                             <p className="text-slate-600 text-base mb-6 flex-grow leading-relaxed">
                                 A visa approval is a crucial milestone in your study abroad journey. At Fair Future, our experienced consultants guide you through every step so the process stays clear, organized, and stress-free.
                             </p>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mb-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mb-8">
                                 {[
                                     'Dependent Visa',
                                     'Family/Visitor Visa',
@@ -406,8 +406,8 @@ export default function Home() {
                                     'Schengen - Religious Visas',
                                     'USA Visit Visa'
                                 ].map((item, i) => (
-                                    <div key={i} className="flex items-center gap-2 text-slate-500 font-bold text-xs uppercase">
-                                        <div className="w-1 h-1 rounded-full bg-accent"></div>
+                                    <div key={i} className="flex items-center gap-3 text-slate-600 font-bold text-sm uppercase tracking-tight">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></div>
                                         {item}
                                     </div>
                                 ))}
