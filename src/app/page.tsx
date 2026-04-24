@@ -380,7 +380,7 @@ export default function Home() {
         </section>
 
         {/* VISA & AIR TICKETS SECTION */}
-        <section id="visa-air-tickets" className="py-12 bg-[#e0af29]">
+        <section id="visa-air-tickets" className="py-12 bg-accent">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Visa Services */}
@@ -390,12 +390,12 @@ export default function Home() {
                             <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent transition-all duration-500">
                                 <FileText className="w-8 h-8 text-accent group-hover:text-accent-foreground" />
                             </div>
-                            <h3 className="text-3xl font-headline font-bold text-primary mb-2">VISA ASSISTANCE</h3>
+                            <h3 className="text-3xl font-headline font-bold text-primary mb-2 uppercase">VISA ASSISTANCE</h3>
                             <p className="text-accent font-bold text-sm uppercase tracking-wider mb-4">Connect with Our Expert Visa Support Team</p>
-                            <p className="text-slate-600 text-base mb-6 flex-grow leading-relaxed">
+                            <p className="text-slate-600 text-base mb-8 flex-grow leading-relaxed">
                                 A visa approval is a crucial milestone in your study abroad journey. At Fair Future, our experienced consultants guide you through every step so the process stays clear, organized, and stress-free.
                             </p>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mb-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mb-10">
                                 {[
                                     'Dependent Visa',
                                     'Family/Visitor Visa',
@@ -428,24 +428,26 @@ export default function Home() {
                             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent transition-all duration-500">
                                 <Plane className="w-8 h-8 text-white group-hover:text-accent-foreground" />
                             </div>
-                            <h3 className="text-3xl font-headline font-bold text-white mb-4">AIR TICKET</h3>
-                            <p className="text-slate-300 text-lg mb-8 flex-grow leading-relaxed">
-                                From domestic routes to international destinations, Fair Future provides reliable air ticket booking services with the best available fares and travel options.
+                            <h3 className="text-3xl font-headline font-bold text-white mb-2 uppercase">AIR TICKET</h3>
+                            <p className="text-accent font-bold text-sm uppercase tracking-wider mb-4">IATA Certified Booking Services</p>
+                            <p className="text-slate-300 text-base mb-8 flex-grow leading-relaxed">
+                                From domestic routes to international destinations, Fair Future provides reliable air ticket booking services with the best available fares and travel options for all types of explorers.
                             </p>
-                            <ul className="space-y-3 mb-10">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mb-10">
                                 {[
-                                    'Domestic & International Tickets (IATA Certified)',
+                                    'Domestic & Int. Tickets',
                                     'Best Prices Guarantee',
                                     'Group Bookings',
                                     'Student Fares',
-                                    'Corporate Bookings'
+                                    'Corporate Bookings',
+                                    'Reliable Support'
                                 ].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-3 text-slate-400 font-medium">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
+                                    <div key={i} className="flex items-center gap-3 text-slate-300 font-bold text-sm uppercase tracking-tight">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></div>
                                         {item}
-                                    </li>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                             <Button 
                                 onClick={() => setAirTicketModalOpen(true)}
                                 className="w-full sm:w-auto px-10 py-4 h-auto rounded-xl bg-accent text-accent-foreground font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-lg shadow-black/20"
