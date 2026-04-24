@@ -73,8 +73,46 @@ export default function Home() {
   const heroImages = useMemo(() => 
     heroSliderImages.map(id => PlaceHolderImages.find(img => img.id === id)).filter(Boolean) as ImagePlaceholder[], 
   []);
+
+  // Date Parsing Helper
+  const parseStartDate = (tour: Tour): Date => {
+    const { fullDate, date } = tour;
+    const parseDateString = (str: string) => {
+      try {
+        const p = parse(str, 'MMMM yyyy', new Date());
+        return isValid(p) ? p : null;
+      } catch (e) {
+        return null;
+      }
+    };
+
+    const fallbackDate = parseDateString(date) || new Date(2099, 11, 31);
+    if (!fullDate || fullDate === 'TBA') return fallbackDate;
+
+    try {
+      const firstDatePart = fullDate.split(/–|-/)[0].trim();
+      const year = fullDate.match(/\d{4}/)?.[0] || date.split(' ')[1] || '2026';
+      const monthMatch = firstDatePart.match(/[a-zA-Z]{3,}/);
+      let dateStringToParse;
+      if (monthMatch) {
+        dateStringToParse = firstDatePart;
+        if (!firstDatePart.includes(year)) dateStringToParse += `, ${year}`;
+      } else {
+        const monthInFullDate = fullDate.match(/[a-zA-Z]{3,}/)?.[0];
+        if(monthInFullDate) dateStringToParse = `${firstDatePart} ${monthInFullDate} ${year}`;
+        else return fallbackDate;
+      }
+      for (const fmt of ['d MMM yyyy', 'd MMMM yyyy']) {
+        const parsed = parse(dateStringToParse.replace(',', ''), fmt, new Date());
+        if (isValid(parsed)) return parsed;
+      }
+      return fallbackDate;
+    } catch (e) {
+      return fallbackDate;
+    }
+  };
   
-  // Month Filtering Logic
+  // Month Filtering & Sorting Logic
   const availableMonths = useMemo(() => {
     if (!tours || tours.length === 0) return [];
     const dates = tours.map(tour => {
@@ -90,24 +128,24 @@ export default function Home() {
     dates.sort((a, b) => a.getTime() - b.getTime());
     const monthStrings = dates.map(date => format(date, 'MMMM yyyy'));
     const uniqueMonths = ['All', ...new Set(monthStrings)];
-    
-    // Explicitly add TBA if any tours have it
-    if (tours.some(t => t.date === 'TBA')) {
-      uniqueMonths.push('TBA');
-    }
-    
+    if (tours.some(t => t.date === 'TBA')) uniqueMonths.push('TBA');
     return uniqueMonths;
   }, []);
 
   const [selectedMonth, setSelectedMonth] = useState<string>('All');
 
   const filteredTours = useMemo(() => {
-    if (selectedMonth === 'All') return tours;
-    return tours.filter((tour) => tour.date === selectedMonth);
+    let filtered = selectedMonth === 'All' ? [...tours] : tours.filter((tour) => tour.date === selectedMonth);
+    
+    // Always sort by date next upcoming first
+    return filtered.sort((a, b) => {
+        const dateA = parseStartDate(a);
+        const dateB = parseStartDate(b);
+        return dateA.getTime() - dateB.getTime();
+    });
   }, [selectedMonth]);
 
   const { bentoGalleryImages, bottomGalleryImage } = useMemo(() => {
-    const jordanAlbum = galleryData.photoAlbums.find(a => a.destination === 'Jordan');
     const thailandAlbum = galleryData.photoAlbums.find(a => a.destination === 'Thailand');
     const malaysiaAlbum = galleryData.photoAlbums.find(a => a.destination === 'Malaysia');
 
@@ -118,27 +156,28 @@ export default function Home() {
     
     let usedIds: string[] = [];
     
-    const image1 = getNonCoverImage(jordanAlbum, usedIds);
+    // We'll use a mix of available imagery
+    const image1 = getNonCoverImage(thailandAlbum, usedIds);
     if(image1) usedIds.push(image1);
 
-    const image2 = getNonCoverImage(thailandAlbum, usedIds);
+    const image2 = getNonCoverImage(malaysiaAlbum, usedIds);
     if(image2) usedIds.push(image2);
 
-    const image3 = getNonCoverImage(malaysiaAlbum, usedIds);
+    const image3 = getNonCoverImage(thailandAlbum, usedIds);
     if(image3) usedIds.push(image3);
     
-    const image4 = getNonCoverImage(jordanAlbum, usedIds);
+    const image4 = getNonCoverImage(malaysiaAlbum, usedIds);
     if(image4) usedIds.push(image4);
 
     const image5 = getNonCoverImage(thailandAlbum, usedIds);
     if(image5) usedIds.push(image5);
 
     const bentoConfigs = [
-        { id: image1, className: 'md:col-span-2 md:row-span-2', label: "The Deserts of Jordan" },
-        { id: image2, className: 'md:col-span-1 md:row-span-1', label: "Adventures in Thailand" },
-        { id: image3, className: 'md:col-span-1 md:row-span-1', label: "Exploring Malaysian Highlands" },
-        { id: image4, className: 'md:col-span-1 md:row-span-1', label: "Ancient Jordanian History" },
-        { id: image5, className: 'md:col-span-1 md:row-span-1', label: "Cultural Stops in Thailand" },
+        { id: image1, className: 'md:col-span-2 md:row-span-2', label: "Coastal Roads of Thailand" },
+        { id: image2, className: 'md:col-span-1 md:row-span-1', label: "Highland Greens" },
+        { id: image3, className: 'md:col-span-1 md:row-span-1', label: "Breathtaking Stops" },
+        { id: image4, className: 'md:col-span-1 md:row-span-1', label: "Scenic Vistas" },
+        { id: image5, className: 'md:col-span-1 md:row-span-1', label: "Tropical Adventures" },
     ].filter(config => config.id);
 
     const bentoImages = bentoConfigs.map(item => {
@@ -147,16 +186,12 @@ export default function Home() {
     });
     
     const bottomImageId = getNonCoverImage(malaysiaAlbum, usedIds);
-    
     let bottomImage: (ImagePlaceholder & { label?: string }) | undefined;
 
     if (bottomImageId) {
         const foundImage = PlaceHolderImages.find(p => p.id === bottomImageId);
         if (foundImage) {
-            bottomImage = {
-                ...foundImage,
-                label: 'Scenic Malaysian Roads'
-            };
+            bottomImage = { ...foundImage, label: 'The Road Ahead' };
         }
     }
     
