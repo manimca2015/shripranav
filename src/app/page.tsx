@@ -406,7 +406,7 @@ export default function Home() {
                                     'Schengen - Religious Visas',
                                     'USA Visit Visa'
                                 ].map((item, i) => (
-                                    <div key={i} className="flex items-center gap-3 text-slate-600 font-bold text-sm uppercase tracking-tight">
+                                    <div key={i} className="flex items-center gap-3 text-slate-600 font-bold text-[13px] uppercase tracking-tight">
                                         <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></div>
                                         {item}
                                     </div>
@@ -442,7 +442,7 @@ export default function Home() {
                                     'Corporate Bookings',
                                     'Reliable Support'
                                 ].map((item, i) => (
-                                    <div key={i} className="flex items-center gap-3 text-slate-300 font-bold text-sm uppercase tracking-tight">
+                                    <div key={i} className="flex items-center gap-3 text-slate-300 font-bold text-[13px] uppercase tracking-tight">
                                         <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></div>
                                         {item}
                                     </div>

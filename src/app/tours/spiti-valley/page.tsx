@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -10,8 +9,6 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { 
   CalendarCheck, 
   Check, 
-  Clock, 
-  Car, 
   ShieldCheck, 
   MapPin, 
   Star,
@@ -19,7 +16,6 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
-import galleryData from '@/lib/gallery-data.json';
 import { EnquiryModal } from '@/components/enquiry-modal';
 import { BrochureEnquiryModal } from '@/components/brochure-enquiry-modal';
 import GalleryModal from '@/components/gallery-modal';
@@ -61,10 +57,8 @@ export default function SpitiItineraryPage() {
         <main>
           {/* SECTION 1 — HERO */}
           <section id="hero-itinerary" className="relative h-[850px] lg:h-[800px] w-full overflow-hidden">
-            {/* Dark Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80 z-10" />
             
-            {/* Background Image */}
             <Image
               src="/spiti-valley/Key-Monastery-bg.jpg"
               alt="Scenic Key Monastery in Spiti Valley"
@@ -73,9 +67,9 @@ export default function SpitiItineraryPage() {
               priority
             />
             
-            <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-32 lg:pb-40">
+            {/* Increased pt-40 to clear fixed header on mobile */}
+            <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pt-40 pb-32 lg:pb-40">
               <div className="max-w-4xl">
-                {/* Badges */}
                 <div className="flex flex-wrap gap-3 mb-6">
                   <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">9 Nights / 10 Days</span>
                   <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">Self Drive 4x4</span>
@@ -90,7 +84,7 @@ export default function SpitiItineraryPage() {
                 </p>
 
                 <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl leading-relaxed font-light">
-                  Step into the wild heart of the Himalayas with the Spiti Summer Self-Drive Expedition — a 10-day adventure where every turn brings raw landscapes and roads that test your spirit.
+                  Step into the wild heart of the Himalayas with the Spiti Summer Self-Drive Expedition — a 10-day adventure where every turn brings raw landscapes.
                 </p>
                 
                 <div className="flex flex-wrap gap-6 items-center text-white">
@@ -111,7 +105,6 @@ export default function SpitiItineraryPage() {
               </div>
             </div>
 
-            {/* SECTION 2 — BOOKING BAR OVERLAY */}
             <div id="booking-bar" className="absolute bottom-0 left-0 w-full z-30 bg-gradient-to-t from-black/80 via-black/50 to-black/20 backdrop-blur-md border-t border-white/10">
               <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
@@ -137,7 +130,6 @@ export default function SpitiItineraryPage() {
             </div>
           </section>
 
-          {/* SECTION 3 — CONTENT NAVIGATION */}
           <section id="content-navigation" className="bg-slate-50 border-b border-slate-200 sticky top-[88px] z-40">
             <div className="container mx-auto px-4">
               <nav className="flex overflow-x-auto gap-1 py-2 no-scrollbar">
@@ -151,20 +143,15 @@ export default function SpitiItineraryPage() {
             </div>
           </section>
 
-          {/* MAIN CONTENT AREA */}
           <section id="main-content" className="py-12 lg:py-16 bg-white">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-                
-                {/* LEFT COLUMN */}
                 <div className="lg:col-span-2 space-y-12">
-                  
-                  {/* SECTION 5 — ITINERARY BRIEF */}
                   <div id="overview" className="scroll-mt-48 space-y-8">
                     <h2 className="text-4xl font-headline font-bold text-primary tracking-tight">Itinerary Brief</h2>
                     <div className="prose prose-xl max-w-none text-slate-600 leading-relaxed font-light">
                       <p>
-                        Step into the wild heart of the Himalayas with the <strong>Spiti Summer Self-Drive Expedition</strong> — a 10-day adventure where every turn brings raw landscapes, ancient monasteries, remote villages, river crossings, and roads that test your spirit. From the last village of India at Chitkul to the surreal cold desert of Kaza, from the curves of Kinnaur to the towering peaks of Kalpa, this is not just a trip — it's a story you will tell for the rest of your life. <strong>Built for true explorers</strong>, this expedition combines adrenaline, breathtaking scenery, and the unmatched thrill of driving your own 4x4 through one of India’s most dramatic mountain terrains.
+                        Step into the wild heart of the Himalayas with the <strong>Spiti Summer Self-Drive Expedition</strong> — a 10-day adventure where every turn brings raw landscapes, ancient monasteries, remote villages, river crossings, and roads that test your spirit.
                       </p>
                     </div>
                     
@@ -190,7 +177,6 @@ export default function SpitiItineraryPage() {
                     </div>
                   </div>
 
-                  {/* SECTION 4 — UNIQUE ATTRACTIONS */}
                   <div id="highlights" className="scroll-mt-48 space-y-8">
                     <h3 className="text-3xl font-headline font-bold text-primary">Destination Highlights</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -209,26 +195,20 @@ export default function SpitiItineraryPage() {
                       ))}
                     </div>
                   </div>
-
                 </div>
 
-                {/* RIGHT COLUMN — SIDEBAR */}
                 <div className="lg:col-span-1">
                   <div className="sticky top-[160px] space-y-6">
-                    {/* Booking Card */}
                     <Card className="border-2 border-accent rounded-3xl overflow-hidden shadow-xl bg-white">
                       <CardContent className="p-8">
                         <h3 className="text-2xl font-headline font-bold text-primary mb-1">Ready to Hit the Road?</h3>
                         <p className="text-slate-500 text-sm mb-6">Fill in your details and let's craft your perfect expedition.</p>
-                        
-                        {/* Inline Lead Form */}
                         <div className="pt-4">
                           <TourLeadForm tourName="Spiti Valley Summer Expedition" />
                         </div>
                       </CardContent>
                     </Card>
 
-                    {/* Why Book With Us */}
                     <div className="bg-primary rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden">
                       <div className="absolute top-0 right-0 -mt-4 -mr-4 w-20 h-20 bg-accent/10 rounded-full blur-2xl"></div>
                       <h4 className="text-xl font-headline font-bold mb-6 flex items-center gap-3 text-accent">
