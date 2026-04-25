@@ -68,10 +68,10 @@ export default function KyrgyzstanItineraryPage() {
               priority
             />
             
-            <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-32 lg:pb-40">
+            <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pt-32 pb-32 lg:pb-40">
               <div className="max-w-4xl">
                 <div className="flex flex-wrap gap-3 mb-6">
-                  <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">8 Nights / 9 Days</span>
+                  <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">7 Nights / 8 Days</span>
                   <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">Self Drive 4x4</span>
                   <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">International</span>
                 </div>
@@ -84,7 +84,7 @@ export default function KyrgyzstanItineraryPage() {
                 </p>
 
                 <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl leading-relaxed font-light">
-                  Step into the wild, untouched landscapes of Central Asia on an 8-night self-drive adventure. Experience mountain ranges, alpine lakes, and authentic nomadic culture.
+                  Step into the wild, untouched landscapes of Central Asia on an 7-night self-drive adventure. Experience mountain ranges, alpine lakes, and authentic nomadic culture.
                 </p>
                 
                 <div className="flex flex-wrap gap-6 items-center text-white">
@@ -99,7 +99,7 @@ export default function KyrgyzstanItineraryPage() {
                   </div>
                   <div className="flex items-center gap-2">
                       <CalendarCheck className="w-5 h-5 text-accent" />
-                      <span>Next: June 2026</span>
+                      <span>Date: TBA</span>
                   </div>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function KyrgyzstanItineraryPage() {
                     <div className="hidden md:block w-px h-12 bg-white/20" />
                     <div className="text-center md:text-left">
                         <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Date</p>
-                        <p className="text-white font-bold text-lg tracking-tight">June 2026</p>
+                        <p className="text-white font-bold text-lg tracking-tight">TBA</p>
                     </div>
                   </div>
                   
