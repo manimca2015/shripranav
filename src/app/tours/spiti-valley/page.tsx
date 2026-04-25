@@ -56,7 +56,7 @@ export default function SpitiItineraryPage() {
         
         <main>
           {/* SECTION 1 — HERO */}
-          <section id="hero-itinerary" className="relative h-[850px] lg:h-[800px] w-full overflow-hidden">
+          <section id="hero-itinerary" className="relative min-h-[800px] lg:h-[800px] w-full overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80 z-10" />
             
             <Image
@@ -67,19 +67,18 @@ export default function SpitiItineraryPage() {
               priority
             />
             
-            {/* Increased pt-40 to clear fixed header on mobile */}
-            <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pt-40 pb-32 lg:pb-40">
+            <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-end pt-32 pb-64 lg:pb-40">
               <div className="max-w-4xl">
                 <div className="flex flex-wrap gap-3 mb-6">
-                  <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">9 Nights / 10 Days</span>
-                  <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">Self Drive 4x4</span>
-                  <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-white/10">Domestic</span>
+                  <span className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider">9 Nights / 10 Days</span>
+                  <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider border border-white/10">Self Drive 4x4</span>
+                  <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider border border-white/10">Domestic</span>
                 </div>
                 
-                <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 font-headline uppercase tracking-tight leading-none">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 font-headline uppercase tracking-tight leading-none">
                   SPITI VALLEY
                 </h1>
-                <p className="text-accent font-bold tracking-[0.3em] text-lg uppercase mb-6 block">
+                <p className="text-accent font-bold tracking-[0.3em] text-base sm:text-lg uppercase mb-6 block">
                   “The Best Stories Are Never Found on Easy Roads.”
                 </p>
 
@@ -107,7 +106,7 @@ export default function SpitiItineraryPage() {
 
             <div id="booking-bar" className="absolute bottom-0 left-0 w-full z-30 bg-gradient-to-t from-black/80 via-black/50 to-black/20 backdrop-blur-md border-t border-white/10">
               <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
+                <div className="flex flex-col md:flex-row items-center justify-between py-6 md:py-4 gap-4">
                   <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12">
                     <div className="text-center md:text-left">
                         <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Starting from</p>
@@ -242,7 +241,7 @@ export default function SpitiItineraryPage() {
         <>
           <BrochureEnquiryModal 
             isOpen={isBrochureModalOpen}
-            onClose={() => setBrochureModalOpen(false)}
+            onClose={() => setEnquiryModalOpen(false)}
             tourName={tour.title}
             brochureUrl={tour.brochureUrl || ''}
           />
