@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, ChevronDown, ShieldCheck, Headset, Route, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { parse, isValid } from 'date-fns';
+import { parse, isValid, format } from 'date-fns';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -41,7 +41,7 @@ export default function WorldDrivingToursPage() {
 
 
   const filteredAndSortedTours = useMemo(() => {
-    let filtered = tours;
+    let filtered = [...tours];
 
     if (searchTerm) {
       filtered = filtered.filter(tour =>
@@ -61,76 +61,8 @@ export default function WorldDrivingToursPage() {
       filtered = filtered.filter(tour => tour.driveCategory === tourType);
     }
 
-    const now = new Date();
-
-    const parseStartDate = (tour: Tour): Date => {
-      const { fullDate, date } = tour;
-      
-      const parseDateString = (str: string) => {
-        try {
-          const p = parse(str, 'MMMM yyyy', new Date());
-          return isValid(p) ? p : null;
-        } catch (e) {
-          return null;
-        }
-      };
-
-      const fallbackDate = parseDateString(date) || new Date(2099, 11, 31); // Way in future if 'TBA'
-
-      if (!fullDate || fullDate === 'TBA') return fallbackDate;
-
-      try {
-        // Extract the first part of a date range. '21 – 29 Mar, 2026' -> '21 Mar, 2026'
-        const firstDatePart = fullDate.split(/–|-/)[0].trim();
-        const year = fullDate.match(/\d{4}/)?.[0] || date.split(' ')[1] || '2026';
-        const monthMatch = firstDatePart.match(/[a-zA-Z]{3,}/);
-        
-        let dateStringToParse;
-
-        if (monthMatch) {
-          // Month is in the first part, e.g., "24 Jan" or "10 Apr, 2026"
-          dateStringToParse = firstDatePart;
-          if (!firstDatePart.includes(year)) {
-            dateStringToParse += `, ${year}`;
-          }
-        } else {
-          // Month is not in the first part, e.g., range like "21 - 29 March, 2026"
-          const monthInFullDate = fullDate.match(/[a-zA-Z]{3,}/)?.[0];
-          if(monthInFullDate) {
-            dateStringToParse = `${firstDatePart} ${monthInFullDate} ${year}`;
-          } else {
-            return fallbackDate;
-          }
-        }
-
-        // Try parsing with abbreviated month, then full month name
-        for (const fmt of ['d MMM yyyy', 'd MMMM yyyy']) {
-          const parsed = parse(dateStringToParse.replace(',', ''), fmt, new Date());
-          if (isValid(parsed)) {
-            return parsed;
-          }
-        }
-
-        return fallbackDate;
-      } catch (e) {
-        console.error('Failed to parse date:', fullDate, 'for tour', tour.id);
-        return fallbackDate;
-      }
-    };
-
-    const augmentedTours = filtered.map(tour => {
-      const startDate = parseStartDate(tour);
-      return {
-        ...tour,
-        startDate,
-        isPast: startDate < now && tour.date !== 'TBA' // TBA is never "past"
-      };
-    });
-
-    const upcoming = augmentedTours.filter(t => !t.isPast).sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
-    const past = augmentedTours.filter(t => t.isPast).sort((a, b) => b.startDate.getTime() - a.startDate.getTime());
-
-    return [...upcoming, ...past];
+    // Returning manual order as defined in tours array
+    return filtered;
 
   }, [searchTerm, tourType, selectedMonths]);
 
@@ -319,7 +251,7 @@ export default function WorldDrivingToursPage() {
         <section id="cta-section" className="py-20 bg-gradient-to-br from-primary to-primary/90 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23ffffff\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
           
-          <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
+          <div className="container mx-auto px-6 max-[1400px] relative z-10">
               <div className="text-center max-w-3xl mx-auto">
                   <h2 className="text-4xl md:text-5xl font-headline font-bold text-white mb-6">Ready to Start Your Adventure?</h2>
                   <p className="text-xl text-white/90 mb-10 font-light">Join thousands of satisfied travelers who have experienced the journey of a lifetime</p>

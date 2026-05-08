@@ -74,74 +74,45 @@ export default function Home() {
     heroSliderImages.map(id => PlaceHolderImages.find(img => img.id === id)).filter(Boolean) as ImagePlaceholder[], 
   []);
 
-  // Date Parsing Helper
-  const parseStartDate = (tour: Tour): Date => {
-    const { fullDate, date } = tour;
-    const parseDateString = (str: string) => {
-      try {
-        const p = parse(str, 'MMMM yyyy', new Date());
-        return isValid(p) ? p : null;
-      } catch (e) {
-        return null;
-      }
-    };
-
-    const fallbackDate = parseDateString(date) || new Date(2099, 11, 31);
-    if (!fullDate || fullDate === 'TBA' || fullDate === 'June 2026') return fallbackDate;
-
-    try {
-      const firstDatePart = fullDate.split(/–|-/)[0].trim();
-      const year = fullDate.match(/\d{4}/)?.[0] || date.split(' ')[1] || '2026';
-      const monthMatch = firstDatePart.match(/[a-zA-Z]{3,}/);
-      let dateStringToParse;
-      if (monthMatch) {
-        dateStringToParse = firstDatePart;
-        if (!firstDatePart.includes(year)) dateStringToParse += `, ${year}`;
-      } else {
-        const monthInFullDate = fullDate.match(/[a-zA-Z]{3,}/)?.[0];
-        if(monthInFullDate) dateStringToParse = `${firstDatePart} ${monthInFullDate} ${year}`;
-        else return fallbackDate;
-      }
-      for (const fmt of ['d MMM yyyy', 'd MMMM yyyy']) {
-        const parsed = parse(dateStringToParse.replace(',', ''), fmt, new Date());
-        if (isValid(parsed)) return parsed;
-      }
-      return fallbackDate;
-    } catch (e) {
-      return fallbackDate;
-    }
-  };
-  
-  // Month Filtering & Sorting Logic
+  // Month Filtering Logic (Keeping original order)
   const availableMonths = useMemo(() => {
     if (!tours || tours.length === 0) return [];
-    const dates = tours.map(tour => {
-      if (tour.date === 'TBA') return null;
-      try {
-        const parsed = parse(tour.date, 'MMMM yyyy', new Date());
-        return isValid(parsed) ? parsed : null;
-      } catch (e) {
-        return null;
-      }
-    }).filter((date): date is Date => date !== null);
     
-    dates.sort((a, b) => a.getTime() - b.getTime());
-    const monthStrings = dates.map(date => format(date, 'MMMM yyyy'));
+    // Extract unique months in the order they appear in the tours array
+    const monthStrings = tours.map(tour => {
+      if (tour.date === 'TBA') return 'TBA';
+      try {
+        const parsed = parse(tour.date, 'MMMM d, yyyy', new Date());
+        if (isValid(parsed)) return format(parsed, 'MMMM yyyy');
+        
+        const parsedSimple = parse(tour.date, 'MMMM yyyy', new Date());
+        if (isValid(parsedSimple)) return format(parsedSimple, 'MMMM yyyy');
+        
+        return tour.date;
+      } catch (e) {
+        return tour.date;
+      }
+    });
+
     const uniqueMonths = ['All', ...new Set(monthStrings)];
-    if (tours.some(t => t.date === 'TBA')) uniqueMonths.push('TBA');
     return uniqueMonths;
   }, []);
 
   const [selectedMonth, setSelectedMonth] = useState<string>('All');
 
   const filteredTours = useMemo(() => {
-    let filtered = selectedMonth === 'All' ? [...tours] : tours.filter((tour) => tour.date === selectedMonth);
+    if (selectedMonth === 'All') return [...tours];
     
-    // Always sort by date next upcoming first
-    return filtered.sort((a, b) => {
-        const dateA = parseStartDate(a);
-        const dateB = parseStartDate(b);
-        return dateA.getTime() - dateB.getTime();
+    return tours.filter((tour) => {
+        if (tour.date === selectedMonth) return true;
+        try {
+            const parsed = parse(tour.date, 'MMMM d, yyyy', new Date());
+            if (isValid(parsed) && format(parsed, 'MMMM yyyy') === selectedMonth) return true;
+            
+            const parsedSimple = parse(tour.date, 'MMMM yyyy', new Date());
+            if (isValid(parsedSimple) && format(parsedSimple, 'MMMM yyyy') === selectedMonth) return true;
+        } catch (e) {}
+        return false;
     });
   }, [selectedMonth]);
 
@@ -339,13 +310,6 @@ export default function Home() {
                         {availableMonths.map((month) => {
                             let label = month;
                             if (month === 'All') label = 'Show All';
-                            else if (month !== 'TBA') {
-                                try {
-                                    label = format(parse(month, 'MMMM yyyy', new Date()), 'MMMM yyyy');
-                                } catch (e) {
-                                    label = month;
-                                }
-                            }
                             
                             return (
                                 <button
