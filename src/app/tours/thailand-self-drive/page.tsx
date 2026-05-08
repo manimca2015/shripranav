@@ -99,7 +99,7 @@ export default function ThailandItineraryPage() {
                   </div>
                   <div className="flex items-center gap-2">
                       <CalendarCheck className="w-5 h-5 text-accent" />
-                      <span>Next: May 1, 2026</span>
+                      <span>Date: TBA</span>
                   </div>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function ThailandItineraryPage() {
                     <div className="hidden md:block w-px h-12 bg-white/20" />
                     <div className="text-center md:text-left">
                         <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">Next Available</p>
-                        <p className="text-white font-bold text-lg tracking-tight">May 1 – May 7, 2026</p>
+                        <p className="text-white font-bold text-lg tracking-tight">TBA</p>
                     </div>
                   </div>
                   
