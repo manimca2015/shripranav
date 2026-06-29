@@ -79,8 +79,8 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button className="rounded-full bg-secondary hover:bg-secondary/90 text-white px-8">
-            Request a Quote
+          <Button asChild className="rounded-full bg-secondary hover:bg-secondary/90 text-white px-8">
+            <Link href="/contact">Request a Quote</Link>
           </Button>
         </div>
 
@@ -90,7 +90,7 @@ export function Header() {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? (
-            <X className={isScrolled ? "text-primary" : "text-white"} />
+            <X className={isScrolled ? "text-primary" : "text-primary"} />
           ) : (
             <Menu className={isScrolled ? "text-primary" : "text-white"} />
           )}
@@ -99,21 +99,28 @@ export function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t p-4 flex flex-col gap-4 animate-in slide-in-from-top duration-300">
-          <Link href="/" className="font-semibold p-2 border-b">Home</Link>
+        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t p-4 flex flex-col gap-4 animate-in slide-in-from-top duration-300 shadow-xl">
+          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">Home</Link>
           <div className="flex flex-col gap-2">
             <span className="font-semibold p-2 text-primary">Products</span>
             {productCategories.map((cat) => (
-              <Link key={cat.href} href={cat.href} className="pl-6 py-2 text-sm border-l-2 border-slate-100 hover:border-secondary">
+              <Link 
+                key={cat.href} 
+                href={cat.href} 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="pl-6 py-2 text-sm border-l-2 border-slate-100 hover:border-secondary"
+              >
                 {cat.name}
               </Link>
             ))}
           </div>
-          <Link href="/factory" className="font-semibold p-2 border-b">Factory</Link>
-          <Link href="/about" className="font-semibold p-2 border-b">About Us</Link>
-          <Link href="/blogs" className="font-semibold p-2 border-b">Blogs</Link>
-          <Link href="/contact" className="font-semibold p-2 border-b">Contact Us</Link>
-          <Button className="w-full bg-secondary">Request a Quote</Button>
+          <Link href="/factory" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">Factory</Link>
+          <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">About Us</Link>
+          <Link href="/blogs" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">Blogs</Link>
+          <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">Contact Us</Link>
+          <Button asChild className="w-full bg-secondary">
+            <Link href="/contact">Request a Quote</Link>
+          </Button>
         </div>
       )}
     </header>
