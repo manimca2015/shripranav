@@ -29,7 +29,7 @@ export function Hero() {
             data-ai-hint={heroImg.imageHint}
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/40 to-transparent" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10 pt-20">
@@ -46,10 +46,10 @@ export function Hero() {
           </p>
           
           <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
-            <Button size="lg" className="rounded-full bg-white text-primary hover:bg-secondary hover:text-white px-10 h-14 font-bold text-lg smooth-transition">
+            <Button size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-10 h-14 font-bold text-lg smooth-transition">
               Explore Products
             </Button>
-            <Button size="lg" variant="outline" className="rounded-full border-2 border-white text-white hover:bg-white/10 px-10 h-14 font-bold text-lg smooth-transition">
+            <Button size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg smooth-transition shadow-lg shadow-secondary/20">
               Request a Quote
             </Button>
           </div>
