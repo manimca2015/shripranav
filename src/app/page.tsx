@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -6,6 +7,7 @@ import { About } from '@/components/sections/about';
 import { Products } from '@/components/sections/products';
 import { Values } from '@/components/sections/values';
 import { Factory } from '@/components/sections/factory';
+import { Awards } from '@/components/sections/awards';
 import { RequestQuote } from '@/components/sections/cta-quote';
 
 export default function Home() {
@@ -38,6 +40,7 @@ export default function Home() {
 
       <Values />
       <Factory />
+      <Awards />
       <RequestQuote />
       <Footer />
     </main>

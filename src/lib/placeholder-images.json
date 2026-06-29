@@ -65,6 +65,42 @@
       "description": "Modern weaving machines",
       "imageUrl": "https://picsum.photos/seed/weaving/1200/800",
       "imageHint": "weaving machine"
+    },
+    {
+      "id": "cert-iso",
+      "description": "ISO 9001 Certification",
+      "imageUrl": "https://picsum.photos/seed/iso/200/100",
+      "imageHint": "iso logo"
+    },
+    {
+      "id": "cert-gots",
+      "description": "GOTS Organic Certified",
+      "imageUrl": "https://picsum.photos/seed/gots/200/100",
+      "imageHint": "gots logo"
+    },
+    {
+      "id": "cert-oeko",
+      "description": "OEKO-TEX Standard 100",
+      "imageUrl": "https://picsum.photos/seed/oeko/200/100",
+      "imageHint": "oekotex logo"
+    },
+    {
+      "id": "cert-sa8000",
+      "description": "SA8000 Social Accountability",
+      "imageUrl": "https://picsum.photos/seed/sa8000/200/100",
+      "imageHint": "certification logo"
+    },
+    {
+      "id": "cert-fairtrade",
+      "description": "Fair Trade Certified",
+      "imageUrl": "https://picsum.photos/seed/fairtrade/200/100",
+      "imageHint": "fairtrade logo"
+    },
+    {
+      "id": "cert-wrap",
+      "description": "WRAP Certification",
+      "imageUrl": "https://picsum.photos/seed/wrap/200/100",
+      "imageHint": "wrap logo"
     }
   ]
 }
