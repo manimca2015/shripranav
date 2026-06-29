@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
+import { BackToTop } from "@/components/back-to-top";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -27,6 +29,8 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`} suppressHydrationWarning>
       <body className="antialiased font-sans">
         {children}
+        <BackToTop />
+        <Toaster />
       </body>
     </html>
   );
