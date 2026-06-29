@@ -35,11 +35,11 @@ export function Footer() {
           <div>
             <h4 className="text-xl font-bold mb-8 text-secondary">Quick Links</h4>
             <ul className="space-y-4">
-              <li><Link href="/about" className="text-slate-400 hover:text-white smooth-transition">About Shri Pranav</Link></li>
-              <li><Link href="/factory" className="text-slate-400 hover:text-white smooth-transition">Manufacturing Unit</Link></li>
-              <li><Link href="/blogs" className="text-slate-400 hover:text-white smooth-transition">Recent Insights</Link></li>
-              <li><Link href="/contact" className="text-slate-400 hover:text-white smooth-transition">Get in Touch</Link></li>
-              <li><Link href="/quote" className="text-slate-400 hover:text-white smooth-transition">Request a Quote</Link></li>
+              <li><Link href="/" className="text-slate-400 hover:text-white smooth-transition">Home</Link></li>
+              <li><Link href="/about" className="text-slate-400 hover:text-white smooth-transition">About Us</Link></li>
+              <li><Link href="/factory" className="text-slate-400 hover:text-white smooth-transition">Factory</Link></li>
+              <li><Link href="/blogs" className="text-slate-400 hover:text-white smooth-transition">Blogs</Link></li>
+              <li><Link href="/contact" className="text-slate-400 hover:text-white smooth-transition">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -47,10 +47,10 @@ export function Footer() {
             <h4 className="text-xl font-bold mb-8 text-secondary">Our Products</h4>
             <ul className="space-y-4">
               <li><Link href="/products/tote-bags" className="text-slate-400 hover:text-white smooth-transition">Tote Bags</Link></li>
-              <li><Link href="/products/linen" className="text-slate-400 hover:text-white smooth-transition">Bed Linen</Link></li>
-              <li><Link href="/products/cushion" className="text-slate-400 hover:text-white smooth-transition">Cushion Covers</Link></li>
-              <li><Link href="/products/baby" className="text-slate-400 hover:text-white smooth-transition">Baby Garments</Link></li>
-              <li><Link href="/products/gents" className="text-slate-400 hover:text-white smooth-transition">Gents' Shirts</Link></li>
+              <li><Link href="/products/bed-linen" className="text-slate-400 hover:text-white smooth-transition">Bed Linen</Link></li>
+              <li><Link href="/products/cushion-covers" className="text-slate-400 hover:text-white smooth-transition">Cushion Covers</Link></li>
+              <li><Link href="/products/baby-garments" className="text-slate-400 hover:text-white smooth-transition">Baby Garments</Link></li>
+              <li><Link href="/products/gents-shirts" className="text-slate-400 hover:text-white smooth-transition">Gents' Shirts</Link></li>
             </ul>
           </div>
 
@@ -59,15 +59,27 @@ export function Footer() {
             <ul className="space-y-6">
               <li className="flex gap-4">
                 <MapPin className="text-secondary shrink-0" />
-                <span className="text-slate-400 text-sm">Industrial Area Phase 2, <br />Textile City, India 110001</span>
+                <span className="text-slate-400 text-sm">
+                  44, Ramakrishnapuram East,<br />
+                  Karur, India, 639 001.
+                </span>
               </li>
               <li className="flex gap-4">
                 <Phone className="text-secondary shrink-0" />
-                <span className="text-slate-400 text-sm">+91 98765 43210</span>
+                <a href="tel:+919994411009" className="text-slate-400 text-sm hover:text-white transition-colors">
+                  +91 99944-11009
+                </a>
               </li>
               <li className="flex gap-4">
                 <Mail className="text-secondary shrink-0" />
-                <span className="text-slate-400 text-sm">info@shripranav.com</span>
+                <div className="flex flex-col gap-1">
+                  <a href="mailto:arjuna@shripranav.com" className="text-slate-400 text-sm hover:text-white transition-colors">
+                    arjuna@shripranav.com
+                  </a>
+                  <a href="mailto:info@shripranav.com" className="text-slate-400 text-sm hover:text-white transition-colors">
+                    info@shripranav.com
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
