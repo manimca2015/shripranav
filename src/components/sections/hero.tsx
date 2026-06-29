@@ -31,7 +31,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/40 to-transparent" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 pt-20">
+      <div className="container mx-auto px-4 relative z-10 pt-32 md:pt-48">
         <div className="max-w-3xl">
           <span className="inline-block bg-secondary text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-widest mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             Premium Textile Manufacturing
