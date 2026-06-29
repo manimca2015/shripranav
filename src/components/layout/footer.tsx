@@ -17,7 +17,7 @@ export function Footer() {
                 alt="Shri Pranav Logo"
                 width={180}
                 height={60}
-                className="object-contain brightness-0 invert"
+                className="object-contain"
               />
             </Link>
             <p className="text-slate-400 leading-relaxed max-w-xs">

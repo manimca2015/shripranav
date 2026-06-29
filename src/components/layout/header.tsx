@@ -19,9 +19,9 @@ const productCategories = [
   { name: 'Cushion Covers', href: '/products/cushion-covers' },
   { name: 'Table & Bath', href: '/products/table-bath' },
   { name: 'Baby Garments', href: '/products/baby-garments' },
-  { name: 'Girls\' Collection', href: '/products/girls-collection' },
-  { name: 'Boys\' Collection', href: '/products/boys-collection' },
-  { name: 'Gents\' Shirts', href: '/products/gents-shirts' },
+  { name: "Girls' Collection", href: '/products/girls-collection' },
+  { name: "Boys' Collection", href: '/products/boys-collection' },
+  { name: "Gents' Shirts", href: '/products/gents-shirts' },
 ];
 
 export function Header() {
@@ -50,8 +50,7 @@ export function Header() {
             alt="Shri Pranav Logo"
             width={160}
             height={50}
-            className="object-contain brightness-0 invert data-[scrolled=true]:invert-0"
-            data-scrolled={isScrolled}
+            className="object-contain"
             priority
           />
         </Link>
