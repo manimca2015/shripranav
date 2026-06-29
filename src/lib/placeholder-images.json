@@ -67,6 +67,18 @@
       "imageHint": "weaving machine"
     },
     {
+      "id": "factory-dyeing",
+      "description": "Eco-friendly dyeing unit",
+      "imageUrl": "https://picsum.photos/seed/dyeing-unit/1200/800",
+      "imageHint": "textile dyeing"
+    },
+    {
+      "id": "factory-stitching",
+      "description": "Precision stitching floor",
+      "imageUrl": "https://picsum.photos/seed/sewing/1200/800",
+      "imageHint": "sewing line"
+    },
+    {
       "id": "award-1",
       "description": "Industry Certification 1",
       "imageUrl": "/Awards/1.jpg",
