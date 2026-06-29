@@ -48,13 +48,13 @@ export function Hero() {
             <Button size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-10 h-14 font-bold text-lg smooth-transition">
               Explore Products
             </Button>
-            <Button size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg smooth-transition shadow-lg shadow-secondary/20">
+            <Button size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg shadow-lg shadow-secondary/20 transition-all">
               Request a Quote
             </Button>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 border-t border-white/20 pt-12 animate-in fade-in duration-1000 delay-500">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-white/20 py-12 animate-in fade-in duration-1000 delay-500">
           {stats.map((stat, i) => (
             <div key={i} className="text-center md:text-left">
               <p className="text-2xl md:text-3xl font-black text-secondary mb-1">{stat.value}</p>
