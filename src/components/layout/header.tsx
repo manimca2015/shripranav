@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const productCategories = [
+  { name: 'All Products', href: '/products' },
   { name: 'Tote Bags', href: '/products/tote-bags' },
   { name: 'Bed Linen', href: '/products/bed-linen' },
   { name: 'Cushion Covers', href: '/products/cushion-covers' },
