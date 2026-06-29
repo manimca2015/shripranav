@@ -58,7 +58,7 @@ export function Hero() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mt-24 border-t border-white/20 pt-12 animate-in fade-in duration-1000 delay-500">
           {stats.map((stat, i) => (
             <div key={i} className="text-center md:text-left">
-              <p className="text-3xl md:text-4xl font-black text-secondary mb-1">{stat.value}</p>
+              <p className="text-2xl md:text-3xl font-black text-secondary mb-1">{stat.value}</p>
               <p className="text-sm text-white/60 font-medium uppercase tracking-tight">{stat.label}</p>
             </div>
           ))}
