@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -44,12 +45,15 @@ export function Header() {
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <span className={cn(
-            "text-2xl font-black tracking-tighter uppercase",
-            isScrolled ? "text-primary" : "text-white"
-          )}>
-            Shri <span className="text-secondary">Pranav</span>
-          </span>
+          <Image
+            src="/logo.png"
+            alt="Shri Pranav Logo"
+            width={160}
+            height={50}
+            className="object-contain brightness-0 invert data-[scrolled=true]:invert-0"
+            data-scrolled={isScrolled}
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}

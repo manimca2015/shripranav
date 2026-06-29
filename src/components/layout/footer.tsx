@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 export function Footer() {
@@ -11,9 +12,13 @@ export function Footer() {
         <div className="grid lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-8">
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-3xl font-black tracking-tighter uppercase text-white">
-                Shri <span className="text-secondary">Pranav</span>
-              </span>
+              <Image
+                src="/logo.png"
+                alt="Shri Pranav Logo"
+                width={180}
+                height={60}
+                className="object-contain brightness-0 invert"
+              />
             </Link>
             <p className="text-slate-400 leading-relaxed max-w-xs">
               A globally respected textile manufacturer committed to quality, sustainability, and people-first practices since 1995.
