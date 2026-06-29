@@ -140,7 +140,7 @@ export default function ProductDetailPage() {
           <p className="text-xl text-white/60 mb-12">
             Every {product.title.toLowerCase()} is produced in our integrated Karur facility, ensuring complete transparency and unmatched quality control.
           </p>
-          <Button asChild variant="outline" className="rounded-full border-white text-white hover:bg-white hover:text-primary h-14 px-10 font-bold">
+          <Button asChild variant="outline" className="rounded-full border-white text-white hover:bg-white hover:text-primary h-14 px-10 font-bold bg-transparent">
             <Link href="/factory">See Our Manufacturing</Link>
           </Button>
         </div>
