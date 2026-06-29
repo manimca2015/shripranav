@@ -1,9 +1,38 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CheckCircle2 } from 'lucide-react';
+
+function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?: number, suffix?: string }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number | null = null;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+      
+      // Easing function: easeOutQuart
+      const easeOutQuart = (x: number): number => 1 - Math.pow(1 - x, 4);
+      
+      setCount(Math.floor(easeOutQuart(percentage) * end));
+
+      if (percentage < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration]);
+
+  return <>{count}{suffix}</>;
+}
 
 export function About() {
   const aboutImg = PlaceHolderImages.find(img => img.id === 'about-image');
@@ -57,12 +86,16 @@ export function About() {
             <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-slate-100">
               <div className="flex items-center gap-6">
                 <div>
-                  <p className="text-4xl font-black text-primary">28+</p>
+                  <p className="text-4xl font-black text-primary">
+                    <CountUp end={28} suffix="+" />
+                  </p>
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Years of Craft</p>
                 </div>
                 <div className="w-px h-12 bg-slate-200" />
                 <div>
-                  <p className="text-4xl font-black text-primary">500+</p>
+                  <p className="text-4xl font-black text-primary">
+                    <CountUp end={500} suffix="+" />
+                  </p>
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Global Partners</p>
                 </div>
               </div>
