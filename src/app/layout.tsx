@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  weight: ["400", "500", "700", "900"],
+});
+
 export const metadata: Metadata = {
-  title: "New Project",
-  description: "Started from scratch",
+  title: "Shri Pranav | Premium Textile Manufacturing Excellence",
+  description: "Established in 1995, Shri Pranav is a leading manufacturer of tote bags, bed linen, and luxury garments with a focus on sustainability and innovation.",
 };
 
 export default function RootLayout({
@@ -12,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased">
+    <html lang="en" className={`${inter.variable} ${montserrat.variable}`} suppressHydrationWarning>
+      <body className="antialiased font-sans">
         {children}
       </body>
     </html>

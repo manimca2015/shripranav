@@ -1,3 +1,70 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-bg",
+      "description": "Premium fabric texture background",
+      "imageUrl": "https://picsum.photos/seed/textile1/1920/1080",
+      "imageHint": "luxury fabric"
+    },
+    {
+      "id": "about-image",
+      "description": "Manufacturing process detail",
+      "imageUrl": "https://picsum.photos/seed/factory/800/600",
+      "imageHint": "textile factory"
+    },
+    {
+      "id": "prod-tote",
+      "description": "Canvas tote bags collection",
+      "imageUrl": "https://picsum.photos/seed/tote/600/600",
+      "imageHint": "tote bag"
+    },
+    {
+      "id": "prod-linen",
+      "description": "Luxury bed linen set",
+      "imageUrl": "https://picsum.photos/seed/linen/600/600",
+      "imageHint": "bed linen"
+    },
+    {
+      "id": "prod-cushion",
+      "description": "Elegant cushion covers",
+      "imageUrl": "https://picsum.photos/seed/cushion/600/600",
+      "imageHint": "cushion cover"
+    },
+    {
+      "id": "prod-table",
+      "description": "Table and bath textiles",
+      "imageUrl": "https://picsum.photos/seed/bath/600/600",
+      "imageHint": "bath towel"
+    },
+    {
+      "id": "prod-baby",
+      "description": "Soft baby garments",
+      "imageUrl": "https://picsum.photos/seed/baby/600/600",
+      "imageHint": "baby clothes"
+    },
+    {
+      "id": "prod-girls",
+      "description": "Girls' textile collection",
+      "imageUrl": "https://picsum.photos/seed/girls/600/600",
+      "imageHint": "girls clothing"
+    },
+    {
+      "id": "prod-boys",
+      "description": "Boys' textile collection",
+      "imageUrl": "https://picsum.photos/seed/boys/600/600",
+      "imageHint": "boys clothing"
+    },
+    {
+      "id": "prod-gents",
+      "description": "Gents' formal shirts",
+      "imageUrl": "https://picsum.photos/seed/shirts/600/600",
+      "imageHint": "gents shirt"
+    },
+    {
+      "id": "factory-main",
+      "description": "Modern weaving machines",
+      "imageUrl": "https://picsum.photos/seed/weaving/1200/800",
+      "imageHint": "weaving machine"
+    }
+  ]
 }
