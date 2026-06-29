@@ -6,32 +6,32 @@ import { ShieldCheck, Users, Lightbulb, Leaf, Handshake, Heart } from 'lucide-re
 const values = [
   {
     title: 'Integrity',
-    desc: 'We believe in doing the right thing — always. Honesty and transparency guide every decision.',
+    desc: 'We believe in doing the right thing — always. Honesty and transparency guide every decision we make.',
     icon: ShieldCheck
   },
   {
     title: 'People First',
-    desc: 'From empowering our team to treating every stakeholder with respect, we prioritize human dignity.',
+    desc: 'From empowering our team to treating every stakeholder with respect, we prioritize human dignity and development.',
     icon: Users
   },
   {
     title: 'Innovation',
-    desc: 'We embrace continuous improvement and smart technologies to stay ahead in quality and design.',
+    desc: 'We embrace continuous improvement and smart technologies to stay ahead in quality, sustainability, and design.',
     icon: Lightbulb
   },
   {
     title: 'Sustainability',
-    desc: 'We are committed to eco-conscious practices that reduce waste and protect the environment.',
+    desc: 'We are committed to eco-conscious practices that reduce waste, conserve resources, and protect the environment for future generations.',
     icon: Leaf
   },
   {
     title: 'Collaboration',
-    desc: 'We grow stronger together through teamwork, open communication, and shared success.',
+    desc: 'We grow stronger together — through teamwork, mutual respect, and shared success across all levels of the organization.',
     icon: Handshake
   },
   {
     title: 'Women Empowerment',
-    desc: 'We empower women by providing equal opportunities, skill development, and support.',
+    desc: 'We empower women by providing equal opportunities, skill development, and a supportive work environment.',
     icon: Heart
   }
 ];
