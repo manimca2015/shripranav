@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const products = [
   { id: 'prod-tote', title: 'Tote Bags', desc: 'Sustainable & stylish eco-friendly bags.' },
@@ -20,10 +21,30 @@ const products = [
 ];
 
 export function Products() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-24 bg-slate-50">
+    <section ref={sectionRef} className="py-24 bg-slate-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
+        <div className={cn("text-center mb-16 max-w-3xl mx-auto transition-all duration-1000", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10")}>
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Our Portfolio</span>
           <h2 className="text-4xl md:text-5xl font-black text-primary mb-6">Product Categories</h2>
           <p className="text-slate-600">
@@ -32,10 +53,17 @@ export function Products() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((prod) => {
+          {products.map((prod, index) => {
             const img = PlaceHolderImages.find(i => i.id === prod.id);
             return (
-              <Card key={prod.id} className="group overflow-hidden rounded-3xl border-none shadow-lg hover:shadow-2xl smooth-transition">
+              <Card 
+                key={prod.id} 
+                className={cn(
+                  "group overflow-hidden rounded-3xl border-none shadow-lg hover:shadow-2xl transition-all duration-700",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+                )}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
                 <div className="relative h-72 overflow-hidden">
                   {img && (
                     <Image
@@ -64,7 +92,7 @@ export function Products() {
           })}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className={cn("mt-16 text-center transition-all duration-1000 delay-500", isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90")}>
           <Button size="lg" className="rounded-full bg-primary hover:bg-secondary text-white px-10 font-bold smooth-transition">
             View All Collections
           </Button>

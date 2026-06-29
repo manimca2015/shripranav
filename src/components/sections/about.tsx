@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CheckCircle2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?: number, suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -17,7 +18,6 @@ function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
       
-      // Easing function: easeOutQuart
       const easeOutQuart = (x: number): number => 1 - Math.pow(1 - x, 4);
       
       setCount(Math.floor(easeOutQuart(percentage) * end));
@@ -36,14 +36,33 @@ function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?
 
 export function About() {
   const aboutImg = PlaceHolderImages.find(img => img.id === 'about-image');
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 relative overflow-hidden">
       <div className="textile-pattern absolute inset-0 z-0" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="animate-in slide-in-from-left duration-1000">
+          <div className={cn("transition-all duration-1000", isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12")}>
             <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Crafting Excellence</span>
             <h2 className="text-4xl md:text-5xl font-black text-primary mb-8 leading-tight">
               About <span className="text-secondary">Shri Pranav</span>
@@ -73,7 +92,7 @@ export function About() {
             </div>
           </div>
 
-          <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl animate-in slide-in-from-right duration-1000">
+          <div className={cn("relative h-[600px] rounded-3xl overflow-hidden shadow-2xl transition-all duration-1000 delay-300", isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12")}>
             {aboutImg && (
               <Image
                 src={aboutImg.imageUrl}
@@ -87,14 +106,14 @@ export function About() {
               <div className="flex items-center gap-6">
                 <div>
                   <p className="text-4xl font-black text-primary">
-                    <CountUp end={28} suffix="+" />
+                    {isVisible && <CountUp end={28} suffix="+" />}
                   </p>
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Years of Craft</p>
                 </div>
                 <div className="w-px h-12 bg-slate-200" />
                 <div>
                   <p className="text-4xl font-black text-primary">
-                    <CountUp end={500} suffix="+" />
+                    {isVisible && <CountUp end={500} suffix="+" />}
                   </p>
                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Global Partners</p>
                 </div>
