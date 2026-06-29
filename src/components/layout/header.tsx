@@ -5,25 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-const productCategories = [
-  { name: 'All Products', href: '/products' },
-  { name: 'Tote Bags', href: '/products/tote-bags' },
-  { name: 'Bed Linen', href: '/products/bed-linen' },
-  { name: 'Cushion Covers', href: '/products/cushion-covers' },
-  { name: 'Table & Bath', href: '/products/table-bath' },
-  { name: 'Baby Garments', href: '/products/baby-garments' },
-  { name: "Girls' Collection", href: '/products/girls-collection' },
-  { name: "Boys' Collection", href: '/products/boys-collection' },
-  { name: "Gents' Shirts", href: '/products/gents-shirts' },
-];
+import { Menu, X } from 'lucide-react';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,6 +18,11 @@ export function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navLinkClasses = (scrolled: boolean) => cn(
+    "font-medium hover:text-secondary smooth-transition",
+    scrolled ? "text-slate-700" : "text-white/90"
+  );
 
   return (
     <header
@@ -58,25 +45,12 @@ export function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          <Link href="/" className={cn("font-medium hover:text-secondary smooth-transition", isScrolled ? "text-slate-700" : "text-white/90")}>Home</Link>
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger className={cn("flex items-center gap-1 font-medium hover:text-secondary smooth-transition outline-none", isScrolled ? "text-slate-700" : "text-white/90")}>
-              Products <ChevronDown className="w-4 h-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 p-2">
-              {productCategories.map((cat) => (
-                <DropdownMenuItem key={cat.href} asChild>
-                  <Link href={cat.href} className="cursor-pointer w-full">{cat.name}</Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Link href="/factory" className={cn("font-medium hover:text-secondary smooth-transition", isScrolled ? "text-slate-700" : "text-white/90")}>Factory</Link>
-          <Link href="/about" className={cn("font-medium hover:text-secondary smooth-transition", isScrolled ? "text-slate-700" : "text-white/90")}>About Us</Link>
-          <Link href="/blogs" className={cn("font-medium hover:text-secondary smooth-transition", isScrolled ? "text-slate-700" : "text-white/90")}>Blogs</Link>
-          <Link href="/contact" className={cn("font-medium hover:text-secondary smooth-transition", isScrolled ? "text-slate-700" : "text-white/90")}>Contact Us</Link>
+          <Link href="/" className={navLinkClasses(isScrolled)}>Home</Link>
+          <Link href="/products" className={navLinkClasses(isScrolled)}>Products</Link>
+          <Link href="/factory" className={navLinkClasses(isScrolled)}>Factory</Link>
+          <Link href="/about" className={navLinkClasses(isScrolled)}>About Us</Link>
+          <Link href="/blogs" className={navLinkClasses(isScrolled)}>Blogs</Link>
+          <Link href="/contact" className={navLinkClasses(isScrolled)}>Contact Us</Link>
         </nav>
 
         <div className="hidden lg:block">
@@ -91,7 +65,7 @@ export function Header() {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? (
-            <X className={isScrolled ? "text-primary" : "text-primary"} />
+            <X className="text-primary" />
           ) : (
             <Menu className={isScrolled ? "text-primary" : "text-white"} />
           )}
@@ -102,19 +76,7 @@ export function Header() {
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t p-4 flex flex-col gap-4 animate-in slide-in-from-top duration-300 shadow-xl">
           <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">Home</Link>
-          <div className="flex flex-col gap-2">
-            <span className="font-semibold p-2 text-primary">Products</span>
-            {productCategories.map((cat) => (
-              <Link 
-                key={cat.href} 
-                href={cat.href} 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="pl-6 py-2 text-sm border-l-2 border-slate-100 hover:border-secondary"
-              >
-                {cat.name}
-              </Link>
-            ))}
-          </div>
+          <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">Products</Link>
           <Link href="/factory" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">Factory</Link>
           <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">About Us</Link>
           <Link href="/blogs" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-2 border-b">Blogs</Link>
