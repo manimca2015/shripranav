@@ -1,15 +1,44 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
+function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?: number, suffix?: string }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number | null = null;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+      
+      // Easing function: easeOutQuart
+      const easeOutQuart = (x: number): number => 1 - Math.pow(1 - x, 4);
+      
+      setCount(Math.floor(easeOutQuart(percentage) * end));
+
+      if (percentage < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration]);
+
+  return <>{count}{suffix}</>;
+}
+
 const stats = [
-  { label: 'Established', value: '1995' },
-  { label: 'Experience', value: '28+ Years' },
-  { label: 'Product Categories', value: '15+' },
-  { label: 'Happy Clients', value: '500+' },
+  { label: 'Established', value: 1995, suffix: '' },
+  { label: 'Experience', value: 28, suffix: '+ Years' },
+  { label: 'Product Categories', value: 15, suffix: '+' },
+  { label: 'Happy Clients', value: 500, suffix: '+' },
 ];
 
 export function Hero() {
@@ -31,7 +60,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/40 to-transparent" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 pt-32 md:pt-48">
+      <div className="container mx-auto px-4 relative z-10 pt-48 md:pt-64">
         <div className="max-w-3xl">
           <span className="inline-block bg-secondary text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-widest mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             Premium Textile Manufacturing
@@ -54,10 +83,12 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-white/20 py-12 animate-in fade-in duration-1000 delay-500">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-white/20 py-16 animate-in fade-in duration-1000 delay-500">
           {stats.map((stat, i) => (
             <div key={i} className="text-center md:text-left">
-              <p className="text-2xl md:text-3xl font-black text-secondary mb-1">{stat.value}</p>
+              <p className="text-2xl md:text-3xl font-black text-secondary mb-1">
+                <CountUp end={stat.value} suffix={stat.suffix} />
+              </p>
               <p className="text-sm text-white/60 font-medium uppercase tracking-tight">{stat.label}</p>
             </div>
           ))}
