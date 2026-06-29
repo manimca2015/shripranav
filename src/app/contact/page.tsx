@@ -275,15 +275,17 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Placeholder or Visual Divider */}
-      <section className="h-96 bg-slate-100 relative grayscale hover:grayscale-0 smooth-transition">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
-            <p className="font-bold text-primary">Located in the Heart of India's Textile Hub</p>
-            <p className="text-slate-500 text-sm">Karur, Tamil Nadu</p>
-          </div>
-        </div>
+      {/* Google Maps Location */}
+      <section className="h-[450px] w-full relative grayscale hover:grayscale-0 smooth-transition">
+        <iframe
+          src="https://www.google.com/maps?q=Shri+Pranav+Textiles+Karur+44+Ramakrishnapuram+East&output=embed"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          title="Google Maps Location"
+        ></iframe>
       </section>
 
       <Footer />
