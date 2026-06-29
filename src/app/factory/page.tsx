@@ -207,13 +207,6 @@ export default function FactoryPage() {
             <Button size="lg" className="rounded-full bg-secondary hover:bg-white hover:text-primary h-14 px-10 font-bold text-lg shadow-xl shadow-secondary/10 smooth-transition">
               Schedule a Factory Tour
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="rounded-full border-2 border-white text-white hover:bg-white hover:text-slate-900 h-14 px-10 font-bold text-lg smooth-transition"
-            >
-              Download Capacity Deck
-            </Button>
           </div>
         </div>
       </section>
