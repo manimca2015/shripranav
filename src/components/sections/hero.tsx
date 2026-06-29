@@ -9,7 +9,6 @@ const stats = [
   { label: 'Established', value: '1995' },
   { label: 'Experience', value: '28+ Years' },
   { label: 'Product Categories', value: '15+' },
-  { label: 'Global Reach', value: '25+ Countries' },
   { label: 'Happy Clients', value: '500+' },
 ];
 
@@ -55,7 +54,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mt-24 border-t border-white/20 pt-12 animate-in fade-in duration-1000 delay-500">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 border-t border-white/20 pt-12 animate-in fade-in duration-1000 delay-500">
           {stats.map((stat, i) => (
             <div key={i} className="text-center md:text-left">
               <p className="text-2xl md:text-3xl font-black text-secondary mb-1">{stat.value}</p>
