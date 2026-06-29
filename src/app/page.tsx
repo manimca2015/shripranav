@@ -8,6 +8,7 @@ import { Products } from '@/components/sections/products';
 import { Values } from '@/components/sections/values';
 import { Factory } from '@/components/sections/factory';
 import { Awards } from '@/components/sections/awards';
+import { Blog } from '@/components/sections/blog';
 import { RequestQuote } from '@/components/sections/cta-quote';
 
 export default function Home() {
@@ -41,6 +42,7 @@ export default function Home() {
       <Values />
       <Factory />
       <Awards />
+      <Blog />
       <RequestQuote />
       <Footer />
     </main>

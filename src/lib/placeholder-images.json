@@ -107,6 +107,24 @@
       "description": "Industry Certification 7",
       "imageUrl": "/Awards/7.png",
       "imageHint": "certification"
+    },
+    {
+      "id": "blog-1",
+      "description": "Sustainable textile trends",
+      "imageUrl": "https://picsum.photos/seed/blog1/800/500",
+      "imageHint": "sustainable fashion"
+    },
+    {
+      "id": "blog-2",
+      "description": "Ethical manufacturing workspace",
+      "imageUrl": "https://picsum.photos/seed/blog2/800/500",
+      "imageHint": "ethical factory"
+    },
+    {
+      "id": "blog-3",
+      "description": "Cotton quality testing",
+      "imageUrl": "https://picsum.photos/seed/blog3/800/500",
+      "imageHint": "textile quality"
     }
   ]
 }
