@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -6,12 +5,13 @@ import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const certifications = [
-  { id: 'cert-iso', name: 'ISO 9001' },
-  { id: 'cert-gots', name: 'GOTS Certified' },
-  { id: 'cert-oeko', name: 'OEKO-TEX' },
-  { id: 'cert-sa8000', name: 'SA 8000' },
-  { id: 'cert-fairtrade', name: 'Fair Trade' },
-  { id: 'cert-wrap', name: 'WRAP' },
+  { id: 'award-1', name: 'Certification 1' },
+  { id: 'award-2', name: 'Certification 2' },
+  { id: 'award-3', name: 'Certification 3' },
+  { id: 'award-4', name: 'Certification 4' },
+  { id: 'award-5', name: 'Certification 5' },
+  { id: 'award-6', name: 'Certification 6' },
+  { id: 'award-7', name: 'Certification 7' },
 ];
 
 export function Awards() {

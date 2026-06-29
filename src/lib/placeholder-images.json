@@ -67,40 +67,46 @@
       "imageHint": "weaving machine"
     },
     {
-      "id": "cert-iso",
-      "description": "ISO 9001 Certification",
-      "imageUrl": "https://picsum.photos/seed/iso/200/100",
-      "imageHint": "iso logo"
+      "id": "award-1",
+      "description": "Industry Certification 1",
+      "imageUrl": "/Awards/1.jpg",
+      "imageHint": "certification"
     },
     {
-      "id": "cert-gots",
-      "description": "GOTS Organic Certified",
-      "imageUrl": "https://picsum.photos/seed/gots/200/100",
-      "imageHint": "gots logo"
+      "id": "award-2",
+      "description": "Industry Certification 2",
+      "imageUrl": "/Awards/2.jpg",
+      "imageHint": "certification"
     },
     {
-      "id": "cert-oeko",
-      "description": "OEKO-TEX Standard 100",
-      "imageUrl": "https://picsum.photos/seed/oeko/200/100",
-      "imageHint": "oekotex logo"
+      "id": "award-3",
+      "description": "Industry Certification 3",
+      "imageUrl": "/Awards/3.png",
+      "imageHint": "certification"
     },
     {
-      "id": "cert-sa8000",
-      "description": "SA8000 Social Accountability",
-      "imageUrl": "https://picsum.photos/seed/sa8000/200/100",
-      "imageHint": "certification logo"
+      "id": "award-4",
+      "description": "Industry Certification 4",
+      "imageUrl": "/Awards/4.png",
+      "imageHint": "certification"
     },
     {
-      "id": "cert-fairtrade",
-      "description": "Fair Trade Certified",
-      "imageUrl": "https://picsum.photos/seed/fairtrade/200/100",
-      "imageHint": "fairtrade logo"
+      "id": "award-5",
+      "description": "Industry Certification 5",
+      "imageUrl": "/Awards/5.png",
+      "imageHint": "certification"
     },
     {
-      "id": "cert-wrap",
-      "description": "WRAP Certification",
-      "imageUrl": "https://picsum.photos/seed/wrap/200/100",
-      "imageHint": "wrap logo"
+      "id": "award-6",
+      "description": "Industry Certification 6",
+      "imageUrl": "/Awards/6.png",
+      "imageHint": "certification"
+    },
+    {
+      "id": "award-7",
+      "description": "Industry Certification 7",
+      "imageUrl": "/Awards/7.png",
+      "imageHint": "certification"
     }
   ]
 }
