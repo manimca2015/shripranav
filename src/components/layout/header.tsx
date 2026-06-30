@@ -6,12 +6,6 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { productDetails } from '@/lib/product-data';
 
 export function Header() {
@@ -55,28 +49,29 @@ export function Header() {
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           <Link href="/" className={navLinkClasses(isScrolled)}>Home</Link>
           
-          <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild>
-              <button className={cn(navLinkClasses(isScrolled), "outline-none group bg-transparent border-none cursor-pointer")}>
-                Products <ChevronDown className="w-4 h-4 group-data-[state=open]:rotate-180 transition-transform duration-300" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-56 rounded-2xl p-2 shadow-2xl border-slate-100 bg-white">
-              <DropdownMenuItem asChild>
-                <Link href="/products" className="font-bold text-primary cursor-pointer rounded-xl mb-1 focus:bg-slate-50">
-                  All Products
-                </Link>
-              </DropdownMenuItem>
-              <div className="h-px bg-slate-100 my-1" />
-              {productDetails.map((product) => (
-                <DropdownMenuItem key={product.id} asChild>
-                  <Link href={`/products/${product.slug}`} className="cursor-pointer rounded-xl hover:bg-slate-50 focus:bg-slate-50">
+          <div className="relative group">
+            <Link 
+              href="/products" 
+              className={navLinkClasses(isScrolled)}
+            >
+              Products <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
+            </Link>
+            
+            {/* Desktop Hover Submenu */}
+            <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+              <div className="w-56 rounded-2xl p-2 shadow-2xl border border-slate-100 bg-white">
+                {productDetails.map((product) => (
+                  <Link 
+                    key={product.id} 
+                    href={`/products/${product.slug}`} 
+                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-secondary rounded-xl transition-colors"
+                  >
                     {product.title}
                   </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+                ))}
+              </div>
+            </div>
+          </div>
 
           <Link href="/factory" className={navLinkClasses(isScrolled)}>Factory</Link>
           <Link href="/about" className={navLinkClasses(isScrolled)}>About Us</Link>
@@ -110,15 +105,27 @@ export function Header() {
           <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-3 hover:bg-slate-50 rounded-xl transition-colors">Home</Link>
           
           <div className="rounded-xl overflow-hidden">
-            <button 
-              onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
-              className="w-full flex justify-between items-center font-semibold p-3 hover:bg-slate-50 transition-colors"
-            >
-              Products <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isMobileProductsOpen && "rotate-180")} />
-            </button>
+            <div className="flex items-center justify-between hover:bg-slate-50">
+              <Link 
+                href="/products" 
+                onClick={() => setIsMobileMenuOpen(false)} 
+                className="flex-grow font-semibold p-3 transition-colors"
+              >
+                Products
+              </Link>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsMobileProductsOpen(!isMobileProductsOpen);
+                }}
+                className="p-3 border-l"
+              >
+                <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isMobileProductsOpen && "rotate-180")} />
+              </button>
+            </div>
+            
             {isMobileProductsOpen && (
               <div className="bg-slate-50 flex flex-col">
-                <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="p-3 pl-8 text-sm font-bold text-primary hover:bg-slate-100">All Products</Link>
                 {productDetails.map((product) => (
                   <Link 
                     key={product.id} 
