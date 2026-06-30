@@ -46,7 +46,6 @@ export function Footer() {
           <div>
             <h4 className="text-xl font-bold mb-8 text-secondary">Our Products</h4>
             <ul className="space-y-4">
-              <li><Link href="/products" className="text-white font-bold hover:text-secondary smooth-transition underline underline-offset-4">View All Products</Link></li>
               <li><Link href="/products/tote-bags" className="text-slate-400 hover:text-white smooth-transition">Tote Bags</Link></li>
               <li><Link href="/products/bed-linen" className="text-slate-400 hover:text-white smooth-transition">Bed Linen</Link></li>
               <li><Link href="/products/cushion-covers" className="text-slate-400 hover:text-white smooth-transition">Cushion Covers</Link></li>
