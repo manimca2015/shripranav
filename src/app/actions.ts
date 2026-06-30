@@ -11,17 +11,33 @@ const contactSchema = z.object({
   message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
 });
 
+const quoteSchema = z.object({
+  name: z.string().min(2, { message: 'Name is required' }),
+  email: z.string().email({ message: 'Valid email is required' }),
+  company: z.string().optional(),
+  phone: z.string().min(10, { message: 'Valid phone is required' }),
+  product: z.string().min(2, { message: 'Please specify a product' }),
+  message: z.string().min(10, { message: 'Please provide more details' }),
+});
+
 export async function submitContact(values: z.infer<typeof contactSchema>) {
-  // In a real app, you would send an email or save to a database here.
-  // For this prototype, we'll simulate a successful submission.
   console.log('Contact form submission:', values);
-  
   try {
-    // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return { success: true };
   } catch (error) {
     console.error(error);
     return { success: false, message: 'An unknown error occurred.' };
+  }
+}
+
+export async function submitQuoteRequest(values: z.infer<typeof quoteSchema>) {
+  console.log('Quote request submission:', values);
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: 'Failed to submit request.' };
   }
 }

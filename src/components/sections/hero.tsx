@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { QuoteRequestModal } from '@/components/quote-request-modal';
+import Link from 'next/link';
 
 function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?: number, suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -17,7 +19,6 @@ function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
       
-      // Easing function: easeOutQuart
       const easeOutQuart = (x: number): number => 1 - Math.pow(1 - x, 4);
       
       setCount(Math.floor(easeOutQuart(percentage) * end));
@@ -43,6 +44,7 @@ const stats = [
 
 export function Hero() {
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-bg');
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-900">
@@ -74,10 +76,10 @@ export function Hero() {
           </p>
           
           <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
-            <Button size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-10 h-14 font-bold text-lg smooth-transition">
-              Explore Products
+            <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-10 h-14 font-bold text-lg transition-all">
+              <Link href="/products">Explore Products</Link>
             </Button>
-            <Button size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg shadow-lg shadow-secondary/20 transition-all">
+            <Button onClick={() => setIsQuoteModalOpen(true)} size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg shadow-lg shadow-secondary/20 transition-all">
               Request a Quote
             </Button>
           </div>
@@ -94,6 +96,7 @@ export function Hero() {
           ))}
         </div>
       </div>
+      <QuoteRequestModal isOpen={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen} />
 
       <style jsx global>{`
         @keyframes pulse-slow {

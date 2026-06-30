@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -10,10 +10,12 @@ import { productDetails } from '@/lib/product-data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { CheckCircle2, ArrowLeft, Send, ShieldCheck, Zap, Leaf } from 'lucide-react';
+import { QuoteRequestModal } from '@/components/quote-request-modal';
 
 export default function ProductDetailPage() {
   const params = useParams();
   const slug = params.id as string;
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   
   const product = productDetails.find(p => p.slug === slug || p.id === slug);
   
@@ -44,7 +46,7 @@ export default function ProductDetailPage() {
         <div className="textile-pattern absolute inset-0 opacity-10" />
         <div className="container mx-auto px-4 relative z-10">
           <Link 
-            href="/" 
+            href="/products" 
             className="inline-flex items-center gap-2 text-secondary font-bold mb-8 hover:gap-3 smooth-transition uppercase tracking-widest text-xs"
           >
             <ArrowLeft className="w-4 h-4" /> Back to portfolio
@@ -123,7 +125,7 @@ export default function ProductDetailPage() {
               </div>
 
               <div className="pt-8">
-                <Button className="w-full sm:w-auto rounded-full bg-secondary hover:bg-primary text-white px-12 h-16 font-bold text-lg smooth-transition flex items-center gap-3">
+                <Button onClick={() => setIsQuoteModalOpen(true)} className="w-full sm:w-auto rounded-full bg-secondary hover:bg-primary text-white px-12 h-16 font-bold text-lg smooth-transition flex items-center gap-3">
                   Request Bulk Quote <Send className="w-5 h-5" />
                 </Button>
               </div>
@@ -145,7 +147,8 @@ export default function ProductDetailPage() {
           </Button>
         </div>
       </section>
-
+      
+      <QuoteRequestModal isOpen={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen} />
       <Footer />
     </main>
   );
