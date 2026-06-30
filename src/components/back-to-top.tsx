@@ -32,6 +32,10 @@ export function BackToTop() {
     <div
       className={cn(
         'fixed bottom-8 right-8 z-50 transition-all duration-300 transform',
+        /* 
+           Using scrollbar-gutter: stable on html helps, but we also ensure 
+           transitions here don't fight with Radix UI body adjustments.
+        */
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0 pointer-events-none'
       )}
     >

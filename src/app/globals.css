@@ -33,7 +33,10 @@
   }
   html {
     scroll-behavior: smooth;
-    /* Reserve space for scrollbar to prevent layout shift on modals */
+    /* 
+       scrollbar-gutter: stable is the standard way to prevent layout shifts.
+       It reserves space for the scrollbar track even when the scrollbar is hidden.
+    */
     scrollbar-gutter: stable;
   }
   body {
@@ -58,13 +61,18 @@
 }
 
 .smooth-transition {
-  @apply transition-all duration-500 ease-in-out;
+  @apply transition-all duration-300 ease-in-out;
 }
 
 .header-transition {
+  /* 
+     CRITICAL: We must explicitly list transition properties. 
+     Do NOT include 'padding' or 'all' because Radix/Shadcn adds padding-right 
+     to the header when modals open. If that padding-right is animated, it causes a "shake".
+  */
   transition-property: background-color, border-color, color, fill, stroke, box-shadow, backdrop-filter, padding-top, padding-bottom;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 500ms;
+  transition-duration: 300ms;
 }
 
 .reveal {
