@@ -33,10 +33,11 @@
   }
   html {
     scroll-behavior: smooth;
+    /* Reserve space for scrollbar to prevent layout shift on modals */
+    scrollbar-gutter: stable;
   }
   body {
     @apply bg-background text-foreground font-sans;
-    /* Prevent potential horizontal overflow during modal transitions */
     overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
@@ -58,6 +59,12 @@
 
 .smooth-transition {
   @apply transition-all duration-500 ease-in-out;
+}
+
+.header-transition {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow, backdrop-filter, padding-top, padding-bottom;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
 }
 
 .reveal {
