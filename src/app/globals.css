@@ -33,11 +33,11 @@
   }
   html {
     scroll-behavior: smooth;
-    /* Prevents horizontal layout shift when scrollbars appear/disappear */
-    scrollbar-gutter: stable;
   }
   body {
     @apply bg-background text-foreground font-sans;
+    /* Prevent potential horizontal overflow during modal transitions */
+    overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;
