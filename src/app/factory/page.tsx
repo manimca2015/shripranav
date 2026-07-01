@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -42,6 +43,8 @@ const facilities = [
 ];
 
 export default function FactoryPage() {
+  const machineryImg = PlaceHolderImages.find(i => i.id === 'factory-machinery');
+
   return (
     <main className="min-h-screen bg-white">
       <Header />
@@ -137,13 +140,15 @@ export default function FactoryPage() {
               </div>
             </div>
             <div className="relative h-[500px] rounded-[60px] overflow-hidden shadow-2xl">
-              <Image
-                src="https://picsum.photos/seed/tech/800/1000"
-                alt="Technology in Factory"
-                fill
-                className="object-cover"
-                data-ai-hint="high tech"
-              />
+              {machineryImg && (
+                <Image
+                  src={machineryImg.imageUrl}
+                  alt="Technology in Factory"
+                  fill
+                  className="object-cover"
+                  data-ai-hint={machineryImg.imageHint}
+                />
+              )}
               <div className="absolute inset-0 bg-primary/20" />
             </div>
           </div>

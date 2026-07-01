@@ -79,6 +79,12 @@
       "imageHint": "sewing line"
     },
     {
+      "id": "factory-machinery",
+      "description": "Advanced textile machinery",
+      "imageUrl": "/machinery.jpg",
+      "imageHint": "factory machines"
+    },
+    {
       "id": "award-1",
       "description": "Industry Certification 1",
       "imageUrl": "/Awards/1.jpg",
