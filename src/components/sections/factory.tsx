@@ -68,8 +68,8 @@ export function Factory() {
             <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 p-6 md:p-8 glass-card border-none rounded-3xl md:max-w-sm">
               <FactoryIcon className="text-secondary w-10 h-10 md:w-12 md:h-12 mb-3 md:mb-4" />
-              <h4 className="text-primary text-lg md:text-xl font-black mb-1 md:mb-2">Sustainable Unit</h4>
-              <p className="text-slate-600 text-xs md:text-sm">Our factory runs on 40% renewable energy and recycles 100% of production waste.</p>
+              <h4 className="text-primary text-lg md:text-xl font-black mb-1 md:mb-2">A Culture Woven with Sustainability</h4>
+              <p className="text-slate-600 text-xs md:text-sm">Empowering People, Honoring Traditions, Building a Sustainable Future</p>
             </div>
           </div>
         </div>
