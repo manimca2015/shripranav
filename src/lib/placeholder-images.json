@@ -15,49 +15,49 @@
     {
       "id": "prod-tote",
       "description": "Canvas tote bags collection",
-      "imageUrl": "https://picsum.photos/seed/tote/600/600",
+      "imageUrl": "/products/tote-bag/tote-bag-1.jpg",
       "imageHint": "tote bag"
     },
     {
       "id": "prod-linen",
       "description": "Luxury bed linen set",
-      "imageUrl": "https://picsum.photos/seed/linen/600/600",
+      "imageUrl": "/products/bed-linen/bed-linen-1.jpg",
       "imageHint": "bed linen"
     },
     {
       "id": "prod-cushion",
       "description": "Elegant cushion covers",
-      "imageUrl": "https://picsum.photos/seed/cushion/600/600",
+      "imageUrl": "/products/cushion-covers/cushion-cover-1.jpg",
       "imageHint": "cushion cover"
     },
     {
       "id": "prod-table",
       "description": "Table and bath textiles",
-      "imageUrl": "https://picsum.photos/seed/bath/600/600",
+      "imageUrl": "/products/bath-table/bath-table.jpg",
       "imageHint": "bath towel"
     },
     {
       "id": "prod-baby",
       "description": "Soft baby garments",
-      "imageUrl": "https://picsum.photos/seed/baby/600/600",
+      "imageUrl": "/products/baby/baby-garments-2.jpg",
       "imageHint": "baby clothes"
     },
     {
       "id": "prod-girls",
       "description": "Girls' textile collection",
-      "imageUrl": "https://picsum.photos/seed/girls/600/600",
+      "imageUrl": "/products/girls/girl-collection-1.jpg",
       "imageHint": "girls clothing"
     },
     {
       "id": "prod-boys",
       "description": "Boys' textile collection",
-      "imageUrl": "https://picsum.photos/seed/boys/600/600",
+      "imageUrl": "/products/boys/boys-cloth-2.jpg",
       "imageHint": "boys clothing"
     },
     {
       "id": "prod-gents",
       "description": "Gents' formal shirts",
-      "imageUrl": "https://picsum.photos/seed/shirts/600/600",
+      "imageUrl": "/products/men-shirt/gents-shirt-2.jpg",
       "imageHint": "gents shirt"
     },
     {

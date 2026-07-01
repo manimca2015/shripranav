@@ -166,10 +166,10 @@ export const productDetails: ProductDetail[] = [
     longDescription: 'Quality is in the details of our gents\' shirt collection. We focus on precision tailoring, collar stiffness, and cuff finish. Whether it is a formal office shirt or a relaxed linen casual, our garments reflect the craftsmanship developed over three decades in the industry.',
     imageId: 'prod-gents',
     images: [
-      '/products/men-shirt/gents-shirt.jpg',
       '/products/men-shirt/gents-shirt-2.jpg',
       '/products/men-shirt/gents-shirt-3.jpg',
-      '/products/men-shirt/gents-shirt-4.jpg'
+      '/products/men-shirt/gents-shirt-4.jpg',
+      '/products/men-shirt/gents-shirt.jpg'
     ],
     features: ['Precision Tailoring', 'Premium Collar Stays', 'Single Needle Stitching', 'Wrinkle-Resistant Finish'],
     specs: [
