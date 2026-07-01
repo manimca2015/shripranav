@@ -4,6 +4,7 @@ import { Footer } from '@/components/layout/footer';
 import { Hero } from '@/components/sections/hero';
 import { About } from '@/components/sections/about';
 import { Products } from '@/components/sections/products';
+import { Innovation } from '@/components/sections/innovation';
 import { WhyChooseUs } from '@/components/sections/why-choose-us';
 import { FourPs } from '@/components/sections/four-ps';
 import { Values } from '@/components/sections/values';
@@ -20,6 +21,7 @@ export default function Home() {
       <Hero />
       <About />
       <Products />
+      <Innovation />
       <WhyChooseUs />
       <FourPs />
       
