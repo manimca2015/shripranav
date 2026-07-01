@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Hero } from '@/components/sections/hero';
 import { About } from '@/components/sections/about';
 import { Products } from '@/components/sections/products';
+import { WhyChooseUs } from '@/components/sections/why-choose-us';
 import { Values } from '@/components/sections/values';
 import { Factory } from '@/components/sections/factory';
 import { Awards } from '@/components/sections/awards';
@@ -18,6 +18,7 @@ export default function Home() {
       <Hero />
       <About />
       <Products />
+      <WhyChooseUs />
       
       <section className="py-24 bg-primary text-white text-center">
         <div className="container mx-auto px-4 max-w-4xl">
