@@ -81,6 +81,12 @@ export const productDetails: ProductDetail[] = [
     description: 'Soft textures and absorbent textiles for your lifestyle and home needs.',
     longDescription: 'High-absorbency towels and sophisticated table settings define our Table & Bath collection. We use zero-twist and low-twist yarn technologies to ensure maximum softness in our towels, while our table linens feature soil-release finishes for easy maintenance in commercial environments.',
     imageId: 'prod-table',
+    images: [
+      '/products/bath-table/bath-table.jpg',
+      '/products/bath-table/bath-towel-table_1373-55.jpg',
+      '/products/bath-table/table-and-bath-towel-1.jpg',
+      '/products/bath-table/table-and-bath-towel-2.jpg'
+    ],
     features: ['High Absorbency', 'Soil-Release Finish', 'Quick-Dry Technology', 'Fade-Resistant Colors'],
     specs: [
       { label: 'Towel GSM', value: '300 to 800 GSM' },
