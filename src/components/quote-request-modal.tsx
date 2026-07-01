@@ -74,16 +74,16 @@ export function QuoteRequestModal({ isOpen, onOpenChange }: QuoteRequestModalPro
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] rounded-[32px] overflow-hidden p-0 border-none">
-        <div className="bg-primary p-8 text-white">
+      <DialogContent className="w-[95vw] sm:w-full sm:max-w-[600px] rounded-[24px] sm:rounded-[32px] overflow-hidden p-0 border-none max-h-[90vh] flex flex-col">
+        <div className="bg-primary p-6 sm:p-8 text-white shrink-0">
           <DialogHeader>
-            <DialogTitle className="text-3xl font-black mb-2">Request a Quote</DialogTitle>
-            <DialogDescription className="text-white/70">
+            <DialogTitle className="text-2xl sm:text-3xl font-black mb-2">Request a Quote</DialogTitle>
+            <DialogDescription className="text-white/70 text-sm sm:text-base">
               Provide your details and requirements for a tailored textile solution.
             </DialogDescription>
           </DialogHeader>
         </div>
-        <div className="p-8 bg-white">
+        <div className="p-6 sm:p-8 bg-white overflow-y-auto flex-1">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <div className="grid sm:grid-cols-2 gap-4">
