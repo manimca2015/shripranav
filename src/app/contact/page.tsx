@@ -153,7 +153,7 @@ export default function ContactPage() {
                   <p className="text-white/80 text-sm leading-relaxed mb-6">
                     Interested in seeing our manufacturing process? Contact us to schedule a guided tour of our state-of-the-art Karur facility.
                   </p>
-                  <Button variant="outline" className="w-full rounded-full border-white text-white hover:bg-white hover:text-secondary">
+                  <Button variant="outline" className="w-full rounded-full border-white text-white bg-transparent hover:bg-white hover:text-secondary transition-colors">
                     Learn About Factory
                   </Button>
                 </CardContent>
