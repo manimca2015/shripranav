@@ -86,7 +86,7 @@ export default function ProductsListingPage() {
                     </div>
 
                     <Button asChild className="w-full rounded-full bg-slate-900 hover:bg-secondary text-white h-14 font-bold group/btn">
-                      <Link href={`/products/${product.slug}`} className="flex items-center justify-center gap-2">
+                      <Link href="#" className="flex items-center justify-center gap-2">
                         View Category Details <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 smooth-transition" />
                       </Link>
                     </Button>

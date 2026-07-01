@@ -76,14 +76,14 @@ export function Products() {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 smooth-transition flex items-end p-6">
                     <Button asChild className="w-full bg-secondary text-white rounded-full font-bold">
-                      <Link href={`/products/${prod.slug}`}>View Details</Link>
+                      <Link href="#">View Details</Link>
                     </Button>
                   </div>
                 </div>
                 <CardContent className="p-6 bg-white">
                   <h3 className="text-xl font-bold text-primary mb-2">{prod.title}</h3>
                   <p className="text-slate-500 text-sm mb-4 line-clamp-2">{prod.desc}</p>
-                  <Link href={`/products/${prod.slug}`} className="inline-flex items-center gap-2 text-secondary font-bold text-sm hover:gap-3 smooth-transition">
+                  <Link href="#" className="inline-flex items-center gap-2 text-secondary font-bold text-sm hover:gap-3 smooth-transition">
                     Learn More <ArrowRight className="w-4 h-4" />
                   </Link>
                 </CardContent>

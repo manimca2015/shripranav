@@ -77,7 +77,7 @@ export function Hero() {
           
           <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
             <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-10 h-14 font-bold text-lg transition-all">
-              <Link href="/products">Explore Products</Link>
+              <Link href="#">Explore Products</Link>
             </Button>
             <Button onClick={() => setIsQuoteModalOpen(true)} size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg shadow-lg shadow-secondary/20 transition-all">
               Request a Quote
