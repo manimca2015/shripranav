@@ -68,10 +68,10 @@ function NextArrow(props: any) {
   return (
     <button
       onClick={onClick}
-      className="w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl flex items-center justify-center focus:outline-none"
+      className="w-12 h-12 md:w-14 md:h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-xl md:rounded-2xl flex items-center justify-center focus:outline-none"
       aria-label="Next slide"
     >
-      <ChevronRight className="h-6 w-6" />
+      <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
     </button>
   );
 }
@@ -81,10 +81,10 @@ function PrevArrow(props: any) {
   return (
     <button
       onClick={onClick}
-      className="w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl flex items-center justify-center focus:outline-none"
+      className="w-12 h-12 md:w-14 md:h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-xl md:rounded-2xl flex items-center justify-center focus:outline-none"
       aria-label="Previous slide"
     >
-      <ChevronLeft className="h-6 w-6" />
+      <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
     </button>
   );
 }
@@ -125,27 +125,29 @@ export function Hero() {
                       data-ai-hint={slideImg.imageHint}
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/50 to-transparent md:block hidden" />
+                  {/* Stronger mobile gradient for readability */}
+                  <div className="absolute inset-0 bg-primary/80 md:hidden block" />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center">
-                  <div className="max-w-3xl pt-20 pb-32 md:pb-48">
-                    <span className="inline-block bg-secondary text-white px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-in fade-in slide-in-from-left duration-700">
+                  <div className="max-w-3xl pt-20 pb-48 md:pb-60">
+                    <span className="inline-block bg-secondary text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-6 md:mb-8 animate-in fade-in slide-in-from-left duration-700">
                       {slide.tag}
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-black text-white leading-[1.1] mb-6 tracking-tight animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[1.1] mb-6 tracking-tight animate-in fade-in slide-in-from-bottom duration-700 delay-200">
                       {slide.heading}
                     </h1>
-                    <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl font-medium leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-300">
+                    <p className="text-base md:text-xl text-white/80 mb-8 md:mb-10 max-w-xl font-medium leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-300">
                       {slide.description}
                     </p>
                     
-                    <div className="flex flex-wrap gap-5 animate-in fade-in slide-in-from-bottom duration-700 delay-500">
-                      <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-10 h-14 font-bold text-lg transition-all shadow-xl hover:-translate-y-1">
+                    <div className="flex flex-wrap gap-4 md:gap-5 animate-in fade-in slide-in-from-bottom duration-700 delay-500">
+                      <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-8 md:px-10 h-12 md:h-14 font-bold text-base md:text-lg transition-all shadow-xl hover:-translate-y-1">
                         <Link href="/products">{slide.btn1}</Link>
                       </Button>
-                      <Button onClick={() => setIsQuoteModalOpen(true)} size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg shadow-xl shadow-secondary/20 transition-all hover:-translate-y-1">
+                      <Button onClick={() => setIsQuoteModalOpen(true)} size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-8 md:px-10 h-12 md:h-14 font-bold text-base md:text-lg shadow-xl shadow-secondary/20 transition-all hover:-translate-y-1">
                         {slide.btn2}
                       </Button>
                     </div>
@@ -157,21 +159,21 @@ export function Hero() {
         </Slider>
       </div>
 
-      {/* Navigation Controls */}
-      <div className="absolute right-6 md:right-12 bottom-44 md:bottom-48 z-30 flex gap-4">
+      {/* Navigation Controls - Grouped Right Above Stats */}
+      <div className="absolute right-4 md:right-12 bottom-52 md:bottom-64 z-30 flex gap-3 md:gap-4">
         <PrevArrow onClick={() => sliderRef.current?.slickPrev()} />
         <NextArrow onClick={() => sliderRef.current?.slickNext()} />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-20 pb-8 md:pb-12 pt-16 bg-gradient-to-t from-slate-900 to-transparent pointer-events-none">
+      <div className="absolute bottom-0 left-0 right-0 z-20 pb-8 md:pb-12 pt-16 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent pointer-events-none">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 border-t border-white/10 pt-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 border-t border-white/10 pt-8 md:pt-10">
             {stats.map((stat, i) => (
               <div key={i} className="flex flex-col items-center md:items-start group">
-                <div className="text-3xl md:text-4xl font-black text-secondary mb-1 transition-transform group-hover:scale-105 duration-300">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-black text-secondary mb-1 transition-transform group-hover:scale-105 duration-300">
                   <CountUp end={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-[10px] md:text-xs text-white/50 font-bold uppercase tracking-[0.15em] whitespace-nowrap">
+                <div className="text-[9px] md:text-xs text-white/50 font-bold uppercase tracking-[0.15em] whitespace-nowrap">
                   {stat.label}
                 </div>
               </div>
