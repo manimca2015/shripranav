@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -12,6 +13,8 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight, ChevronRight, CheckCircle2 } from 'lucide-react';
 
 export default function ProductsListingPage() {
+  const qualityImg = PlaceHolderImages.find(i => i.id === 'quality-standards');
+
   return (
     <main className="min-h-screen bg-white">
       <Header />
@@ -119,13 +122,16 @@ export default function ProductsListingPage() {
                 </div>
               </div>
               <div className="relative h-[400px] rounded-[40px] overflow-hidden shadow-2xl">
-                <Image
-                  src="https://picsum.photos/seed/quality/800/600"
-                  alt="Quality Assurance"
-                  fill
-                  className="object-cover"
-                  data-ai-hint="textile quality control"
-                />
+                {qualityImg && (
+                  <Image
+                    src={qualityImg.imageUrl}
+                    alt="Quality Assurance"
+                    fill
+                    className="object-cover"
+                    data-ai-hint={qualityImg.imageHint}
+                    priority
+                  />
+                )}
               </div>
             </div>
           </div>

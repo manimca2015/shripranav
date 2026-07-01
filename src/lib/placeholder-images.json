@@ -85,6 +85,12 @@
       "imageHint": "factory machines"
     },
     {
+      "id": "quality-standards",
+      "description": "Quality assurance and testing floor",
+      "imageUrl": "/quality-standards.jpg",
+      "imageHint": "quality control"
+    },
+    {
       "id": "award-1",
       "description": "Industry Certification 1",
       "imageUrl": "/Awards/1.jpg",
