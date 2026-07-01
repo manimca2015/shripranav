@@ -11,6 +11,13 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { CheckCircle2, ArrowLeft, Send, ShieldCheck, Zap, Leaf } from 'lucide-react';
 import { QuoteRequestModal } from '@/components/quote-request-modal';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -67,16 +74,40 @@ export default function ProductDetailPage() {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div className="space-y-12">
-              <div className="relative h-[500px] rounded-[40px] overflow-hidden shadow-2xl">
-                {img && (
-                  <Image
-                    src={img.imageUrl}
-                    alt={product.title}
-                    fill
-                    className="object-cover"
-                    data-ai-hint={img.imageHint}
-                    priority
-                  />
+              <div className="relative group">
+                {product.images && product.images.length > 0 ? (
+                  <Carousel className="w-full">
+                    <CarouselContent>
+                      {product.images.map((src, i) => (
+                        <CarouselItem key={i}>
+                          <div className="relative h-[500px] rounded-[40px] overflow-hidden shadow-2xl">
+                            <Image
+                              src={src}
+                              alt={`${product.title} gallery image ${i + 1}`}
+                              fill
+                              className="object-cover"
+                              priority={i === 0}
+                            />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur border-none hover:bg-white/40 text-white" />
+                    <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur border-none hover:bg-white/40 text-white" />
+                  </Carousel>
+                ) : (
+                  <div className="relative h-[500px] rounded-[40px] overflow-hidden shadow-2xl">
+                    {img && (
+                      <Image
+                        src={img.imageUrl}
+                        alt={product.title}
+                        fill
+                        className="object-cover"
+                        data-ai-hint={img.imageHint}
+                        priority
+                      />
+                    )}
+                  </div>
                 )}
               </div>
               

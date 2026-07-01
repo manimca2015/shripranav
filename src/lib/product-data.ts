@@ -5,6 +5,7 @@ export type ProductDetail = {
   description: string;
   longDescription: string;
   imageId: string;
+  images?: string[];
   features: string[];
   specs: { label: string; value: string }[];
 };
@@ -17,6 +18,12 @@ export const productDetails: ProductDetail[] = [
     description: 'Sustainable & stylish eco-friendly bags crafted from premium canvas and cotton.',
     longDescription: 'Our tote bags are more than just accessories; they are a statement of sustainable living. Manufactured using high-grade canvas and organic cotton, these bags are designed for durability and high-weight capacity. We offer various weights from 4oz to 14oz, with custom printing options using eco-friendly inks.',
     imageId: 'prod-tote',
+    images: [
+      '/products/tote-bag/tote-bag-1.jpg',
+      '/products/tote-bag/tote-bag-2.jpg',
+      '/products/tote-bag/tote-bag-3.jpg',
+      '/products/tote-bag/tote-bag-4.jpg'
+    ],
     features: ['100% Organic Cotton', 'Reinforced Stitching', 'Custom Printing Available', 'Multiple Size Variants'],
     specs: [
       { label: 'Material', value: 'Canvas, Cotton, Recycled Polyester' },
