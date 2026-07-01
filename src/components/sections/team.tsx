@@ -25,10 +25,10 @@ const team = [
     bio: 'Expert in streamlining large-scale manufacturing with precision and efficiency.'
   },
   {
-    name: 'Ms. Priya',
-    role: 'Quality Assurance Lead',
-    image: '/team.jpg',
-    bio: 'Dedicated to maintaining international quality standards across all product lines.'
+    name: 'Mr. Balasubramani',
+    role: 'Technical Manager',
+    image: '/Balasubramani.jpg',
+    bio: 'Specialist in advanced weaving technologies and textile engineering solutions.'
   }
 ];
 
