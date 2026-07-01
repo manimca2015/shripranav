@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   Carousel,
@@ -79,23 +78,9 @@ export function About() {
             <h2 className="text-4xl md:text-5xl font-black text-primary mb-8 leading-tight">
               Fabrics uniting <br /> <span className="text-secondary">luxury and tradition</span>
             </h2>
-            <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+            <p className="text-lg text-slate-600 mb-12 leading-relaxed">
               Originating as M/s Manju Exports in 1994, we evolved into Shri Pranav Textile Creations Pvt Ltd in 2020. Our commitment lies in producing high-quality textiles using materials like organic cotton, FairTrade cotton, polyester, viscose, and more, ensuring sustainability at every step.
             </p>
-            
-            <div className="space-y-4 mb-10">
-              {[
-                'Integrity & Transparency',
-                'Innovative Smart Technologies',
-                'Eco-conscious Sustainability',
-                'Empowering Women Workforce'
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="text-secondary w-6 h-6" />
-                  <span className="font-bold text-slate-700">{item}</span>
-                </div>
-              ))}
-            </div>
 
             <div className="p-8 glass-card rounded-2xl border-l-8 border-l-secondary">
               <p className="italic text-primary font-medium text-lg">
