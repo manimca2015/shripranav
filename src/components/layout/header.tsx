@@ -67,7 +67,7 @@ export function Header() {
             
             <div className="relative group">
               <Link 
-                href="/products" 
+                href="#" 
                 className={navLinkClasses(isScrolled)}
               >
                 Products <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
@@ -79,7 +79,7 @@ export function Header() {
                   {productDetails.map((product) => (
                     <Link 
                       key={product.id} 
-                      href={`/products/${product.slug}`} 
+                      href="#" 
                       className="block px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50 hover:text-secondary rounded-xl transition-colors"
                     >
                       {product.title}
@@ -141,7 +141,7 @@ export function Header() {
                             {productDetails.map((product) => (
                               <SheetClose key={product.id} asChild>
                                 <Link 
-                                  href={`/products/${product.slug}`} 
+                                  href="#" 
                                   className="p-3 text-base font-medium text-slate-600 hover:text-secondary hover:bg-slate-50 rounded-xl transition-colors"
                                 >
                                   {product.title}
