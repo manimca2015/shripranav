@@ -123,6 +123,12 @@ export const productDetails: ProductDetail[] = [
     description: 'Trendy, colorful, and comfortable fashion for the next generation.',
     longDescription: 'Our girls\' collection balances playful designs with functional comfort. Using breathable cotton and lightweight blends, we create dresses, tops, and sets that withstand the activity of children while maintaining their vibrant colors through multiple washes.',
     imageId: 'prod-girls',
+    images: [
+      '/products/girls/girl-collection-1.jpg',
+      '/products/girls/girl-collection-2.jpg',
+      '/products/girls/girl-collection-3.jpg',
+      '/products/girls/girl-collection-4.jpg'
+    ],
     features: ['Vibrant Prints', 'Breathable Knits', 'Easy-Care Fabrics', 'Comfort-Fit Designs'],
     specs: [
       { label: 'Size Range', value: '2-14 Years' },
