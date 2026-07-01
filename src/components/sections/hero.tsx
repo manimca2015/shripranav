@@ -6,14 +6,8 @@ import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { QuoteRequestModal } from '@/components/quote-request-modal';
 import Link from 'next/link';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
+import Slider from 'react-slick';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?: number, suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -69,40 +63,68 @@ const slides = [
   }
 ];
 
+function NextArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center focus:outline-none"
+      aria-label="Next slide"
+    >
+      <ChevronRight className="h-6 w-6" />
+    </button>
+  );
+}
+
+function PrevArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      className="absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center focus:outline-none"
+      aria-label="Previous slide"
+    >
+      <ChevronLeft className="h-6 w-6" />
+    </button>
+  );
+}
+
 export function Hero() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 6000,
+    fade: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    className: "hero-slider h-screen w-full"
+  };
+
   return (
     <section className="relative min-h-screen flex flex-col bg-slate-900 overflow-hidden">
-      <Carousel 
-        plugins={[
-          Autoplay({
-            delay: 6000,
-            stopOnInteraction: false,
-          }),
-        ]}
-        opts={{
-          loop: true,
-        }}
-        className="flex-1 w-full"
-      >
-        <CarouselContent className="h-screen m-0">
+      <div className="flex-1 w-full">
+        <Slider {...settings}>
           {slides.map((slide, index) => {
             const slideImg = PlaceHolderImages.find(img => img.id === slide.imageId);
             return (
-              <CarouselItem key={index} className="relative p-0 h-full">
+              <div key={index} className="relative h-screen outline-none">
                 <div className="absolute inset-0 z-0 overflow-hidden">
                   {slideImg && (
                     <Image
                       src={slideImg.imageUrl}
                       alt={slideImg.description}
                       fill
-                      className="object-cover opacity-60 scale-105"
+                      className="object-cover opacity-60"
                       priority={index === 0}
                       data-ai-hint={slideImg.imageHint}
                     />
                   )}
-                  {/* Sophisticated dual gradient for depth and readability */}
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/50 to-transparent" />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
                 </div>
@@ -112,7 +134,7 @@ export function Hero() {
                     <span className="inline-block bg-secondary text-white px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-in fade-in slide-in-from-left duration-700">
                       {slide.tag}
                     </span>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                    <h1 className="text-4xl md:text-5xl font-black text-white leading-[1.1] mb-6 tracking-tight animate-in fade-in slide-in-from-bottom duration-700 delay-200">
                       {slide.heading}
                     </h1>
                     <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl font-medium leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-300">
@@ -129,20 +151,13 @@ export function Hero() {
                     </div>
                   </div>
                 </div>
-              </CarouselItem>
+              </div>
             );
           })}
-        </CarouselContent>
-        
-        {/* Refined Navigation Arrows */}
-        <div className="hidden md:block">
-          <CarouselPrevious className="left-6 lg:left-12 w-14 h-14 bg-white/5 hover:bg-white/20 border-white/10 text-white transition-all backdrop-blur-md rounded-2xl" />
-          <CarouselNext className="right-6 lg:right-12 w-14 h-14 bg-white/5 hover:bg-white/20 border-white/10 text-white transition-all backdrop-blur-md rounded-2xl" />
-        </div>
-      </Carousel>
+        </Slider>
+      </div>
 
-      {/* Improved Stats Section */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 pb-8 md:pb-12 pt-16 bg-gradient-to-t from-slate-900 to-transparent">
+      <div className="absolute bottom-0 left-0 right-0 z-20 pb-8 md:pb-12 pt-16 bg-gradient-to-t from-slate-900 to-transparent pointer-events-none">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 border-t border-white/10 pt-10">
             {stats.map((stat, i) => (

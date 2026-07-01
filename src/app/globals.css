@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -33,10 +36,6 @@
   }
   html {
     scroll-behavior: smooth;
-    /* 
-       scrollbar-gutter: stable is the standard way to prevent layout shifts.
-       It reserves space for the scrollbar track even when the scrollbar is hidden.
-    */
     scrollbar-gutter: stable;
   }
   body {
@@ -65,11 +64,6 @@
 }
 
 .header-transition {
-  /* 
-     CRITICAL: We must explicitly list transition properties. 
-     Do NOT include 'padding' or 'all' because Radix/Shadcn adds padding-right 
-     to the header when modals open. If that padding-right is animated, it causes a "shake".
-  */
   transition-property: background-color, border-color, color, fill, stroke, box-shadow, backdrop-filter, padding-top, padding-bottom;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
@@ -84,4 +78,17 @@
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Custom Slick Arrow Adjustments */
+.hero-slider .slick-prev,
+.hero-slider .slick-next {
+  width: auto;
+  height: auto;
+  z-index: 30;
+}
+
+.hero-slider .slick-prev:before,
+.hero-slider .slick-next:before {
+  display: none;
 }
