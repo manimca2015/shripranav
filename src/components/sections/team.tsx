@@ -14,7 +14,7 @@ const team = [
     bio: 'Visionary leader with 30+ years of experience in the textile industry.'
   },
   {
-    name: 'Mr. Shelvarajan',
+    name: 'Shelvarajan N',
     role: 'Production Director',
     image: '/Shelvarajan.jpg',
     bio: 'Expert in streamlining large-scale manufacturing with precision and efficiency.'
