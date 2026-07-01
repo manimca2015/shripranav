@@ -68,7 +68,7 @@ function NextArrow(props: any) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-6 lg:right-12 bottom-36 z-30 w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center focus:outline-none"
+      className="w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl flex items-center justify-center focus:outline-none"
       aria-label="Next slide"
     >
       <ChevronRight className="h-6 w-6" />
@@ -81,7 +81,7 @@ function PrevArrow(props: any) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-24 lg:right-32 bottom-36 z-30 w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center focus:outline-none"
+      className="w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl flex items-center justify-center focus:outline-none"
       aria-label="Previous slide"
     >
       <ChevronLeft className="h-6 w-6" />
@@ -101,15 +101,15 @@ export function Hero() {
     autoplay: true,
     autoplaySpeed: 6000,
     fade: true,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
     className: "hero-slider h-screen w-full"
   };
+
+  const sliderRef = React.useRef<Slider | null>(null);
 
   return (
     <section className="relative min-h-screen flex flex-col bg-slate-900 overflow-hidden">
       <div className="flex-1 w-full">
-        <Slider {...settings}>
+        <Slider ref={sliderRef} {...settings}>
           {slides.map((slide, index) => {
             const slideImg = PlaceHolderImages.find(img => img.id === slide.imageId);
             return (
@@ -130,7 +130,7 @@ export function Hero() {
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center">
-                  <div className="max-w-3xl pt-20">
+                  <div className="max-w-3xl pt-20 pb-32 md:pb-48">
                     <span className="inline-block bg-secondary text-white px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-in fade-in slide-in-from-left duration-700">
                       {slide.tag}
                     </span>
@@ -155,6 +155,12 @@ export function Hero() {
             );
           })}
         </Slider>
+      </div>
+
+      {/* Navigation Controls */}
+      <div className="absolute right-6 md:right-12 bottom-44 md:bottom-48 z-30 flex gap-4">
+        <PrevArrow onClick={() => sliderRef.current?.slickPrev()} />
+        <NextArrow onClick={() => sliderRef.current?.slickNext()} />
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 z-20 pb-8 md:pb-12 pt-16 bg-gradient-to-t from-slate-900 to-transparent pointer-events-none">
