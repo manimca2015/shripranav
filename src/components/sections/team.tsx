@@ -15,13 +15,13 @@ const team = [
   },
   {
     name: 'Shelvarajan N',
-    role: 'Production Director',
+    role: 'Managing Director',
     image: '/Shelvarajan.jpg',
     bio: 'Expert in streamlining large-scale manufacturing with precision and efficiency.'
   },
   {
     name: 'Balasubramani N',
-    role: 'Technical Manager',
+    role: 'Managing Director',
     image: '/Balasubramani.jpg',
     bio: 'Specialist in advanced weaving technologies and textile engineering solutions.'
   }
