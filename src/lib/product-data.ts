@@ -144,6 +144,12 @@ export const productDetails: ProductDetail[] = [
     description: 'Durable, cool, and dynamic outfits for active boys and explorers.',
     longDescription: 'Built for play, our boys\' collection emphasizes durability and style. We use high-tensile strength yarns and reinforced stitching in high-stress areas. From classic polos to casual tees and shorts, our garments provide the freedom of movement required for active lifestyles.',
     imageId: 'prod-boys',
+    images: [
+      '/products/boys/boys-cloth-2.jpg',
+      '/products/boys/boys-cloth-3.jpg',
+      '/products/boys/boys-cloth.jpg',
+      '/products/boys/boys-cloth4.jpg'
+    ],
     features: ['Reinforced Seams', 'High Tensile Strength', 'Graphic Prints', 'Moisture-Wicking Options'],
     specs: [
       { label: 'Size Range', value: '2-14 Years' },
