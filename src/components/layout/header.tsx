@@ -110,8 +110,8 @@ export function Header() {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px] p-0 border-none bg-white">
-                <SheetHeader className="p-6 border-b text-left">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] p-0 border-none bg-white flex flex-col h-full">
+                <SheetHeader className="p-6 border-b text-left shrink-0">
                   <SheetTitle>
                     <Image
                       src="/logo.png"
@@ -123,68 +123,66 @@ export function Header() {
                   </SheetTitle>
                 </SheetHeader>
                 
-                <div className="flex flex-col h-[calc(100vh-100px)] justify-between">
-                  <div className="overflow-y-auto px-6 py-8">
-                    <div className="flex flex-col gap-2">
-                      <SheetClose asChild>
-                        <Link href="/" className="text-lg font-black text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors">
-                          HOME
-                        </Link>
-                      </SheetClose>
+                <div className="flex-1 overflow-y-auto px-6 py-6">
+                  <div className="flex flex-col gap-1">
+                    <SheetClose asChild>
+                      <Link href="/" className="text-lg font-semibold text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors uppercase tracking-wide">
+                        HOME
+                      </Link>
+                    </SheetClose>
 
-                      <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="products" className="border-none">
-                          <AccordionTrigger className="text-lg font-black text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors hover:no-underline">
-                            PRODUCTS
-                          </AccordionTrigger>
-                          <AccordionContent className="pb-0 pl-4 border-l-2 border-secondary ml-4">
-                            <div className="flex flex-col gap-1 mt-2">
-                              {productDetails.map((product) => (
-                                <SheetClose key={product.id} asChild>
-                                  <Link 
-                                    href={`/products/${product.slug}`} 
-                                    className="p-3 text-sm font-bold text-slate-600 hover:text-secondary hover:bg-slate-50 rounded-xl transition-colors"
-                                  >
-                                    {product.title}
-                                  </Link>
-                                </SheetClose>
-                              ))}
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="products" className="border-none">
+                        <AccordionTrigger className="text-lg font-semibold text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors hover:no-underline uppercase tracking-wide">
+                          PRODUCTS
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-0 pl-4 border-l-2 border-secondary ml-4">
+                          <div className="flex flex-col gap-1 mt-2">
+                            {productDetails.map((product) => (
+                              <SheetClose key={product.id} asChild>
+                                <Link 
+                                  href={`/products/${product.slug}`} 
+                                  className="p-3 text-base font-medium text-slate-600 hover:text-secondary hover:bg-slate-50 rounded-xl transition-colors"
+                                >
+                                  {product.title}
+                                </Link>
+                              </SheetClose>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
 
-                      <SheetClose asChild>
-                        <Link href="/factory" className="text-lg font-black text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors">
-                          FACTORY
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link href="/about" className="text-lg font-black text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors">
-                          ABOUT US
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link href="/blogs" className="text-lg font-black text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors">
-                          BLOGS
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link href="/contact" className="text-lg font-black text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors">
-                          CONTACT US
-                        </Link>
-                      </SheetClose>
-                    </div>
+                    <SheetClose asChild>
+                      <Link href="/factory" className="text-lg font-semibold text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors uppercase tracking-wide">
+                        FACTORY
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link href="/about" className="text-lg font-semibold text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors uppercase tracking-wide">
+                        ABOUT US
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link href="/blogs" className="text-lg font-semibold text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors uppercase tracking-wide">
+                        BLOGS
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link href="/contact" className="text-lg font-semibold text-primary p-3 hover:bg-slate-50 rounded-xl transition-colors uppercase tracking-wide">
+                        CONTACT US
+                      </Link>
+                    </SheetClose>
                   </div>
+                </div>
 
-                  <div className="p-6 bg-slate-50">
-                    <Button 
-                      onClick={() => setIsQuoteModalOpen(true)} 
-                      className="w-full bg-secondary hover:bg-primary h-14 rounded-2xl text-white font-bold text-lg shadow-xl shadow-secondary/10"
-                    >
-                      Request a Quote
-                    </Button>
-                  </div>
+                <div className="p-6 bg-slate-50 shrink-0 border-t">
+                  <Button 
+                    onClick={() => setIsQuoteModalOpen(true)} 
+                    className="w-full bg-secondary hover:bg-primary h-14 rounded-2xl text-white font-bold text-lg shadow-xl shadow-secondary/10"
+                  >
+                    Request a Quote
+                  </Button>
                 </div>
               </SheetContent>
             </Sheet>
