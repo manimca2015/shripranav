@@ -159,8 +159,8 @@ export function Hero() {
         </Slider>
       </div>
 
-      {/* Navigation Controls - Grouped Right Above Stats */}
-      <div className="absolute right-4 md:right-12 bottom-52 md:bottom-64 z-30 flex gap-3 md:gap-4">
+      {/* Navigation Controls - Grouped Right Above Stats - Hidden on Mobile */}
+      <div className="absolute right-4 md:right-12 bottom-52 md:bottom-64 z-30 hidden md:flex gap-3 md:gap-4">
         <PrevArrow onClick={() => sliderRef.current?.slickPrev()} />
         <NextArrow onClick={() => sliderRef.current?.slickNext()} />
       </div>
