@@ -63,7 +63,7 @@
     {
       "id": "factory-main",
       "description": "Modern weaving machines",
-      "imageUrl": "https://picsum.photos/seed/weaving/1200/800",
+      "imageUrl": "/weaving-unit.jpg",
       "imageHint": "weaving machine"
     },
     {
