@@ -73,7 +73,7 @@ export function Hero() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex flex-col bg-slate-900">
+    <section className="relative min-h-screen flex flex-col bg-slate-900 overflow-hidden">
       <Carousel 
         plugins={[
           Autoplay({
@@ -91,7 +91,7 @@ export function Hero() {
             const slideImg = PlaceHolderImages.find(img => img.id === slide.imageId);
             return (
               <CarouselItem key={index} className="relative p-0 h-full">
-                <div className="absolute inset-0 z-0">
+                <div className="absolute inset-0 z-0 overflow-hidden">
                   {slideImg && (
                     <Image
                       src={slideImg.imageUrl}
@@ -102,26 +102,28 @@ export function Hero() {
                       data-ai-hint={slideImg.imageHint}
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/40 to-transparent" />
+                  {/* Sophisticated dual gradient for depth and readability */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
                 </div>
 
-                <div className="container mx-auto px-4 relative z-10 h-full flex items-center pt-24">
-                  <div className="max-w-2xl md:max-w-3xl">
-                    <span className="inline-block bg-secondary text-white px-4 py-1 rounded-full text-[10px] sm:text-sm font-bold uppercase tracking-widest mb-6 whitespace-nowrap">
+                <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center">
+                  <div className="max-w-3xl pt-20">
+                    <span className="inline-block bg-secondary text-white px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-in fade-in slide-in-from-left duration-700">
                       {slide.tag}
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-black text-white leading-[1.2] mb-6 tracking-tight">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight animate-in fade-in slide-in-from-bottom duration-700 delay-200">
                       {slide.heading}
                     </h1>
-                    <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl font-medium">
+                    <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl font-medium leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-300">
                       {slide.description}
                     </p>
                     
-                    <div className="flex flex-wrap gap-4">
-                      <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-10 h-14 font-bold text-lg transition-all">
+                    <div className="flex flex-wrap gap-5 animate-in fade-in slide-in-from-bottom duration-700 delay-500">
+                      <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 px-10 h-14 font-bold text-lg transition-all shadow-xl hover:-translate-y-1">
                         <Link href="/products">{slide.btn1}</Link>
                       </Button>
-                      <Button onClick={() => setIsQuoteModalOpen(true)} size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg shadow-lg shadow-secondary/20 transition-all">
+                      <Button onClick={() => setIsQuoteModalOpen(true)} size="lg" className="rounded-full bg-secondary text-white hover:bg-secondary/90 px-10 h-14 font-bold text-lg shadow-xl shadow-secondary/20 transition-all hover:-translate-y-1">
                         {slide.btn2}
                       </Button>
                     </div>
@@ -131,22 +133,26 @@ export function Hero() {
             );
           })}
         </CarouselContent>
+        
+        {/* Refined Navigation Arrows */}
         <div className="hidden md:block">
-          <CarouselPrevious className="left-4 lg:left-8 w-12 h-12 bg-white/10 hover:bg-white/20 border-white/20 text-white transition-all" />
-          <CarouselNext className="right-4 lg:right-8 w-12 h-12 bg-white/10 hover:bg-white/20 border-white/20 text-white transition-all" />
+          <CarouselPrevious className="left-6 lg:left-12 w-14 h-14 bg-white/5 hover:bg-white/20 border-white/10 text-white transition-all backdrop-blur-md rounded-2xl" />
+          <CarouselNext className="right-6 lg:right-12 w-14 h-14 bg-white/5 hover:bg-white/20 border-white/10 text-white transition-all backdrop-blur-md rounded-2xl" />
         </div>
       </Carousel>
 
-      {/* Static bottom bar with stats */}
-      <div className="absolute bottom-0 left-0 right-0 z-20">
+      {/* Improved Stats Section */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 pb-8 md:pb-12 pt-16 bg-gradient-to-t from-slate-900 to-transparent">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/20 py-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 border-t border-white/10 pt-10">
             {stats.map((stat, i) => (
-              <div key={i} className="text-center md:text-left">
-                <p className="text-2xl md:text-3xl font-black text-secondary mb-1">
+              <div key={i} className="flex flex-col items-center md:items-start group">
+                <div className="text-3xl md:text-4xl font-black text-secondary mb-1 transition-transform group-hover:scale-105 duration-300">
                   <CountUp end={stat.value} suffix={stat.suffix} />
-                </p>
-                <p className="text-sm text-white/60 font-medium uppercase tracking-tight">{stat.label}</p>
+                </div>
+                <div className="text-[10px] md:text-xs text-white/50 font-bold uppercase tracking-[0.15em] whitespace-nowrap">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
