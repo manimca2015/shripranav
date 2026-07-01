@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 import { productDetails } from '@/lib/product-data';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -13,7 +14,12 @@ export function Innovation() {
     loop: true,
     align: 'center',
     skipSnaps: false,
-  });
+  }, [
+    Autoplay({
+      delay: 5000,
+      stopOnInteraction: false,
+    })
+  ]);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -30,13 +36,6 @@ export function Innovation() {
     onSelect();
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
-    
-    // Auto-play
-    const interval = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 5000);
-    
-    return () => clearInterval(interval);
   }, [emblaApi, onSelect]);
 
   // Extract representative images from productDetails
@@ -44,6 +43,8 @@ export function Innovation() {
     src: p.images?.[0] || '/placeholder.jpg',
     title: p.title
   }));
+
+  const numSlides = sliderImages.length;
 
   return (
     <section className="py-24 bg-white overflow-hidden border-t border-slate-50">
@@ -64,32 +65,36 @@ export function Innovation() {
             <div className="flex -ml-10">
               {sliderImages.map((item, index) => {
                 const isActive = selectedIndex === index;
-                // Calculate rotation based on distance from center
-                const diff = index - selectedIndex;
+                
+                // Calculate circular distance for consistent 3D rotation in a loop
+                let diff = index - selectedIndex;
+                if (Math.abs(diff) > numSlides / 2) {
+                  diff = diff > 0 ? diff - numSlides : diff + numSlides;
+                }
                 
                 return (
                   <div 
                     key={index} 
-                    className="flex-[0_0_65%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] pl-10 transition-all duration-700 ease-out"
+                    className="flex-[0_0_60%] sm:flex-[0_0_40%] lg:flex-[0_0_25%] pl-10 transition-all duration-700 ease-out"
                     style={{
                       transform: isActive 
                         ? 'scale(1.15) translateZ(120px)' 
-                        : `scale(0.85) rotateY(${diff < 0 ? '25deg' : '-25deg'})`,
-                      opacity: isActive ? 1 : 0.5,
+                        : `scale(0.8) rotateY(${diff < 0 ? '30deg' : '-30deg'}) translateZ(-100px)`,
+                      opacity: isActive ? 1 : 0.4,
                       zIndex: isActive ? 20 : 10,
-                      filter: isActive ? 'none' : 'blur(1px)'
+                      filter: isActive ? 'none' : 'blur(2px)'
                     }}
                   >
-                    <div className="relative aspect-square rounded-[40px] overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.25)] group/slide bg-slate-100">
+                    <div className="relative aspect-square rounded-[32px] overflow-hidden shadow-2xl group/slide bg-slate-100 border border-slate-50">
                       <Image
                         src={item.src}
                         alt={item.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover/slide:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-transparent opacity-0 group-hover/slide:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-transparent opacity-0 group-hover/slide:opacity-100 transition-opacity duration-500 flex items-end p-6">
                         <div className="text-white transform translate-y-4 group-hover/slide:translate-y-0 transition-transform duration-500">
-                          <h4 className="text-xl font-black mb-1">{item.title}</h4>
+                          <h4 className="text-lg font-black mb-1 leading-tight">{item.title}</h4>
                           <p className="text-[10px] font-bold text-secondary uppercase tracking-widest">Innovation Focus</p>
                         </div>
                       </div>
@@ -105,7 +110,7 @@ export function Innovation() {
               variant="outline" 
               size="icon" 
               onClick={scrollPrev}
-              className="h-12 w-12 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-lg shadow-primary/5"
+              className="h-14 w-14 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-xl hover:-translate-x-1 bg-white"
             >
               <ChevronLeft className="h-6 w-6" />
             </Button>
@@ -113,7 +118,7 @@ export function Innovation() {
               variant="outline" 
               size="icon" 
               onClick={scrollNext}
-              className="h-12 w-12 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-lg shadow-primary/5"
+              className="h-14 w-14 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-xl hover:translate-x-1 bg-white"
             >
               <ChevronRight className="h-6 w-6" />
             </Button>
