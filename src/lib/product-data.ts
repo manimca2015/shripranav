@@ -39,6 +39,12 @@ export const productDetails: ProductDetail[] = [
     description: 'Premium luxury comfort for a restful sleep, used by global hospitality brands.',
     longDescription: 'Experience the ultimate in comfort with our premium bed linen collection. We specialize in high thread count fabrics, including Percale, Satin, and Twill weaves. Our linens are OEKO-TEX certified, ensuring they are free from harmful substances and provide a breathable, hypoallergenic sleep environment.',
     imageId: 'prod-linen',
+    images: [
+      '/products/bed-linen/bed-linen-1.jpg',
+      '/products/bed-linen/bed-linen-2.jpg',
+      '/products/bed-linen/bed-linen-3.jpg',
+      '/products/bed-linen/bed-linen-4.jpg'
+    ],
     features: ['High Thread Count (200-1000 TC)', 'Anti-Pilling Finish', 'OEKO-TEX Certified', 'Hospitality Grade Durability'],
     specs: [
       { label: 'Fabric', value: '100% Combed Cotton, Giza Cotton' },
