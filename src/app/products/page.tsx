@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -102,26 +101,26 @@ export default function ProductsListingPage() {
       {/* Quality Banner */}
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4">
-          <div className="bg-primary rounded-[60px] p-12 md:p-20 text-white relative overflow-hidden">
+          <div className="bg-primary rounded-[32px] md:rounded-[60px] p-8 md:p-20 text-white relative overflow-hidden">
             <div className="textile-pattern absolute inset-0 opacity-10" />
             <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-black mb-6">Uncompromising Quality Standards</h2>
-                <p className="text-xl text-white/70 mb-10 leading-relaxed">
+              <div className="text-left">
+                <h2 className="text-3xl md:text-5xl font-black mb-6">Uncompromising Quality Standards</h2>
+                <p className="text-lg md:text-xl text-white/70 mb-10 leading-relaxed">
                   Every product in our portfolio undergoes rigorous quality checks and adheres to international safety and sustainability certifications.
                 </p>
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-wrap gap-4 md:gap-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center font-bold">ISO</div>
-                    <span className="font-bold">9001:2015</span>
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-secondary flex items-center justify-center font-bold text-sm md:text-base">ISO</div>
+                    <span className="font-bold text-sm md:text-base">9001:2015</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center font-bold">OEKO</div>
-                    <span className="font-bold">TEX Standard</span>
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-secondary flex items-center justify-center font-bold text-sm md:text-base">OEKO</div>
+                    <span className="font-bold text-sm md:text-base">TEX Standard</span>
                   </div>
                 </div>
               </div>
-              <div className="relative h-[400px] rounded-[40px] overflow-hidden shadow-2xl">
+              <div className="relative h-[300px] md:h-[400px] rounded-[24px] md:rounded-[40px] overflow-hidden shadow-2xl">
                 {qualityImg && (
                   <Image
                     src={qualityImg.imageUrl}
