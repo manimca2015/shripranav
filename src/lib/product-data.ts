@@ -60,6 +60,12 @@ export const productDetails: ProductDetail[] = [
     description: 'Elegant designs to uplift your interiors with texture and sophistication.',
     longDescription: 'Our cushion covers bring life to any space. From minimalist solids to intricate jacquards and digital prints, we offer an extensive range of designs. Our facility in Karur uses precision cutting and state-of-the-art embroidery machines to deliver covers that meet international aesthetic standards.',
     imageId: 'prod-cushion',
+    images: [
+      '/products/cushion-covers/cushion-cover-1.jpg',
+      '/products/cushion-covers/cushion-cover-2.jpg',
+      '/products/cushion-covers/cushion-cover-3.jpg',
+      '/products/cushion-covers/cushion-cover-4.jpg'
+    ],
     features: ['Intricate Embroidery', 'Hidden Zipper Closures', 'Texture Play (Waffle, Slub)', 'Digital & Screen Printing'],
     specs: [
       { label: 'Fabrics', value: 'Cotton, Linen Blend, Velvet, Silk' },
