@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -11,12 +12,6 @@ const team = [
     role: 'Founder & CEO',
     image: '/Arjuna.jpg',
     bio: 'Visionary leader with 30+ years of experience in the textile industry.'
-  },
-  {
-    name: 'Ms. Deepa',
-    role: 'Head of Sustainability',
-    image: '/team.jpg',
-    bio: 'Pioneer in implementing Zero Liquid Discharge and eco-friendly dyeing processes.'
   },
   {
     name: 'Mr. Shelvarajan',
@@ -42,7 +37,7 @@ export function Team() {
           <p className="text-slate-600">The dedicated professionals behind Shri Pranav's success and global reputation.</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {team.map((member, i) => (
             <Card key={i} className="group border-none shadow-lg hover:shadow-2xl smooth-transition rounded-[40px] overflow-hidden bg-white">
               <div className="relative h-80 overflow-hidden">
