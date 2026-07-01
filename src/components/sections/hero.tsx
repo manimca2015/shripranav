@@ -68,7 +68,7 @@ function NextArrow(props: any) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center focus:outline-none"
+      className="absolute right-6 lg:right-12 bottom-36 z-30 w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center focus:outline-none"
       aria-label="Next slide"
     >
       <ChevronRight className="h-6 w-6" />
@@ -81,7 +81,7 @@ function PrevArrow(props: any) {
   return (
     <button
       onClick={onClick}
-      className="absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center focus:outline-none"
+      className="absolute right-24 lg:right-32 bottom-36 z-30 w-14 h-14 bg-white/5 hover:bg-white/20 border border-white/10 text-white transition-all backdrop-blur-md rounded-2xl hidden md:flex items-center justify-center focus:outline-none"
       aria-label="Previous slide"
     >
       <ChevronLeft className="h-6 w-6" />
