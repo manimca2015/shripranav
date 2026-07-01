@@ -19,9 +19,9 @@ const team = [
     bio: 'Pioneer in implementing Zero Liquid Discharge and eco-friendly dyeing processes.'
   },
   {
-    name: 'Mr. Ramesh',
+    name: 'Mr. Shelvarajan',
     role: 'Production Director',
-    image: '/team.jpg',
+    image: '/Shelvarajan.jpg',
     bio: 'Expert in streamlining large-scale manufacturing with precision and efficiency.'
   },
   {
