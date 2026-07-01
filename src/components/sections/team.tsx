@@ -8,7 +8,7 @@ import { Linkedin, Mail } from 'lucide-react';
 
 const team = [
   {
-    name: 'Mr. Arjuna',
+    name: 'Arjuna P',
     role: 'Founder & CEO',
     image: '/Arjuna.jpg',
     bio: 'Visionary leader with 30+ years of experience in the textile industry.'
