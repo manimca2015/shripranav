@@ -81,12 +81,6 @@ export function About() {
             <p className="text-lg text-slate-600 mb-12 leading-relaxed">
               Originating as M/s Manju Exports in 1994, we evolved into Shri Pranav Textile Creations Pvt Ltd in 2020. Our commitment lies in producing high-quality textiles using materials like organic cotton, FairTrade cotton, polyester, viscose, and more, ensuring sustainability at every step.
             </p>
-
-            <div className="p-8 glass-card rounded-2xl border-l-8 border-l-secondary">
-              <p className="italic text-primary font-medium text-lg">
-                "Our commitment to quality is woven into every thread, ensuring that we not only meet expectations but define them."
-              </p>
-            </div>
           </div>
 
           <div className={cn("relative h-[600px] transition-all duration-1000 delay-300", isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12")}>
