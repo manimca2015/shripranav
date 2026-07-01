@@ -35,9 +35,6 @@ export function Factory() {
           <div className={cn("relative transition-all duration-1000", isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12")}>
             <div className="absolute -top-12 -left-12 w-64 h-64 bg-secondary/20 rounded-full blur-3xl hidden md:block" />
             <div className="relative z-10">
-              <span className="text-white/50 font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block">
-                Empowering People, Honoring Traditions, Building a Sustainable Future
-              </span>
               <span className="text-secondary font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">
                 A Culture Woven with Sustainability
               </span>
