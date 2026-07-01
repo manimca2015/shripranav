@@ -102,6 +102,12 @@ export const productDetails: ProductDetail[] = [
     description: 'Gently crafted organic cotton wear designed for the sensitive skin of infants.',
     longDescription: 'Safety and softness are the core of our baby garment division. Every garment is made with interlock or rib knit fabrics to provide gentle elasticity and breathability. We use lead-free snaps and nickel-free hardware, ensuring every piece meets global child safety standards.',
     imageId: 'prod-baby',
+    images: [
+      '/products/baby/baby-garments-2.jpg',
+      '/products/baby/baby-garments-3.jpg',
+      '/products/baby/baby-garments-4.jpg',
+      '/products/baby/baby-garments.jpg'
+    ],
     features: ['GOTS Certified Cotton', 'Lead-Free Snaps', 'Flat-Lock Seams', 'Chemical-Free Dyes'],
     specs: [
       { label: 'Age Group', value: '0-24 Months' },
