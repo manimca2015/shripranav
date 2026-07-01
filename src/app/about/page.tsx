@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -42,7 +41,7 @@ export default function AboutPage() {
               <span className="text-secondary">Since 1995</span>
             </h1>
             <p className="text-xl text-white/70 leading-relaxed">
-              From a small weaving unit in Karur to a global textile powerhouse, Shri Pranav has remained dedicated to the art of fine manufacturing.
+              With years of experience in textile manufacturing, we are committed to quality, ethical practices, and reliable production that meets global standards.
             </p>
           </div>
         </div>
