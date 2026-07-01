@@ -59,39 +59,38 @@ export function Innovation() {
           </p>
         </div>
 
-        <div className="relative group max-w-[1400px] mx-auto pt-10" style={{ perspective: '1200px' }}>
+        <div className="relative group max-w-[1200px] mx-auto pt-6" style={{ perspective: '1200px' }}>
           <div className="overflow-visible" ref={emblaRef}>
             <div className="flex -ml-10">
               {sliderImages.map((item, index) => {
                 const isActive = selectedIndex === index;
                 // Calculate rotation based on distance from center
                 const diff = index - selectedIndex;
-                const absDiff = Math.abs(diff);
                 
                 return (
                   <div 
                     key={index} 
-                    className="flex-[0_0_75%] sm:flex-[0_0_55%] lg:flex-[0_0_35%] pl-10 transition-all duration-700 ease-out"
+                    className="flex-[0_0_65%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] pl-10 transition-all duration-700 ease-out"
                     style={{
                       transform: isActive 
-                        ? 'scale(1.15) translateZ(100px)' 
-                        : `scale(0.8) rotateY(${diff < 0 ? '30deg' : '-30deg'})`,
-                      opacity: isActive ? 1 : 0.4,
+                        ? 'scale(1.15) translateZ(120px)' 
+                        : `scale(0.85) rotateY(${diff < 0 ? '25deg' : '-25deg'})`,
+                      opacity: isActive ? 1 : 0.5,
                       zIndex: isActive ? 20 : 10,
                       filter: isActive ? 'none' : 'blur(1px)'
                     }}
                   >
-                    <div className="relative aspect-[4/5] rounded-[48px] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] group/slide">
+                    <div className="relative aspect-square rounded-[40px] overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.25)] group/slide bg-slate-100">
                       <Image
                         src={item.src}
                         alt={item.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover/slide:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-transparent opacity-0 group-hover/slide:opacity-100 transition-opacity duration-500 flex items-end p-10">
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-transparent opacity-0 group-hover/slide:opacity-100 transition-opacity duration-500 flex items-end p-8">
                         <div className="text-white transform translate-y-4 group-hover/slide:translate-y-0 transition-transform duration-500">
-                          <h4 className="text-2xl font-black mb-2">{item.title}</h4>
-                          <p className="text-sm font-bold text-secondary uppercase tracking-widest">Innovation Focus</p>
+                          <h4 className="text-xl font-black mb-1">{item.title}</h4>
+                          <p className="text-[10px] font-bold text-secondary uppercase tracking-widest">Innovation Focus</p>
                         </div>
                       </div>
                     </div>
@@ -106,17 +105,17 @@ export function Innovation() {
               variant="outline" 
               size="icon" 
               onClick={scrollPrev}
-              className="h-14 w-14 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-lg shadow-primary/5"
+              className="h-12 w-12 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-lg shadow-primary/5"
             >
-              <ChevronLeft className="h-8 w-8" />
+              <ChevronLeft className="h-6 w-6" />
             </Button>
             <Button 
               variant="outline" 
               size="icon" 
               onClick={scrollNext}
-              className="h-14 w-14 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-lg shadow-primary/5"
+              className="h-12 w-12 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-lg shadow-primary/5"
             >
-              <ChevronRight className="h-8 w-8" />
+              <ChevronRight className="h-6 w-6" />
             </Button>
           </div>
         </div>
