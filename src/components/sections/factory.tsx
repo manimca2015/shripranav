@@ -3,16 +3,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Button } from '@/components/ui/button';
-import { Settings, Droplets, Ruler, ShieldCheck, Factory as FactoryIcon } from 'lucide-react';
+import { Factory as FactoryIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const processes = [
-  { icon: Ruler, title: 'Design & Sampling', desc: 'Crafting initial prototypes based on buyer specs.' },
-  { icon: Settings, title: 'Automated Weaving', desc: 'High-speed modern machinery for fabric production.' },
-  { icon: Droplets, title: 'Eco-Dyeing', desc: 'Sustainable finishing with minimal water waste.' },
-  { icon: ShieldCheck, title: 'Quality Assurance', desc: 'Rigorous testing at every stage of manufacturing.' },
-];
 
 export function Factory() {
   const factoryImg = PlaceHolderImages.find(img => img.id === 'factory-main');
@@ -43,31 +35,23 @@ export function Factory() {
           <div className={cn("relative transition-all duration-1000", isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12")}>
             <div className="absolute -top-12 -left-12 w-64 h-64 bg-secondary/20 rounded-full blur-3xl hidden md:block" />
             <div className="relative z-10">
-              <span className="text-secondary font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">State-of-the-Art Facility</span>
-              <h2 className="text-3xl md:text-6xl font-black mb-6 md:mb-8 leading-tight">
-                Our Modern <br /> <span className="text-secondary">Manufacturing</span>
+              <span className="text-white/50 font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block">
+                Empowering People, Honoring Traditions, Building a Sustainable Future
+              </span>
+              <span className="text-secondary font-bold uppercase tracking-widest text-xs md:text-sm mb-4 block">
+                A Culture Woven with Sustainability
+              </span>
+              <h2 className="text-4xl md:text-6xl font-black mb-6 md:mb-8 leading-tight">
+                Working Culture at <br /> <span className="text-secondary">Shri Pranav</span>
               </h2>
-              <p className="text-base md:text-lg text-white/70 mb-8 md:mb-10 leading-relaxed">
-                Shri Pranav operates a fully integrated manufacturing unit equipped with the latest European machinery, ensuring precision, efficiency, and scale for international orders.
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
-                {processes.map((proc, i) => (
-                  <div key={i} className={cn("flex gap-4 transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: `${i * 150}ms` }}>
-                    <div className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/10 flex items-center justify-center text-secondary border border-white/10">
-                      <proc.icon className="w-5 h-5 md:w-6 md:h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold mb-1 text-sm md:text-base">{proc.title}</h4>
-                      <p className="text-xs text-white/50 leading-relaxed">{proc.desc}</p>
-                    </div>
-                  </div>
-                ))}
+              <div className="space-y-6 text-base md:text-lg text-white/70 leading-relaxed">
+                <p>
+                  At Shri Pranav Textile Creations Pvt Ltd, our working culture is built on a foundation of integrity, innovation, and sustainability. We believe in creating an environment where collaboration thrives and every individual’s contribution is valued. Our teams work together with a shared commitment to quality, responsibility, and continuous improvement.
+                </p>
+                <p>
+                  Rooted in our heritage since 1994, we have embraced modern practices while staying true to our core values. We promote ethical production methods, fair working conditions, and eco-friendly initiatives, ensuring that sustainability is not just a goal but a way of life. At Shri Pranav, passion for textiles, respect for people, and care for the planet come together to drive everything we do.
+                </p>
               </div>
-
-              <Button size="lg" className="mt-10 md:mt-12 rounded-full bg-secondary hover:bg-white hover:text-primary smooth-transition px-8 md:px-10 h-12 md:h-14 font-bold">
-                Tour Our Facility
-              </Button>
             </div>
           </div>
 
