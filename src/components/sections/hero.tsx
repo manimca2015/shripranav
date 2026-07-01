@@ -126,7 +126,6 @@ export function Hero() {
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/50 to-transparent md:block hidden" />
-                  {/* Stronger mobile gradient for readability */}
                   <div className="absolute inset-0 bg-primary/80 md:hidden block" />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
                 </div>
@@ -136,7 +135,7 @@ export function Hero() {
                     <span className="inline-block bg-secondary text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-6 md:mb-8 animate-in fade-in slide-in-from-left duration-700">
                       {slide.tag}
                     </span>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-[1.1] mb-6 tracking-tight animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight animate-in fade-in slide-in-from-bottom duration-700 delay-200">
                       {slide.heading}
                     </h1>
                     <p className="text-base md:text-xl text-white/80 mb-8 md:mb-10 max-w-xl font-medium leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 delay-300">
@@ -159,7 +158,6 @@ export function Hero() {
         </Slider>
       </div>
 
-      {/* Navigation Controls - Grouped Right Above Stats - Hidden on Mobile */}
       <div className="absolute right-4 md:right-12 bottom-52 md:bottom-64 z-30 hidden md:flex gap-3 md:gap-4">
         <PrevArrow onClick={() => sliderRef.current?.slickPrev()} />
         <NextArrow onClick={() => sliderRef.current?.slickNext()} />
