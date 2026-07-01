@@ -75,12 +75,12 @@ export function About() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className={cn("transition-all duration-1000", isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12")}>
-            <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Crafting Excellence</span>
+            <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Heritage, Handled Beautifully</span>
             <h2 className="text-4xl md:text-5xl font-black text-primary mb-8 leading-tight">
-              About <span className="text-secondary">Shri Pranav</span>
+              Fabrics uniting <br /> <span className="text-secondary">luxury and tradition</span>
             </h2>
             <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-              Welcome to Shri Pranav — a trusted name in textile manufacturing, built on a foundation of integrity, innovation, and respect for people and the planet. With decades of industry experience, we specialize in delivering high-quality textile solutions while fostering a workplace that values both performance and people.
+              Originating as M/s Manju Exports in 1994, we evolved into Shri Pranav Textile Creations Pvt Ltd in 2020. Our commitment lies in producing high-quality textiles using materials like organic cotton, FairTrade cotton, polyester, viscose, and more, ensuring sustainability at every step.
             </p>
             
             <div className="space-y-4 mb-10">
