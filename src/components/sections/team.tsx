@@ -9,25 +9,25 @@ const team = [
   {
     name: 'Mr. Arjuna',
     role: 'Founder & CEO',
-    image: 'https://picsum.photos/seed/team1/400/500',
+    image: '/team.jpg',
     bio: 'Visionary leader with 30+ years of experience in the textile industry.'
   },
   {
     name: 'Ms. Deepa',
     role: 'Head of Sustainability',
-    image: 'https://picsum.photos/seed/team2/400/500',
+    image: '/team.jpg',
     bio: 'Pioneer in implementing Zero Liquid Discharge and eco-friendly dyeing processes.'
   },
   {
     name: 'Mr. Ramesh',
     role: 'Production Director',
-    image: 'https://picsum.photos/seed/team3/400/500',
+    image: '/team.jpg',
     bio: 'Expert in streamlining large-scale manufacturing with precision and efficiency.'
   },
   {
     name: 'Ms. Priya',
     role: 'Quality Assurance Lead',
-    image: 'https://picsum.photos/seed/team4/400/500',
+    image: '/team.jpg',
     bio: 'Dedicated to maintaining international quality standards across all product lines.'
   }
 ];
