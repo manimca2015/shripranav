@@ -64,7 +64,7 @@ export function Hero() {
 
       <div className="container mx-auto px-4 relative z-10 pt-48 md:pt-64">
         <div className="max-w-3xl">
-          <span className="inline-block bg-secondary text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-widest mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <span className="inline-block bg-secondary text-white px-4 py-1 rounded-full text-[10px] sm:text-sm font-bold uppercase tracking-widest mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700 whitespace-nowrap">
             Premium Textile Manufacturing
           </span>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-100">
