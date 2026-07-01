@@ -20,7 +20,7 @@ const team = [
     bio: 'Expert in streamlining large-scale manufacturing with precision and efficiency.'
   },
   {
-    name: 'Mr. Balasubramani',
+    name: 'Balasubramani N',
     role: 'Technical Manager',
     image: '/Balasubramani.jpg',
     bio: 'Specialist in advanced weaving technologies and textile engineering solutions.'
