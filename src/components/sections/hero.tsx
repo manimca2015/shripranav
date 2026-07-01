@@ -106,14 +106,14 @@ export function Hero() {
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10 h-full flex items-center pt-24">
-                  <div className="max-w-4xl">
+                  <div className="max-w-2xl md:max-w-3xl">
                     <span className="inline-block bg-secondary text-white px-4 py-1 rounded-full text-[10px] sm:text-sm font-bold uppercase tracking-widest mb-6 whitespace-nowrap">
                       {slide.tag}
                     </span>
-                    <h1 className="text-5xl md:text-8xl font-black text-white leading-[1] mb-6 tracking-tight">
+                    <h1 className="text-4xl md:text-5xl font-black text-white leading-[1.2] mb-6 tracking-tight">
                       {slide.heading}
                     </h1>
-                    <p className="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl font-medium">
+                    <p className="text-lg md:text-xl text-white/80 mb-10 max-w-xl font-medium">
                       {slide.description}
                     </p>
                     
@@ -132,8 +132,8 @@ export function Hero() {
           })}
         </CarouselContent>
         <div className="hidden md:block">
-          <CarouselPrevious className="left-8 w-14 h-14 bg-white/10 hover:bg-white/20 border-white/20 text-white" />
-          <CarouselNext className="right-8 w-14 h-14 bg-white/10 hover:bg-white/20 border-white/20 text-white" />
+          <CarouselPrevious className="left-4 lg:left-8 w-12 h-12 bg-white/10 hover:bg-white/20 border-white/20 text-white transition-all" />
+          <CarouselNext className="right-4 lg:right-8 w-12 h-12 bg-white/10 hover:bg-white/20 border-white/20 text-white transition-all" />
         </div>
       </Carousel>
 
