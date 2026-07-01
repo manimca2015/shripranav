@@ -10,20 +10,17 @@ const team = [
   {
     name: 'Arjuna P',
     role: 'Founder & CEO',
-    image: '/Arjuna.jpg',
-    bio: 'Visionary leader with 30+ years of experience in the textile industry.'
+    image: '/Arjuna.jpg'
   },
   {
     name: 'Shelvarajan N',
     role: 'Managing Director',
-    image: '/Shelvarajan.jpg',
-    bio: 'Expert in streamlining large-scale manufacturing with precision and efficiency.'
+    image: '/Shelvarajan.jpg'
   },
   {
     name: 'Balasubramani N',
     role: 'Managing Director',
-    image: '/Balasubramani.jpg',
-    bio: 'Specialist in advanced weaving technologies and textile engineering solutions.'
+    image: '/Balasubramani.jpg'
   }
 ];
 
@@ -59,8 +56,7 @@ export function Team() {
               </div>
               <CardContent className="p-8 text-center">
                 <h3 className="text-2xl font-bold text-primary mb-1">{member.name}</h3>
-                <p className="text-secondary font-bold text-sm uppercase tracking-widest mb-4">{member.role}</p>
-                <p className="text-slate-500 text-sm leading-relaxed">{member.bio}</p>
+                <p className="text-secondary font-bold text-sm uppercase tracking-widest mb-0">{member.role}</p>
               </CardContent>
             </Card>
           ))}
