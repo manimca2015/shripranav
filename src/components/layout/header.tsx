@@ -24,6 +24,15 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isMobileMenuOpen]);
+
   const navLinkClasses = (scrolled: boolean) => cn(
     "font-medium hover:text-secondary transition-colors duration-300 flex items-center gap-1 py-2 px-1",
     scrolled ? "text-slate-700" : "text-white/90"
@@ -103,55 +112,67 @@ export function Header() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t p-4 flex flex-col gap-2 animate-in slide-in-from-top duration-300 shadow-xl max-h-[80vh] overflow-y-auto">
-            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-3 hover:bg-slate-50 rounded-xl transition-colors">Home</Link>
-            
-            <div className="rounded-xl overflow-hidden">
-              <div className="flex items-center justify-between hover:bg-slate-50">
-                <Link 
-                  href="/products" 
-                  onClick={() => setIsMobileMenuOpen(false)} 
-                  className="flex-grow font-semibold p-3 transition-colors"
-                >
-                  Products
-                </Link>
-                <button 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsMobileProductsOpen(!isMobileProductsOpen);
-                  }}
-                  className="p-3 border-l"
-                >
-                  <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isMobileProductsOpen && "rotate-180")} />
-                </button>
-              </div>
+          <div className="lg:hidden fixed inset-0 top-[60px] md:top-[70px] bg-white z-[40] animate-in slide-in-from-top duration-300 shadow-xl overflow-y-auto">
+            <div className="container mx-auto px-4 py-8 flex flex-col gap-2">
+              <Link 
+                href="/" 
+                onClick={() => setIsMobileMenuOpen(false)} 
+                className="font-bold p-3 hover:bg-slate-50 rounded-xl transition-colors text-primary"
+              >
+                Home
+              </Link>
               
-              {isMobileProductsOpen && (
-                <div className="bg-slate-50 flex flex-col">
-                  {productDetails.map((product) => (
-                    <Link 
-                      key={product.id} 
-                      href={`/products/${product.slug}`} 
-                      onClick={() => setIsMobileMenuOpen(false)} 
-                      className="p-3 pl-8 text-sm text-slate-600 hover:bg-slate-100"
-                    >
-                      {product.title}
-                    </Link>
-                  ))}
+              <div className="rounded-xl overflow-hidden">
+                <div className="flex items-center justify-between hover:bg-slate-50 p-3">
+                  <Link 
+                    href="/products" 
+                    onClick={() => setIsMobileMenuOpen(false)} 
+                    className="flex-grow font-bold text-primary transition-colors"
+                  >
+                    Products
+                  </Link>
+                  <button 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileProductsOpen(!isMobileProductsOpen);
+                    }}
+                    className="p-2 bg-slate-100 rounded-lg ml-2"
+                  >
+                    <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isMobileProductsOpen && "rotate-180")} />
+                  </button>
                 </div>
-              )}
-            </div>
+                
+                {isMobileProductsOpen && (
+                  <div className="bg-slate-50/80 flex flex-col mt-1 border-l-2 border-secondary ml-4">
+                    {productDetails.map((product) => (
+                      <Link 
+                        key={product.id} 
+                        href={`/products/${product.slug}`} 
+                        onClick={() => setIsMobileMenuOpen(false)} 
+                        className="p-3 pl-6 text-sm text-slate-600 hover:text-secondary hover:bg-slate-100 transition-colors"
+                      >
+                        {product.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-            <Link href="/factory" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-3 hover:bg-slate-50 rounded-xl transition-colors">Factory</Link>
-            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-3 hover:bg-slate-50 rounded-xl transition-colors">About Us</Link>
-            <Link href="/blogs" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-3 hover:bg-slate-50 rounded-xl transition-colors">Blogs</Link>
-            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="font-semibold p-3 hover:bg-slate-50 rounded-xl transition-colors">Contact Us</Link>
-            <div className="p-3 pt-4">
-              <Button onClick={() => { setIsMobileMenuOpen(false); setIsQuoteModalOpen(true); }} className="w-full bg-secondary h-12 rounded-xl text-white">
-                Request a Quote
-              </Button>
+              <Link href="/factory" onClick={() => setIsMobileMenuOpen(false)} className="font-bold p-3 hover:bg-slate-50 rounded-xl transition-colors text-primary">Factory</Link>
+              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="font-bold p-3 hover:bg-slate-50 rounded-xl transition-colors text-primary">About Us</Link>
+              <Link href="/blogs" onClick={() => setIsMobileMenuOpen(false)} className="font-bold p-3 hover:bg-slate-50 rounded-xl transition-colors text-primary">Blogs</Link>
+              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="font-bold p-3 hover:bg-slate-50 rounded-xl transition-colors text-primary">Contact Us</Link>
+              
+              <div className="p-3 pt-6">
+                <Button 
+                  onClick={() => { setIsMobileMenuOpen(false); setIsQuoteModalOpen(true); }} 
+                  className="w-full bg-secondary hover:bg-primary h-14 rounded-2xl text-white font-bold text-lg shadow-lg shadow-secondary/10"
+                >
+                  Request a Quote
+                </Button>
+              </div>
             </div>
           </div>
         )}
