@@ -9,7 +9,7 @@ const team = [
   {
     name: 'Mr. Arjuna',
     role: 'Founder & CEO',
-    image: '/team.jpg',
+    image: '/Arjuna.jpg',
     bio: 'Visionary leader with 30+ years of experience in the textile industry.'
   },
   {
