@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -135,7 +136,7 @@ export default function AboutPage() {
                 </div>
                 <h3 className="text-3xl font-black mb-6">Our Mission</h3>
                 <p className="text-xl text-white/90 leading-relaxed">
-                  At Shri Pranav, our mission is to deliver high-quality, responsibly made textile solutions while fostering an inclusive, ethical, and growth-oriented workplace for our community.
+                  At Shri Pranav, our mission is to deliver high-quality, responsibly made textile solutions while fostering an inclusive, ethical, and growth-oriented workplace. We strive to innovate sustainably, empower individuals—especially women—and continuously improve for the betterment of our customers, employees, and the planet.
                 </p>
               </div>
             </div>

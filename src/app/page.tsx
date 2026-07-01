@@ -32,7 +32,7 @@ export default function Home() {
             <div className="p-10 bg-secondary rounded-[40px] text-white">
               <h3 className="text-2xl font-black mb-6 uppercase tracking-widest text-white/90">Our Mission</h3>
               <p className="text-lg leading-relaxed font-medium">
-                At Shri Pranav, our mission is to deliver high-quality, responsibly made textile solutions while fostering an inclusive, ethical, and growth-oriented workplace.
+                At Shri Pranav, our mission is to deliver high-quality, responsibly made textile solutions while fostering an inclusive, ethical, and growth-oriented workplace. We strive to innovate sustainably, empower individuals—especially women—and continuously improve for the betterment of our customers, employees, and the planet.
               </p>
             </div>
           </div>
