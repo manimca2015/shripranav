@@ -9,10 +9,21 @@ import { Team } from '@/components/sections/team';
 import { Awards } from '@/components/sections/awards';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CheckCircle2, Target, Eye } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+
+const aboutImages = [
+  '/about-img1.jpg',
+  '/about-img2.jpg',
+  '/about-img3.jpg',
+  '/about-img4.jpg',
+];
 
 export default function AboutPage() {
-  const aboutImg = PlaceHolderImages.find(img => img.id === 'about-image');
-
   return (
     <main className="min-h-screen bg-white">
       <Header />
@@ -40,16 +51,36 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="relative h-[600px] rounded-[40px] overflow-hidden shadow-2xl">
-              {aboutImg && (
-                <Image
-                  src={aboutImg.imageUrl}
-                  alt="Shri Pranav Factory"
-                  fill
-                  className="object-cover"
-                  data-ai-hint="textile factory"
-                />
-              )}
+            <div className="relative h-[600px]">
+              <div className="relative h-full rounded-[40px] overflow-hidden shadow-2xl">
+                <Carousel 
+                  plugins={[
+                    Autoplay({
+                      delay: 4000,
+                      stopOnInteraction: false,
+                    }),
+                  ]}
+                  opts={{
+                    loop: true,
+                  }}
+                  className="w-full h-full"
+                >
+                  <CarouselContent className="h-[600px]">
+                    {aboutImages.map((src, i) => (
+                      <CarouselItem key={i} className="relative h-full">
+                        <Image
+                          src={src}
+                          alt={`Shri Pranav Factory ${i + 1}`}
+                          fill
+                          className="object-cover"
+                          priority={i === 0}
+                          data-ai-hint="textile factory"
+                        />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+              </div>
             </div>
             <div>
               <h2 className="text-4xl font-black text-primary mb-8">A Legacy Built on Trust</h2>

@@ -5,6 +5,12 @@ import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?: number, suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -34,8 +40,14 @@ function CountUp({ end, duration = 2000, suffix = "" }: { end: number, duration?
   return <>{count}{suffix}</>;
 }
 
+const aboutImages = [
+  '/about-img1.jpg',
+  '/about-img2.jpg',
+  '/about-img3.jpg',
+  '/about-img4.jpg',
+];
+
 export function About() {
-  const aboutImg = PlaceHolderImages.find(img => img.id === 'about-image');
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -92,17 +104,38 @@ export function About() {
             </div>
           </div>
 
-          <div className={cn("relative h-[600px] rounded-3xl overflow-hidden shadow-2xl transition-all duration-1000 delay-300", isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12")}>
-            {aboutImg && (
-              <Image
-                src={aboutImg.imageUrl}
-                alt={aboutImg.description}
-                fill
-                className="object-cover"
-                data-ai-hint={aboutImg.imageHint}
-              />
-            )}
-            <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-slate-100">
+          <div className={cn("relative h-[600px] transition-all duration-1000 delay-300", isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12")}>
+            <div className="relative h-full rounded-[40px] overflow-hidden shadow-2xl">
+              <Carousel 
+                plugins={[
+                  Autoplay({
+                    delay: 4000,
+                    stopOnInteraction: false,
+                  }),
+                ]}
+                opts={{
+                  loop: true,
+                }}
+                className="w-full h-full"
+              >
+                <CarouselContent className="h-[600px]">
+                  {aboutImages.map((src, i) => (
+                    <CarouselItem key={i} className="relative h-full">
+                      <Image
+                        src={src}
+                        alt={`Shri Pranav Factory ${i + 1}`}
+                        fill
+                        className="object-cover"
+                        priority={i === 0}
+                        data-ai-hint="textile factory"
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+
+            <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-slate-100 z-20">
               <div className="flex items-center gap-6">
                 <div>
                   <p className="text-4xl font-black text-primary">
