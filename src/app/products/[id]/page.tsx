@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -17,14 +17,39 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { cn } from '@/lib/utils';
 
 export default function ProductDetailPage() {
   const params = useParams();
   const slug = params.id as string;
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
   
   const product = productDetails.find(p => p.slug === slug || p.id === slug);
+
+  const onSelect = useCallback(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+    onSelect();
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
+  }, [api, onSelect]);
+
+  const scrollTo = (index: number) => {
+    api?.scrollTo(index);
+  };
   
   if (!product) {
     return (
@@ -76,25 +101,64 @@ export default function ProductDetailPage() {
             <div className="space-y-12">
               <div className="relative group">
                 {product.images && product.images.length > 0 ? (
-                  <Carousel className="w-full">
-                    <CarouselContent>
-                      {product.images.map((src, i) => (
-                        <CarouselItem key={i}>
-                          <div className="relative h-[500px] rounded-[40px] overflow-hidden shadow-2xl">
+                  <>
+                    <Carousel 
+                      setApi={setApi}
+                      plugins={[
+                        Autoplay({
+                          delay: 4000,
+                          stopOnInteraction: false,
+                        }),
+                      ]}
+                      opts={{
+                        loop: true,
+                      }}
+                      className="w-full"
+                    >
+                      <CarouselContent>
+                        {product.images.map((src, i) => (
+                          <CarouselItem key={i}>
+                            <div className="relative h-[500px] rounded-[40px] overflow-hidden shadow-2xl">
+                              <Image
+                                src={src}
+                                alt={`${product.title} gallery image ${i + 1}`}
+                                fill
+                                className="object-cover"
+                                priority={i === 0}
+                              />
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur border-none hover:bg-white/40 text-white" />
+                      <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur border-none hover:bg-white/40 text-white" />
+                    </Carousel>
+
+                    {/* Thumbnails */}
+                    {product.images.length > 1 && (
+                      <div className="flex justify-center gap-3 mt-6 flex-wrap">
+                        {product.images.map((src, i) => (
+                          <button
+                            key={i}
+                            onClick={() => scrollTo(i)}
+                            className={cn(
+                              "relative w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all",
+                              current === i 
+                                ? "border-secondary scale-105 shadow-lg" 
+                                : "border-transparent opacity-60 hover:opacity-100"
+                            )}
+                          >
                             <Image
                               src={src}
-                              alt={`${product.title} gallery image ${i + 1}`}
+                              alt={`${product.title} thumbnail ${i + 1}`}
                               fill
                               className="object-cover"
-                              priority={i === 0}
                             />
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur border-none hover:bg-white/40 text-white" />
-                    <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur border-none hover:bg-white/40 text-white" />
-                  </Carousel>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className="relative h-[500px] rounded-[40px] overflow-hidden shadow-2xl">
                     {img && (
