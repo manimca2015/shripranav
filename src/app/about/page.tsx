@@ -87,10 +87,7 @@ export default function AboutPage() {
               <h2 className="text-4xl font-black text-primary mb-8">A Legacy Built on Trust</h2>
               <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
                 <p>
-                  Established in 1995, Shri Pranav Textiles began with a simple but powerful vision: to provide the world with premium quality textiles while maintaining absolute integrity in our manufacturing processes.
-                </p>
-                <p>
-                  Over the past 28 years, we have evolved alongside the industry, embracing modern technology and sustainable practices without ever losing the human touch that defines our products. Today, we are proud to be a preferred partner for leading global brands in home textiles and garments.
+                  Welcome to Shri Pranav — a trusted name in textile manufacturing, built on a foundation of integrity, innovation, and respect for people and the planet. With decades of industry experience, we specialize in delivering high-quality textile solutions while fostering a workplace that values both performance and people.
                 </p>
                 <div className="grid sm:grid-cols-2 gap-4 mt-8">
                   {[
