@@ -2,7 +2,7 @@
 export const blogPosts = [
   {
     slug: 'sustainable-textile-trends-2025',
-    title: 'Sustainable Textile Trends in 2025',
+    title: 'Children and baby products: Do You Really Need It? This Will Help You Decide!',
     description: 'Discover how eco-friendly materials and circular manufacturing are redefining the global textile landscape.',
     date: 'Oct 24, 2024',
     author: 'Admin',
