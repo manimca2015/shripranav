@@ -11,7 +11,7 @@ export const blogPosts = [
   },
   {
     slug: 'importance-of-ethical-manufacturing',
-    title: 'The Importance of Ethical Manufacturing',
+    title: 'A Parent’s Guide to Organic Baby Clothes: What You Need to Know',
     description: 'Why social responsibility and worker empowerment are the true markers of a successful textile unit.',
     date: 'Sep 15, 2024',
     author: 'Management',
