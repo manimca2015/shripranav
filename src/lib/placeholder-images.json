@@ -134,9 +134,9 @@
     },
     {
       "id": "blog-1",
-      "description": "Baby products and essentials",
-      "imageUrl": "https://picsum.photos/seed/blog-baby-1/800/500",
-      "imageHint": "baby products"
+      "description": "Children and baby products feature",
+      "imageUrl": "/blog1-img.jpg",
+      "imageHint": "baby items"
     },
     {
       "id": "blog-2",
