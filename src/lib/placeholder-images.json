@@ -134,21 +134,21 @@
     },
     {
       "id": "blog-1",
-      "description": "Sustainable textile trends",
-      "imageUrl": "https://picsum.photos/seed/blog1/800/500",
-      "imageHint": "sustainable fashion"
+      "description": "Baby products and essentials",
+      "imageUrl": "https://picsum.photos/seed/blog-baby-1/800/500",
+      "imageHint": "baby products"
     },
     {
       "id": "blog-2",
-      "description": "Ethical manufacturing workspace",
-      "imageUrl": "https://picsum.photos/seed/blog2/800/500",
-      "imageHint": "ethical factory"
+      "description": "Organic baby clothes collection",
+      "imageUrl": "https://picsum.photos/seed/blog-baby-2/800/500",
+      "imageHint": "baby clothes"
     },
     {
       "id": "blog-3",
-      "description": "Cotton quality testing",
-      "imageUrl": "https://picsum.photos/seed/blog3/800/500",
-      "imageHint": "textile quality"
+      "description": "Sustainable cotton canvas bags",
+      "imageUrl": "https://picsum.photos/seed/blog-bags/800/500",
+      "imageHint": "canvas bags"
     }
   ]
 }
