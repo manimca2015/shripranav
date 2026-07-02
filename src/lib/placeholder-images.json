@@ -141,7 +141,7 @@
     {
       "id": "blog-2",
       "description": "Organic baby clothes collection",
-      "imageUrl": "https://picsum.photos/seed/blog-baby-2/800/500",
+      "imageUrl": "/blog2-img.webp",
       "imageHint": "baby clothes"
     },
     {
