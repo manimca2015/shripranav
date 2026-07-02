@@ -20,7 +20,7 @@ export const blogPosts = [
   },
   {
     slug: 'shri-pranav-journey-excellence',
-    title: 'Shri Pranav: 28 Years of Craftsmanship',
+    title: 'Do Cotton Canvas Bags Fit into Sustainable Fashion?',
     description: 'A look back at our journey since 1995 and how we evolved into a premium global manufacturer.',
     date: 'Aug 02, 2024',
     author: 'Founder',
