@@ -147,7 +147,7 @@
     {
       "id": "blog-3",
       "description": "Sustainable cotton canvas bags",
-      "imageUrl": "https://picsum.photos/seed/blog-bags/800/500",
+      "imageUrl": "/blog3-img.jpeg",
       "imageHint": "canvas bags"
     }
   ]
